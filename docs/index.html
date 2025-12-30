@@ -9,6 +9,7 @@
   --card:#1f2937;
   --accent:#22c55e;
   --text:#e5e7eb;
+  --muted:#94a3b8;
 }
 
 body{
@@ -17,6 +18,12 @@ body{
   color:var(--text);
   font-family:Roboto,sans-serif;
   padding-bottom:40px;
+}
+
+/* SMOOTH PERFORMANCE FIX */
+*{-webkit-tap-highlight-color:transparent}
+.horizontal,.chips{
+  -webkit-overflow-scrolling:touch;
 }
 
 a{color:inherit;text-decoration:none}
@@ -37,21 +44,18 @@ a{color:inherit;text-decoration:none}
 
 /* SECTION */
 .section{padding:16px}
-h2{font-size:16px;margin:0}
 
-/* SECTION HEADER (VIEW ALL FIX) */
+/* SECTION HEADER */
 .section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:12px;
 }
-.viewall{
-  font-size:13px;
-  color:var(--accent);
-}
+.section-head h2{font-size:16px;margin:0}
+.viewall{font-size:13px;color:var(--accent)}
 
-/* HORIZONTAL LIST */
+/* HORIZONTAL */
 .horizontal{
   display:flex;
   gap:14px;
@@ -67,38 +71,59 @@ h2{font-size:16px;margin:0}
   min-width:120px;
 }
 
+/* CRICKET */
 .cricket-card{
   background:linear-gradient(135deg,#f97316,#ea580c);
   min-width:220px;
 }
 
+/* TV */
 .tv-card{position:relative}
 
-/* LIVE BADGE */
 .live{
   position:absolute;
   top:6px;
   right:6px;
-  background:#ef4444;
-  color:#fff;
+
+  /* Premium pill look */
+  background:linear-gradient(135deg,#ef4444,#dc2626);
+  color:#ffffff;
+
   font-size:10px;
-  padding:2px 6px;
-  border-radius:10px;
-  animation:blink 1s infinite;
+  font-weight:700;
+  letter-spacing:.4px;
+
+  padding:3px 9px;
+  border-radius:14px;
+
+  /* Subtle depth (static, no lag) */
+  box-shadow:0 2px 6px rgba(239,68,68,.35);
+
+  z-index:5;
+
+  /* Ultra-light animation */
+  animation:liveFade 1.5s ease-in-out infinite;
 }
-@keyframes blink{50%{opacity:.4}}
+
+/* Only opacity change = smooth */
+@keyframes liveFade{
+  0%{opacity:1}
+  50%{opacity:.6}
+  100%{opacity:1}
+}
 
 /* CHIPS */
 .chips{display:flex;gap:10px;overflow-x:auto}
 .chip{white-space:nowrap}
 
-/* TRENDING AUTO SCROLL */
+/* TRENDING */
 .trending-wrap{overflow:hidden;width:100%}
 .trending-track{
   display:flex;
   gap:14px;
   width:max-content;
-  animation:scrollTrend 18s linear infinite;
+  will-change:transform;
+  animation:scrollTrend 20s linear infinite;
 }
 @keyframes scrollTrend{
   0%{transform:translateX(0)}
@@ -109,7 +134,6 @@ h2{font-size:16px;margin:0}
   min-width:220px;
   height:110px;
   border-radius:18px;
-  position:relative;
   overflow:hidden;
   display:flex;
   align-items:flex-end;
@@ -122,55 +146,62 @@ h2{font-size:16px;margin:0}
 }
 .trend-title{font-size:14px;font-weight:600}
 .trend-sub{font-size:11px;opacity:.9}
-.live-tag{
-  position:absolute;
-  top:8px;
-  left:8px;
-  background:#ef4444;
-  font-size:10px;
-  padding:3px 6px;
-  border-radius:10px;
-  animation:blink 1s infinite;
-}
 
-/* TRENDING IMAGES */
+/* IMAGES */
 .img1{background:url('https://thecricketlounge.com/wp-content/uploads/2023/02/WPL-2023-Logo.jpg') center/cover}
 .img2{background:url('https://i.ytimg.com/vi/uTIuh9-F0JY/maxresdefault.jpg') center/cover}
 .img3{background:url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4') center/cover}
 
-/* PRIVACY POPUP */
-.popup{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  align-items:center;
-  justify-content:center;
-  z-index:99;
-}
-.popup-box{
-  background:#020617;
-  padding:20px;
-  border-radius:18px;
-  width:90%;
-  max-width:360px;
-  font-size:13px;
-}
-.close{
-  margin-top:14px;
-  background:var(--accent);
-  color:#000;
-  padding:8px;
-  text-align:center;
-  border-radius:20px;
-}
+/* AUDIO LIVE DOT */
 .blink{
-  animation:blink 1s infinite;
-}
-@keyframes blink{
-  50%{opacity:.4}
+  animation:livePulse 1.4s ease-in-out infinite;
 }
 
+/* PRIVACY POPUP (NEW) */
+.privacy-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.privacy-popup{
+  background:#1f2937;
+  color:#e5e7eb;
+  border-radius:18px;
+  padding:20px;
+  width:90%;
+  max-width:420px;
+}
+.privacy-popup h3{margin:0 0 10px;color:#fff}
+.privacy-popup p{
+  font-size:14px;
+  line-height:1.6;
+  color:var(--muted);
+}
+.policy-link{
+  margin-top:12px;
+  text-align:center;
+}
+.policy-link a{
+  color:var(--accent);
+  text-decoration:underline;
+}
+.close-btn{
+  margin-top:14px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:24px;
+  background:var(--accent);
+  color:#000;
+  font-size:15px;
+}
+.blink{
+  animation:liveFade 1.5s ease-in-out infinite;
+}
 </style>
 </head>
 
@@ -188,54 +219,13 @@ h2{font-size:16px;margin:0}
 
 <!-- TRENDING -->
 <div class="section">
-  <div class="section-head">
-    <h2>🔥 Trending Now</h2>
-  </div>
-
+  <div class="section-head"><h2>🔥 Trending Now</h2></div>
   <div class="trending-wrap">
     <div class="trending-track">
-
-      <a href="go:COMM">
-        <div class="trend-banner img1">
-          
-          <div class="trend-text">
-          
-            <div class="trend-title">Women Premier League</div>
-            <div class="trend-sub">Starts 9 January at 7:30PM IST</div>
-          </div>
-        </div>
-      </a>
-
-      <a href="go:MANN">
-        <div class="trend-banner img2">
-          
-          <div class="trend-text">
-            <div class="trend-title">Mann Ki Baat</div>
-            <div class="trend-sub">PM’s Address- 28 Dec'25</div>
-          </div>
-        </div>
-      </a>
-
-      <a href="go:VIVIDH">
-        <div class="trend-banner img3">
-          <div class="trend-text">
-            <div class="trend-title">Golden Hits</div>
-            <div class="trend-sub">Vividh Bharati</div>
-          </div>
-        </div>
-      </a>
-
-      <!-- duplicate for smooth scroll -->
-      <a href="go:COMM">
-        <div class="trend-banner img1">
-         
-          <div class="trend-text">
-            <div class="trend-title">Women Premier League</div>
-            <div class="trend-sub">Starts 9 January at 7:30PM IST</div>
-          </div>
-        </div>
-      </a>
-
+      <a href="go:COMM"><div class="trend-banner img1"><div class="trend-text"><div class="trend-title">Women Premier League</div><div class="trend-sub">Starts 9 January · 7:30 PM</div></div></div></a>
+      <a href="go:MANN"><div class="trend-banner img2"><div class="trend-text"><div class="trend-title">Mann Ki Baat</div><div class="trend-sub">PM's Address</div></div></div></a>
+      <a href="go:VIVIDH"><div class="trend-banner img3"><div class="trend-text"><div class="trend-title">Golden Hits</div><div class="trend-sub">Vividh Bharati</div></div></div></a>
+      <a href="go:COMM"><div class="trend-banner img1"><div class="trend-text"><div class="trend-title">Women Premier League</div><div class="trend-sub">Starts 9 January · 7:30 PM</div></div></div></a>
     </div>
   </div>
 </div>
@@ -252,41 +242,33 @@ h2{font-size:16px;margin:0}
 
 <!-- POPULAR STATIONS -->
 <div class="section">
-  <div class="section-head">
-    <h2>⭐ Popular Stations</h2>
-    
-  </div>
-
+  <div class="section-head"><h2>⭐ Popular Stations</h2></div>
   <div class="horizontal">
-<a href="go:VIVIDH"><div class="card">Vividh Bharati</div></a>
-<a href="go:FMR"><div class="card">FM Rainbow</div></a>
-<a href="go:FMG"><div class="card">FM Gold</div></a>
-<a href="go:MIRCHIH"><div class="card">Radio MIRCHI</div></a>
-<a href="go:NAMKIN"><div class="card">Radio Namkin</div></a>
-</div>
+    <a href="go:VIVIDH"><div class="card">Vividh Bharati</div></a>
+    <a href="go:FMR"><div class="card">FM Rainbow</div></a>
+    <a href="go:FMG"><div class="card">FM Gold</div></a>
+    <a href="go:MIRCHIH"><div class="card">Radio MIRCHI</div></a>
+    <a href="go:NAMKIN"><div class="card">Radio Namkin</div></a>
+  </div>
 </div>
 
 <!-- CRICKET -->
 <div class="section">
-  <div class="section-head">
-    <h2>🏏 Cricket Commentary</h2>
-  </div>
-
+  <div class="section-head"><h2>🏏 Cricket Commentary</h2></div>
   <div class="horizontal">
-<a href="go:COMM">
-<div class="cricket-card">
-  <b><span class="blink">
-  </span> Audio Commentary</b><br>
-  <small>Only on Match Day</small>
-</div>
-
-</a>
-<a href="go:SCORE">
-<div class="cricket-card">
-<b>Live Cricket Score</b><br><small>Match Updates</small>
-</div>
-</a>
-</div>
+    <a href="go:COMM">
+      <div class="cricket-card">
+        <b><span class="blink">🔴</span> LIVE Audio Commentary</b><br>
+        <small>Only on Match Day</small>
+      </div>
+    </a>
+    <a href="go:SCORE">
+      <div class="cricket-card">
+        <b>Live Cricket Score</b><br>
+        <small>Match Updates</small>
+      </div>
+    </a>
+  </div>
 </div>
 
 <!-- LIVE TV -->
@@ -295,23 +277,21 @@ h2{font-size:16px;margin:0}
     <h2>📺 Live TV</h2>
     <a href="go:LIVEN" class="viewall">View All</a>
   </div>
-
- <div class="horizontal">
-<a href="go:AAJ"><div class="tv-card"><span class="live">LIVE</span>Aaj Tak</div></a>
-<a href="go:NEWS18"><div class="tv-card"><span class="live">LIVE</span>News18</div></a>
-<a href="go:TV9"><div class="tv-card"><span class="live">LIVE</span>TV9 Bharatvarsh</div></a>
-<a href="go:TIMES"><div class="tv-card"><span class="live">LIVE</span>Times Now</div></a>
-<a href="go:INDIATO"><div class="tv-card"><span class="live">LIVE</span>India Today</div></a>
+  <div class="horizontal">
+    <a href="go:AAJ"><div class="tv-card"><span class="live">LIVE</span>Aaj Tak</div></a>
+    <a href="go:NEWS18"><div class="tv-card"><span class="live">LIVE</span>News18</div></a>
+    <a href="go:TV9"><div class="tv-card"><span class="live">LIVE</span>TV9 Bharatvarsh</div></a>
+    <a href="go:TIMES"><div class="tv-card"><span class="live">LIVE</span>Times Now</div></a>
+    <a href="go:INDIATO"><div class="tv-card"><span class="live">LIVE</span>India Today</div></a>
+  </div>
 </div>
-</div>
 
-<!-- PODCASTS -->
+<!-- PODCASTS (INTACT) -->
 <div class="section">
   <div class="section-head">
     <h2>🎧 Podcasts</h2>
     <a href="go:S401" class="viewall">View All</a>
   </div>
-
   <div class="horizontal">
     <a href="go:S402"><div class="card">Daily News</div></a>
     <a href="go:S403"><div class="card">Cricket Talk</div></a>
@@ -325,36 +305,38 @@ h2{font-size:16px;margin:0}
     <h2>🌐 Browse by Language</h2>
     <a href="go:LANG" class="viewall">View All</a>
   </div>
-
   <div class="horizontal">
-<a href="go:TAMILR"><div class="card">Tamil</div></a>
-<a href="go:ENGLISH"><div class="card">English</div></a>
-<a href="go:BHAKTI"><div class="card">Bhakti</div></a>
-</div>
+    <a href="go:TAMILR"><div class="card">Tamil</div></a>
+    <a href="go:ENGLISH"><div class="card">English</div></a>
+    <a href="go:BHAKTI"><div class="card">Bhakti</div></a>
+  </div>
 </div>
 
 <!-- PRIVACY POPUP -->
-<div class="popup" id="privacyPopup">
-  <div class="popup-box">
+<div class="privacy-overlay" id="privacyOverlay">
+  <div class="privacy-popup">
     <h3>Privacy Policy</h3>
-    <p>
-      This app streams publicly available radio, podcast and TV streams.
-      No personal data is collected.
-      Station names/logos belong to their respective owners.
-    </p>
-    <div class="close" onclick="closePrivacy()">Close</div>
+    <p>All India Radio app streams publicly available radio, podcast and TV channels.</p>
+    <p>We do not collect, store, or share any personal user data.</p>
+    <p>This app may use a web-based interface only for navigation purposes.</p>
+    <p>Station names and logos belong to their respective owners.</p>
+    <div class="policy-link">
+      <a href="https://airappandroid.github.io/allindiaradio/privacy.html" target="_blank">
+        View full policy
+      </a>
+    </div>
+    <button class="close-btn" onclick="closePrivacy()">Close</button>
   </div>
 </div>
 
 <script>
 function openPrivacy(){
-  document.getElementById("privacyPopup").style.display="flex";
+  document.getElementById('privacyOverlay').style.display='flex';
 }
 function closePrivacy(){
-  document.getElementById("privacyPopup").style.display="none";
+  document.getElementById('privacyOverlay').style.display='none';
 }
 </script>
 
 </body>
 </html>
-
