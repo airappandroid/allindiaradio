@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b1220;
+  --card:#1f2937;
+  --accent:#22c55e;
+  --text:#e5e7eb;
+  --muted:#94a3b8;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Roboto,sans-serif;
+}
+
+/* TOP BAR */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  background:#020617;
+  position:sticky;
+  top:0;
+}
+.topbar h1{
+  font-size:18px;
+  margin:0;
+}
+.icon{
+  font-size:18px;
+}
+
+/* CONTENT */
+.container{
+  padding:16px;
+}
+
+/* CARD */
+.box{
+  background:var(--card);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:16px;
+}
+
+.box h2{
+  font-size:16px;
+  margin:0 0 8px;
+}
+
+.box p{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* BUTTONS */
+.btn{
+  display:block;
+  margin-top:14px;
+  padding:14px;
+  text-align:center;
+  background:var(--accent);
+  color:#000;
+  border-radius:24px;
+  font-size:15px;
+  font-weight:500;
+}
+
+.btn-outline{
+  background:none;
+  border:1px solid var(--accent);
+  color:var(--accent);
+}
+
+a{
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <h1>💡 Feedback & Support</h1>
+  <a href="http://action_search" class="icon">🔍</a>
+</div>
+
+<div class="container">
+
+  <!-- FEEDBACK / REPORT -->
+  <div class="box">
+    <h2>💬 Send Feedback / Report Issue</h2>
+    <p>
+      Want a new station, language or feature?  
+      Or any radio / TV channel not working?
+      <br><br>
+      Tap below and tell us — we genuinely read every message.
+    </p>
+
+    <a class="btn"
+       href="http://action_offices">
+       Send Feedback
+    </a>
+  </div>
+
+  <!-- SUPPORT APP -->
+  <div class="box">
+    <h2>❤️ Support the App</h2>
+    <p>
+      If you enjoy using this app,
+      your support helps us grow and improve.
+    </p>
+
+    <!-- RATE APP -->
+    <a class="btn" href="http://play.google.com/store/apps/details?id=oc.t">
+      ⭐ Rate App
+    </a>
+
+    <!-- SHARE APP -->
+    <a class="btn btn-outline" href="http://action_share">
+      Share App
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>
