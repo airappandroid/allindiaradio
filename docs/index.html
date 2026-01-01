@@ -101,11 +101,7 @@ body{
   overflow-x:auto;
   overflow-y:hidden;
   -webkit-overflow-scrolling:touch;
-
-  overscroll-behavior:contain; /* 👈 pull-to-refresh block */
-  touch-action:pan-x;          /* 👈 only horizontal swipe */
 }
-
 .trending-track{
   display:flex;
   gap:12px;
@@ -353,6 +349,9 @@ body{
   font-weight:700;
   cursor:pointer;
 }
+.icon-btn:active{
+  transform:scale(0.92);
+}
 
 </style>
 </head>
@@ -363,7 +362,9 @@ body{
   <div class="header-left">
     <a href="go:FEED" class="icon-btn" title="Feedback">💬</a>
   </div>
-
+ <!-- REFRESH BUTTON -->
+    <button class="icon-btn" onclick="refreshPage()" title="Refresh">🔄</button>
+  </div>
   <div class="header-center">
     <h1>All India Radio</h1>
   </div>
@@ -438,7 +439,7 @@ body{
     <a href="go:FMR" class="card"><span class="live-dot">🟢</span>FM Rainbow</a>
     <a href="go:VIVIDH" class="card"><span class="live-dot">🟢</span>Vividh Bharati</a>
     <a href="go:FMG" class="card"><span class="live-dot">🟢</span>FM Gold</a>
-    <a href="go:MIRCHIH" class="card"><span class="live-dot">🟢</span>Radio Mirchi</a>
+    <a href="go:MIRCCHI" class="card"><span class="live-dot">🟢</span>Radio Mirchi</a>
     <a href="go:NAMKIN" class="card"><span class="live-dot">🟢</span>Radio Namkin</a>
   </div>
 </section>
@@ -494,9 +495,6 @@ let pos = 0;
 const speed = 0.32;
 let isUserInteracting = false;
 
-let startX = 0;
-let startY = 0;
-
 function autoScroll(){
   if(!isUserInteracting){
     pos -= speed;
@@ -508,56 +506,42 @@ function autoScroll(){
   requestAnimationFrame(autoScroll);
 }
 
-/* 🔥 HARD TOUCH CONTROL */
-wrapper.addEventListener("touchstart",function(e){
-  startX = e.touches[0].clientX;
-  startY = e.touches[0].clientY;
+/* USER TOUCH / SCROLL DETECT */
+wrapper.addEventListener("touchstart",()=>{
   isUserInteracting = true;
-},{passive:false});
-
-wrapper.addEventListener("touchmove",function(e){
-  const currentX = e.touches[0].clientX;
-  const currentY = e.touches[0].clientY;
-
-  const diffX = Math.abs(currentX - startX);
-  const diffY = Math.abs(currentY - startY);
-
-  if(diffX > diffY){
-    // horizontal swipe → STOP pull-to-refresh completely
-    e.preventDefault();   // 🔥 THIS LINE IS THE KEY
-    e.stopPropagation();
-  }
-},{passive:false});
-
-wrapper.addEventListener("touchend",function(){
+});
+wrapper.addEventListener("touchend",()=>{
   isUserInteracting = false;
-},{passive:true});
+});
 
-/* desktop test */
-wrapper.addEventListener("mousedown",()=>isUserInteracting=true);
-wrapper.addEventListener("mouseup",()=>isUserInteracting=false);
+wrapper.addEventListener("mousedown",()=>{
+  isUserInteracting = true;
+});
+wrapper.addEventListener("mouseup",()=>{
+  isUserInteracting = false;
+});
 
 autoScroll();
 
-/* PRIVACY POPUP */
 function openPrivacy(){
   document.getElementById("privacyOverlay").style.display="flex";
 }
+
 function closePrivacy(){
   document.getElementById("privacyOverlay").style.display="none";
 }
+function refreshPage(){
+  window.location.href = "https://airappandroid.github.io/allindiaradio/";
+}
 </script>
-
-
 <!-- PRIVACY POPUP -->
 <div class="privacy-overlay" id="privacyOverlay">
   <div class="privacy-popup">
     <h3>Privacy Policy</h3>
-    <p>All India Radio app streams publicly available Radio, Podcast and TV channels.</p>
+    <p>All India Radio app streams publicly available Radio, podcast and TV channels.</p>
     <p>We do not collect, store, or share any personal user data.</p>
     <p>This app may use a web-based interface only for navigation purposes.</p>
     <p>Station names and logos belong to their respective owners.</p>
-    <p><strong>Disclaimer:</strong> This is not an official All India Radio application.</p>
 
     <div class="policy-link">
       <a href="https://airappandroid.github.io/allindiaradio/privacy.html" target="_blank">
