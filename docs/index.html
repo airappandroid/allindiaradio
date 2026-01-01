@@ -508,14 +508,14 @@ function autoScroll(){
   requestAnimationFrame(autoScroll);
 }
 
-/* TOUCH HANDLING – DIRECTION AWARE */
-wrapper.addEventListener("touchstart",(e)=>{
+/* 🔥 HARD TOUCH CONTROL */
+wrapper.addEventListener("touchstart",function(e){
   startX = e.touches[0].clientX;
   startY = e.touches[0].clientY;
   isUserInteracting = true;
-},{passive:true});
+},{passive:false});
 
-wrapper.addEventListener("touchmove",(e)=>{
+wrapper.addEventListener("touchmove",function(e){
   const currentX = e.touches[0].clientX;
   const currentY = e.touches[0].clientY;
 
@@ -523,22 +523,19 @@ wrapper.addEventListener("touchmove",(e)=>{
   const diffY = Math.abs(currentY - startY);
 
   if(diffX > diffY){
-    // horizontal swipe → allow trending scroll, block pull-to-refresh
+    // horizontal swipe → STOP pull-to-refresh completely
+    e.preventDefault();   // 🔥 THIS LINE IS THE KEY
     e.stopPropagation();
   }
 },{passive:false});
 
-wrapper.addEventListener("touchend",()=>{
+wrapper.addEventListener("touchend",function(){
   isUserInteracting = false;
-});
+},{passive:true});
 
-/* MOUSE SUPPORT (desktop testing) */
-wrapper.addEventListener("mousedown",()=>{
-  isUserInteracting = true;
-});
-wrapper.addEventListener("mouseup",()=>{
-  isUserInteracting = false;
-});
+/* desktop test */
+wrapper.addEventListener("mousedown",()=>isUserInteracting=true);
+wrapper.addEventListener("mouseup",()=>isUserInteracting=false);
 
 autoScroll();
 
@@ -550,6 +547,7 @@ function closePrivacy(){
   document.getElementById("privacyOverlay").style.display="none";
 }
 </script>
+
 
 <!-- PRIVACY POPUP -->
 <div class="privacy-overlay" id="privacyOverlay">
