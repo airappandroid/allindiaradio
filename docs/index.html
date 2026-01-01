@@ -101,7 +101,11 @@ body{
   overflow-x:auto;
   overflow-y:hidden;
   -webkit-overflow-scrolling:touch;
+
+  overscroll-behavior:contain; /* 👈 pull-to-refresh block */
+  touch-action:pan-x;          /* 👈 only horizontal swipe */
 }
+
 .trending-track{
   display:flex;
   gap:12px;
