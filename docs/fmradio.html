@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b1020;
+  --card:#1f2937;
+  --accent:#22c55e;
+  --text:#e5e7eb;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Roboto,sans-serif;
+}
+
+/* TOP BAR */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  background:#020617;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.topbar h1{
+  font-size:18px;
+  margin:0;
+}
+.icon{
+  font-size:18px;
+}
+
+/* CONTENT */
+.container{
+  padding:16px;
+}
+
+/* GRID */
+.lang-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+/* CARD */
+.lang-card{
+  height:70px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#1f2937,#111827);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 16px;
+  font-size:15px;
+  font-weight:500;
+  position:relative;
+  overflow:hidden;
+}
+
+/* ICON */
+.lang-icon{
+  font-size:20px;
+}
+
+/* ACCENT BAR */
+.lang-card::after{
+  content:'';
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  height:3px;
+  background:linear-gradient(90deg,#22c55e,#16a34a);
+  opacity:.6;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <h1>🌐 Select Language</h1>
+  <!-- AppCreator24 native search -->
+  <a href="http://action_search" class="icon">🔍</a>
+</div>
+
+<div class="container">
+
+  <div class="lang-grid">
+
+    <a href="go:HINDIR"><div class="lang-card"><span class="lang-icon">🇮🇳</span>Hindi</div></a>
+    <a href="go:ENGLISH"><div class="lang-card"><span class="lang-icon">🌍</span>English</div></a>
+    <a href="go:BHAKTI"><div class="lang-card"><span class="lang-icon">🕉️</span>Bhakti</div></a>
+
+    <a href="go:BANG"><div class="lang-card"><span class="lang-icon">🇧🇩</span>Bangladesh FM</div></a>
+    <a href="go:KOL"><div class="lang-card"><span class="lang-icon">🎶</span>Kolkata Bengali</div></a>
+
+    <a href="go:ASSAM"><div class="lang-card"><span class="lang-icon">🌾</span>Assamese</div></a>
+    <a href="go:ODIA"><div class="lang-card"><span class="lang-icon">🌊</span>Odia</div></a>
+
+    <a href="go:SPORTS"><div class="lang-card"><span class="lang-icon">🏏</span>Sports</div></a>
+    <a href="go:BHOJ"><div class="lang-card"><span class="lang-icon">🎤</span>Bhojpuri</div></a>
+
+    <a href="go:NEPALI"><div class="lang-card"><span class="lang-icon">🏔️</span>Nepali</div></a>
+    <a href="go:PUNJABI"><div class="lang-card"><span class="lang-icon">🥁</span>Punjabi</div></a>
+
+    <a href="go:MARATHI"><div class="lang-card"><span class="lang-icon">🎭</span>Marathi</div></a>
+    <a href="go:GUJARATI"><div class="lang-card"><span class="lang-icon">🪔</span>Gujarati</div></a>
+
+    <a href="go:TAMIL"><div class="lang-card"><span class="lang-icon">🎼</span>Tamil</div></a>
+    <a href="go:TELUGU"><div class="lang-card"><span class="lang-icon">🎧</span>Telugu</div></a>
+
+    <a href="go:KANNADA"><div class="lang-card"><span class="lang-icon">🎹</span>Kannada</div></a>
+
+  </div>
+
+</div>
+
+</body>
+</html>
