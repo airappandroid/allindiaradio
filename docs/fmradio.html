@@ -26,10 +26,21 @@
     gap:12px;
   }
 
-  a{
-    text-decoration:none;
-    color:#ffffff;
-  }
+  * {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a{
+  text-decoration:none;
+  color:#ffffff;
+  outline:none;
+}
+
+a:focus,
+a:active{
+  outline:none;
+  background:none;
+}
 
   .card{
     background:#111a2e;
@@ -48,9 +59,6 @@
     margin-bottom:6px;
   }
 
-  .card:active{
-    transform:scale(.97);
-  }
 </style>
 </head>
 
