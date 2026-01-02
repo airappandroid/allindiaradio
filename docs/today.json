@@ -1,0 +1,12 @@
+{
+  "schedule": [
+    { "time": "09:00", "program": "Pitara", "channel": "Vividh Bharati" },
+    { "time": "10:00", "program": "News", "channel": "FM Gold" },
+    { "time": "11:00", "program": "Rainbow Destinations", "channel": "FM Rainbow" },
+    { "time": "12:00", "program": "Song Request", "channel": "Red FM" },
+    { "time": "13:00", "program": "Afternoon Show", "channel": "Vividh Bharati" },
+    { "time": "14:00", "program": "Music Express", "channel": "FM Gold" },
+    { "time": "15:00", "program": "Evening Beats", "channel": "FM Rainbow" },
+    { "time": "16:00", "program": "Drive Time", "channel": "Red FM" }
+  ]
+}
