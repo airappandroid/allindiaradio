@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -232,7 +233,7 @@ body{
 }
 .today-item:last-child{border-bottom:none}
 .today-time{
-  min-width:52px;
+  min-width:50px;
   font-size:11px;
   font-weight:600;
   color:var(--green);
@@ -254,6 +255,12 @@ font-size:12px;
   padding-bottom:6px;
   line-height:1.3;
   border-bottom:1px solid rgba(255,255,255,.15);
+}
+.today-heading span{
+  font-size:11px;
+  font-weight:500;
+  opacity:.7;
+  margin-left:4px;
 }
 
 /* ROW */
@@ -436,25 +443,16 @@ a, button {
 
 <section class="section">
   <div class="today-air">
-    <div class="today-heading">📅 Today on AIR</div>
 
-    <div class="today-item">
-      <div class="today-time">2:00 PM</div>
-      <div><span class="program">Rainbow Destinations</span> • <span class="channel">FM Rainbow Delhi</span></div>
+    <div class="today-heading">
+      📅 Today on AIR <span id="todayDate"></span>
     </div>
 
-    <div class="today-item">
-      <div class="today-time">2:30 PM</div>
-      <div><span class="program">उन्नत किसान</span> • <span class="channel">FM Gold Delhi</span></div>
-    </div>
+    <!-- AUTO SCHEDULE WILL RENDER HERE -->
+    <div id="todaySchedule"></div>
 
-    <div class="today-item">
-      <div class="today-time">4:00 PM</div>
-      <div><span class="program">गीतों भरी कहानी</span> • <span class="channel">Vividh Bharati</span></div>
-    </div>
   </div>
 </section>
-
 
 <!-- 🔥 POPULAR STATIONS -->
 <section class="section">
@@ -576,6 +574,99 @@ function closePrivacy(){
     <button class="close-btn" onclick="closePrivacy()">Close</button>
   </div>
 </div>
+<script>
+const todayPrograms = [
+  { time: "00:00", title: "Midnight Melodies", channel: "AIR FM" },
+  { time: "01:00", title: "Night Ragas", channel: "Vividh Bharati" },
+  { time: "02:00", title: "Classical Hour", channel: "FM Gold" },
+  { time: "05:00", title: "Morning Bhajans", channel: "AIR FM" },
+  { time: "06:00", title: "Good Morning India", channel: "AIR National" },
+  { time: "07:00", title: "Breakfast Show", channel: "FM Rainbow" },
+  { time: "09:00", title: "आज के फ़नकार", channel: "Vividh Bharati" },
+  { time: "12:00", title: "Noon News", channel: "AIR News" },
+  { time: "14:00", title: "Rainbow Destinations", channel: "FM Rainbow Delhi" },
+  { time: "14:30", title: "उत्तम किसान", channel: "FM Gold Delhi" },
+  { time: "16:00", title: "गीतों भरी कहानी", channel: "Vividh Bharati" },
+  { time: "18:00", title: "Message Masala Mix", channel: "FM Rainbow Delhi" },
+  { time: "19:00", title: "Western Music", channel: "FM Rainbow Delhi" },
+  { time: "20:00", title: "Music Masti", channel: "FM Rainbow Delhi" },
+  { time: "21:00", title: "आपकी याद आती रही", channel: "FM Rainbow Delhi" },
+  { time: "22:00", title: "Western Music", channel: "FM Rainbow Delhi" },
+  { time: "23:00", title: "Rang - E - Mehfil", channel: "FM Rainbow Delhi" }
+];
+</script>
+<script>
+// -------- DATE --------
+const dateEl = document.getElementById("todayDate");
+const now = new Date();
+dateEl.textContent =
+  `(${now.getDate()} ${now.toLocaleString("en",{month:"short"})})`;
+
+// -------- TIME UTILS --------
+function toMinutes(time){
+  const [h,m] = time.split(":").map(Number);
+  return h * 60 + m;
+}
+
+const currentMinutes = now.getHours()*60 + now.getMinutes();
+
+// -------- FILTER (±1 hour) --------
+const visiblePrograms = todayPrograms.filter(p => {
+  const t = toMinutes(p.time);
+  return t >= currentMinutes - 60 && t <= currentMinutes + 60;
+});
+
+// -------- RENDER --------
+const container = document.getElementById("todaySchedule");
+container.innerHTML = "";
+
+visiblePrograms.forEach(p => {
+  container.innerHTML += `
+    <div class="today-item">
+      <div class="today-time">${p.time}</div>
+      <div>
+        <span class="program">${p.title}</span> •
+        <span class="channel">${p.channel}</span>
+      </div>
+    </div>
+  `;
+});
+</script>
+<script>
+// 24h → AM/PM
+function ampm(t){
+  let [h,m] = t.split(":").map(Number);
+  return (h%12||12)+":"+m.toString().padStart(2,"0")+" "+(h>=12?"PM":"AM");
+}
+
+const hour = new Date().getHours();
+
+// programs sorted by hour only
+const list = todayPrograms.sort((a,b)=>{
+  return parseInt(a.time) - parseInt(b.time);
+});
+
+// find closest hour match
+let index = list.findIndex(p => parseInt(p.time) >= hour);
+
+// fallback
+if(index < 1) index = 1;
+if(index > list.length-2) index = list.length-2;
+
+// take exactly 3
+const show = list.slice(index-1, index+2);
+
+// render
+todaySchedule.innerHTML = show.map(p=>`
+  <div class="today-item">
+    <div class="today-time">${ampm(p.time)}</div>
+    <div>
+      <span class="program">${p.title}</span> •
+      <span class="channel">${p.channel}</span>
+    </div>
+  </div>
+`).join("");
+</script>
 
 </body>
 </html>
