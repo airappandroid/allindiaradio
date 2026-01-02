@@ -8,5 +8,8 @@
     { "time": "14:00", "program": "Music Express", "channel": "FM Gold" },
     { "time": "15:00", "program": "Evening Beats", "channel": "FM Rainbow" },
     { "time": "16:00", "program": "Drive Time", "channel": "Red FM" }
+    { "time": "17:00", "program": "Music Express", "channel": "FM Gold" },
+    { "time": "18:00", "program": "Evening Beats", "channel": "FM Rainbow" },
+    { "time": "19:00", "program": "Drive Time", "channel": "Red FM" }
   ]
 }
