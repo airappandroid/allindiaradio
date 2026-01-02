@@ -1,16 +1,50 @@
-{
-  "schedule": [
-    { "time": "09:00", "program": "Pitara", "channel": "Vividh Bharati" },
-    { "time": "10:00", "program": "News", "channel": "FM Gold" },
-    { "time": "11:00", "program": "Rainbow Destinations", "channel": "FM Rainbow" },
-    { "time": "12:00", "program": "Song Request", "channel": "Red FM" },
-    { "time": "13:00", "program": "Afternoon Show", "channel": "Vividh Bharati" },
-    { "time": "14:00", "program": "Music Express", "channel": "FM Gold" },
-    { "time": "15:00", "program": "Evening Beats", "channel": "FM Rainbow" },
-    { "time": "16:00", "program": "Drive Time", "channel": "Red FM" }
-    { "time": "17:00", "program": "Music Express", "channel": "FM Gold" },
-    { "time": "18:00", "program": "Evening Beats", "channel": "FM Rainbow" },
-    { "time": "19:00", "program": "Drive Time", "channel": "Red FM" }
-    { "time": "00:00", "program": "TEST SHOW", "channel": "TEST FM" }
-  ]
-}
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const list = document.getElementById("todayList");
+
+  /* STEP A: CHECK HTML EXISTS */
+  if(!list){
+    alert("todayList div NOT found");
+    return;
+  }
+
+  /* STEP B: SHOW LOADING */
+  list.innerHTML = "<div class='today-item'>Loading schedule...</div>";
+
+  /* STEP C: FETCH JSON */
+  fetch("https://airappandroid.github.io/allindiaradio/today.json")
+    .then(res => {
+      if(!res.ok) throw new Error("JSON not reachable");
+      return res.json();
+    })
+    .then(data => {
+
+      /* STEP D: CHECK JSON */
+      if(!data.schedule){
+        list.innerHTML = "<div class='today-item'>Schedule key missing</div>";
+        return;
+      }
+
+      /* STEP E: RENDER FIRST 3 (NO TIME LOGIC) */
+      list.innerHTML = "";
+
+      data.schedule.slice(0,3).forEach(item=>{
+        list.innerHTML += `
+          <div class="today-item">
+            <div class="today-time">${item.time}</div>
+            <div>
+              <span class="program">${item.program}</span>
+              <span class="channel"> – ${item.channel}</span>
+            </div>
+          </div>
+        `;
+      });
+
+    })
+    .catch(err=>{
+      list.innerHTML = "<div class='today-item'>ERROR loading JSON</div>";
+    });
+
+});
+</script>
