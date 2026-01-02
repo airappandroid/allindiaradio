@@ -97,77 +97,85 @@ body{
   text-decoration:none;
 }
 
-/* ================= TRENDING ================= */
+/* ================= TRENDING | OTT PREMIUM ================= */
+
 .trending-wrapper{
-  overflow-x:auto;
-  overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;
+  position: relative;
+  overflow: hidden;
+  padding: 6px 42px 6px 12px; /* next card hint */
 }
+
 .trending-track{
-  display:flex;
-  gap:12px;
-  width:max-content;
-  transform:translateZ(0);
+  display: flex;
+  gap: 14px;
+  will-change: transform;
 }
 
 .trending-card{
-  flex:0 0 270px;
-  height:130px;
-  border-radius:20px;
-  padding:2px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.18),
-    rgba(255,255,255,.04)
-  );
-  backdrop-filter:blur(2px);
-  text-decoration:none;
+  flex: 0 0 270px;
+  height: 135px;
+  border-radius: 18px;
+  text-decoration: none;
 }
+
 .trending-inner{
-  height:100%;
-  border-radius:18px;
-  background-size:cover;
-  background-position:center;
-  position:relative;
-  overflow:hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.55),
+    inset 0 0 0 1px rgba(255,255,255,.08);
 }
+
+/* Dark OTT gradient overlay */
 .trending-inner::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(
+  background: linear-gradient(
     to top,
-    rgba(0,0,0,.85),
+    rgba(0,0,0,.9),
     rgba(0,0,0,.45),
-    rgba(0,0,0,.15)
+    rgba(0,0,0,.05)
   );
   z-index:1;
 }
 
 .trending-text{
   position:absolute;
+  left:14px;
+  right:14px;
   bottom:12px;
-  left:12px;
-  right:12px;
   z-index:2;
 }
+
 .trending-text h4{
   margin:0;
   font-size:15px;
   font-weight:700;
-  color:#fff !important;
-  text-shadow:0 2px 8px rgba(0,0,0,1);
+  color:#fff;
+  line-height:1.25;
+  text-shadow:0 3px 8px rgba(0,0,0,.9);
 }
+
 .trending-text p{
   margin-top:4px;
   font-size:11px;
-  color:#fff !important;
+  color:#ddd;
   opacity:.9;
-  text-shadow:0 1px 6px rgba(0,0,0,.95);
+  text-shadow:0 2px 6px rgba(0,0,0,.9);
 }
-.trending-track{
-  transform:translateZ(0);
-  backface-visibility:hidden;
+
+/* Desktop hover polish */
+@media (hover:hover){
+  .trending-card:hover .trending-inner{
+    transform: scale(1.035);
+    transition: transform .35s ease;
+  }
 }
 
 /* LIVE TV BADGE */
@@ -233,7 +241,7 @@ body{
 }
 .today-item:last-child{border-bottom:none}
 .today-time{
-  min-width:50px;
+  min-width:52px;
   font-size:11px;
   font-weight:600;
   color:var(--green);
@@ -399,38 +407,36 @@ a, button {
 
 <div class="header-divider"></div>
 
-<!-- 🔥 TRENDING -->
-<section class="section">
-  <div class="section-head"><h3>🔥 Trending</h3></div>
+<!-- 🔥 TRENDING SECTION -->
+
 
   <div class="trending-wrapper">
     <div class="trending-track" id="trendTrack">
 
-      <a href="go:COMM" class="trending-card">
-        <div class="trending-inner" style="background-image:url('https://i.ibb.co/gbNR3cyp/83n1pij8-wpl-640x480-14-February-23.jpg')">
-         <div class="trending-text"><h4>Women Premier League</h4><p>Starts 9 January · 7:30 PM</p></div>
-        </div>
+      <!-- BANNER 1 -->
+      <a href="go:COMM" class="trending-card"
+         data-img="https://i.ibb.co/gbNR3cyp/83n1pij8-wpl-640x480-14-February-23.jpg"
+         data-title="Women Premier League"
+         data-sub="Starts 9 January · 7:30 PM">
       </a>
 
-      <a href="go:MANN" class="trending-card">
-        <div class="trending-inner" style="background-image:url('https://i.ytimg.com/vi/uTIuh9-F0JY/maxresdefault.jpg')">
-          <div class="trending-text"><h4>Mann Ki Baat</h4><p>PM's Address 28 Dec'25</p></div>
-        </div>
+      <!-- BANNER 2 -->
+      <a href="go:MANN" class="trending-card"
+         data-img="https://i.ibb.co/HTb9nF7b/download-4.jpg"
+         data-title="Mann Ki Baat"
+         data-sub="PM's Address · 28 Dec 2025">
       </a>
 
-      <a href="go:VIVIDH" class="trending-card">
-        <div class="trending-inner" style="background-image:url('https://i.ibb.co/xtQy98wm/IMG-20260102-020047-195.jpg')">
-          <div class="trending-text"><h4>आज के फ़नकार : सोनाली बेंद्रे</h4><p>02 Jan | 9:30 AM | 10 PM | Vividh Bharati</p></div>
-        </div>
+      <!-- BANNER 3 -->
+      <a href="go:BBCD" class="trending-card"
+         data-img="https://i.ibb.co/Y79xmY5F/download-5.jpg"
+         data-title="Din Bhar | BBC Hindi News"
+         data-sub="🎧 New episode at 9 PM • Mon–Fri">
       </a>
-
-      <!-- duplicate for smooth loop -->
-      <a href="go:COMM" class="trending-card"><div class="trending-inner" style="background-image:url('https://i.ibb.co/gbNR3cyp/83n1pij8-wpl-640x480-14-February-23.jpg')"><div class="trending-text"><h4>Women Premier League</h4><p>Starts 9 January · 7:30 PM</p></div></div></a>
-      <a href="go:MANN" class="trending-card"><div class="trending-inner" style="background-image:url('https://i.ytimg.com/vi/uTIuh9-F0JY/maxresdefault.jpg')"><div class="trending-text"><h4>Mann Ki Baat</h4><p>PM's Address 28 Dec'25</p></div></div></a>
-      <a href="go:VIVIDH" class="trending-card"><div class="trending-inner" style="background-image:url('https://i.ibb.co/xtQy98wm/IMG-20260102-020047-195.jpg')"><div class="trending-text"><h4>आज के फ़नकार : सोनाली बेंद्रे</h4><p>02 Jan | 9:30 AM | 10 PM | Vividh Bharati</p></div></div></a>
 
     </div>
   </div>
+</section>
 
   <div class="quick-buttons">
     <a href="go:AIR" class="quick-btn">📻 AIR</a>
@@ -510,42 +516,8 @@ a, button {
     <a href="go:S704" class="card">Chayageet</a>
   </div>
 </section>
-
+<!-- PRIVACY POPUP -->
 <script>
-const wrapper = document.querySelector(".trending-wrapper");
-const track = document.getElementById("trendTrack");
-
-let pos = 0;
-const speed = 0.32;
-let isUserInteracting = false;
-
-function autoScroll(){
-  if(!isUserInteracting){
-    pos -= speed;
-    if(Math.abs(pos) >= track.scrollWidth / 2){
-      pos = 0;
-    }
-    track.style.transform = `translate3d(${pos}px,0,0)`;
-  }
-  requestAnimationFrame(autoScroll);
-}
-
-/* USER TOUCH / SCROLL DETECT */
-wrapper.addEventListener("touchstart",()=>{
-  isUserInteracting = true;
-});
-wrapper.addEventListener("touchend",()=>{
-  isUserInteracting = false;
-});
-
-wrapper.addEventListener("mousedown",()=>{
-  isUserInteracting = true;
-});
-wrapper.addEventListener("mouseup",()=>{
-  isUserInteracting = false;
-});
-
-autoScroll();
 
 function openPrivacy(){
   document.getElementById("privacyOverlay").style.display="flex";
@@ -665,6 +637,75 @@ todaySchedule.innerHTML = show.map(p=>`
   </div>
 `).join("");
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const track = document.getElementById("trendTrack");
+  const wrapper = document.querySelector(".trending-wrapper");
+
+  if(!track) return;
+
+  /* ---------- BUILD CARD CONTENT ---------- */
+  const originalCards = [...track.children];
+
+  originalCards.forEach(card => {
+    const img = card.dataset.img;
+    const title = card.dataset.title;
+    const sub = card.dataset.sub;
+
+    card.innerHTML = `
+      <div class="trending-inner" style="background-image:url('${img}')">
+        <div class="trending-text">
+          <h4>${title}</h4>
+          <p>${sub}</p>
+        </div>
+      </div>
+    `;
+  });
+
+  /* ---------- AUTO DUPLICATE FOR LOOP ---------- */
+  originalCards.forEach(card => {
+    track.appendChild(card.cloneNode(true));
+  });
+
+  /* ---------- AUTO SLIDER ---------- */
+  let index = 0;
+  let isInteracting = false;
+
+  const CARD_WIDTH = 270 + 14;
+  const ORIGINAL_COUNT = originalCards.length;
+
+  function slideNext(){
+    if(isInteracting) return;
+
+    index++;
+    track.style.transition =
+      "transform .85s cubic-bezier(.4,0,.2,1)";
+    track.style.transform =
+      `translateX(-${index * CARD_WIDTH}px)`;
+
+    if(index === ORIGINAL_COUNT){
+      setTimeout(()=>{
+        track.style.transition = "none";
+        track.style.transform = "translateX(0)";
+        index = 0;
+      }, 900);
+    }
+  }
+
+  setInterval(slideNext, 3000);
+
+  /* ---------- PAUSE ON USER INTERACTION ---------- */
+  ["touchstart","mousedown"].forEach(e=>{
+    wrapper.addEventListener(e, ()=> isInteracting = true);
+  });
+  ["touchend","mouseup","mouseleave"].forEach(e=>{
+    wrapper.addEventListener(e, ()=> isInteracting = false);
+  });
+
+});
+</script>
+
 
 </body>
 </html>
