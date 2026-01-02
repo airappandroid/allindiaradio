@@ -221,19 +221,19 @@ body{
   background:linear-gradient(135deg,#18214a,#141a33);
   border-radius:16px;
   padding:10px 14px;
-  font-size:12px;
+  font-size:11px;
 }
 .today-item{
   display:flex;
   gap:10px;
-  font-size:12px;
+  font-size:10px;
   padding:6px 0;
   border-bottom:1px solid rgba(255,255,255,.06);
 }
 .today-item:last-child{border-bottom:none}
 .today-time{
   min-width:62px;
-  font-size:12px;
+  font-size:11px;
   font-weight:600;
   color:var(--green);
 }
@@ -243,7 +243,14 @@ body{
   color:var(--channel);
   opacity:0.85;
 }
-
+.today-heading{
+  font-size:15px;        /* 🔥 heading readable */
+  font-weight:600;
+  margin-bottom:8px;
+  padding-bottom:6px;
+  line-height:1.3;
+  border-bottom:1px solid rgba(255,255,255,.15);
+}
 
 /* ROW */
 .row{
@@ -423,16 +430,27 @@ a, button {
   </div>
 </section>
 
-<!-- 📅 TODAY ON AIR -->
 <section class="section">
-  <div class="section-head"><h3>📅 Today on AIR</h3></div>
   <div class="today-air">
-    <div class="today-item"><div class="today-time">11:05 AM</div><div><span class="program">BOLLYWOOD TRAILS</span> • <span class="channel">FM Rainbow Delhi</span></div></div>
-    <div class="today-item"><div class="today-time">11:10 AM</div><div><span class="program">तस्वीर - उदयपुर</span> • <span class="channel">FM Gold Delhi</span></div></div>
-    <div class="today-item"><div class="today-time">12:10 PM</div><div><span class="program">एक कदम बुजुर्गों की ओर</span> • <span class="channel">FM Gold Delhi</span></div></div>
-   
+    <div class="today-heading">📅 Today on AIR</div>
+
+    <div class="today-item">
+      <div class="today-time">11:05 AM</div>
+      <div><span class="program">BOLLYWOOD TRAILS</span> – <span class="channel">FM Rainbow Delhi</span></div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-time">11:10 AM</div>
+      <div><span class="program">तस्वीर - उदयपुर</span> – <span class="channel">FM Gold Delhi</span></div>
+    </div>
+
+    <div class="today-item">
+      <div class="today-time">12:10 PM</div>
+      <div><span class="program">एक कदम बुजुर्गों की ओर</span> – <span class="channel">FM Gold Delhi</span></div>
+    </div>
   </div>
 </section>
+
 
 <!-- 🔥 POPULAR STATIONS -->
 <section class="section">
