@@ -113,10 +113,36 @@ body {
 .bulletin-download {
   display: none !important;
 }
+/* SEARCH BOX */
+#searchBulletin {
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+#searchBulletin::placeholder {
+  color: #9ca3af;
+}
+
+/* Stack nicely on mobile */
+.bulletin-filters {
+  flex-wrap: wrap;
+}
+
+.bulletin-filters input {
+  flex: 1 1 100%;
+}
 
 </style>
-						  <!-- GRID RESULTS -->
 						  <div class="bulletin-filters">
+  <input type="text" id="searchBulletin" placeholder="Search city or language…" />
+
   <select id="filterCity">
     <option value="">All Cities</option>
   </select>
@@ -125,6 +151,8 @@ body {
     <option value="">All Languages</option>
   </select>
 </div>
+
+       <!-- GRID RESULTS -->
 
 						  <div class="dd-bulletins-grid">
 																					<div class="bulletin-card">  
@@ -4368,13 +4396,16 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+
   const cards = document.querySelectorAll(".bulletin-card");
   const citySelect = document.getElementById("filterCity");
   const langSelect = document.getElementById("filterLang");
+  const searchInput = document.getElementById("searchBulletin");
 
   const cities = new Set();
   const languages = new Set();
 
+  /* READ DATA FROM CARDS */
   cards.forEach(card => {
     const city = card.querySelector(".bulletin-city")?.innerText.trim();
     const lang = card.querySelector(".bulletin-title .lang")?.innerText.trim();
@@ -4382,36 +4413,52 @@ document.addEventListener("DOMContentLoaded", () => {
     if (city) cities.add(city);
     if (lang) languages.add(lang);
 
-    card.dataset.city = city;
-    card.dataset.lang = lang;
+    card.dataset.city = city || "";
+    card.dataset.lang = lang || "";
   });
 
-  // 🔽 SORT A → Z
+  /* POPULATE CITY FILTER (A-Z) */
   [...cities].sort((a, b) => a.localeCompare(b)).forEach(city => {
-    citySelect.insertAdjacentHTML("beforeend",
-      `<option value="${city}">${city}</option>`
-    );
+    const option = document.createElement("option");
+    option.value = city;
+    option.textContent = city;
+    citySelect.appendChild(option);
   });
 
+  /* POPULATE LANGUAGE FILTER (A-Z) */
   [...languages].sort((a, b) => a.localeCompare(b)).forEach(lang => {
-    langSelect.insertAdjacentHTML("beforeend",
-      `<option value="${lang}">${lang}</option>`
-    );
+    const option = document.createElement("option");
+    option.value = lang;
+    option.textContent = lang;
+    langSelect.appendChild(option);
   });
 
+  /* APPLY FILTER + SEARCH */
   function applyFilter() {
-    const cityVal = citySelect.value;
-    const langVal = langSelect.value;
+    const cityVal = citySelect.value.toLowerCase();
+    const langVal = langSelect.value.toLowerCase();
+    const searchVal = searchInput.value.toLowerCase();
 
     cards.forEach(card => {
-      const matchCity = !cityVal || card.dataset.city === cityVal;
-      const matchLang = !langVal || card.dataset.lang === langVal;
-      card.style.display = (matchCity && matchLang) ? "" : "none";
+      const city = card.dataset.city.toLowerCase();
+      const lang = card.dataset.lang.toLowerCase();
+      const fullText = card.innerText.toLowerCase();
+
+      const matchCity = !cityVal || city === cityVal;
+      const matchLang = !langVal || lang === langVal;
+      const matchSearch = !searchVal || fullText.includes(searchVal);
+
+      card.style.display = (matchCity && matchLang && matchSearch)
+        ? ""
+        : "none";
     });
   }
 
+  /* EVENTS */
   citySelect.addEventListener("change", applyFilter);
   langSelect.addEventListener("change", applyFilter);
+  searchInput.addEventListener("input", applyFilter);
+
 });
 </script>
 
