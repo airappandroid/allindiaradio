@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AIR Cuesheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --bg:#0b1020;
+  --card:#161d33;
+  --glass:rgba(255,255,255,.07);
+  --accent:#ff7a45;
+  --green:#4cd964;
+  --text:#ffffff;
+  --channel:#9fb2ff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:system-ui,-apple-system;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+.header{
+  padding:14px;
+  text-align:center;
+  font-weight:700;
+  background:var(--card);
+}
+
+/* FILTER BAR */
+.filters{
+  display:flex;
+  gap:8px;
+  padding:10px;
+}
+
+.filters input{
+  flex:0.8;              /* 🔽 smaller search box */
+  background:var(--card);
+  border:1px solid var(--glass);
+  color:var(--text);
+  padding:10px;
+  border-radius:10px;
+}
+
+.filters select{
+  flex:1.2;
+  background:var(--card);
+  border:1px solid var(--glass);
+  color:var(--text);
+  padding:10px;
+  border-radius:10px;
+}
+
+/* TABLE */
+.table{
+  margin:10px;
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:70px 1fr 120px; /* Time | Program | Channel */
+  padding:10px;
+  background:var(--card);
+  border-bottom:1px solid var(--glass);
+  font-size:12px;
+}
+
+.row.head{
+  background:#1d2542;
+  font-weight:700;
+  color:#c7d2fe;
+}
+
+.time{
+  color:var(--green);
+  font-weight:600;
+}
+
+.channel{
+  color:var(--channel);
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header" id="todayDate"></div>
+
+<div class="filters">
+  <input type="text" id="search" placeholder="Search time / program / channel">
+  <select id="channelFilter">
+    <option value="">All Channels</option>
+  </select>
+</div>
+
+<div class="table" id="table">
+  <div class="row head">
+    <div>Time</div>
+    <div>Program</div>
+    <div>Channel</div>
+  </div>
+</div>
+
+<script>
+// ===== DATE FORMAT =====
+const d = new Date();
+todayDate.textContent = d.toLocaleDateString("en-GB",{
+  weekday:"long",
+  day:"numeric",
+  month:"short",
+  year:"numeric"
+});
+
+// ===== DATA (EDIT HERE) =====
+const SCHEDULE = [
+  {time:"12:00 AM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
+ {time:"12:05 AM",title:"SUHANI RAAT",channel:"FM Rainbow"},
+ {time:"1:00 AM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
+ {time:"1:05 AM",title:"Western Music",channel:"FM Rainbow"},
+ {time:"2:00 AM",title:"Hindi News",channel:"FM Rainbow"},
+ {time:"2:05 AM",title:"BHULAYE NA BANE",channel:"FM Rainbow"},
+ {time:"3:05 AM",title:"WESTERN MUSIC",channel:"FM Rainbow"},
+ {time:"4:00 AM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
+ {time:"4:05 AM",title:"SA RE GA MA",channel:"FM Rainbow"},
+ {time:"5:00 AM",title:"Jago Subah Ho Gayi",channel:"Vividh Bharati"},
+ {time:"6:00 AM",title:"Hindi News",channel:"Vividh Bharati"},
+ {time:"6:05 AM",title:"SUPRABHAT",channel:"FM Rainbow"},
+ {time:"6:45 AM",title:"Sri Ram Sarit Manas",channel:"Vividh Bharati"},
+ {time:"7:00 AM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
+ {time:"7:05 AM",title:"GOOD MORNING DELHI",channel:"FM Rainbow"},
+ {time:"8:00 AM",title:"Samachar Prabhat",channel:"Vividh Bharati"},
+ {time:"8:30 AM",title:"Bharat Ki Gunj",channel:"Vividh Bharati"},
+ {time:"9:30 AM",title:"Aaj Ke Faankar",channel:"Vividh Bharati"},
+ {time:"10:00 AM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
+ {time:"10:05 AM",title:"BAAT SE BANE BAAT",channel:"FM Rainbow"},
+ {time:"11:00 AM",title:"Hindi Samachar",channel:"FM Rainbow"},
+ {time:"11:05 AM",title:"BOLLYWOOD TRAILS",channel:"FM Rainbow"},
+ {time:"12:00 PM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
+ {time:"12:05 PM",title:"DIL MEIN DILLI",channel:"FM Rainbow"},
+ {time:"1:00 PM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
+ {time:"1:05 PM",title:"MERAWALA SONG",channel:"FM Rainbow"},
+ {time:"2:00 PM",title:"AASHIYANA",channel:"FM Rainbow"},
+ {time:"3:00 PM",title:"Radio Doctor",channel:"FM Rainbow"},
+ {time:"4:00 PM",title:"Ujale Unki Yadoon Ki",channel:"Vividh Bharati"},
+ {time:"5:05 PM",title:"CITYLIGHTS",channel:"FM Rainbow"},
+ {time:"6:05 PM",title:"MESSAGE MASALA MIX",channel:"FM Rainbow"},
+ {time:"7:00 PM",title:"Jay Mala",channel:"Vividh Bharati"},
+ {time:"8:00 PM",title:"Hawa Mahal",channel:"Vividh Bharati"},
+ {time:"9:00 PM",title:"AAPKI YAAD AATI RAHI",channel:"FM Rainbow"},
+ {time:"10:00 PM",title:"Aaj Ke Faankar",channel:"Vividh Bharati"},
+ {time:"10:30 PM",title:"Dhalti Jaye Raat",channel:"Vividh Bharati"},
+ {time:"11:05 PM",title:"RANG - E - MEHFIL",channel:"FM Rainbow"}
+ 
+];
+
+// ===== ELEMENTS =====
+const table = document.getElementById("table");
+const search = document.getElementById("search");
+const channelFilter = document.getElementById("channelFilter");
+
+// ===== CHANNEL FILTER =====
+[...new Set(SCHEDULE.map(s=>s.channel))].forEach(c=>{
+  const o=document.createElement("option");
+  o.value=c; o.textContent=c;
+  channelFilter.appendChild(o);
+});
+
+// ===== RENDER =====
+function render(){
+  table.querySelectorAll(".row:not(.head)").forEach(r=>r.remove());
+
+  const q=search.value.toLowerCase();
+  const ch=channelFilter.value;
+
+  SCHEDULE.filter(s=>{
+    const text=(s.time+" "+s.title+" "+s.channel).toLowerCase();
+    return (!q || text.includes(q)) && (!ch || s.channel===ch);
+  }).forEach(s=>{
+    table.innerHTML+=`
+      <div class="row">
+        <div class="time">${s.time}</div>
+        <div>${s.title}</div>
+        <div class="channel">${s.channel}</div>
+      </div>`;
+  });
+}
+
+search.addEventListener("input",render);
+channelFilter.addEventListener("change",render);
+render();
+</script>
+
+</body>
+</html>
