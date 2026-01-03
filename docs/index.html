@@ -625,6 +625,8 @@ function closePrivacy(){
   </div>
 </div>
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+
 const todayPrograms = [
   { time: "00:00", title: "हिन्दी मे समाचार", channel: "FM Gold Delhi" },
   { time: "05:00", title: "Jago Subah Ho Gayi", channel: "Vividh Bharati" },
@@ -642,78 +644,52 @@ const todayPrograms = [
   { time: "18:05", title: "MESSAGE MASALA MIX", channel: "FM Rainbow" },
   { time: "18:30", title: "Market Mantra", channel: "FM Gold Delhi" },
   { time: "19:05", title: "कृषि जगत", channel: "AIR Indraprashtha" },
-
-  /* ➕ Newly Added 4 Rows */
   { time: "20:30", title: "SPORTS SCAN", channel: "FM Gold" },
   { time: "21:00", title: "AAPKI YAAD AATI RAHI", channel: "FM Rainbow Delhi" },
   { time: "23:05", title: "RANG - E - MEHFIL", channel: "FM Rainbow Delhi" },
   { time: "23:10", title: "गीत मेरे मनमीत", channel: "FM Gold" }
 ];
-</script>
 
-<script>
-// -------- DATE --------
+// ---------- ELEMENT CHECK ----------
+const container = document.getElementById("todaySchedule");
 const dateEl = document.getElementById("todayDate");
-const now = new Date();
-dateEl.textContent =
-  `(${now.getDate()} ${now.toLocaleString("en",{month:"short"})})`;
+if(!container) return;
 
-// -------- TIME UTILS --------
-function toMinutes(time){
-  const [h,m] = time.split(":").map(Number);
-  return h * 60 + m;
+// ---------- DATE ----------
+const now = new Date();
+if(dateEl){
+  dateEl.textContent = `(${now.getDate()} ${now.toLocaleString("en",{month:"short"})})`;
 }
 
-const currentMinutes = now.getHours()*60 + now.getMinutes();
-
-// -------- FILTER (±1 hour) --------
-const visiblePrograms = todayPrograms.filter(p => {
-  const t = toMinutes(p.time);
-  return t >= currentMinutes - 60 && t <= currentMinutes + 60;
-});
-
-// -------- RENDER --------
-const container = document.getElementById("todaySchedule");
-container.innerHTML = "";
-
-visiblePrograms.forEach(p => {
-  container.innerHTML += `
-    <div class="today-item">
-      <div class="today-time">${p.time}</div>
-      <div>
-        <span class="program">${p.title}</span> •
-        <span class="channel">${p.channel}</span>
-      </div>
-    </div>
-  `;
-});
-</script>
-<script>
-// 24h → AM/PM
+// ---------- HELPERS ----------
+function toMinutes(t){
+  const [h,m] = t.split(":").map(Number);
+  return h*60 + m;
+}
 function ampm(t){
   let [h,m] = t.split(":").map(Number);
   return (h%12||12)+":"+m.toString().padStart(2,"0")+" "+(h>=12?"PM":"AM");
 }
 
-const hour = new Date().getHours();
+const currentMin = now.getHours()*60 + now.getMinutes();
 
-// programs sorted by hour only
-const list = todayPrograms.sort((a,b)=>{
-  return parseInt(a.time) - parseInt(b.time);
-});
+// ---------- SORT ----------
+const sorted = [...todayPrograms].sort(
+  (a,b)=>toMinutes(a.time)-toMinutes(b.time)
+);
 
-// find closest hour match
-let index = list.findIndex(p => parseInt(p.time) >= hour);
+// ---------- CURRENT + NEXT 2 ----------
+let upcoming = sorted.filter(p => toMinutes(p.time) >= currentMin);
 
-// fallback
-if(index < 1) index = 1;
-if(index > list.length-2) index = list.length-2;
+// late night fallback
+if(upcoming.length < 3){
+  upcoming = [...upcoming, ...sorted].slice(0,3);
+}else{
+  upcoming = upcoming.slice(0,3);
+}
 
-// take exactly 3
-const show = list.slice(index-1, index+2);
-
-// render
-todaySchedule.innerHTML = show.map(p=>`
+// ---------- RENDER ----------
+container.innerHTML = upcoming.map(p=>`
   <div class="today-item">
     <div class="today-time">${ampm(p.time)}</div>
     <div>
@@ -722,7 +698,11 @@ todaySchedule.innerHTML = show.map(p=>`
     </div>
   </div>
 `).join("");
+
+});
 </script>
+
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
