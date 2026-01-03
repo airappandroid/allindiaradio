@@ -178,6 +178,80 @@ body{
   }
 }
 
+/* LIVE banner text – same clarity as normal banner */
+.trending-card.live .trending-text{
+  background: none;
+  padding: 0;
+}
+
+/* Heading */
+.trending-card.live .trending-text h4{
+  color: #ffffff;
+  font-weight: 800;
+  text-shadow:0 3px 8px rgba(0,0,0,.9);
+    0 2px 6px rgba(0,0,0,.85),
+    0 0 2px rgba(0,0,0,.9);
+}
+
+/* Subheading */
+.trending-card.live .trending-text p{
+  color: #ffffff;
+  font-weight: 700;
+  opacity: .95;
+  text-shadow:;
+    0 2px 6px rgba(0,0,0,.85);
+}
+
+/* LIVE BADGE */
+.trending-card.live .trending-inner::before{
+  content:"LIVE";
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size:11px;
+  font-weight:700;
+  color:#fff;
+  background:#e50914;
+  padding:4px 8px;
+  border-radius:6px;
+  letter-spacing:.5px;
+  z-index:3;
+  animation: livePulse 1.4s infinite;
+}
+
+/* Red blinking dot */
+.trending-card.live .trending-inner::after{
+  content:"";
+  position:absolute;
+  top:14px;
+  left:14px;
+  width:6px;
+  height:6px;
+  background:#ff2a2a;
+  border-radius:50%;
+  z-index:4;
+  animation: dotBlink 1.4s infinite;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.85),
+    rgba(0,0,0,.45),
+    rgba(0,0,0,.1)
+  );
+
+}
+
+@keyframes livePulse{
+  0%{ box-shadow:0 0 0 0 rgba(229,9,20,.7); }
+  70%{ box-shadow:0 0 0 10px rgba(229,9,20,0); }
+  100%{ box-shadow:0 0 0 0 rgba(229,9,20,0); }
+}
+
+@keyframes dotBlink{
+  0%,100%{ opacity:1 }
+  50%{ opacity:.3 }
+}
+
+
 /* LIVE TV BADGE */
 .live-tv{
   position:absolute;
@@ -419,6 +493,7 @@ a, button {
          data-title="Women Premier League"
          data-sub="Starts 9 January · 7:30 PM">
       </a>
+      
 
       <!-- BANNER 2 -->
       <a href="go:MANN" class="trending-card"
