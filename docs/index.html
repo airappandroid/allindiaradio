@@ -411,9 +411,64 @@ font-size:12px;
   font-weight:700;
   animation:blink 1.2s infinite;
 }
+.sub-section {
+  margin-top: 14px;
+}
+
+.sub-section h4 {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.match-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.match-item {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match-item small {
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.highlight-card {
+  min-width: 160px;
+  background: linear-gradient(135deg, #ff8a3d, #ff6a00);
+  color: #000;
+  font-weight: 600;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+/* 📉 Match list font size reduce */
+.match-item{
+  font-size:12px;
+}
+
+.match-item small{
+  font-size:11px;
+}
+
+
 .trending-card .live-tv{
   color:#ffffff;
   }
+
 /* PRIVACY POPUP */
 .privacy-overlay{
   position:fixed;
@@ -578,17 +633,68 @@ a, button {
 
 <!-- 🏏 CRICKET HUB -->
 <section class="section">
-  <div class="section-head"><h3>🏏 Cricket Hub</h3></div>
+  <div class="section-head">
+    <h3>🏏 Cricket Hub</h3>
+  </div>
+
+  <!-- Existing Cards -->
   <div class="row">
     <a href="go:COMM" class="card cricket-card">
-    
-    🎧 Commentary<br><small>on Match Day</small>
+      
+      🎧 Commentary<br><small>on Match Day</small>
     </a>
     <a href="go:SCORE" class="card cricket-card">
       📊 Live Score<br><small>Match Updates</small>
     </a>
   </div>
+
+  <!-- 🗓️ Upcoming Matches -->
+  <div class="sub-section">
+    <h4>🗓️ Upcoming Matches</h4>
+
+    <div class="match-item">
+  <span>MI-W vs RCB-W (WPL)</span>
+  <small>9 Jan • 7:30 PM</small>
+</div>
+
+
+     <div class="match-item">
+  <span>GG-W vs UPW-W (WPL)</span>
+  <small>10 Jan • 3:30 PM</small>
+</div>
+
+
+      <div class="match-item">
+  <span>IND vs NZ (1st ODI)</span>
+  <small>11 Jan • 1:30 PM</small>
+</div>
+
+    </div>
+  </div>
+
+  <!-- 🔊 Match Highlights -->
+  <div class="sub-section">
+    <h4>🔊 Match Highlights</h4>
+
+    <div class="row horizontal-scroll">
+      <a href="go:HL1" class="card highlight-card">
+        🎙️ IND vs AUS<br>
+        <small>Final Over Drama</small>
+      </a>
+
+      <a href="go:HL2" class="card highlight-card">
+        🎙️ PAK vs NZ<br>
+        <small>Last Wicket Thriller</small>
+      </a>
+
+      <a href="go:HL3" class="card highlight-card">
+        🎙️ ENG vs SA<br>
+        <small>Super Over Finish</small>
+      </a>
+    </div>
+  </div>
 </section>
+
 
 <!-- 📺 LIVE TV -->
 <section class="section">
