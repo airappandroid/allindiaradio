@@ -477,6 +477,22 @@ font-size:12px;
 .match-item{
   border-radius:16px;
 }
+/* 🎯 Make Highlight cards same as Cricket Hub buttons */
+.highlight-card{
+  background:linear-gradient(135deg,#ff7a45,#ff9f68);
+  color:#111;
+  font-weight:600;
+  border-radius:18px;
+  padding:14px 16px;      /* same feel as commentary/live score */
+  min-width:unset;        /* fixed width हटे */
+  flex:1;                 /* 2 cards equal width */
+  text-align:left;
+}
+
+/* 🔊 Icon spacing */
+.highlight-card::before{
+  margin-right:6px;
+}
 
 
 .trending-card .live-tv{
@@ -692,8 +708,8 @@ a, button {
 
     <div class="row horizontal-scroll">
       <a href="go:HL1" class="card highlight-card">
-        🎙️ IND vs AUS<br>
-        <small>Final Over Drama</small>
+        🎙️ IND vs SA<br>
+        <small>19 Dec 2025</small>
       </a>
 
       <a href="go:HL2" class="card highlight-card">
