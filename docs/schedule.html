@@ -10,7 +10,6 @@
   --bg:#0b1020;
   --card:#161d33;
   --glass:rgba(255,255,255,.07);
-  --accent:#ff7a45;
   --green:#4cd964;
   --text:#ffffff;
   --channel:#9fb2ff;
@@ -33,6 +32,19 @@ body{
   background:var(--card);
 }
 
+/* FILTER */
+.filters{
+  padding:10px;
+}
+
+.filters select{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--glass);
+  color:var(--text);
+  padding:10px;
+  border-radius:10px;
+}
 
 /* TABLE */
 .table{
@@ -43,7 +55,7 @@ body{
 
 .row{
   display:grid;
-  grid-template-columns:60px 1fr 120px; /* Time | Program | Channel */
+  grid-template-columns:70px 1fr 120px;
   padding:10px;
   background:var(--card);
   border-bottom:1px solid var(--glass);
@@ -72,7 +84,12 @@ body{
 
 <div class="header" id="todayDate"></div>
 
-
+<!-- ONLY FILTER BOX -->
+<div class="filters">
+  <select id="channelFilter">
+    <option value="">All Channels</option>
+  </select>
+</div>
 
 <div class="table" id="table">
   <div class="row head">
@@ -82,8 +99,10 @@ body{
   </div>
 </div>
 
+
+
 <script>
-// ===== DATE =====
+// DATE
 const d = new Date();
 todayDate.textContent = d.toLocaleDateString("en-GB",{
   weekday:"long",
@@ -136,21 +155,140 @@ todayDate.textContent = d.toLocaleDateString("en-GB",{
   {time:"10:00 PM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
   {time:"10:05 PM",title:"WESTERN MUSIC (Rainbow Showcase)",channel:"FM Rainbow"},
   {time:"11:00 PM",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
-  {time:"11:05 PM",title:"RANG - E - MEHFIL",channel:"FM Rainbow"}
+  {time:"11:05 PM",title:"RANG - E - MEHFIL",channel:"FM Rainbow"},
+  
+  
+  {time:"12:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"12:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"12:10 AM",title:"NISHIGANDHA - SUPERHIT EVERGREENS FILM SONGS SUITABLE FOR THE NIGHT",channel:"FM Gold"},
+
+  {time:"1:00 AM",title:"NEWS BULLETIN HINDI",channel:"FM Gold"},
+  {time:"1:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"1:10 AM",title:"GEET SUHANE - OLD CLASSICS",channel:"FM Gold"},
+
+  {time:"2:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"2:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"2:10 AM",title:"RAAT SURMAYI - VARIETY OF SONGS",channel:"FM Gold"},
+
+  {time:"3:00 AM",title:"NEWS BULLETIN HINDI",channel:"FM Gold"},
+  {time:"3:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"3:10 AM",title:"MADHUR RAAG - MELODY BASED SONGS",channel:"FM Gold"},
+
+  {time:"4:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"4:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"4:10 AM",title:"SUR SANGAM - CLASSICAL BASED SONGS",channel:"FM Gold"},
+
+  {time:"5:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"5:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"5:10 AM",title:"SUHANI SUBAH - DEVOTIONAL & MELODY",channel:"FM Gold"},
+
+  {time:"6:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"6:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"6:10 AM",title:"PRABHAT TARANG - MORNING SHOW",channel:"FM Gold"},
+
+  {time:"7:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"7:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"7:10 AM",title:"SANGEET SARITA - MELODY & HITS",channel:"FM Gold"},
+
+  {time:"8:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"8:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"8:10 AM",title:"SUR AUR SAZ - MUSIC MAGAZINE",channel:"FM Gold"},
+
+  {time:"9:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"9:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"9:10 AM",title:"MEHFIL - FILM & NON FILM SONGS",channel:"FM Gold"},
+
+  {time:"10:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"10:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"10:10 AM",title:"MAN KI BAAT - TALK & MUSIC",channel:"FM Gold"},
+
+  {time:"11:00 AM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"11:05 AM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"11:10 AM",title:"GEETON KI BARAAT - POPULAR SONGS",channel:"FM Gold"},
+
+  {time:"12:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"12:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"12:10 PM",title:"MADHUR DHUN - NONSTOP MELODY",channel:"FM Gold"},
+
+  {time:"1:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"1:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"1:10 PM",title:"RAAG RANG - CLASSICAL & LIGHT",channel:"FM Gold"},
+
+  {time:"2:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"2:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"2:10 PM",title:"SANGEET SAGAR - EVERGREEN HITS",channel:"FM Gold"},
+
+  {time:"3:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"3:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"3:10 PM",title:"SHAM AUR SANGEET - EVENING SHOW",channel:"FM Gold"},
+
+  {time:"4:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"4:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"4:10 PM",title:"RANG TARANG - FILM SONGS",channel:"FM Gold"},
+
+  {time:"5:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"5:05 PM",title:"CITYLIGHTS",channel:"FM Gold"},
+
+  {time:"6:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"6:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"6:10 PM",title:"MEHFIL-E-SANGEET",channel:"FM Gold"},
+
+  {time:"7:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"7:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"7:10 PM",title:"SANGEET SANDHYA - PRIME TIME",channel:"FM Gold"},
+
+  {time:"8:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"8:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"8:10 PM",title:"SURO KI MEHFIL - CLASSICS",channel:"FM Gold"},
+
+  {time:"9:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"9:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"9:10 PM",title:"NIGHT MELODY - ROMANTIC SONGS",channel:"FM Gold"},
+
+  {time:"10:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"10:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"10:10 PM",title:"SUHANI RAAT - OLD EVERGREENS",channel:"FM Gold"},
+
+  {time:"11:00 PM",title:"NEWS IN HINDI",channel:"FM Gold"},
+  {time:"11:05 PM",title:"NEWS IN ENGLISH",channel:"FM Gold"},
+  {time:"11:10 PM",title:"GEET MERE MANMEET - NONSTOP EVERGREEN OLD FILM HITS",channel:"FM Gold"}
+
+
 ];
 
 
-// ===== RENDER =====
+// ELEMENTS
 const table = document.getElementById("table");
+const channelFilter = document.getElementById("channelFilter");
 
-SCHEDULE.forEach(s=>{
-  table.innerHTML += `
-    <div class="row">
-      <div class="time">${s.time}</div>
-      <div>${s.title}</div>
-      <div class="channel">${s.channel}</div>
-    </div>`;
+// FILL FILTER
+[...new Set(SCHEDULE.map(s=>s.channel))].forEach(c=>{
+  const o = document.createElement("option");
+  o.value = c;
+  o.textContent = c;
+  channelFilter.appendChild(o);
 });
+
+// RENDER
+function render(){
+  table.querySelectorAll(".row:not(.head)").forEach(r=>r.remove());
+
+  const ch = channelFilter.value;
+
+  SCHEDULE
+    .filter(s => !ch || s.channel === ch)
+    .forEach(s=>{
+      table.innerHTML += `
+        <div class="row">
+          <div class="time">${s.time}</div>
+          <div>${s.title}</div>
+          <div class="channel">${s.channel}</div>
+        </div>`;
+    });
+}
+
+channelFilter.addEventListener("change", render);
+render();
 </script>
 
 </body>
