@@ -256,7 +256,27 @@ body{
 }
 
 
-/* LIVE TV BADGE */
+/* LIVE TV CARD */
+.live-card{
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CHANNEL LOGO */
+.tv-logo{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* logo safe, no distortion */
+  border-radius: 14px;
+  z-index: 1;
+}
+
+/* LIVE BADGE */
 .live-tv{
   position:absolute;
   top:8px;
@@ -267,10 +287,13 @@ body{
   padding:4px 10px;
   border-radius:999px;
   background:#c40000;
+  color:#fff;
   font-size:11px;
   font-weight:700;
-  z-index:2;
+  z-index:5; /* logo se upar */
 }
+
+/* BLINK DOT */
 .live-tv::before{
   content:"";
   width:6px;
@@ -279,6 +302,7 @@ body{
   border-radius:50%;
   animation:blink 1s infinite;
 }
+
 @keyframes blink{
   0%{opacity:1}
   50%{opacity:.3}
@@ -729,14 +753,37 @@ a, button {
     <h3>📺 Live TV</h3>
     <a href="go:LIVEN" class="view-all">View All</a>
   </div>
+
   <div class="row">
-    <a href="go:AAJ" class="card"><span class="live-tv">LIVE</span>Aaj Tak</a>
-    <a href="go:NEWS18" class="card"><span class="live-tv">LIVE</span>News18</a>
-    <a href="go:TV9" class="card"><span class="live-tv">LIVE</span>TV9 Bharat</a>
-    <a href="go:TIMES" class="card"><span class="live-tv">LIVE</span>Times Now</a>
-    <a href="go:INDIATO" class="card"><span class="live-tv">LIVE</span>India Today</a>
+
+    <a href="go:AAJ" class="card live-card">
+      <span class="live-tv">LIVE</span>
+      <img src="https://res.cloudinary.com/dzczl0fzu/image/upload/v1767633079/images_wxxyyq.jpg" class="tv-logo">
+    </a>
+
+    <a href="go:NEWS18" class="card live-card">
+      <span class="live-tv">LIVE</span>
+      <img src="https://res.cloudinary.com/dzczl0fzu/image/upload/v1767635929/News_18_India_gjfwvv.png" class="tv-logo">
+    </a>
+
+    <a href="go:TV9" class="card live-card">
+      <span class="live-tv">LIVE</span>
+      <img src="https://res.cloudinary.com/dzczl0fzu/image/upload/v1767636036/images_guncli.jpg" class="tv-logo">
+    </a>
+
+    <a href="go:TIMES" class="card live-card">
+      <span class="live-tv">LIVE</span>
+      <img src="https://res.cloudinary.com/dzczl0fzu/image/upload/v1767636134/images_1_djzd8e.jpg" class="tv-logo">
+    </a>
+
+    <a href="go:INDIATO" class="card live-card">
+      <span class="live-tv">LIVE</span>
+      <img src="https://res.cloudinary.com/dzczl0fzu/image/upload/v1767636179/unnamed_wlyhkv.png" class="tv-logo">
+    </a>
+
   </div>
 </section>
+
 
 <!-- 🎧 PODCASTS -->
 <section class="section">
@@ -792,7 +839,7 @@ const todayPrograms = [
   {time:"02:00",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
   {time:"02:05",title:"BHULAYE NA BANE",channel:"FM Rainbow"},
   {time:"03:00",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
-  {time:"03:05",title:"WESTERN MUSIC (Wake Up With Music)",channel:"FM Rainbow"},
+  {time:"03:05",title:"WESTERN MUSIC",channel:"FM Rainbow"},
   {time:"04:00",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
   {time:"04:05",title:"SA RE GA MA",channel:"FM Rainbow"},
   {time:"05:00",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
@@ -802,7 +849,7 @@ const todayPrograms = [
   {time:"07:00",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
   {time:"07:05",title:"GOOD MORNING DELHI / NCR",channel:"FM Rainbow"},
   {time:"08:00",title:"GOOD MORNING DELHI / NCR",channel:"FM Rainbow"},
-  {time:"09:00",title:"DIL KE TARANE GAANE NAYE PURANE",channel:"FM Rainbow"},
+  {time:"09:00",title:"DIL KE TARANE",channel:"FM Rainbow"},
   {time:"10:00",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
   {time:"10:05",title:"BAAT SE BANE BAAT",channel:"FM Rainbow"},
   {time:"11:00",title:"हिन्दी मे समाचार",channel:"FM Rainbow"},
@@ -889,13 +936,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const track = document.getElementById("trendTrack");
   const wrapper = document.querySelector(".trending-wrapper");
+  if (!track || !wrapper) return;
 
-  if(!track) return;
-
-  /* ---------- BUILD CARD CONTENT ---------- */
-  const originalCards = [...track.children];
-
-  originalCards.forEach(card => {
+  /* ---------- BUILD CARD CONTENT (NO DUPLICATE) ---------- */
+  [...track.children].forEach(card => {
     const img = card.dataset.img;
     const title = card.dataset.title;
     const sub = card.dataset.sub;
@@ -910,48 +954,36 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   });
 
-  /* ---------- AUTO DUPLICATE FOR LOOP ---------- */
-  originalCards.forEach(card => {
-    track.appendChild(card.cloneNode(true));
-  });
-
-  /* ---------- AUTO SLIDER ---------- */
+  /* ---------- AUTO SCROLL (LIGHT) ---------- */
   let index = 0;
-  let isInteracting = false;
+  let isHold = false;
 
   const CARD_WIDTH = 270 + 14;
-  const ORIGINAL_COUNT = originalCards.length;
+  const TOTAL = track.children.length;
 
-  function slideNext(){
-    if(isInteracting) return;
+  function nextSlide() {
+    if (isHold) return;
 
     index++;
-    track.style.transition =
-      "transform .85s cubic-bezier(.4,0,.2,1)";
-    track.style.transform =
-      `translateX(-${index * CARD_WIDTH}px)`;
+    if (index >= TOTAL) index = 0;
 
-    if(index === ORIGINAL_COUNT){
-      setTimeout(()=>{
-        track.style.transition = "none";
-        track.style.transform = "translateX(0)";
-        index = 0;
-      }, 900);
-    }
+    track.style.transition = "transform .6s ease";
+    track.style.transform = `translateX(-${index * CARD_WIDTH}px)`;
   }
 
-  setInterval(slideNext, 3000);
+  setInterval(nextSlide, 3200);
 
-  /* ---------- PAUSE ON USER INTERACTION ---------- */
-  ["touchstart","mousedown"].forEach(e=>{
-    wrapper.addEventListener(e, ()=> isInteracting = true);
-  });
-  ["touchend","mouseup","mouseleave"].forEach(e=>{
-    wrapper.addEventListener(e, ()=> isInteracting = false);
-  });
+  /* ---------- USER INTERACTION PAUSE ---------- */
+  ["touchstart","mousedown"].forEach(e =>
+    wrapper.addEventListener(e, () => isHold = true)
+  );
+  ["touchend","mouseup","mouseleave"].forEach(e =>
+    wrapper.addEventListener(e, () => isHold = false)
+  );
 
 });
 </script>
+
 
 
 </body>
