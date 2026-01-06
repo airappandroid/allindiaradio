@@ -373,7 +373,20 @@ body{
   font-weight:700;
   cursor:pointer;
 }
+.policy-link a{
+  color:#ff7a45;          /* 🔥 आपका accent color */
+  text-decoration:none;
+  font-weight:600;
+}
 
+.policy-link a:active,
+.policy-link a:visited{
+  color:#ff7a45;          /* blue/ purple नहीं होगा */
+}
+.policy-link{
+  text-align:center;   /* 🔥 center restore */
+  margin:12px 0;
+}
 /* TAP FIX */
 a,button{
   -webkit-tap-highlight-color:transparent;
