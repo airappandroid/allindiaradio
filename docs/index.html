@@ -380,6 +380,32 @@ a,button{
   outline:none;
 }
 
+.live-card {
+  position: relative;
+}
+
+/* LIVE badge for cricket & other */
+.live-badge {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #ff2d2d;
+  color: #fff;
+  letter-spacing: 0.5px;
+  animation: liveBlink 1.2s infinite;
+}
+
+/* Blink animation */
+@keyframes liveBlink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
 
 </style>
 </head>
@@ -465,7 +491,7 @@ a,button{
   <!-- Existing Cards -->
   <div class="row">
     <a href="go:COMM" class="card cricket-card">
-      
+    
       🎧 Commentary<br><small>on Match Day</small>
     </a>
     <a href="go:SCORE" class="card cricket-card">
