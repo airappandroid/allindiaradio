@@ -79,6 +79,7 @@ body{
   color:#ffffff;
   background:rgba(255,255,255,.08);
 }
+.icon-btn:active{transform:scale(.92)}
 
 /* DIVIDER */
 .header-divider{
@@ -101,28 +102,53 @@ body{
   text-decoration:none;
 }
 
+/* ROW */
+.row{
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+}
+.row::-webkit-scrollbar{display:none}
+
+/* CARD */
+.card{
+  min-width:150px;
+  padding:16px 18px;
+  border-radius:18px;
+  background:linear-gradient(180deg,var(--glass),transparent),var(--card);
+  text-decoration:none;
+  color:#fff;
+  font-size:14px;
+  position:relative;
+}
+
+/* LIVE DOT */
+.live-dot{
+  position:absolute;
+  top:8px;
+  right:8px;
+  font-size:14px;
+  animation:blink 1.2s infinite;
+}
 
 /* LIVE TV CARD */
 .live-card{
-  position: relative;
-  padding: 0;
-  overflow: hidden;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position:relative;
+  padding:0;
+  overflow:hidden;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* CHANNEL LOGO */
 .tv-logo{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;   /* logo safe, no distortion */
-  border-radius: 14px;
-  z-index: 1;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:14px;
 }
 
-/* LIVE BADGE */
 .live-tv{
   position:absolute;
   top:8px;
@@ -136,10 +162,8 @@ body{
   color:#fff;
   font-size:11px;
   font-weight:700;
-  z-index:5; /* logo se upar */
+  z-index:5;
 }
-
-/* BLINK DOT */
 .live-tv::before{
   content:"";
   width:6px;
@@ -149,6 +173,7 @@ body{
   animation:blink 1s infinite;
 }
 
+/* ANIMATION */
 @keyframes blink{
   0%{opacity:1}
   50%{opacity:.3}
@@ -173,38 +198,16 @@ body{
   text-align:center;
 }
 
-/* ================= TODAY ON AIR ================= */
+/* TODAY ON AIR */
 .today-air{
   background:linear-gradient(135deg,#18214a,#141a33);
   border-radius:16px;
   padding:10px 14px;
   font-size:11px;
 }
-.today-item{
-  display:flex;
-  gap:6px;
-  font-size:11px;
-  padding:6px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-.today-item:last-child{border-bottom:none}
-.today-time{
-  min-width:52px;
-  font-size:11px;
-  font-weight:600;
-  color:var(--green);
-}
-.program{color:#fff
- font-weight:600;
-font-size:12px;
-}
-.channel{
-  font-size:11px;     /* 👈 size छोटा */
-  color:var(--channel);
-  opacity:0.85;  
-}
+
 .today-heading{
-  font-size:15px;        /* 🔥 heading readable */
+  font-size:15px;
   font-weight:600;
   margin-bottom:8px;
   padding-bottom:6px;
@@ -217,221 +220,93 @@ font-size:12px;
   opacity:.7;
   margin-left:4px;
 }
-.view-full-wrap{
-  text-align:right;
-  margin-top:6px;
+
+.today-item{
+  display:flex;
+  gap:6px;
+  padding:6px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.today-item:last-child{border-bottom:none}
+
+.today-time{
+  min-width:52px;
+  font-weight:600;
+  font-size:11px;
+  color:var(--green);
 }
 
+.program{
+  font-weight:500;
+  font-size:12px;
+}
+
+.channel{
+  font-size:11px;
+  color:var(--channel);
+  opacity:.85;
+}
+
+.view-full-wrap{text-align:right;margin-top:6px}
 .view-full-btn{
   font-size:13px;
   color:#FF6A00;
   text-decoration:none;
-  font-weight:500;
 }
 
-.view-full-btn:hover{
-  text-decoration:underline;
-}
-
-/* ROW */
-.row{
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-}
-.row::-webkit-scrollbar{display:none}
-
-/* CARD */
-.card{
-  min-width:150px;
-  padding:16px 18px;
-  border-radius:18px;
-  background:linear-gradient(180deg,var(--glass),transparent),var(--card);
-  text-decoration:none;
-  color:#fff;
-  font-size:14px;
-  position:relative;
-}
-
-/* 🟢 RADIO LIVE */
-.live-dot{
-  position:absolute;
-  top:8px;
-  right:8px;
-  font-size:14px;
-  animation:blink 1.2s infinite;
-}
-
-/* 🟠 CRICKET HUB */
+/* CRICKET */
 .cricket-card{
   background:linear-gradient(135deg,#ff7a45,#ff9f68);
   color:#111;
   font-weight:600;
 }
 .cricket-card small{color:#2b2b2b}
-.cricket-live{
-  position:absolute;
-  top:8px;
-  right:8px;
-  padding:3px 8px;
-  border-radius:999px;
-  background:#111;
-  color:#ff4d4d;
-  font-size:11px;
-  font-weight:700;
-  animation:blink 1.2s infinite;
-}
-.sub-section {
-  margin-top: 14px;
+
+/* SUB SECTION */
+.sub-section{margin-top:14px}
+.sub-section h4{
+  font-size:14px;
+  opacity:.9;
+  margin-bottom:8px;
 }
 
-.sub-section h4 {
-  font-size: 14px;
-  opacity: 0.9;
-  margin-bottom: 8px;
+/* MATCH LIST – CLEAN MERGED */
+.match-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
-.match-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.match-item {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  padding: 10px 12px;
-  border-radius: 12px;
-  text-decoration: none;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.match-item small {
-  opacity: 0.7;
-  font-size: 12px;
-}
-
-.highlight-card {
-  min-width: 160px;
-  background: linear-gradient(135deg, #ff8a3d, #ff6a00);
-  color: #000;
-  font-weight: 600;
-}
-
-.horizontal-scroll {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-}
-/* 📉 Match list font size reduce */
 .match-item{
+  background:linear-gradient(135deg,#1e293b,#0f172a);
+  padding:12px 14px;
+  border-radius:16px;
+  text-decoration:none;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   font-size:12px;
+  margin-bottom:2px;
 }
 
 .match-item small{
   font-size:11px;
-}
-/* 🗓️ Upcoming Matches spacing fix */
-.match-list{
-  gap:12px;   /* पहले 8px था */
+  opacity:.7;
 }
 
-.match-item{
-  padding:12px 14px;   /* अंदर का space बढ़ेगा */
-}
-.match-item{
-  margin-bottom:2px;
-}
-.match-item{
-  border-radius:16px;
-}
-/* 🎯 Make Highlight cards same as Cricket Hub buttons */
+/* HIGHLIGHT CARD – CLEAN MERGED */
 .highlight-card{
   background:linear-gradient(135deg,#ff7a45,#ff9f68);
   color:#111;
   font-weight:600;
   border-radius:18px;
-  padding:14px 16px;      /* same feel as commentary/live score */
-  min-width:unset;        /* fixed width हटे */
-  flex:1;                 /* 2 cards equal width */
+  padding:14px 16px;
+  flex:1;
   text-align:left;
 }
 
-/* 🔊 Icon spacing */
-.highlight-card::before{
-  margin-right:6px;
-}
-
-
-.trending-card .live-tv{
-  color:#ffffff;
-  }
-
-/* PRIVACY POPUP */
-.privacy-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-
-.privacy-popup{
-  width:88%;
-  max-width:360px;
-  background:#12182b;
-  border-radius:18px;
-  padding:18px;
-  color:#fff;
-  box-shadow:0 20px 50px rgba(0,0,0,.6);
-}
-
-.privacy-popup h3{
-  margin-top:0;
-  font-size:16px;
-}
-
-.privacy-popup p{
-  font-size:13px;
-  line-height:1.5;
-  opacity:.9;
-}
-
-.policy-link{
-  margin:12px 0;
-  text-align:center;
-}
-
-.policy-link a{
-  color:#ff7a45;
-  text-decoration:none;
-  font-weight:600;
-}
-
-.close-btn{
-  width:100%;
-  padding:10px;
-  border-radius:12px;
-  border:none;
-  background:#ff7a45;
-  color:#111;
-  font-weight:700;
-  cursor:pointer;
-}
-.icon-btn:active{
-  transform:scale(0.92);
-}
-/* REMOVE DEFAULT TAP HIGHLIGHT */
-a, button {
-  -webkit-tap-highlight-color: transparent;
-  outline: none;
-}
-
-/* 🔴 BREAKING NEWS STRIP */
+/* BREAKING NEWS */
 .breaking-strip{
   display:flex;
   align-items:flex-start;
@@ -461,7 +336,44 @@ a, button {
   -webkit-box-orient:vertical;
   overflow:hidden;
   font-weight:500;
-  min-height:2.7em;      
+  min-height:2.7em;
+}
+
+/* PRIVACY */
+.privacy-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.privacy-popup{
+  width:88%;
+  max-width:360px;
+  background:#12182b;
+  border-radius:18px;
+  padding:18px;
+  color:#fff;
+}
+
+.close-btn{
+  width:100%;
+  padding:10px;
+  border-radius:12px;
+  border:none;
+  background:#ff7a45;
+  color:#111;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* TAP FIX */
+a,button{
+  -webkit-tap-highlight-color:transparent;
+  outline:none;
 }
 
 
@@ -496,9 +408,8 @@ a, button {
 
 
 
-
-
-  <div class="quick-buttons">
+<section class="section">
+<div class="quick-buttons">
     <a href="go:AIR" class="quick-btn">📻 AIR</a>
     <a href="go:AIRNEWS" class="quick-btn">📰 News</a>
     <a href="go:HINDIR" class="quick-btn">🇮🇳 Hindi</a>
