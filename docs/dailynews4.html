@@ -3,43 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>आज का मौसम अलर्ट</title>
+<title>भारत दुनिया का सबसे बड़ा चावल उत्पादक देश</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background: #0f172a;
-  color: #ffffff;
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,sans-serif;
+  background:#0b1220;
+  color:#ffffff;
 }
-.container {
-  padding: 16px;
+.container{
+  padding:16px;
 }
-.card {
-  background: #1e293b;
-  border-radius: 14px;
-  padding: 16px;
-  margin-bottom: 14px;
+.header-card{
+  background:linear-gradient(135deg,#16a34a,#065f46);
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:14px;
 }
-h1 {
-  font-size: 20px;
-  margin: 0 0 8px;
+.header-card h1{
+  font-size:20px;
+  margin:0 0 6px;
 }
-h2 {
-  font-size: 16px;
-  margin: 12px 0 6px;
-  color: #facc15;
+.header-card p{
+  font-size:14px;
+  opacity:.9;
+  margin:0;
 }
-p {
-  font-size: 14px;
-  line-height: 1.6;
-  margin: 6px 0;
+.card{
+  background:#111827;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:14px;
 }
-footer {
-  text-align: center;
-  font-size: 12px;
-  opacity: 0.7;
-  margin-top: 12px;
+.card h2{
+  font-size:16px;
+  margin:0 0 8px;
+  color:#22c55e;
+}
+.card p{
+  font-size:14px;
+  line-height:1.6;
+  margin:0;
+}
+.highlight{
+  color:#facc15;
+  font-weight:600;
+}
+.audio-card{
+  background:#15803d;
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:14px;
+}
+.audio-card h2{
+  font-size:16px;
+  margin:0 0 8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+audio{
+  width:100%;
+}
+footer{
+  text-align:center;
+  font-size:12px;
+  opacity:.6;
+  margin-top:16px;
 }
 </style>
 </head>
@@ -48,46 +79,65 @@ footer {
 
 <div class="container">
 
+  <!-- Header -->
+  <div class="header-card">
+    <h1>भारत दुनिया का सबसे बड़ा चावल उत्पादक देश बन गया</h1>
+    <p>Agriculture Update | कृषि क्षेत्र में ऐतिहासिक उपलब्धि</p>
+  </div>
+
+  <!-- Intro -->
   <div class="card">
-    <h1>🌦️ आज का मौसम अलर्ट — 6 जनवरी 2026</h1>
+    <h2>🌾 ताज़ा जानकारी</h2>
     <p>
-      देश के कई हिस्सों में भारी ठंड, घना कोहरा और शीतलहर का प्रभाव जारी है।  
-      मौसम विभाग (IMD) ने विशेष रूप से उत्तर-पश्चिम, मध्य और पूर्वी भारत में  
-      सुबह के समय <strong>घने से बहुत घने कोहरे</strong> की चेतावनी जारी की है, जिससे  
-      यात्रा तथा सड़क और रेल सेवाओं पर असर पड़ सकता है। 
+      भारत ने चीन को पीछे छोड़ते हुए **चावल उत्पादन में दुनिया की शीर्ष स्थिति** हासिल कर  
+      दी है। 2025-26 के अनुमान के अनुसार भारत का चावल उत्पादन लगभग <span class="highlight">150.18 मिलियन टन</span> तक  
+      पहुंच गया है, जबकि चीन का उत्पादन लगभग 145.28 मिलियन टन रहा।  
+      केंद्रीय कृषि मंत्री ने इसे कृषि क्षेत्र की बड़ी कामयाबी बताया है। 
     </p>
   </div>
 
+  <!-- Audio Section -->
+  <div class="audio-card">
+    <h2>🎧 Audio सुने</h2>
+    <audio controls preload="none">
+      <source src="https://github.com/airappandroid/mp3-files/raw/refs/heads/main/China.mp3" type="audio/mpeg">
+      आपका ब्राउज़र ऑडियो सपोर्ट नहीं करता।
+    </audio>
+  </div>
+
+  <!-- Production Details -->
   <div class="card">
-    <h2>❄️ शीतलहर और कोहरे का डबल प्रभाव</h2>
+    <h2>📊 उत्पादन के आंकड़े</h2>
     <p>
-      IMD के अनुसार, उत्तर भारत के कई राज्यों जैसे दिल्ली-NCR, पंजाब, हरियाणा,  
-      उत्तर प्रदेश, बिहार, मध्य प्रदेश और राजस्थान में शीतलहर और घना कोहरा  
-      आज भी जारी रहने का अनुमान है। इसका असर यात्रियों और आम जनजीवन पर पढ़ रहा  
-      है। 
+      भारत की यह उपलब्धि 150.18 मिलियन टन उत्पादन के साथ हासिल हुई है, वहीं  
+      चीन का उत्पादन लगभग 145.28 मिलियन टन रहा। इस नई उपलब्धि के साथ भारत  
+      वैश्विक चावल उत्पादन में पहले स्थान पर पहुंच गया है। 
     </p>
   </div>
 
+  <!-- Reasons & Innovation -->
   <div class="card">
-    <h2>🌧️ बारिश और हिमपात की संभावना</h2>
+    <h2>🌱 कारण और कृषि नवाचार</h2>
     <p>
-      पहाड़ी क्षेत्रों जैसे जम्मू-कश्मीर, हिमाचल प्रदेश और उत्तराखंड के ऊँचे हिस्सों  
-      में आज बारिश और बर्फबारी की भी संभावना है। साथ ही दक्षिण भारत के कुछ  
-      हिस्सों में हल्की बारिश की चेतावनी है।
+      इस सफलता के पीछे *उन्नत उच्च-उपज देने वाली बीज किस्में*, बेहतर कृषि तकनीक  
+      और सिंचाई सुविधाएँ अहम भूमिका निभा रही हैं। केंद्रीय मंत्री ने 25 फसलों  
+      की 184 नई उन्नत किस्में लॉन्च कीं, ताकि उत्पादन और किसान आय दोनों बढ़े।
     </p>
   </div>
 
+  <!-- Global Implications -->
   <div class="card">
-    <h2>📌 उत्तर भारत का तापमान</h2>
+    <h2>🌍 वैश्विक खाद्य आपूर्ति में भूमिका</h2>
     <p>
-      दिल्ली-NCR में न्यूनतम तापमान लगभग 7–8°C के आसपास रहने का अनुमान है,  
-      जबकि मध्य प्रदेश और राजस्थान में भी दिन में धूप रहने के बावजूद ठंड का  
-      असर जारी रहेगा। 
+      इस उपलब्धि से भारत न केवल घरेलू मांग पूरी कर रहा है, बल्कि विदेशी  
+      बाजारों में भी चावल निर्यात करके वैश्विक खाद्य सुरक्षा में महत्वपूर्ण  
+      योगदान दे रहा है। भारत पहले से ही दुनिया के बड़े चावल निर्यातक देशों में  
+      शामिल है।
     </p>
   </div>
 
   <footer>
-    © All India Radio 
+    स्रोत:  समाचार एजेंसियाँ |
   </footer>
 
 </div>
