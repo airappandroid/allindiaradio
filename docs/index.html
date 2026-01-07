@@ -419,6 +419,27 @@ a,button{
   100% { opacity: 1; }
 }
 
+.podcast-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.podcast-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.podcast-time {
+  font-size: 12px;
+  margin-top: 4px;
+  color: #94a3b8;
+}
+.podcast-time.fresh {
+  color: #22c55e;
+}
+
 
 </style>
 </head>
@@ -601,9 +622,17 @@ a,button{
     <h3>🎧 Podcasts</h3>
     <a href="go:S700" class="view-all">View All</a>
   </div>
+  
   <div class="row">
-    <a href="go:DNEWS" class="card">Daily News</a>
-    <a href="go:BBCD" class="card">BBC Dinbhar</a>
+    <a href="go:DNEWS" class="card podcast-card">
+  <div class="podcast-title">Daily News</div>
+  <div class="podcast-time fresh">🕒 Updated: 7 Jan</div>
+</a>
+
+    <a href="go:BBCD" class="card podcast-card">
+  <div class="podcast-title">BBC Dinbhar</div>
+  <div class="podcast-time fresh">🕒 Updated: 6 Jan</div>
+</a>
     
     <a href="go:S703" class="card">Hawa Mahal</a>
     <a href="go:S704" class="card">Chayageet</a>
