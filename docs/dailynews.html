@@ -69,6 +69,29 @@
     opacity: 0.7;
     margin-top: 20px;
   }
+  .audio-card {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.audio-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+audio {
+  width: 100%;
+  outline: none;
+  border-radius: 10px;
+}
+
 </style>
 </head>
 
@@ -89,6 +112,16 @@
       उम्मीदवारों को <span class="highlight">अधिकतम आयु सीमा में 3 साल की विशेष छूट</span> देने का निर्णय लिया है।
     </p>
   </div>
+  <!-- Audio Section -->
+<div class="audio-card">
+  <div class="audio-title">🎧 ऑडियो सुनें</div>
+
+  <audio controls preload="none">
+    <source src="https://github.com/airappandroid/mp3-files/raw/refs/heads/main/UP%20Police%20Bharti%202026.mp3" type="audio/mpeg">
+    आपका ब्राउज़र ऑडियो सपोर्ट नहीं करता।
+  </audio>
+</div>
+
 
   <!-- Card 2 -->
   <div class="card">
