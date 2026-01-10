@@ -182,166 +182,160 @@ box-sizing:border-box;
 
 
 <script>
+  if("caches" in window){
+  caches.open("logo-cache").then(cache=>{
+    Object.values(logos).forEach(url=>{
+      cache.add(url);
+    });
+  });
+}
+
 const DEFAULT_LOGO="https://via.placeholder.com/100?text=LOGO";
 
 /* Logos */
 const logos={
-  "Aaj Tak":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767633079/images_wxxyyq.jpg",
-  "ABP News":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902338/download_2_c2wvyo.jpg",
-  "Zee News":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902394/download_3_yiwxyg.jpg",
-  "India TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902442/download_4_fkadyg.jpg",
-  "News18 India":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767635929/News_18_India_gjfwvv.png",
-  "Republic Bharat":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902551/download_5_nsp9pi.jpg",
-  "NDTV India":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902740/download_6_h4xl1t.jpg",
-  "TV9 Bharatvarsh":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902699/download_2_pa48iq.png",
-  
-  
-  "GNT TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902944/download_4_swklaj.png",
-  "Sudarshan News":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767954279/download_1_ylhoyb.png",
-  "News 24":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767903222/download_8_vhh0pq.jpg",
-  
-  "CNBC Awaaz":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767902830/download_3_e4qvdf.png",
- 
-  
-  "IBC24":"https://res.cloudinary.com/dzczl0fzu/image/upload/v1767954468/download_1_uus3qn.jpg",
-  
- 
-  "Republic World": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767985775/download_nsak7t.jpg",
-  "Times Now": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767636134/images_1_djzd8e.jpg",
-  "NDTV 24x7": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767986042/download_1_yxoolw.png",
-  "India Today": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767636179/unnamed_wlyhkv.png",
-  "CNN-News18": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767986148/download_1_mwyfkl.jpg", 
-  "NewsX": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767986214/download_2_atpksa.jpg",
- 
-  
-  
-  "Pratidin Time": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767987764/download_3_t9z3fy.png",
-  "DY365": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767987811/download_3_oxcjg6.jpg",
-  "News Live": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767987858/download_4_gmkgqb.png",
- 
-  "NKTV": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767987940/download_6_s1zc3m.png",
-  
-  
+  "Aaj Tak":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767633079/images_wxxyyq.jpg",
+  "ABP News":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902338/download_2_c2wvyo.jpg",
+  "Zee News":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902394/download_3_yiwxyg.jpg",
+  "India TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902442/download_4_fkadyg.jpg",
+  "News18 India":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767635929/News_18_India_gjfwvv.png",
+  "Republic Bharat":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902551/download_5_nsp9pi.jpg",
+  "NDTV India":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902740/download_6_h4xl1t.jpg",
+  "TV9 Bharatvarsh":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902699/download_2_pa48iq.png",
 
-  "ABP Ananda": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767988355/download_8_br8fa1.png",
-  "News18 Bangla": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767988393/download_9_nit6k5.png",
-  "TV9 Bangla": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767988430/download_4_yjowua.jpg",
-  "Republic Bangla": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767988477/images_e93xhq.jpg",
-  "Zee 24 Ghanta": "https://res.cloudinary.com/dzczl0fzu/image/upload/v1767988512/download_10_maz98x.png"
+  "GNT TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902944/download_4_swklaj.png",
+  "Sudarshan News":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767954279/download_1_ylhoyb.png",
+  "News 24":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767903222/download_8_vhh0pq.jpg",
+  "CNBC Awaaz":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767902830/download_3_e4qvdf.png",
+  "IBC24":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767954468/download_1_uus3qn.jpg",
+
+  "Republic World":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767985775/download_nsak7t.jpg",
+  "Times Now":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767636134/images_1_djzd8e.jpg",
+  "NDTV 24x7":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767986042/download_1_yxoolw.png",
+  "India Today":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767636179/unnamed_wlyhkv.png",
+  "CNN-News18":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767986148/download_1_mwyfkl.jpg",
+  "NewsX":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767986214/download_2_atpksa.jpg",
+
+  "Pratidin Time":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767987764/download_3_t9z3fy.png",
+  "DY365":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767987811/download_3_oxcjg6.jpg",
+  "News Live":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767987858/download_4_gmkgqb.png",
+  "NKTV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767987940/download_6_s1zc3m.png",
+
+  "ABP Ananda":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767988355/download_8_br8fa1.png",
+  "News18 Bangla":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767988393/download_9_nit6k5.png",
+  "TV9 Bangla":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767988430/download_4_yjowua.jpg",
+  "Republic Bangla":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767988477/images_e93xhq.jpg",
+  "Zee 24 Ghanta":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_160/v1767988512/download_10_maz98x.png"
 };
-
 
 
 /* Channels */
 const channels = [
- { n: "Aaj Tak", l: "hindi", a: "go:AN", v: "go:AAJ" },
- { n: "ABP News", l: "hindi", a: "go:ABP1", v: "go:ABP2" },
- { n: "Zee News", l: "hindi", a: "go:ZEE1", v: "go:ZEE2" },
- { n: "India TV", l: "hindi", a: "go:INDIA1", v: "go:INDIA2" },
- { n: "News18 India", l: "hindi", a: "go:NEWS181", v: "go:NEWS18" },
- { n: "Republic Bharat", l: "hindi", a: "go:REPUBLIC1", v: "go:REPUBLIC2" },
- { n: "NDTV India", l: "hindi", a: "go:NDTV1", v: "go:NDTV2" },
- { n: "TV9 Bharatvarsh", l: "hindi", a: "go:TV91", v: "go:TV9" },
- 
- 
- { n: "GNT TV", l: "hindi", a: "go:GNT1", v: "go:GNT2" },
- { n: "Sudarshan News", l: "hindi", a: "go:SUD1", v: "go:SUD2" },
- { n: "News 24", l: "hindi", a: "go:NEWS241", v: "go:NEWS242" },
+ { n:"Aaj Tak", l:"hindi", a:"go:AN", v:"go:AAJ" },
+ { n:"ABP News", l:"hindi", a:"go:ABP1", v:"go:ABP2" },
+ { n:"Zee News", l:"hindi", a:"go:ZEE1", v:"go:ZEE2" },
+ { n:"India TV", l:"hindi", a:"go:INDIA1", v:"go:INDIA2" },
+ { n:"News18 India", l:"hindi", a:"go:NEWS181", v:"go:NEWS18" },
+ { n:"Republic Bharat", l:"hindi", a:"go:REPUBLIC1", v:"go:REPUBLIC2" },
+ { n:"NDTV India", l:"hindi", a:"go:NDTV1", v:"go:NDTV2" },
+ { n:"TV9 Bharatvarsh", l:"hindi", a:"go:TV91", v:"go:TV9" },
+ { n:"GNT TV", l:"hindi", a:"go:GNT1", v:"go:GNT2" },
+ { n:"Sudarshan News", l:"hindi", a:"go:SUD1", v:"go:SUD2" },
+ { n:"News 24", l:"hindi", a:"go:NEWS241", v:"go:NEWS242" },
+ { n:"CNBC Awaaz", l:"hindi", a:"go:CNBC1", v:"go:CNBC2" },
+ { n:"IBC24", l:"hindi", a:"go:IBC1", v:"go:IBC2" },
 
- { n: "CNBC Awaaz", l: "hindi", a: "go:CNBC1", v: "go:CNBC2" },
+ { n:"Republic World", l:"english", a:"go:REP1", v:"go:REP2" },
+ { n:"Times Now", l:"english", a:"go:TIMES1", v:"go:TIMES" },
+ { n:"NDTV 24x7", l:"english", a:"go:ND1", v:"go:ND2" },
+ { n:"India Today", l:"english", a:"go:INDIATO1", v:"go:INDIATO" },
+ { n:"CNN-News18", l:"english", a:"go:CNN1", v:"go:CNN2" },
+ { n:"NewsX", l:"english", a:"go:NEWSX1", v:"go:NEWSX2" },
 
+ { n:"Pratidin Time", l:"assamese", a:"go:S101", v:"go:PRATI1" },
+ { n:"DY365", l:"assamese", a:"go:S102", v:"go:DY1" },
+ { n:"News Live", l:"assamese", a:"go:NE1", v:"go:NE2" },
+ { n:"NKTV", l:"assamese", a:"go:NK1", v:"go:NK2" },
 
- { n: "IBC24", l: "hindi", a: "go:IBC1", v: "go:IBC2" },
- 
-  { n: "Republic World", l: "english", a: "go:REP1", v: "go:REP2" },
-  { n: "Times Now", l: "english", a: "go:TIMES1", v: "go:TIMES" },
-  { n: "NDTV 24x7", l: "english", a: "go:ND1", v: "go:ND2" },
-  { n: "India Today", l: "english", a: "go:INDIATO1", v: "go:INDIATO" },
-  { n: "CNN-News18", l: "english", a: "go:CNN1", v: "go:CNN2" },
-  { n: "NewsX", l: "english", a: "go:NEWSX1", v: "go:NEWSX2" }, 
- 
-
-
-  { n: "Pratidin Time", l: "assamese", a: "go:S101", v: "go:PRATI1" },
-  { n: "DY365", l: "assamese", a: "go:S102", v: "go:DY1" },
-  { n: "News Live", l: "assamese", a: "go:NE1", v: "go:NE2" },
-  
-  { n: "NKTV", l: "assamese", a: "go:NK1", v: "go:NK2" },
-  
-
-  { n: "ABP Ananda", l: "bangla", a: "go:AB1", v: "go:AB2" },
-  { n: "News18 Bangla", l: "bangla", a: "go:NB1", v: "go:NB2" },
-  { n: "TV9 Bangla", l: "bangla", a: "go:TV9B1", v: "go:TV9B2" },
-  { n: "Republic Bangla", l: "bangla", a: "go:RE1", v: "go:RE2" },
-  { n: "Zee 24 Ghanta", l: "bangla", a: "go:ZB1", v: "go:ZB2" }
+ { n:"ABP Ananda", l:"bangla", a:"go:AB1", v:"go:AB2" },
+ { n:"News18 Bangla", l:"bangla", a:"go:NB1", v:"go:NB2" },
+ { n:"TV9 Bangla", l:"bangla", a:"go:TV9B1", v:"go:TV9B2" },
+ { n:"Republic Bangla", l:"bangla", a:"go:RE1", v:"go:RE2" },
+ { n:"Zee 24 Ghanta", l:"bangla", a:"go:ZB1", v:"go:ZB2" }
 ];
 
+const grid = document.getElementById("grid");
+const search = document.getElementById("search");
+const lang = document.getElementById("lang");
 
-
-
-
-const grid=document.getElementById("grid");
-let favs=JSON.parse(localStorage.getItem("FAV_CHANNELS")||"[]");
+let favs = JSON.parse(localStorage.getItem("FAV_CHANNELS") || "[]");
+let cardMap = {};
 
 function toggleFav(name){
   if(favs.includes(name)){
-    favs=favs.filter(f=>f!==name);
-  }else{
+    favs = favs.filter(f=>f!==name);
+  } else {
     favs.push(name);
   }
-  localStorage.setItem("FAV_CHANNELS",JSON.stringify(favs));
-  render();
+  localStorage.setItem("FAV_CHANNELS", JSON.stringify(favs));
+  buildGrid();
 }
 
-function render(){
-  const s=search.value.toLowerCase();
-  const l=lang.value;
-  grid.innerHTML="";
+function buildGrid(){
+  grid.innerHTML = "";
+  cardMap = {};
 
   channels.forEach(c=>{
-    const isFav=favs.includes(c.n);
+    const div = document.createElement("div");
+    div.className = "channel";
 
-    if(
-      c.n.toLowerCase().includes(s) &&
-      (
-        l==="all" ||
-        (l==="fav" && isFav) ||
-        c.l===l
-      )
-    ){
-      grid.innerHTML+=`
-      <div class="channel">
-        <div class="heart ${isFav?"active":""}"
-             onclick="toggleFav('${c.n}')">
-          ${isFav?"❤️":"🤍"}
-        </div>
+    const isFav = favs.includes(c.n);
 
-        <img src="${logos[c.n]||DEFAULT_LOGO}"
-             loading="lazy"
-             decoding="async"
-             onerror="this.src='${DEFAULT_LOGO}'">
+    div.innerHTML = `
+      <div class="heart ${isFav?"active":""}" onclick="toggleFav('${c.n}')">
+        ${isFav?"❤️":"🤍"}
+      </div>
+      <img src="${logos[c.n] || DEFAULT_LOGO}" loading="lazy">
+      <div class="ch-name">${c.n}</div>
+      <div class="actions">
+        <a href="${c.a}" class="btn audio">🎧 Audio</a>
+        <a href="${c.v}" class="btn video">▶️ Video</a>
+      </div>
+    `;
 
-        <div class="ch-name">${c.n}</div>
-
-        <div class="actions">
-          <a href="${c.a}" class="btn audio">🎧 Audio</a>
-          <a href="${c.v}" class="btn video">▶️ Video</a>
-        </div>
-      </div>`;
-    }
+    grid.appendChild(div);
+    cardMap[c.n] = div;
   });
 
-  if(grid.innerHTML===""){
-    grid.innerHTML=`
-      <div style="grid-column:1/3;text-align:center;opacity:.6">
-        😕 Nothing found
-      </div>`;
-  }
+  applyFilter();
 }
 
-search.onkeyup=render;
-lang.onchange=render;
-render();
+function applyFilter(){
+  const s = search.value.toLowerCase();
+  const l = lang.value;
+
+  channels.forEach(c=>{
+    const el = cardMap[c.n];
+    const isFav = favs.includes(c.n);
+
+    const ok =
+      c.n.toLowerCase().includes(s) &&
+      (l==="all" || (l==="fav" && isFav) || c.l===l);
+
+    el.style.display = ok ? "" : "none";
+  });
+}
+
+let searchTimer = null;
+
+search.onkeyup = () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(applyFilter, 300);
+};
+
+lang.onchange = applyFilter;
+
+buildGrid();
 </script>
 
 </body>
