@@ -128,7 +128,7 @@ body{
   top:8px;
   right:8px;
   font-size:14px;
-  animation:blink 1.2s infinite;
+  
 }
 
 /* LIVE TV CARD */
@@ -173,12 +173,6 @@ body{
   animation:blink 1s infinite;
 }
 
-/* ANIMATION */
-@keyframes blink{
-  0%{opacity:1}
-  50%{opacity:.3}
-  100%{opacity:1}
-}
 
 /* QUICK BUTTONS */
 .quick-buttons{
@@ -274,12 +268,6 @@ body{
   margin-bottom:8px;
 }
 
-/* MATCH LIST – CLEAN MERGED */
-.match-list{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
 
 .match-item{
   background:linear-gradient(135deg,#1e293b,#0f172a);
@@ -393,9 +381,6 @@ a,button{
   outline:none;
 }
 
-.live-card {
-  position: relative;
-}
 
 /* LIVE badge for cricket & other */
 .live-badge {
@@ -409,14 +394,7 @@ a,button{
   background: #ff2d2d;
   color: #fff;
   letter-spacing: 0.5px;
-  animation: liveBlink 1.2s infinite;
-}
-
-/* Blink animation */
-@keyframes liveBlink {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; }
-  100% { opacity: 1; }
+  
 }
 
 .podcast-card {
@@ -440,6 +418,28 @@ a,button{
   color: #22c55e;
 }
 
+/* 🔥 ONE UNIVERSAL BLINK */
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:.3}
+  100%{opacity:1}
+}
+
+/* Radio green dot */
+.live-dot{
+  animation: blink 1.2s infinite;
+}
+
+/* TV / Cricket red LIVE badge */
+.live-badge,
+.live-tv::before{
+  animation: blink 1.2s infinite;
+}
+.live-quick{
+  color:#ff2d2d;
+  font-weight:700;
+  animation: blink 1.2s infinite;
+}
 
 </style>
 </head>
@@ -476,8 +476,9 @@ a,button{
 <div class="quick-buttons">
     <a href="go:AIR" class="quick-btn">📻 AIR</a>
     <a href="go:AIRNEWS" class="quick-btn">📰 News</a>
+    <a href="go:LIVE2" class="quick-btn live-quick">🔴 LIVE</a>
     <a href="go:HINDIR" class="quick-btn">🇮🇳 Hindi</a>
-    <a href="go:MUSIC" class="quick-btn">🎶 Music</a>
+   
   </div>
 </section>
 
@@ -674,9 +675,12 @@ function closePrivacy(){
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-const todayPrograms = [
+  // =======================
+  // 📅 TODAY SCHEDULE
+  // =======================
 
-  { time: "00:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  const todayPrograms = [
+     { time: "00:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
   { time: "00:05", title: "SUHANI RAAT", channel: "FM Rainbow" },
   { time: "01:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
   { time: "01:05", title: "WESTERN MUSIC", channel: "FM Rainbow" },
@@ -720,103 +724,87 @@ const todayPrograms = [
   { time: "23:05", title: "RANG-E-MEHFIL", channel: "FM Rainbow" }
 ];
 
+  const container = document.getElementById("todaySchedule");
+  const dateEl = document.getElementById("todayDate");
 
-// ---------- ELEMENT CHECK ----------
-const container = document.getElementById("todaySchedule");
-const dateEl = document.getElementById("todayDate");
-if(!container) return;
+  if(container){
+    const now = new Date();
+    if(dateEl){
+      dateEl.textContent = `(${now.getDate()} ${now.toLocaleString("en",{month:"short"})})`;
+    }
 
-// ---------- DATE ----------
-const now = new Date();
-if(dateEl){
-  dateEl.textContent = `(${now.getDate()} ${now.toLocaleString("en",{month:"short"})})`;
-}
+    const currentMin = now.getHours()*60 + now.getMinutes();
 
-// ---------- HELPERS ----------
-function toMinutes(t){
-  const [h,m] = t.split(":").map(Number);
-  return h*60 + m;
-}
-function ampm(t){
-  let [h,m] = t.split(":").map(Number);
-  return (h%12||12)+":"+m.toString().padStart(2,"0")+" "+(h>=12?"PM":"AM");
-}
+    function toMinutes(t){
+      const [h,m] = t.split(":").map(Number);
+      return h*60 + m;
+    }
 
-const currentMin = now.getHours()*60 + now.getMinutes();
+    function ampm(t){
+      let [h,m] = t.split(":").map(Number);
+      return (h%12||12)+":"+m.toString().padStart(2,"0")+" "+(h>=12?"PM":"AM");
+    }
 
-// ---------- SORT ----------
-const sorted = [...todayPrograms].sort(
-  (a,b)=>toMinutes(a.time)-toMinutes(b.time)
-);
+    const sorted = todayPrograms.sort((a,b)=>toMinutes(a.time)-toMinutes(b.time));
+    let upcoming = sorted.filter(p => toMinutes(p.time) >= currentMin);
 
-// ---------- CURRENT + NEXT 2 ----------
-let upcoming = sorted.filter(p => toMinutes(p.time) >= currentMin);
+    if(upcoming.length < 3){
+      upcoming = [...upcoming, ...sorted].slice(0,3);
+    } else {
+      upcoming = upcoming.slice(0,3);
+    }
 
-// late night fallback
-if(upcoming.length < 3){
-  upcoming = [...upcoming, ...sorted].slice(0,3);
-}else{
-  upcoming = upcoming.slice(0,3);
-}
+    container.innerHTML = upcoming.map(p=>`
+      <div class="today-item">
+        <div class="today-time">${ampm(p.time)}</div>
+        <div>
+          <span class="program">${p.title}</span> •
+          <span class="channel">${p.channel}</span>
+        </div>
+      </div>
+    `).join("");
+  }
 
-// ---------- RENDER ----------
-container.innerHTML = upcoming.map(p=>`
-  <div class="today-item">
-    <div class="today-time">${ampm(p.time)}</div>
-    <div>
-      <span class="program">${p.title}</span> •
-      <span class="channel">${p.channel}</span>
-    </div>
-  </div>
-`).join("");
+  // =======================
+  // 📰 BREAKING NEWS
+  // =======================
 
-});
-</script>
+  const headlines = [
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+  // सरकार / राजनीति
+  "ट्रंप सहयोगी के मोदी-फोन वाले बयान को भारत ने खारिज किया",
+  "ED रेड के खिलाफ ममता की कोलकाता रैली, TMC सांसद हिरासत में",
 
-const headlines = [
-  // राष्ट्रीय
-  "भारत सरकार ने ट्रंप सहयोगी के ‘PM मोदी ने फोन नहीं किया’ वाले बयान को खारिज किया",
-  "ED की I-PAC छापेमारी के खिलाफ ममता बनर्जी की कोलकाता में रैली, TMC सांसद हिरासत में",
-  "कोल स्कैम टिप्पणी पर सुवेंदु अधिकारी ने ममता बनर्जी को लीगल नोटिस भेजा",
-  "हिमाचल में बस हादसा: खाई में गिरने से 14 की मौत, 33 घायल",
-  "जयपुर में नशे में तेज रफ्तार Audi का कहर, 1 की मौत, 15 घायल",
-  "जम्मू-कश्मीर के सांबा सेक्टर में ड्रोन से हथियारों की खेप बरामद",
-  "उत्तराखंड ‘VIP इन रिसॉर्ट’ मर्डर केस में CBI जांच के आदेश",
-  "ED ने सबरीमाला गोल्ड लॉस केस में मनी लॉन्ड्रिंग मामला दर्ज किया",
-  "जनगणना 2027: हाउस-लिस्टिंग अप्रैल–सितंबर 2026 में",
-  "बेंगलुरु महिलाओं के लिए भारत का सबसे सुरक्षित शहर घोषित",
-  "WPL 2026 की शुरुआत, UP वॉरियर्ज बनाम गुजरात जायंट्स",
+  // ताज़ा बड़ी खबरें
+  "PM मोदी सोमनाथ स्वाभिमान पर्व में शामिल",
+  "ईरान में 2 हफ्ते से हिंसक विरोध, 65+ मौतें",
+  "I-PAC पर ED रेड के बाद ममता की रैली, सुप्रीम कोर्ट पहुंची TMC",
+  "18 जनवरी को PM मोदी की असम यात्रा",
+  "तालिबान ने दिल्ली में पहला डिप्लोमैट भेजा",
+  "US में ICE शूटिंग के बाद देशभर में विरोध",
+  "असम में कांग्रेस का ‘Save MGNREGA’ अभियान शुरू"
 
-  // अंतरराष्ट्रीय
-  "ट्रंप ने क्रेडिट कार्ड ब्याज दरों पर 10% कैप का ऐलान किया",
-  "ईरान में सरकार विरोधी प्रदर्शन तेज, इंटरनेट सेवाएं बंद",
-  "ग्रीनलैंड पर ट्रंप के दावे से डेनमार्क और NATO अलर्ट",
-  "US ने वेनेजुएला के ऑयल टैंकर जब्त किए",
-  "मिनियापोलिस में ICE एजेंट की मौत पर प्रदर्शन तेज",
-  "ट्रंप ने US को 66 वैश्विक संगठनों से बाहर किया",
-  "रूस का यूक्रेन पर Oreshnik हाइपरसोनिक मिसाइल हमला"
 ];
 
 
-  let i = 0;
+
   const el = document.getElementById("breakingText");
-  if(!el) return;
+  let i = 0;
+  let breakingTimer;
 
-  el.textContent = headlines[0];
+  if(el){
+    el.textContent = headlines[0];
 
-  setInterval(() => {
-    i = (i + 1) % headlines.length;
-    el.textContent = headlines[i];
-  }, 5000);   // change time if needed
+    if(breakingTimer) clearInterval(breakingTimer);
+
+    breakingTimer = setInterval(() => {
+      i = (i + 1) % headlines.length;
+      el.textContent = headlines[i];
+    }, 5000);
+  }
 
 });
 </script>
-
-
-
 
 </body>
 </html>
