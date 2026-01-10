@@ -17,25 +17,38 @@ body{
 
 
 
-/* Top bar */
+/* ===== TOPBAR ===== */
 .topbar{
   position:sticky;
   top:0;
   z-index:10;
   background:#0c1220;
-  padding-bottom:10px;
+
   display:flex;
   gap:8px;
+
+  padding:10px 0 10px 0;
 }
 
-.topbar input{flex:2}
-.topbar select{flex:1}
+/* Search + Filter SAME SIZE */
+.topbar input,
+.topbar select{
+  flex:1;
+  width:100%;
+  box-sizing:border-box;
 
-input,select{
   padding:10px;
   border:none;
   border-radius:8px;
+
   font-size:14px;
+  outline:none;
+}
+
+/* Optional: better mobile tap feel */
+.topbar input:focus,
+.topbar select:focus{
+  box-shadow:0 0 0 2px rgba(45,124,255,.4);
 }
 
 /* Grid */
