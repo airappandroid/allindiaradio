@@ -182,15 +182,14 @@ box-sizing:border-box;
 
 
 <script>
-  if("caches" in window){
-  caches.open("logo-cache").then(cache=>{
-    Object.values(logos).forEach(url=>{
-      cache.add(url);
-    });
-  });
+
+// ✅ Smart image fallback (no force download, no heavy cache)
+const DEFAULT_LOGO = "https://via.placeholder.com/100?text=LOGO";
+
+function getLogo(name){
+  return logos[name] || DEFAULT_LOGO;
 }
 
-const DEFAULT_LOGO="https://via.placeholder.com/100?text=LOGO";
 
 /* Logos */
 const logos={
@@ -296,7 +295,7 @@ function buildGrid(){
       <div class="heart ${isFav?"active":""}" onclick="toggleFav('${c.n}')">
         ${isFav?"❤️":"🤍"}
       </div>
-      <img src="${logos[c.n] || DEFAULT_LOGO}" loading="lazy">
+    <img src="${getLogo(c.n)}" loading="lazy">
       <div class="ch-name">${c.n}</div>
       <div class="actions">
         <a href="${c.a}" class="btn audio">🎧 Audio</a>
