@@ -8269,8 +8269,10 @@ body {
 						 
 						
       	  </div><audio id="globalPlayer"></audio>
+<!-- पहले वाला HTML + CSS वही रहेगा, सिर्फ नीचे वाला <script> हिस्सा बदलें -->
 
-													  <script>
+<script>
+// Global audio player setup (पहले जैसा ही रखा है)
 document.addEventListener("DOMContentLoaded", () => {
   const player = document.getElementById("globalPlayer");
   let currentButton = null;
@@ -8278,15 +8280,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".single-item__cover").forEach(link => {
     link.addEventListener("click", e => {
       e.preventDefault();
-
       const src = link.getAttribute("href");
 
-      // Reset previous
       if (currentButton && currentButton !== link) {
         currentButton.classList.remove("playing");
       }
 
-      // Toggle
       if (link.classList.contains("playing")) {
         player.pause();
         link.classList.remove("playing");
@@ -8303,10 +8302,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (currentButton) currentButton.classList.remove("playing");
   });
 });
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
 
+// Filter + Search with Debounce
+document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".bulletin-card");
   const citySelect = document.getElementById("filterCity");
   const langSelect = document.getElementById("filterLang");
@@ -8315,7 +8313,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cities = new Set();
   const languages = new Set();
 
-  /* READ DATA FROM CARDS */
+  // Collect unique cities & languages
   cards.forEach(card => {
     const city = card.querySelector(".bulletin-city")?.innerText.trim();
     const lang = card.querySelector(".bulletin-title .lang")?.innerText.trim();
@@ -8327,7 +8325,7 @@ document.addEventListener("DOMContentLoaded", () => {
     card.dataset.lang = lang || "";
   });
 
-  /* POPULATE CITY FILTER (A-Z) */
+  // Populate city dropdown (A-Z sorted)
   [...cities].sort((a, b) => a.localeCompare(b)).forEach(city => {
     const option = document.createElement("option");
     option.value = city;
@@ -8335,7 +8333,7 @@ document.addEventListener("DOMContentLoaded", () => {
     citySelect.appendChild(option);
   });
 
-  /* POPULATE LANGUAGE FILTER (A-Z) */
+  // Populate language dropdown (A-Z sorted)
   [...languages].sort((a, b) => a.localeCompare(b)).forEach(lang => {
     const option = document.createElement("option");
     option.value = lang;
@@ -8343,34 +8341,38 @@ document.addEventListener("DOMContentLoaded", () => {
     langSelect.appendChild(option);
   });
 
-  /* APPLY FILTER + SEARCH */
+  // Core filter function
   function applyFilter() {
     const cityVal = citySelect.value.toLowerCase();
     const langVal = langSelect.value.toLowerCase();
-    const searchVal = searchInput.value.toLowerCase();
+    const searchVal = searchInput.value.toLowerCase().trim();
 
     cards.forEach(card => {
       const city = card.dataset.city.toLowerCase();
       const lang = card.dataset.lang.toLowerCase();
       const fullText = card.innerText.toLowerCase();
 
-      const matchCity = !cityVal || city === cityVal;
-      const matchLang = !langVal || lang === langVal;
+      const matchCity   = !cityVal   || city === cityVal;
+      const matchLang   = !langVal   || lang === langVal;
       const matchSearch = !searchVal || fullText.includes(searchVal);
 
-      card.style.display = (matchCity && matchLang && matchSearch)
-        ? ""
-        : "none";
+      card.style.display = (matchCity && matchLang && matchSearch) ? "" : "none";
     });
   }
 
-  /* EVENTS */
-  citySelect.addEventListener("change", applyFilter);
-  langSelect.addEventListener("change", applyFilter);
-  searchInput.addEventListener("input", applyFilter);
+  // Debounce wrapper (300ms delay – typing के बाद ही filter चलेगा)
+  let debounceTimer;
+  function debouncedApplyFilter() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(applyFilter, 300);
+  }
 
+  // Events with debounce on search input
+  citySelect.addEventListener("change", applyFilter);     // dropdowns पर तुरंत लागू
+  langSelect.addEventListener("change", applyFilter);     // dropdowns पर तुरंत लागू
+  searchInput.addEventListener("input", debouncedApplyFilter); // search में debounce
+
+  // Initial filter apply (page load पर)
+  applyFilter();
 });
 </script>
-
-
-
