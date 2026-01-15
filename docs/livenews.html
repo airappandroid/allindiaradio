@@ -14,9 +14,6 @@ body{
   overflow-x:hidden;   /* 🔥 सबसे जरूरी */
 }
 
-
-
-
 /* ===== TOPBAR ===== */
 .topbar{
   position:sticky;
@@ -237,9 +234,13 @@ const logos = {
   "News18 Gujarati":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768160534/download_3_jhffnp.png",
  
   "News18 Punjab":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768292910/download_nsrkmi.png",
-  "TV Punjab":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768293892/download_1_rollwp.jpg"
-};
+  "TV Punjab":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768293892/download_1_rollwp.jpg",
 
+  
+  "NEWS18 ODIA":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768506850/News18_Odia_logo_rt4aa5.jpg",
+  "NANDIGHOSHA TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768506823/download_g3tect.jpg",
+  "OTV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768506807/download_1_yranfn.jpg"
+};
 
 /* Channels */
 const channels = [
@@ -290,7 +291,11 @@ const channels = [
 
 
   { n:"News18 Punjab", l:"punjabi", a:"go:NE18P1", v:"go:NE18P2" },
-  { n:"TV Punjab", l:"punjabi", a:"go:TVP1", v:"go:TVP2" }
+  { n:"TV Punjab", l:"punjabi", a:"go:TVP1", v:"go:TVP2" },
+
+  { n:"NEWS18 ODIA", l:"odia", a:"go:N18O1", v:"go:N18O2" },
+  { n:"NANDIGHOSHA TV", l:"odia", a:"go:NA1", v:"go:NA2" },
+  { n:"OTV", l:"odia", a:"go:OTV1", v:"go:OTV2" }
 ];
 
 const grid = document.getElementById("grid");
