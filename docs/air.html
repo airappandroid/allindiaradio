@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All India Radio</title>
+
+<style>
+:root{
+  --bg:#0b1020;
+  --card:#161d33;
+  --glass:rgba(255,255,255,.08);
+  --accent:#ff7a45;
+  --text:#ffffff;
+  --channel:#9fb2ff;
+}
+
+/* Disable tap effects */
+*{
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-touch-callout:none;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-user-select:none;
+  user-select:none;
+}
+input{ user-select:text; -webkit-user-select:text; }
+
+/* ===== STICKY TOP ===== */
+.top-fixed{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:var(--bg);
+}
+.top-fixed::after{
+  content:'';
+  display:block;
+  height:1px;
+  background:rgba(255,255,255,.06);
+}
+
+header{
+  padding:12px 16px 8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:17px;
+  font-weight:600;
+}
+.favTab{
+  color:var(--accent);
+  cursor:pointer;
+  font-size:14px;
+}
+
+/* ===== CONTROLS ===== */
+.controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  padding:0 16px 10px;
+}
+@media(max-width:420px){
+  .controls{grid-template-columns:1fr}
+}
+
+.search-wrap{position:relative}
+.search-wrap input{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--glass);
+  color:var(--text);
+  padding:9px 34px 9px 12px;
+  border-radius:12px;
+  outline:none;
+  font-size:14px;
+}
+.clear-btn{
+  position:absolute;
+  right:8px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:14px;
+  color:var(--channel);
+  cursor:pointer;
+  display:none;
+}
+
+.controls select{
+  background:var(--card);
+  border:1px solid var(--glass);
+  color:var(--text);
+  padding:9px 12px;
+  border-radius:12px;
+  outline:none;
+  font-size:14px;
+}
+
+/* ===== LIST (COMPACT) ===== */
+.list{ padding:6px 16px 36px; }
+
+.state{
+  margin:14px 0 6px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--accent);
+}
+
+.station{
+  background:var(--card);
+  border:1px solid var(--glass);
+  border-radius:14px;
+  padding:9px 12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:8px;
+}
+
+.play{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+  flex-shrink:0;
+}
+
+.station-name{
+  flex:1;
+  font-size:14px;
+}
+
+.fav{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  cursor:pointer;
+  background:rgba(255,255,255,.06);
+  color:var(--channel);
+}
+.fav.active{
+  background:rgba(255,122,69,.18);
+  color:var(--accent);
+}
+
+.empty{
+  text-align:center;
+  color:var(--channel);
+  margin-top:36px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-fixed">
+  <header>
+    <span>🎧 AIR Radio</span>
+    <span class="favTab" id="favToggle">❤ Favourites</span>
+  </header>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Search station or state…">
+      <span class="clear-btn" id="clearBtn">✕</span>
+    </div>
+    <select id="stateFilter">
+      <option value="">All States</option>
+    </select>
+  </div>
+</div>
+
+<div class="list" id="stationList"></div>
+
+<script>
+/* ===== DATA (DOM BASED) ===== */
+const data={
+  "National": [
+    {id: "N001", name: "Live News 24x7"},
+    {id: "N002", name: "Vividh Bharati"},
+    {id: "N003", name: "Raagam"},
+  ],
+  "Andaman and Nicobar Islands": [
+    {id: "A001", name: "Akashvani Sri Vijaya Puram"},
+  ],
+  "Andhra Pradesh": [
+    {id: "A001", name: "Akashvani Anantapur"},
+    {id: "A002", name: "Akashvani Kadapa"},
+    {id: "A003", name: "Akashvani Kurnool"},
+    {id: "A004", name: "Akashvani Markapur"},
+    {id: "A005", name: "FM Simahapuri Nellore"},
+    {id: "A006", name: "Akashvani Tirupati"},
+    {id: "A007", name: "Akashvani Andhra Pradesh"},
+    {id: "A008", name: "FM Rainbow Vijayawada"},
+    {id: "A009", name: "VB Telugu Vijayawada"},
+    {id: "A010", name: "Akashvani Visakhapatnam"},
+    {id: "A011", name: "FM Rainbow Visakhapatnam"},
+  ],
+  "Arunachal Pradesh": [
+    {id: "A001", name: "Akashvani Itanagar"},
+    {id: "A002", name: "FM Arun Itanagar"},
+    {id: "A003", name: "Akashvani Pasighat"},
+    {id: "A004", name: "Akashvani Tawang"},
+    {id: "A005", name: "Akashvani Tezu"},
+  ],
+  "Assam": [
+    {id: "A001", name: "Akashvani Dibrugarh"},
+    {id: "A002", name: "Akashvani Diphu"},
+    {id: "A003", name: "Akashvani Guwahati Mahabahu"},
+    {id: "A004", name: "Akashvani Guwahati Pragjyotishpur"},
+    {id: "A005", name: "Akashvani Haflong"},
+    {id: "A006", name: "Akashvani Jorhat"},
+    {id: "A007", name: "Akashvani Kokrajhar"},
+    {id: "A008", name: "Akashvani Nagaon"},
+    {id: "A009", name: "Akashvani Silchar"},
+    {id: "A010", name: "Akashvani Tezpur"},
+  ],
+  "Bihar": [
+    {id: "B001", name: "Akashvani Bhagalpur"},
+    {id: "B002", name: "Akashvani Darbhanga"},
+    {id: "B003", name: "Akashvani Patna"},
+    {id: "B004", name: "FM Rainbow Patna"},
+    {id: "B005", name: "VBS Patna"},
+    {id: "B006", name: "Akashvani Purnia Bihar"},
+    {id: "B007", name: "Akashvani Sasaram"},
+  ],
+  "Chandigarh": [
+    {id: "C001", name: "Akashvani Chandigarh"},
+  ],
+  "Chhattisgarh": [
+    {id: "C001", name: "Akashvani Ambikapur"},
+    {id: "C002", name: "Akashvani Bilaspur"},
+    {id: "C003", name: "Akashvani Jagdalpur"},
+    {id: "C004", name: "Akashvani Raigarh"},
+    {id: "C005", name: "Akashvani Chhattisgarh"},
+    {id: "C006", name: "Akashvani FM Raipur"},
+    {id: "C007", name: "Akashvani Saraipali"},
+  ],
+  "Daman and Diu": [
+    {id: "D001", name: "Akashvani Daman"},
+  ],
+  "Delhi": [
+    {id: "D001", name: "FM Gold Delhi"},
+    {id: "D002", name: "FM Rainbow Delhi"},
+    {id: "D003", name: "Indraprastha"},
+    {id: "D004", name: "VBS Delhi"},
+    {id: "D005", name: "Akashvani Aaradhana"},
+  ],
+  "Goa": [
+    {id: "G001", name: "Akashvani Mhadei Panaji"},
+    {id: "G002", name: "VBS Panaji"},
+  ],
+  "Gujarat": [
+    {id: "G001", name: "Akashwani Gujarati"},
+    {id: "G002", name: "VBS Ahmedabad"},
+    {id: "G003", name: "Akashvani Ahwa"},
+    {id: "G004", name: "Akashvani Bhuj"},
+    {id: "G005", name: "Akashvani Godhra"},
+    {id: "G006", name: "Akashvani Himmatnagar"},
+    {id: "G007", name: "Akashvani Rajkot"},
+    {id: "G008", name: "VBS Rajkot"},
+    {id: "G009", name: "Akashvani Surat"},
+    {id: "G010", name: "Akashvani Vadodara"},
+  ],
+  "Haryana": [
+    {id: "H001", name: "Akashvani Hisar"},
+    {id: "H002", name: "Akashvani Kurukshetra"},
+    {id: "H003", name: "Akashvani Rohtak"},
+  ],
+  "Himachal Pradesh": [
+    {id: "H001", name: "Akashvani Dharamshala"},
+    {id: "H002", name: "Akashvani Hamirpur FM"},
+    {id: "H003", name: "Akashvani Shimla"},
+    {id: "H004", name: "Akashvani Shimla FM"},
+  ],
+  "Jammu and Kashmir": [
+    {id: "J001", name: "Akashvani Bhaderwah"},
+    {id: "J002", name: "Akashvani Jammu"},
+    {id: "J003", name: "Akashvani Kathua"},
+    {id: "J004", name: "Akashvani Srinagar"},
+  ],
+  "Jharkhand": [
+    {id: "J001", name: "Akashvani Chaibasa"},
+    {id: "J002", name: "Akashvani Daltonganj"},
+    {id: "J003", name: "Akashvani Hazaribagh"},
+    {id: "J004", name: "Akashvani Jamshedpur"},
+    {id: "J005", name: "VBS Jamshedpur"},
+    {id: "J006", name: "Akashvani Ranchi"},
+    {id: "J007", name: "FM Rainbow Ranchi"},
+    {id: "J008", name: "VBS Ranchi"},
+  ],
+  "Karnataka": [
+    {id: "K001", name: "Akashvani Bellari"},
+    {id: "K002", name: "Akashvani Karnataka"},
+    {id: "K003", name: "Amrutvarshini"},
+    {id: "K004", name: "Rainbow Kannada Kaamanbilu"},
+    {id: "K005", name: "VB KANNADA"},
+    {id: "K006", name: "Akashvani Bhadravati"},
+    {id: "K007", name: "Akashvani Bijapur"},
+    {id: "K008", name: "Akashvani Chitradurga"},
+    {id: "K009", name: "Akashvani Dharwad"},
+    {id: "K010", name: "Akashvani Kalaburgi"},
+    {id: "K011", name: "Akashvani Hassan"},
+    {id: "K012", name: "Akashvani Hospet"},
+    {id: "K013", name: "Akashvani Karwar"},
+    {id: "K014", name: "Akashvani Mysuru"},
+    {id: "K015", name: "Akashvani Mangalore"},
+    {id: "K016", name: "Akashvani Madikeri"},
+    {id: "K017", name: "Akashvani Raichur"},
+  ],
+  "Kerala": [
+    {id: "K001", name: "Akashvani Devikulam"},
+    {id: "K002", name: "Akashvani Kannur"},
+    {id: "K003", name: "FM Rainbow Kochi"},
+    {id: "K004", name: "Akashvani Kochi"},
+    {id: "K005", name: "Akashvani Calicut"},
+    {id: "K006", name: "Akashvani Kozhikode Real FM"},
+    {id: "K007", name: "Akashvani Manjeri"},
+    {id: "K008", name: "Akashvani Thrissur"},
+    {id: "K009", name: "Akashvani Kerala"},
+    {id: "K010", name: "VB MALAYALAM"},
+  ],
+  "Ladakh": [
+    {id: "L001", name: "Akashvani Kargil"},
+    {id: "L002", name: "Akashvani Leh"},
+  ],
+  "Lakshadweep": [
+    {id: "L001", name: "Akashvani Kavaratti"},
+  ],
+  "Madhya Pradesh": [
+    {id: "M001", name: "Akashvani Balaghat"},
+    {id: "M002", name: "Akashvani Betul"},
+    {id: "M003", name: "Akashvani Bhopal"},
+    {id: "M004", name: "VBS Bhopal"},
+    {id: "M005", name: "Akashvani Chhatarpur"},
+    {id: "M006", name: "Akashvani Chhindwara"},
+    {id: "M007", name: "Akashvani Guna"},
+    {id: "M008", name: "Akashvani Gwalior"},
+    {id: "M009", name: "Akashvani Indore"},
+    {id: "M010", name: "VBS Indore"},
+    {id: "M011", name: "Akashvani Jabalpur"},
+    {id: "M012", name: "Akashvani Jabalpur FM"},
+    {id: "M013", name: "Akashvani Khandwa"},
+    {id: "M014", name: "Akashvani Rewa"},
+    {id: "M015", name: "Akashvani Sagar"},
+    {id: "M016", name: "Akashvani Shahdol"},
+    {id: "M017", name: "Akashvani Shivpuri"},
+  ],
+  "Maharashtra": [
+    {id: "M001", name: "Akashvani Ahilyanagar"},
+    {id: "M002", name: "Akashvani Akola"},
+    {id: "M003", name: "Akashvani Amravati"},
+    {id: "M004", name: "Akashvani Chhatrapati Sambhaji Nagar"},
+    {id: "M005", name: "Akashvani Beed"},
+    {id: "M006", name: "Akashvani Chandrapur"},
+    {id: "M007", name: "Akashvani Dhule"},
+    {id: "M008", name: "Akashvani Jalgaon"},
+    {id: "M009", name: "Akashvani Kolhapur"},
+    {id: "M010", name: "Akashvani Marathi Mumbai Asmita"},
+    {id: "M011", name: "FM Gold Mumbai"},
+    {id: "M012", name: "FM Rainbow Mumbai"},
+    {id: "M013", name: "Samvadita Mumbai"},
+    {id: "M014", name: "VBS Mumbai"},
+    {id: "M015", name: "VBS Nagpur"},
+    {id: "M016", name: "Akashvani Nagpur"},
+    {id: "M017", name: "Akashvani Nanded"},
+    {id: "M018", name: "Akashvani Nasik"},
+    {id: "M019", name: "Akashvani Dharashiv"},
+    {id: "M020", name: "Akashvani Parbhani"},
+    {id: "M021", name: "Akashvani Pune"},
+    {id: "M022", name: "Akashvani Pune FM"},
+    {id: "M023", name: "Akashvani Ratnagiri"},
+    {id: "M024", name: "Akashvani Sindhudurg"},
+    {id: "M025", name: "Akashvani Sangli"},
+    {id: "M026", name: "Akashvani Satara"},
+    {id: "M027", name: "Akashvani Solapur"},
+    {id: "M028", name: "Akashvani Yavatmal"},
+  ],
+  "Manipur": [
+    {id: "M001", name: "Akashvani Churachandpur"},
+    {id: "M002", name: "Akashvani Imphal Kangla"},
+    {id: "M003", name: "Akashvani Imphal Sangai"},
+  ],
+  "Meghalaya": [
+    {id: "M001", name: "Akashvani Jowai"},
+    {id: "M002", name: "Akashvani Shillong"},
+    {id: "M003", name: "FM Jongphi Shillong"},
+    {id: "M004", name: "Akashvani North East Livestream"},
+    {id: "M005", name: "Akashvani Tura"},
+  ],
+  "Mizoram": [
+    {id: "M001", name: "Akashvani Aizawl"},
+    {id: "M002", name: "FM Zoawi Aizawl"},
+    {id: "M003", name: "Akashvani Lunglei"},
+  ],
+  "Nagaland": [
+    {id: "N001", name: "Akashvani Mokokchung"},
+    {id: "N002", name: "Akashvani Kohima"},
+    {id: "N003", name: "FM Tragopan Kohima"},
+  ],
+  "Odisha": [
+    {id: "O001", name: "Akashvani Baripada"},
+    {id: "O002", name: "Akashvani Berhampur"},
+    {id: "O003", name: "Akashvani Bhawanipatna"},
+    {id: "O004", name: "Akashvani Balangir"},
+    {id: "O005", name: "Akashvani Odia"},
+    {id: "O006", name: "FM Rainbow Cuttack"},
+    {id: "O007", name: "VBS Cuttack"},
+    {id: "O008", name: "Akashvani Jeypore"},
+    {id: "O009", name: "Akashvani Joranda"},
+    {id: "O010", name: "Akashvani Keonjhar"},
+    {id: "O011", name: "Akashvani Puri FM"},
+    {id: "O012", name: "Akashvani Rourkela"},
+    {id: "O013", name: "Akashvani Mahanadi Sambalpur"},
+    {id: "O014", name: "Akashvani Sambalpur"},
+  ],
+  "Puducherry": [
+    {id: "P001", name: "Akashvani Karaikal"},
+    {id: "P002", name: "Akashvani Puducherry"},
+    {id: "P003", name: "FM Rainbow Puducherry"},
+  ],
+  "Punjab": [
+    {id: "P001", name: "Akashvani Bhatinda"},
+    {id: "P002", name: "Akashvani Punjabi"},
+    {id: "P003", name: "FM Rainbow Jalandhar"},
+    {id: "P004", name: "Akashvani Patiala"},
+  ],
+  "Rajasthan": [
+    {id: "R001", name: "Akashvani Alwar"},
+    {id: "R002", name: "Akashvani Banswara"},
+    {id: "R003", name: "Akashvani Barmer"},
+    {id: "R004", name: "Akashvani Bikaner"},
+    {id: "R005", name: "Akashvani Chittorgarh"},
+    {id: "R006", name: "Akashvani Churu"},
+    {id: "R007", name: "Akashvani Jaipur"},
+    {id: "R008", name: "VBS Jaipur"},
+    {id: "R009", name: "Akashvani Jaisalmer"},
+    {id: "R010", name: "Akashvani Jhalawar"},
+    {id: "R011", name: "Akashvani Jodhpur"},
+    {id: "R012", name: "Akashvani Jodhpur Sun City FM"},
+    {id: "R013", name: "Akashvani Kota"},
+    {id: "R014", name: "Akashvani Mount Abu"},
+    {id: "R015", name: "Akashvani Nagaur"},
+    {id: "R016", name: "Akashvani Sawai Madhopur"},
+    {id: "R017", name: "Akashvani Suratgarh"},
+    {id: "R018", name: "Akashvani Udaipur"},
+    {id: "R019", name: "Akashvani Udaipur FM Lake City"},
+  ],
+  "Sikkim": [
+    {id: "S001", name: "Akashvani Gangtok"},
+  ],
+  "Tamil Nadu": [
+    {id: "T001", name: "Akashvani Tamil Nadu"},
+    {id: "T002", name: "FM Gold Chennai"},
+    {id: "T003", name: "FM Rainbow Chennai"},
+    {id: "T004", name: "VB Tamil Chennai"},
+    {id: "T005", name: "Akashvani Coimbatore"},
+    {id: "T006", name: "FM Rainbow Coimbatore"},
+    {id: "T007", name: "Akashvani Dharmapuri"},
+    {id: "T008", name: "Akashvani Kodaikanal"},
+    {id: "T009", name: "Akashvani Madurai"},
+    {id: "T010", name: "FM Nagercoil Kumari"},
+    {id: "T011", name: "Akashvani Ooty"},
+    {id: "T012", name: "Akashvani Tiruchirappalli"},
+    {id: "T013", name: "Akashvani Tiruchirappalli FM"},
+    {id: "T014", name: "Akashvani Tirunelveli"},
+    {id: "T015", name: "FM Rainbow Tirunelveli"},
+    {id: "T016", name: "Akashvani Tuticorin"},
+  ],
+  "Telangana": [
+    {id: "T001", name: "Akashvani Adilabad"},
+    {id: "T002", name: "Akashvani Telangana"},
+    {id: "T003", name: "FM Rainbow Hyderabad"},
+    {id: "T004", name: "VB Telugu Hyderabad"},
+    {id: "T005", name: "Akashvani Kothagudem"},
+    {id: "T006", name: "Akashvani Nizamabad"},
+    {id: "T007", name: "Akashvani Warangal"},
+  ],
+  "Tripura": [
+    {id: "T001", name: "Akashvani Agartala"},
+    {id: "T002", name: "FM Ujjayanta Agartala"},
+    {id: "T003", name: "Akashvani Belonia"},
+    {id: "T004", name: "Akashvani Kailashahar"},
+  ],
+  "Uttarakhand": [
+    {id: "U001", name: "Akashvani Almora"},
+    {id: "U002", name: "Akashvani Dehradun"},
+    {id: "U003", name: "Akashvani Pauri"},
+  ],
+  "Uttar Pradesh": [
+    {id: "U001", name: "Akashvani Agra"},
+    {id: "U002", name: "Akashvani Prayagraj"},
+    {id: "U003", name: "Akashvani Bareilly"},
+    {id: "U004", name: "Akashvani Ayodhya"},
+    {id: "U005", name: "Akashvani Gorakhpur"},
+    {id: "U006", name: "Akashvani Jhansi"},
+    {id: "U007", name: "Akashvani Kanpur"},
+    {id: "U008", name: "FM Rainbow Kanpur"},
+    {id: "U009", name: "Akashvani Lucknow"},
+    {id: "U010", name: "FM Rainbow Lucknow"},
+    {id: "U011", name: "Akashvani Mathura"},
+    {id: "U012", name: "Akashvani Najibabad"},
+    {id: "U013", name: "Akashvani Obra"},
+    {id: "U014", name: "Akashvani Rampur"},
+    {id: "U015", name: "Akashvani Varanasi"},
+    {id: "U016", name: "KumbhVani"},
+  ],
+  "West Bengal": [
+    {id: "W001", name: "Akashvani Bangla"},
+    {id: "W002", name: "Akashvani Kolkata Geetanjali"},
+    {id: "W003", name: "Akashvani Kolkata Sanchayita"},
+    {id: "W004", name: "FM Gold Kolkata"},
+    {id: "W005", name: "FM Rainbow Kolkata"},
+    {id: "W006", name: "VBS Kolkata"},
+    {id: "W007", name: "Akashvani Kurseong"},
+    {id: "W008", name: "Akashvani Murshidabad"},
+    {id: "W009", name: "Akashvani Shantiniketan"},
+    {id: "W010", name: "Akashvani Maitree"},
+    {id: "W011", name: "Akashvani Siliguri"},
+  ],
+};
+/* ===== STATE ===== */
+let favourites = JSON.parse(localStorage.getItem('airFav')||'[]');
+let favMode = false;   // ❗ auto-favourites disabled
+let searchTimer = null;
+
+const list = document.getElementById('stationList');
+const search = document.getElementById('search');
+const clearBtn = document.getElementById('clearBtn');
+const filter = document.getElementById('stateFilter');
+const favToggle = document.getElementById('favToggle');
+
+/* Populate states */
+Object.keys(data).forEach(state=>{
+  const o=document.createElement('option');
+  o.value=state;
+  o.textContent=state;
+  filter.appendChild(o);
+});
+
+favToggle.onclick=()=>{
+  favMode=!favMode;
+  favToggle.textContent = favMode ? '← All Stations' : '❤ Favourites';
+  render();
+};
+
+function render(){
+  list.innerHTML='';
+  const q = search.value.trim().toLowerCase();
+  clearBtn.style.display = q ? 'block':'none';
+
+  const stateValue = filter.value;
+  let found=false;
+
+  Object.entries(data).forEach(([state,stations])=>{
+    if(stateValue && state!==stateValue) return;
+
+    if(q){
+      const stateMatch = state.toLowerCase().includes(q);
+      const stationMatch = stations.some(st=>st.name.toLowerCase().includes(q));
+      if(!stateMatch && !stationMatch) return;
+    }
+
+    const visible = stations.filter(st=>!favMode || favourites.includes(st.id));
+    if(!visible.length) return;
+
+    found=true;
+    const h=document.createElement('div');
+    h.className='state';
+    h.textContent=state;
+    list.appendChild(h);
+
+    visible.forEach(st=>{
+      const row=document.createElement('div');
+      row.className='station';
+
+      const link=document.createElement('a');
+      link.href=`go:${st.id}`;
+      link.style.display='flex';
+      link.style.alignItems='center';
+      link.style.gap='12px';
+      link.style.flex='1';
+      link.style.textDecoration='none';
+      link.style.color='inherit';
+      link.innerHTML=`<div class="play">▶</div><div class="station-name">${st.name}</div>`;
+
+      const fav=document.createElement('div');
+      fav.className='fav'+(favourites.includes(st.id)?' active':'');
+      fav.innerHTML='❤';
+      fav.onclick=e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        favourites = favourites.includes(st.id)
+          ? favourites.filter(f=>f!==st.id)
+          : [...favourites, st.id];
+        localStorage.setItem('airFav', JSON.stringify(favourites));
+        render();
+      };
+
+      row.append(link,fav);
+      list.appendChild(row);
+    });
+  });
+
+  if(!found){
+    list.innerHTML='<div class="empty">Nothing found</div>';
+  }
+}
+
+/* Debounced search */
+search.oninput=()=>{
+  clearTimeout(searchTimer);
+  searchTimer=setTimeout(render,300);
+};
+
+clearBtn.onclick=()=>{
+  search.value='';
+  render();
+};
+
+filter.onchange=render;
+render();
+</script>
+
+</body>
+</html>
