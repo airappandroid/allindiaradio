@@ -535,8 +535,8 @@ const data={
     {id: "W008", name: "Akashvani Murshidabad"},
     {id: "W009", name: "Akashvani Shantiniketan"},
     {id: "W010", name: "Akashvani Maitree"},
-    {id: "W011", name: "Akashvani Siliguri"},
-  ],
+    {id: "W011", name: "Akashvani Siliguri"}
+  ]
 };
 /* ===== STATE ===== */
 let favourites = JSON.parse(localStorage.getItem('airFav')||'[]');
@@ -580,7 +580,10 @@ function render(){
       if(!stateMatch && !stationMatch) return;
     }
 
-    const visible = stations.filter(st=>!favMode || favourites.includes(st.id));
+    const visible = stations.filter(
+  st => !favMode || favourites.includes(state + "_" + st.id)
+);
+
     if(!visible.length) return;
 
     found=true;
@@ -590,6 +593,8 @@ function render(){
     list.appendChild(h);
 
     visible.forEach(st=>{
+      const favKey = state + "_" + st.id;
+
       const row=document.createElement('div');
       row.className='station';
 
@@ -604,25 +609,21 @@ function render(){
       link.innerHTML=`<div class="play">▶</div><div class="station-name">${st.name}</div>`;
 
       const fav=document.createElement('div');
-      fav.className='fav'+(favourites.includes(st.id)?' active':'');
+     fav.className='fav'+(favourites.includes(favKey)?' active':'');
+
       fav.innerHTML='❤';
      fav.onclick = e => {
-    e.preventDefault();
-    e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
 
-    // ── ये दो लाइनें जोड़ दो ────────────────────────
-    fav.classList.toggle('active');
-    const willBeFav = fav.classList.contains('active');
-    // ───────────────────────────────────────────────
+  favourites = favourites.includes(favKey)
+    ? favourites.filter(f => f !== favKey)
+    : [...favourites, favKey];
 
-    // पुराना लॉजिक थोड़ा बदल दो
-    favourites = willBeFav
-        ? [...new Set([...favourites, st.id])]   // add (duplicate से बचने के लिए Set)
-        : favourites.filter(f => f !== st.id);
-
-    localStorage.setItem('airFav', JSON.stringify(favourites));
-    render();
+  localStorage.setItem('airFav', JSON.stringify(favourites));
+  render();
 };
+
 
       row.append(link,fav);
       list.appendChild(row);
