@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>        
@@ -246,10 +245,31 @@ body{
 
 .view-full-wrap{text-align:right;margin-top:6px}
 .view-full-btn{
-  font-size:13px;
-  color:#FF6A00;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:600;
+  color:#111;
+  background:linear-gradient(135deg,#ff7a45,#ff9f68);
   text-decoration:none;
+  box-shadow:0 6px 14px rgba(255,122,69,.35);
+  transition:all .25s ease;
 }
+
+.view-full-btn:active{
+  transform:scale(.95);
+  box-shadow:0 3px 8px rgba(255,122,69,.35);
+}
+
+.view-full-btn::after{
+  content:"›";
+  font-size:16px;
+  line-height:1;
+}
+
 
 /* CRICKET */
 .cricket-card{
@@ -439,6 +459,80 @@ a,button{
   font-weight:700;
   
 }
+/* =========================
+   🎧 NOW PLAYING – PREMIUM UI
+   ========================= */
+
+#nowPlaying{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.now-card{
+  position:relative;
+  padding:10px 12px 10px 40px;  /* पहले 12/46 था */
+  border-radius:12px;
+  background:linear-gradient(
+  180deg,
+  rgba(255,255,255,.05),
+  rgba(255,255,255,.015)
+);
+
+.now-card::before{
+  content:"🎧";
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:18px;
+  opacity:.85;
+}
+
+.now-live{
+  position:absolute;
+  top:8px;
+  right:10px;
+  font-size:9px;
+  font-weight:700;
+  padding:2px 5px;
+  border-radius:6px;
+  background:#16a34a;   /* थोड़ा darker green */
+  color:#dcfce7;
+}
+
+.now-title{
+  font-size:13px;
+  font-weight:600;
+  color:#ffffff;
+  line-height:1.3;
+}
+
+.now-channel{
+  font-size:11px;
+  margin-top:1px;
+  color:#9fb2ff;
+  opacity:.9;
+}
+.now-card{
+  position:relative;
+  padding:12px 14px 12px 46px;
+  border-radius:14px;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.05),
+    rgba(255,255,255,.015)
+  );
+}
+
+.now-icon{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:16px;
+  opacity:.85;
+}
 
 </style>
 </head>
@@ -485,22 +579,22 @@ a,button{
   <div class="today-air">
 
     <div class="today-heading">
-      📅 Today on AIR <span id="todayDate"></span>
+      🎧 Now Playing
     </div>
 
-    <!-- AUTO SCHEDULE WILL RENDER HERE -->
-    <div id="todaySchedule"></div>
+    <div id="nowPlaying"></div>
 
-<div class="view-full-wrap">
-  <a href="https://airappandroid.github.io/allindiaradio/schedule.html"
-    target="_blank"      
-     class="view-full-btn">
-     View Full Schedule →
-  </a>
-</div>
+    <div class="view-full-wrap">
+      <a href="https://airappandroid.github.io/allindiaradio/schedule.html"
+         target="_blank"
+         class="view-full-btn">
+         See What’s Next
+      </a>
+    </div>
 
   </div>
 </section>
+
 
 <!-- 🔥 POPULAR STATIONS -->
 <section class="section">
@@ -678,91 +772,352 @@ document.addEventListener("DOMContentLoaded", () => {
   // =======================
 
   const todayPrograms = [
-  { time: "00:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "00:05", title: "SUHANI RAAT", channel: "FM Rainbow" },
-  { time: "01:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "01:05", title: "WESTERN MUSIC", channel: "FM Rainbow" },
-  { time: "02:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "02:05", title: "BHULAYE NA BANE", channel: "FM Rainbow" },
-  { time: "03:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "03:05", title: "WESTERN MUSIC", channel: "FM Rainbow" },
-  { time: "04:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "04:05", title: "SA RE GA MA", channel: "FM Rainbow" },
-  { time: "05:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "05:05", title: "ARADHANA", channel: "FM Rainbow" },
-  { time: "06:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "06:05", title: "SUPRABHAT", channel: "FM Rainbow" },
-  { time: "07:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "07:05", title: "GOOD MORNING DELHI / NCR", channel: "FM Rainbow" },
-  { time: "08:00", title: "GOOD MORNING DELHI / NCR", channel: "FM Rainbow" },
-  { time: "09:00", title: "DIL KE TARANE", channel: "FM Rainbow" },
-  { time: "10:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "10:05", title: "BAAT SE BANE BAAT", channel: "FM Rainbow" },
-  { time: "11:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "11:05", title: "BOLLYWOOD TRAILS", channel: "FM Rainbow" },
-  { time: "12:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "12:05", title: "DIL MEIN DILLI", channel: "FM Rainbow" },
-  { time: "13:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "13:05", title: "MERAWALA SONG", channel: "FM Rainbow" },
-  { time: "14:00", title: "AASHIYANA", channel: "FM Rainbow" },
-  { time: "15:00", title: "RADIO DOCTOR", channel: "FM Rainbow" },
-  { time: "16:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "16:05", title: "ALPHA GEN", channel: "FM Rainbow" },
-  { time: "17:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "17:05", title: "CITYLIGHTS", channel: "FM Rainbow" },
-  { time: "18:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "18:05", title: "MESSAGE MASALA MIX", channel: "FM Rainbow" },
-  { time: "19:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "19:05", title: "WESTERN MUSIC", channel: "FM Rainbow" },
-  { time: "20:00", title: "MUSIC MASTI", channel: "FM Rainbow" },
-  { time: "21:00", title: "RAINBOW CELEBS", channel: "FM Rainbow" },
-  { time: "22:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "22:05", title: "WESTERN MUSIC", channel: "FM Rainbow" },
-  { time: "23:00", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
-  { time: "23:05", title: "RANG-E-MEHFIL", channel: "FM Rainbow" }
+  { time: "12:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "12:05 AM", title: "SUHANI RAAT", channel: "FM Rainbow" },
+  { time: "01:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "01:05 AM", title: "WESTERN MUSIC (The Wicked Hour)", channel: "FM Rainbow" },
+  { time: "02:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "02:05 AM", title: "BHULAYE NA BANE", channel: "FM Rainbow" },
+  { time: "03:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "03:05 AM", title: "WESTERN MUSIC (Wake up with music)", channel: "FM Rainbow" },
+  { time: "04:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "04:05 AM", title: "SA RE GA MA", channel: "FM Rainbow" },
+  { time: "05:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "05:05 AM", title: "ARADHANA", channel: "FM Rainbow" },
+  { time: "06:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "06:05 AM", title: "SUPRABHAT", channel: "FM Rainbow" },
+  { time: "07:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "07:05 AM", title: "GOOD MORNING DELHI / NCR", channel: "FM Rainbow" },
+  { time: "08:00 AM", title: "GOOD MORNING DELHI / NCR", channel: "FM Rainbow" },
+  { time: "09:00 AM", title: "DIL KE TARANE GAANE NAYE PURANE", channel: "FM Rainbow" },
+  { time: "10:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "10:05 AM", title: "BAAT SE BANE BAAT", channel: "FM Rainbow" },
+  { time: "11:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "11:05 AM", title: "BOLLYWOOD TRAILS", channel: "FM Rainbow" },
+  { time: "12:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "12:05 PM", title: "DIL MEIN DILLI", channel: "FM Rainbow" },
+  { time: "01:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "01:05 PM", title: "MERAWALA SONG", channel: "FM Rainbow" },
+  { time: "02:00 PM", title: "AASHIYANA", channel: "FM Rainbow" },
+  { time: "03:00 PM", title: "RADIO DOCTOR", channel: "FM Rainbow" },
+  { time: "04:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "04:05 PM", title: "ALPHA GEN", channel: "FM Rainbow" },
+  { time: "05:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "05:05 PM", title: "CITYLIGHTS", channel: "FM Rainbow" },
+  { time: "06:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "06:05 PM", title: "MESSAGE MASALA MIX", channel: "FM Rainbow" },
+  { time: "07:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "07:05 PM", title: "WESTERN MUSIC (Friday Fiesta)", channel: "FM Rainbow" },
+  { time: "08:00 PM", title: "MUSIC MASTI", channel: "FM Rainbow" },
+  { time: "09:00 PM", title: "RAINBOW CELEBS", channel: "FM Rainbow" },
+  { time: "10:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "10:05 PM", title: "WESTERN MUSIC (Weekender)", channel: "FM Rainbow" },
+  { time: "11:00 PM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
+  { time: "11:05 PM", title: "RANG-E-MEHFIL", channel: "FM Rainbow" },
+
+ 
+  { time: "12:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "12:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "12:10 AM", title: "NISHIGANDHA", channel: "FM Gold" },
+  { time: "01:00 AM", title: "NEWS BULLETIN HINDI", channel: "FM Gold" },
+  { time: "01:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "01:10 AM", title: "GEET SUHANE", channel: "FM Gold" },
+  { time: "02:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "02:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "02:10 AM", title: "RAAT SURMAYI", channel: "FM Gold" },
+  { time: "03:00 AM", title: "NEWS BULLETIN HINDI", channel: "FM Gold" },
+  { time: "03:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "03:10 AM", title: "HUMRAHI HIT FILMI DUETS", channel: "FM Gold" },
+  { time: "04:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "04:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "04:10 AM", title: "ARUNIMA", channel: "FM Gold" },
+  { time: "05:00 AM", title: "NEWS BULLETIN HINDI", channel: "FM Gold" },
+  { time: "05:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "05:10 AM", title: "BHOR SUHANI", channel: "FM Gold" },
+  { time: "06:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "06:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "06:10 AM", title: "ARPAN", channel: "FM Gold" },
+  { time: "06:44 AM", title: "SHRI RAM CHARIT MANAS GAAN", channel: "FM Gold" },
+  { time: "06:55 AM", title: "NEWS IN SANSKRIT", channel: "FM Gold" },
+  { time: "07:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "07:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "07:10 AM", title: "GOLD SUPRABHAT", channel: "FM Gold" },
+  { time: "07:30 AM", title: "AAJ SAVERE", channel: "FM Gold" },
+  { time: "08:00 AM", title: "HINDI NEWS - SAMACHAR PRABHAT", channel: "FM Gold" },
+  { time: "08:15 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "08:30 AM", title: "NEWS BULLETIN URDU", channel: "FM Gold" },
+  { time: "08:45 AM", title: "MUSICAL DILLAGI", channel: "FM Gold" },
+  { time: "09:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "09:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "09:10 AM", title: "MUSICAL DILLAGI", channel: "FM Gold" },
+  { time: "10:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "10:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "10:10 AM", title: "VISHWA DARPAN", channel: "FM Gold" },
+  { time: "10:20 AM", title: "WORLD NEWS", channel: "FM Gold" },
+  { time: "10:30 AM", title: "DIL KA MAILBOX", channel: "FM Gold" },
+  { time: "11:00 AM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "11:05 AM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "11:10 AM", title: "TASVEER", channel: "FM Gold" },
+  { time: "12:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "12:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "12:10 PM", title: "GHAR AANGAN", channel: "FM Gold" },
+  { time: "01:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "01:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "01:10 PM", title: "KALAKAR BEMISAAL", channel: "FM Gold" },
+  { time: "01:50 PM", title: "URDU SAMACHAR", channel: "FM Gold" },
+  { time: "02:00 PM", title: "MID DAY NEWS", channel: "FM Gold" },
+  { time: "02:15 PM", title: "DOPAHAR SAMACHAR", channel: "FM Gold" },
+  { time: "02:30 PM", title: "KISAN KI BAAT", channel: "FM Gold" },
+  { time: "03:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "03:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "03:10 PM", title: "NEW INDIA SAMACHAAR", channel: "FM Gold" },
+  { time: "03:25 PM", title: "MANBHAVAN", channel: "FM Gold" },
+  { time: "04:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "04:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "04:10 PM", title: "FILM SONGS & UPDATES", channel: "FM Gold" },
+  { time: "04:20 PM", title: "EMPLOYMENT NEWS", channel: "FM Gold" },
+  { time: "04:30 PM", title: "PARIKRAMA", channel: "FM Gold" },
+  { time: "05:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "05:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "05:10 PM", title: "GAATE GUNGUNATE", channel: "FM Gold" },
+  { time: "06:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "06:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "06:10 PM", title: "SADABAHAR GEET", channel: "FM Gold" },
+  { time: "06:20 PM", title: "NEWS IN SANSKRIT", channel: "FM Gold" },
+  { time: "06:30 PM", title: "MARKET MANTRA", channel: "FM Gold" },
+  { time: "07:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "07:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "07:10 PM", title: "SURKHIYON MEIN", channel: "FM Gold" },
+  { time: "07:25 PM", title: "SAANJH DHALE", channel: "FM Gold" },
+  { time: "07:45 PM", title: "PRADESHIK SAMACHAAR", channel: "FM Gold" },
+  { time: "08:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "08:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "08:10 PM", title: "MADHURIMA", channel: "FM Gold" },
+  { time: "08:30 PM", title: "SPORTS SCAN", channel: "FM Gold" },
+  { time: "08:45 PM", title: "SAMACHAR SANDHYA", channel: "FM Gold" },
+  { time: "09:00 PM", title: "NEWS AT NINE", channel: "FM Gold" },
+  { time: "09:15 PM", title: "SPOT LIGHT", channel: "FM Gold" },
+  { time: "09:30 PM", title: "CHITRA BHARATI", channel: "FM Gold" },
+  { time: "10:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "10:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "10:10 PM", title: "VISHWA DARPAN", channel: "FM Gold" },
+  { time: "10:20 PM", title: "WORLD NEWS", channel: "FM Gold" },
+  { time: "10:30 PM", title: "HARSINGAR", channel: "FM Gold" },
+  { time: "11:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
+  { time: "11:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
+  { time: "11:10 PM", title: "GEET MERE MANMEET", channel: "FM Gold" },
+
+  { time: "12:00 AM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
+  { time: "01:00 AM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
+  { time: "02:00 AM", title: "SADABAHAR NAGME", channel: "Vividh Bharati" },
+  { time: "03:00 AM", title: "SAKHI SAHELI", channel: "Vividh Bharati" },
+  { time: "04:00 AM", title: "TARANE NAYE PURANE", channel: "Vividh Bharati" },
+  { time: "05:00 AM", title: "JAGO SUBAH HO GAYI", channel: "Vividh Bharati" },
+  { time: "05:59 AM", title: "OPENING ANNOUNCEMENT", channel: "Vividh Bharati" },
+  { time: "06:00 AM", title: "SAMACHAR (HINDI)", channel: "Vividh Bharati" },
+  { time: "06:05 AM", title: "VANDANWAR / CHINTAN", channel: "Vividh Bharati" },
+  { time: "06:35 AM", title: "SHRI RAM CHARIT MANAS", channel: "Vividh Bharati" },
+  { time: "06:45 AM", title: "SANGEET SARITA", channel: "Vividh Bharati" },
+  { time: "07:00 AM", title: "BHOOLAY BISRE GEET", channel: "Vividh Bharati" },
+  { time: "07:30 AM", title: "HUM HAIN RAHI PYAR KE", channel: "Vividh Bharati" },
+  { time: "08:00 AM", title: "SAMACHAR PRABHAT", channel: "Vividh Bharati" },
+  { time: "08:15 AM", title: "TRIVENI", channel: "Vividh Bharati" },
+  { time: "08:30 AM", title: "JHAROKHA / BHARAT KI GOONJ", channel: "Vividh Bharati" },
+  { time: "09:00 AM", title: "BHARAT KI GOONJ", channel: "Vividh Bharati" },
+  { time: "09:30 AM", title: "AAJ KE FUNKAR", channel: "Vividh Bharati" },
+  { time: "10:00 AM", title: "SURILI BOLIYAN", channel: "Vividh Bharati" },
+  { time: "11:00 AM", title: "CINEMAGHAR", channel: "Vividh Bharati" },
+  { time: "11:30 AM", title: "NAVSUR", channel: "Vividh Bharati" },
+  { time: "12:00 PM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
+  { time: "01:00 PM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
+  { time: "02:00 PM", title: "MIDDAY NEWS (ENGLISH)", channel: "Vividh Bharati" },
+  { time: "02:15 PM", title: "TRIVENI", channel: "Vividh Bharati" },
+  { time: "02:30 PM", title: "SADABAHAR NAGME", channel: "Vividh Bharati" },
+  { time: "03:30 PM", title: "NATYA TARANG", channel: "Vividh Bharati" },
+  { time: "04:00 PM", title: "BOMBAY TALKIES", channel: "Vividh Bharati" },
+  { time: "05:00 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
+  { time: "05:30 PM", title: "AWAAZ HI PEHCHAAN HAI", channel: "Vividh Bharati" },
+  { time: "06:45 PM", title: "SANGEET SARITA", channel: "Vividh Bharati" },
+  { time: "07:00 PM", title: "VISHESH JAYMALA", channel: "Vividh Bharati" },
+  { time: "07:45 PM", title: "PRADESHIK SAMACHAR", channel: "Vividh Bharati" },
+  { time: "08:00 PM", title: "HAVA MAHAL", channel: "Vividh Bharati" },
+  { time: "08:15 PM", title: "JHAROKHA / CHITRALOK", channel: "Vividh Bharati" },
+  { time: "08:45 PM", title: "SAMACHAR SANDHYA", channel: "Vividh Bharati" },
+  { time: "09:00 PM", title: "AAP KE LIYE", channel: "Vividh Bharati" },
+  { time: "09:30 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
+  { time: "10:00 PM", title: "AAJ KE FUNKAR", channel: "Vividh Bharati" },
+  { time: "10:30 PM", title: "DHALTI JAAYE RAAT", channel: "Vividh Bharati" },
+  { time: "11:00 PM", title: "RANG TARANG", channel: "Vividh Bharati" },
+  
+
+  { time: "12:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "12:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "12:10 AM", title: "SURO KA SAFARNAMA", channel: "Indraprastha" },
+
+  { time: "01:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "01:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "01:10 AM", title: "GEET SUNAHRE – GOLDEN ERA", channel: "Indraprastha" },
+
+  { time: "02:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "02:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "02:10 AM", title: "GEET BAHAR", channel: "Indraprastha" },
+
+  { time: "03:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "03:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "03:10 AM", title: "GHAZAL / GEET", channel: "Indraprastha" },
+
+  { time: "04:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "04:05 AM", title: "ARCHANA (DEVOTIONAL)", channel: "Indraprastha" },
+  { time: "04:25 AM", title: "NAAD BRAHM – CARNATIC MUSIC", channel: "Indraprastha" },
+  { time: "04:55 AM", title: "VANDE MATARAM / OPENING", channel: "Indraprastha" },
+
+  { time: "05:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "05:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "05:10 AM", title: "AAO YOG KAREN", channel: "Indraprastha" },
+  { time: "05:20 AM", title: "DESH BHAKTI SANGEET", channel: "Indraprastha" },
+  { time: "05:30 AM", title: "SWAR RANJANI", channel: "Indraprastha" },
+
+  { time: "06:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "06:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "06:10 AM", title: "VANDANA", channel: "Indraprastha" },
+  { time: "06:40 AM", title: "CHINTAN", channel: "Indraprastha" },
+  { time: "06:45 AM", title: "RAM CHARIT MANAS", channel: "Indraprastha" },
+  { time: "06:55 AM", title: "NEWS IN SANSKRIT", channel: "Indraprastha" },
+
+  { time: "07:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "07:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "07:10 AM", title: "SANGEETIKA", channel: "Indraprastha" },
+  { time: "07:30 AM", title: "GEETON BHARI GOOD MORNING", channel: "Indraprastha" },
+
+  { time: "08:00 AM", title: "SAMACHAR PRABHAT", channel: "Indraprastha" },
+  { time: "08:15 AM", title: "MORNING NEWS (ENGLISH)", channel: "Indraprastha" },
+  { time: "08:30 AM", title: "NEWS IN URDU", channel: "Indraprastha" },
+  { time: "08:45 AM", title: "SWASTHYA PATRIKA", channel: "Indraprastha" },
+
+  { time: "09:15 AM", title: "DHARTI AAKASH", channel: "Indraprastha" },
+  { time: "09:30 AM", title: "MITTI DI MEHAK", channel: "Indraprastha" },
+
+  { time: "10:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "10:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "10:10 AM", title: "FILM SANGEET – AAPKI PASAND", channel: "Indraprastha" },
+
+  { time: "11:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "11:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "11:10 AM", title: "SABRAS", channel: "Indraprastha" },
+  { time: "11:30 AM", title: "SUR MANJARI", channel: "Indraprastha" },
+
+  { time: "12:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "12:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "12:10 PM", title: "GHAR AANGAN", channel: "Indraprastha" },
+
+  { time: "01:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "01:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "01:10 PM", title: "EK HI FILM SE", channel: "Indraprastha" },
+  { time: "01:40 PM", title: "NEWS IN PUNJABI", channel: "Indraprastha" },
+  { time: "01:50 PM", title: "NEWS IN URDU", channel: "Indraprastha" },
+
+  { time: "02:00 PM", title: "MID DAY NEWS (ENGLISH)", channel: "Indraprastha" },
+  { time: "02:15 PM", title: "MID DAY NEWS (HINDI)", channel: "Indraprastha" },
+  { time: "02:30 PM", title: "EK HI KALAKAR", channel: "Indraprastha" },
+
+  { time: "03:00 PM", title: "BRAJ MADHURI", channel: "Indraprastha" },
+  { time: "03:30 PM", title: "NAATAK – NEELI RAGEN", channel: "Indraprastha" },
+
+  { time: "04:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "04:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "04:10 PM", title: "SOS / PROMO", channel: "Indraprastha" },
+  { time: "04:20 PM", title: "EMPLOYMENT NEWS", channel: "Indraprastha" },
+  { time: "04:30 PM", title: "PARIKRAMA", channel: "Indraprastha" },
+
+  { time: "05:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "05:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "05:10 PM", title: "LOK RANJANI", channel: "Indraprastha" },
+  { time: "05:30 PM", title: "KHEL KHILADI", channel: "Indraprastha" },
+
+  { time: "06:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "06:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "06:10 PM", title: "CHAHAL PAHAL", channel: "Indraprastha" },
+  { time: "06:20 PM", title: "NEWS IN SANSKRIT", channel: "Indraprastha" },
+  { time: "06:30 PM", title: "GRAM SANSAR", channel: "Indraprastha" },
+
+  { time: "07:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "07:05 PM", title: "KRISHI JAGAT", channel: "Indraprastha" },
+  { time: "07:30 PM", title: "GHAZAL / QAWWALI", channel: "Indraprastha" },
+  { time: "07:45 PM", title: "PRADESHIK SAMACHAR", channel: "Indraprastha" },
+
+  { time: "08:00 PM", title: "MUSHAIRA", channel: "Indraprastha" },
+  { time: "08:30 PM", title: "FILM MUSIC", channel: "Indraprastha" },
+  { time: "08:45 PM", title: "SAMACHAR SANDHYA", channel: "Indraprastha" },
+
+  { time: "09:00 PM", title: "EVENING NEWS (ENGLISH)", channel: "Indraprastha" },
+  { time: "09:15 PM", title: "NEWS IN URDU", channel: "Indraprastha" },
+  { time: "09:30 PM", title: "AKHIL BHARTIYA PATRIKA PROGRAM", channel: "Indraprastha" },
+
+  { time: "10:00 PM", title: "AKASHVANI SANGEET SAMMELAN", channel: "Indraprastha" },
+
+  { time: "11:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "11:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "11:10 PM", title: "FILM SANGEET – AAPKI FARMAISH", channel: "Indraprastha" }
 ];
 
+ // =======================
+// 🎧 NOW PLAYING (4 CHANNELS)
+// =======================
 
-  const container = document.getElementById("todaySchedule");
-  const dateEl = document.getElementById("todayDate");
+const nowContainer = document.getElementById("nowPlaying");
+const now = new Date();
+const currentMin = now.getHours() * 60 + now.getMinutes();
 
-  if(container){
-    const now = new Date();
-    if(dateEl){
-      dateEl.textContent = `(${now.getDate()} ${now.toLocaleString("en",{month:"short"})})`;
+function toMinutes(t){
+  const [time, period] = t.split(" ");
+  let [h, m] = time.split(":").map(Number);
+
+  if (period === "AM" && h === 12) h = 0;
+  if (period === "PM" && h !== 12) h += 12;
+
+  return h * 60 + m;
+}
+
+const channels = [
+  "FM Rainbow",
+  "Vividh Bharati",
+  "FM Gold",
+  "Indraprastha"
+];
+
+let html = "";
+
+channels.forEach(channel => {
+  const list = todayPrograms
+    .filter(p => p.channel === channel)
+    .sort((a,b) => toMinutes(a.time) - toMinutes(b.time));
+
+  let current = list[0];
+
+  list.forEach(p => {
+    if (toMinutes(p.time) <= currentMin) {
+      current = p;
     }
+  });
 
-    const currentMin = now.getHours()*60 + now.getMinutes();
+  html += `
+  <div class="now-card">
+    <div class="now-icon">🎧</div>
 
-    function toMinutes(t){
-      const [h,m] = t.split(":").map(Number);
-      return h*60 + m;
-    }
+    <span class="now-live">LIVE</span>
 
-    function ampm(t){
-      let [h,m] = t.split(":").map(Number);
-      return (h%12||12)+":"+m.toString().padStart(2,"0")+" "+(h>=12?"PM":"AM");
-    }
+    <div class="now-text">
+      <div class="now-title">${current.title}</div>
+      <div class="now-channel">${channel}</div>
+    </div>
+  </div>
+`;
 
-    const sorted = todayPrograms.sort((a,b)=>toMinutes(a.time)-toMinutes(b.time));
-    let upcoming = sorted.filter(p => toMinutes(p.time) >= currentMin);
 
-    if(upcoming.length < 3){
-      upcoming = [...upcoming, ...sorted].slice(0,3);
-    } else {
-      upcoming = upcoming.slice(0,3);
-    }
+});
 
-    container.innerHTML = upcoming.map(p=>`
-      <div class="today-item">
-        <div class="today-time">${ampm(p.time)}</div>
-        <div>
-          <span class="program">${p.title}</span> •
-          <span class="channel">${p.channel}</span>
-        </div>
-      </div>
-    `).join("");
-  }
+nowContainer.innerHTML = html;
+
 
   // =======================
   // 📰 BREAKING NEWS
