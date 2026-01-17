@@ -131,5 +131,157 @@ window.SCHEDULE_DATA = [
   { time: "10:30 PM", title: "HARSINGAR", channel: "FM Gold" },
   { time: "11:00 PM", title: "NEWS IN HINDI", channel: "FM Gold" },
   { time: "11:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
-  { time: "11:10 PM", title: "GEET MERE MANMEET", channel: "FM Gold" }
+  { time: "11:10 PM", title: "GEET MERE MANMEET", channel: "FM Gold" },
+
+  { time: "12:00 AM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
+{ time: "01:00 AM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
+{ time: "02:00 AM", title: "SADABAHAR NAGME – FILMI GEET", channel: "Vividh Bharati" },
+{ time: "03:00 AM", title: "HELLO SAHELI", channel: "Vividh Bharati" },
+{ time: "04:00 AM", title: "TARANE NAYE PURANE", channel: "Vividh Bharati" },
+{ time: "05:00 AM", title: "JAGO SUBAH HO GAYI", channel: "Vividh Bharati" },
+{ time: "05:59 AM", title: "OPENING ANNOUNCEMENTS", channel: "Vividh Bharati" },
+{ time: "06:00 AM", title: "SAMACHAR (HINDI)", channel: "Vividh Bharati" },
+{ time: "06:05 AM", title: "VANDANWAR / CHINTAN", channel: "Vividh Bharati" },
+{ time: "06:35 AM", title: "SHRI RAM CHARIT MANAS (PART 71)", channel: "Vividh Bharati" },
+{ time: "06:45 AM", title: "SANGEET SARITA – NATYAGEET MANJIRI", channel: "Vividh Bharati" },
+{ time: "07:00 AM", title: "BHOOLE BISRE GEET", channel: "Vividh Bharati" },
+{ time: "07:30 AM", title: "HUM HAI RAAHI PYAR KE", channel: "Vividh Bharati" },
+{ time: "08:00 AM", title: "SAMACHAR PRABHAT", channel: "Vividh Bharati" },
+{ time: "08:15 AM", title: "TRIVENI", channel: "Vividh Bharati" },
+{ time: "08:30 AM", title: "BHARAT KI GOONJ (PEHLA JHAROKHA)", channel: "Vividh Bharati" },
+{ time: "09:00 AM", title: "BHARAT KI GOONJ", channel: "Vividh Bharati" },
+{ time: "09:30 AM", title: "AAJ KE FANKAR – KAMAL AMROHI", channel: "Vividh Bharati" },
+{ time: "10:00 AM", title: "GEETON BHARI KAHANI – MUSKAN (PART 1)", channel: "Vividh Bharati" },
+{ time: "11:00 AM", title: "RANG TARANG", channel: "Vividh Bharati" },
+
+{ time: "12:00 PM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
+{ time: "01:00 PM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
+{ time: "02:00 PM", title: "MID DAY NEWS (ENGLISH)", channel: "Vividh Bharati" },
+{ time: "02:15 PM", title: "TRIVENI", channel: "Vividh Bharati" },
+{ time: "02:30 PM", title: "SADABAHAR NAGME – FILMI GEET", channel: "Vividh Bharati" },
+{ time: "03:30 PM", title: "NATYA TARANG", channel: "Vividh Bharati" },
+{ time: "04:00 PM", title: "BOMBAY TALKIES", channel: "Vividh Bharati" },
+{ time: "05:00 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
+{ time: "05:30 PM", title: "TARANE NAYE PURANE", channel: "Vividh Bharati" },
+{ time: "06:45 PM", title: "SANGEET SARITA – NATYAGEET MANJIRI", channel: "Vividh Bharati" },
+{ time: "07:00 PM", title: "VISHESH JAYMALA – JAVED AKHTAR", channel: "Vividh Bharati" },
+{ time: "07:45 PM", title: "JIGYASA", channel: "Vividh Bharati" },
+{ time: "08:00 PM", title: "HAWAMAHAL – SUNO KAHANI", channel: "Vividh Bharati" },
+{ time: "08:15 PM", title: "CHITRALOK", channel: "Vividh Bharati" },
+{ time: "08:45 PM", title: "SAMACHAR SANDHYA", channel: "Vividh Bharati" },
+{ time: "09:00 PM", title: "AAP KE LIYE", channel: "Vividh Bharati" },
+{ time: "09:30 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
+{ time: "10:00 PM", title: "AAJ KE FANKAR – JAVED AKHTAR", channel: "Vividh Bharati" },
+{ time: "10:30 PM", title: "DHALTI JAYE RAAT", channel: "Vividh Bharati" },
+{ time: "11:00 PM", title: "RANG TARANG", channel: "Vividh Bharati" },
+
+  { time: "12:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "12:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "12:10 AM", title: "SURO KA SAFARNAMA", channel: "Indraprastha" },
+
+  { time: "01:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "01:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "01:10 AM", title: "GEET SUNAHRE – GOLDEN ERA", channel: "Indraprastha" },
+
+  { time: "02:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "02:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "02:10 AM", title: "GEET BAHAR", channel: "Indraprastha" },
+
+  { time: "03:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "03:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "03:10 AM", title: "GHAZAL / GEET", channel: "Indraprastha" },
+
+  { time: "04:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "04:05 AM", title: "ARCHANA (DEVOTIONAL)", channel: "Indraprastha" },
+  { time: "04:25 AM", title: "NAAD BRAHM – CARNATIC MUSIC", channel: "Indraprastha" },
+  { time: "04:55 AM", title: "VANDE MATARAM / OPENING", channel: "Indraprastha" },
+
+  { time: "05:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "05:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "05:10 AM", title: "AAO YOG KAREN", channel: "Indraprastha" },
+  { time: "05:20 AM", title: "DESH BHAKTI SANGEET", channel: "Indraprastha" },
+  { time: "05:30 AM", title: "SWAR RANJANI", channel: "Indraprastha" },
+
+  { time: "06:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "06:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "06:10 AM", title: "VANDANA", channel: "Indraprastha" },
+  { time: "06:40 AM", title: "CHINTAN", channel: "Indraprastha" },
+  { time: "06:45 AM", title: "RAM CHARIT MANAS", channel: "Indraprastha" },
+  { time: "06:55 AM", title: "NEWS IN SANSKRIT", channel: "Indraprastha" },
+
+  { time: "07:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "07:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "07:10 AM", title: "SANGEETIKA", channel: "Indraprastha" },
+  { time: "07:30 AM", title: "GEETON BHARI GOOD MORNING", channel: "Indraprastha" },
+
+  { time: "08:00 AM", title: "SAMACHAR PRABHAT", channel: "Indraprastha" },
+  { time: "08:15 AM", title: "MORNING NEWS (ENGLISH)", channel: "Indraprastha" },
+  { time: "08:30 AM", title: "NEWS IN URDU", channel: "Indraprastha" },
+  { time: "08:45 AM", title: "SWASTHYA PATRIKA", channel: "Indraprastha" },
+
+  { time: "09:15 AM", title: "DHARTI AAKASH", channel: "Indraprastha" },
+  { time: "09:30 AM", title: "MITTI DI MEHAK", channel: "Indraprastha" },
+
+  { time: "10:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "10:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "10:10 AM", title: "FILM SANGEET – AAPKI PASAND", channel: "Indraprastha" },
+
+  { time: "11:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "11:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "11:10 AM", title: "SABRAS", channel: "Indraprastha" },
+  { time: "11:30 AM", title: "SUR MANJARI", channel: "Indraprastha" },
+
+  { time: "12:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "12:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "12:10 PM", title: "GHAR AANGAN", channel: "Indraprastha" },
+
+  { time: "01:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "01:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "01:10 PM", title: "EK HI FILM SE", channel: "Indraprastha" },
+  { time: "01:40 PM", title: "NEWS IN PUNJABI", channel: "Indraprastha" },
+  { time: "01:50 PM", title: "NEWS IN URDU", channel: "Indraprastha" },
+
+  { time: "02:00 PM", title: "MID DAY NEWS (ENGLISH)", channel: "Indraprastha" },
+  { time: "02:15 PM", title: "MID DAY NEWS (HINDI)", channel: "Indraprastha" },
+  { time: "02:30 PM", title: "EK HI KALAKAR", channel: "Indraprastha" },
+
+  { time: "03:00 PM", title: "BRAJ MADHURI", channel: "Indraprastha" },
+  { time: "03:30 PM", title: "NAATAK – NEELI RAGEN", channel: "Indraprastha" },
+
+  { time: "04:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "04:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "04:10 PM", title: "SOS / PROMO", channel: "Indraprastha" },
+  { time: "04:20 PM", title: "EMPLOYMENT NEWS", channel: "Indraprastha" },
+  { time: "04:30 PM", title: "PARIKRAMA", channel: "Indraprastha" },
+
+  { time: "05:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "05:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "05:10 PM", title: "LOK RANJANI", channel: "Indraprastha" },
+  { time: "05:30 PM", title: "KHEL KHILADI", channel: "Indraprastha" },
+
+  { time: "06:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "06:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "06:10 PM", title: "CHAHAL PAHAL", channel: "Indraprastha" },
+  { time: "06:20 PM", title: "NEWS IN SANSKRIT", channel: "Indraprastha" },
+  { time: "06:30 PM", title: "GRAM SANSAR", channel: "Indraprastha" },
+
+  { time: "07:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "07:05 PM", title: "KRISHI JAGAT", channel: "Indraprastha" },
+  { time: "07:30 PM", title: "GHAZAL / QAWWALI", channel: "Indraprastha" },
+  { time: "07:45 PM", title: "PRADESHIK SAMACHAR", channel: "Indraprastha" },
+
+  { time: "08:00 PM", title: "MUSHAIRA", channel: "Indraprastha" },
+  { time: "08:30 PM", title: "FILM MUSIC", channel: "Indraprastha" },
+  { time: "08:45 PM", title: "SAMACHAR SANDHYA", channel: "Indraprastha" },
+
+  { time: "09:00 PM", title: "EVENING NEWS (ENGLISH)", channel: "Indraprastha" },
+  { time: "09:15 PM", title: "NEWS IN URDU", channel: "Indraprastha" },
+  { time: "09:30 PM", title: "AKHIL BHARTIYA PATRIKA PROGRAM", channel: "Indraprastha" },
+
+  { time: "10:00 PM", title: "AKASHVANI SANGEET SAMMELAN", channel: "Indraprastha" },
+
+  { time: "11:00 PM", title: "NEWS IN HINDI", channel: "Indraprastha" },
+  { time: "11:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
+  { time: "11:10 PM", title: "FILM SANGEET – AAPKI FARMAISH", channel: "Indraprastha" }
+  
 ];
