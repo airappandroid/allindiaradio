@@ -476,8 +476,10 @@ a,button{
   background:linear-gradient(
   180deg,
   rgba(255,255,255,.05),
-  rgba(255,255,255,.015)
-);
+  rgba(255,255,255,.015));
+  display: block;
+  text-decoration: none;
+}
 
 .now-card::before{
   content:"🎧";
@@ -513,16 +515,6 @@ a,button{
   margin-top:1px;
   color:#9fb2ff;
   opacity:.9;
-}
-.now-card{
-  position:relative;
-  padding:12px 14px 12px 46px;
-  border-radius:14px;
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,.05),
-    rgba(255,255,255,.015)
-  );
 }
 
 .now-icon{
