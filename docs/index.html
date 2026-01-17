@@ -1059,6 +1059,12 @@ document.addEventListener("DOMContentLoaded", () => {
   { time: "11:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
   { time: "11:10 PM", title: "FILM SANGEET – AAPKI FARMAISH", channel: "Indraprastha" }
 ];
+const channelLinks = {
+  "FM Rainbow": "go:FMR",
+  "Vividh Bharati": "go:N002",
+  "FM Gold": "go:FMG",
+  "Indraprastha": "go:INDRA"
+};
 
  // =======================
 // 🎧 NOW PLAYING (4 CHANNELS)
@@ -1100,8 +1106,8 @@ channels.forEach(channel => {
     }
   });
 
-  html += `
-  <div class="now-card">
+ html += `
+  <a href="${channelLinks[channel]}" class="now-card">
     <div class="now-icon">🎧</div>
 
     <span class="now-live">LIVE</span>
@@ -1110,8 +1116,9 @@ channels.forEach(channel => {
       <div class="now-title">${current.title}</div>
       <div class="now-channel">${channel}</div>
     </div>
-  </div>
+  </a>
 `;
+
 
 
 });
