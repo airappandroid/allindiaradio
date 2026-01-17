@@ -1099,37 +1099,45 @@ const channels = [
 
 let html = "";
 
-channels.forEach(channel => {
-  const list = todayPrograms
-    .filter(p => p.channel === channel)
-    .sort((a,b) => toMinutes(a.time) - toMinutes(b.time));
+function renderNowPlaying(){
 
-  let current = list[0];
+  const nowContainer = document.getElementById("nowPlaying");
+  const now = new Date();
+  const currentMin = now.getHours() * 60 + now.getMinutes();
 
-  list.forEach(p => {
-    if (toMinutes(p.time) <= currentMin) {
-      current = p;
-    }
+  let html = "";
+
+  channels.forEach(channel => {
+
+    const list = todayPrograms
+      .filter(p => p.channel === channel)
+      .sort((a,b) => toMinutes(a.time) - toMinutes(b.time));
+
+    let current = list[0];
+
+    list.forEach(p => {
+      if (toMinutes(p.time) <= currentMin) {
+        current = p;
+      }
+    });
+
+    html += `
+      <a href="${channelLinks[channel]}" class="now-card">
+        <div class="now-icon">🎧</div>
+        <span class="now-live">LIVE</span>
+
+        <div class="now-text">
+          <div class="now-title">${current.title}</div>
+          <div class="now-channel">${channel}</div>
+        </div>
+      </a>
+    `;
   });
 
- html += `
-  <a href="${channelLinks[channel]}" class="now-card">
-    <div class="now-icon">🎧</div>
-
-    <span class="now-live">LIVE</span>
-
-    <div class="now-text">
-      <div class="now-title">${current.title}</div>
-      <div class="now-channel">${channel}</div>
-    </div>
-  </a>
-`;
-
-
-
-});
-
-nowContainer.innerHTML = html;
+  nowContainer.innerHTML = html;
+}
+renderNowPlaying();
+setInterval(renderNowPlaying, 60000);
 
 
   // =======================
