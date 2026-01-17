@@ -1,4 +1,4 @@
-window.SCHEDULE_DATA =[
+window.SCHEDULE_DATA = [
   { time: "12:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
   { time: "12:05 AM", title: "SUHANI RAAT", channel: "FM Rainbow" },
   { time: "01:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
