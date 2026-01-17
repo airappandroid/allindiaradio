@@ -469,17 +469,30 @@ a,button{
   gap:10px;
 }
 
-.now-card{
-  position:relative;
-  padding:10px 12px 10px 40px;  /* पहले 12/46 था */
-  border-radius:12px;
-  background:linear-gradient(
-  180deg,
-  rgba(255,255,255,.05),
-  rgba(255,255,255,.015));
+
+ .now-card{
+  position: relative;
   display: block;
+  padding:14px 18px 14px 54px;
+  border-radius:999px;   /* 🔥 pill shape */
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.02)
+  );
+
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+
   text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
 }
+
 
 .now-card::before{
   content:"🎧";
@@ -501,6 +514,7 @@ a,button{
   border-radius:6px;
   background:#16a34a;   /* थोड़ा darker green */
   color:#dcfce7;
+  box-shadow: 0 0 0 2px rgba(34,197,94,.25);
 }
 
 .now-title{
@@ -899,48 +913,48 @@ document.addEventListener("DOMContentLoaded", () => {
   { time: "11:05 PM", title: "NEWS IN ENGLISH", channel: "FM Gold" },
   { time: "11:10 PM", title: "GEET MERE MANMEET", channel: "FM Gold" },
 
-  { time: "12:00 AM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
-  { time: "01:00 AM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
-  { time: "02:00 AM", title: "SADABAHAR NAGME", channel: "Vividh Bharati" },
-  { time: "03:00 AM", title: "SAKHI SAHELI", channel: "Vividh Bharati" },
-  { time: "04:00 AM", title: "TARANE NAYE PURANE", channel: "Vividh Bharati" },
-  { time: "05:00 AM", title: "JAGO SUBAH HO GAYI", channel: "Vividh Bharati" },
-  { time: "05:59 AM", title: "OPENING ANNOUNCEMENT", channel: "Vividh Bharati" },
-  { time: "06:00 AM", title: "SAMACHAR (HINDI)", channel: "Vividh Bharati" },
-  { time: "06:05 AM", title: "VANDANWAR / CHINTAN", channel: "Vividh Bharati" },
-  { time: "06:35 AM", title: "SHRI RAM CHARIT MANAS", channel: "Vividh Bharati" },
-  { time: "06:45 AM", title: "SANGEET SARITA", channel: "Vividh Bharati" },
-  { time: "07:00 AM", title: "BHOOLAY BISRE GEET", channel: "Vividh Bharati" },
-  { time: "07:30 AM", title: "HUM HAIN RAHI PYAR KE", channel: "Vividh Bharati" },
-  { time: "08:00 AM", title: "SAMACHAR PRABHAT", channel: "Vividh Bharati" },
-  { time: "08:15 AM", title: "TRIVENI", channel: "Vividh Bharati" },
-  { time: "08:30 AM", title: "JHAROKHA / BHARAT KI GOONJ", channel: "Vividh Bharati" },
-  { time: "09:00 AM", title: "BHARAT KI GOONJ", channel: "Vividh Bharati" },
-  { time: "09:30 AM", title: "AAJ KE FUNKAR", channel: "Vividh Bharati" },
-  { time: "10:00 AM", title: "SURILI BOLIYAN", channel: "Vividh Bharati" },
-  { time: "11:00 AM", title: "CINEMAGHAR", channel: "Vividh Bharati" },
-  { time: "11:30 AM", title: "NAVSUR", channel: "Vividh Bharati" },
-  { time: "12:00 PM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
-  { time: "01:00 PM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
-  { time: "02:00 PM", title: "MIDDAY NEWS (ENGLISH)", channel: "Vividh Bharati" },
-  { time: "02:15 PM", title: "TRIVENI", channel: "Vividh Bharati" },
-  { time: "02:30 PM", title: "SADABAHAR NAGME", channel: "Vividh Bharati" },
-  { time: "03:30 PM", title: "NATYA TARANG", channel: "Vividh Bharati" },
-  { time: "04:00 PM", title: "BOMBAY TALKIES", channel: "Vividh Bharati" },
-  { time: "05:00 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
-  { time: "05:30 PM", title: "AWAAZ HI PEHCHAAN HAI", channel: "Vividh Bharati" },
-  { time: "06:45 PM", title: "SANGEET SARITA", channel: "Vividh Bharati" },
-  { time: "07:00 PM", title: "VISHESH JAYMALA", channel: "Vividh Bharati" },
-  { time: "07:45 PM", title: "PRADESHIK SAMACHAR", channel: "Vividh Bharati" },
-  { time: "08:00 PM", title: "HAVA MAHAL", channel: "Vividh Bharati" },
-  { time: "08:15 PM", title: "JHAROKHA / CHITRALOK", channel: "Vividh Bharati" },
-  { time: "08:45 PM", title: "SAMACHAR SANDHYA", channel: "Vividh Bharati" },
-  { time: "09:00 PM", title: "AAP KE LIYE", channel: "Vividh Bharati" },
-  { time: "09:30 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
-  { time: "10:00 PM", title: "AAJ KE FUNKAR", channel: "Vividh Bharati" },
-  { time: "10:30 PM", title: "DHALTI JAAYE RAAT", channel: "Vividh Bharati" },
-  { time: "11:00 PM", title: "RANG TARANG", channel: "Vividh Bharati" },
-  
+{ time: "12:00 AM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
+{ time: "01:00 AM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
+{ time: "02:00 AM", title: "SADABAHAR NAGME – FILMI GEET", channel: "Vividh Bharati" },
+{ time: "03:00 AM", title: "HELLO SAHELI", channel: "Vividh Bharati" },
+{ time: "04:00 AM", title: "TARANE NAYE PURANE", channel: "Vividh Bharati" },
+{ time: "05:00 AM", title: "JAGO SUBAH HO GAYI", channel: "Vividh Bharati" },
+{ time: "05:59 AM", title: "OPENING ANNOUNCEMENTS", channel: "Vividh Bharati" },
+{ time: "06:00 AM", title: "SAMACHAR (HINDI)", channel: "Vividh Bharati" },
+{ time: "06:05 AM", title: "VANDANWAR / CHINTAN", channel: "Vividh Bharati" },
+{ time: "06:35 AM", title: "SHRI RAM CHARIT MANAS (PART 71)", channel: "Vividh Bharati" },
+{ time: "06:45 AM", title: "SANGEET SARITA – NATYAGEET MANJIRI", channel: "Vividh Bharati" },
+{ time: "07:00 AM", title: "BHOOLE BISRE GEET", channel: "Vividh Bharati" },
+{ time: "07:30 AM", title: "HUM HAI RAAHI PYAR KE", channel: "Vividh Bharati" },
+{ time: "08:00 AM", title: "SAMACHAR PRABHAT", channel: "Vividh Bharati" },
+{ time: "08:15 AM", title: "TRIVENI", channel: "Vividh Bharati" },
+{ time: "08:30 AM", title: "BHARAT KI GOONJ (PEHLA JHAROKHA)", channel: "Vividh Bharati" },
+{ time: "09:00 AM", title: "BHARAT KI GOONJ", channel: "Vividh Bharati" },
+{ time: "09:30 AM", title: "AAJ KE FANKAR – KAMAL AMROHI", channel: "Vividh Bharati" },
+{ time: "10:00 AM", title: "GEETON BHARI KAHANI – MUSKAN (PART 1)", channel: "Vividh Bharati" },
+{ time: "11:00 AM", title: "RANG TARANG", channel: "Vividh Bharati" },
+
+{ time: "12:00 PM", title: "YAADON KI MEHFIL", channel: "Vividh Bharati" },
+{ time: "01:00 PM", title: "VIVIDH BHARATI KI GEETMALA", channel: "Vividh Bharati" },
+{ time: "02:00 PM", title: "MID DAY NEWS (ENGLISH)", channel: "Vividh Bharati" },
+{ time: "02:15 PM", title: "TRIVENI", channel: "Vividh Bharati" },
+{ time: "02:30 PM", title: "SADABAHAR NAGME – FILMI GEET", channel: "Vividh Bharati" },
+{ time: "03:30 PM", title: "NATYA TARANG", channel: "Vividh Bharati" },
+{ time: "04:00 PM", title: "BOMBAY TALKIES", channel: "Vividh Bharati" },
+{ time: "05:00 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
+{ time: "05:30 PM", title: "TARANE NAYE PURANE", channel: "Vividh Bharati" },
+{ time: "06:45 PM", title: "SANGEET SARITA – NATYAGEET MANJIRI", channel: "Vividh Bharati" },
+{ time: "07:00 PM", title: "VISHESH JAYMALA – JAVED AKHTAR", channel: "Vividh Bharati" },
+{ time: "07:45 PM", title: "JIGYASA", channel: "Vividh Bharati" },
+{ time: "08:00 PM", title: "HAWAMAHAL – SUNO KAHANI", channel: "Vividh Bharati" },
+{ time: "08:15 PM", title: "CHITRALOK", channel: "Vividh Bharati" },
+{ time: "08:45 PM", title: "SAMACHAR SANDHYA", channel: "Vividh Bharati" },
+{ time: "09:00 PM", title: "AAP KE LIYE", channel: "Vividh Bharati" },
+{ time: "09:30 PM", title: "CHHAYAGEET", channel: "Vividh Bharati" },
+{ time: "10:00 PM", title: "AAJ KE FANKAR – JAVED AKHTAR", channel: "Vividh Bharati" },
+{ time: "10:30 PM", title: "DHALTI JAYE RAAT", channel: "Vividh Bharati" },
+{ time: "11:00 PM", title: "RANG TARANG", channel: "Vividh Bharati" },
+
 
   { time: "12:00 AM", title: "NEWS IN HINDI", channel: "Indraprastha" },
   { time: "12:05 AM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
