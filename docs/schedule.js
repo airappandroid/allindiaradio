@@ -40,21 +40,5 @@ window.SCHEDULE_DATA = [
   { "time": "10:00 PM", "title": "हिन्दी में समाचार", "channel": "FM Rainbow" },
   { "time": "10:05 PM", "title": "WESTERN MUSIC (In The Groove)", "channel": "FM Rainbow" },
   { "time": "11:00 PM", "title": "हिन्दी में समाचार", "channel": "FM Rainbow" },
-  { "time": "11:05 PM", "title": "RANG-E-MEHIFIL", "channel": "FM Rainbow" },
-
-  {
-    "time": "01:00 AM",
-    "title": "YAADON KI MEHFIL",
-    "channel": "Vividh Bharati"
-  },
-  {
-    "time": "02:00 AM",
-    "title": "NEWS IN HINDI",
-    "channel": "FM Gold"
-  },
-  {
-    "time": "03:00 AM",
-    "title": "SURO KA SAFARNAMA",
-    "channel": "Indraprastha"
-  }
+  { "time": "11:05 PM", "title": "RANG-E-MEHIFIL", "channel": "FM Rainbow" }
 ];
