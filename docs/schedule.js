@@ -1,4 +1,4 @@
-[
+window.SCHEDULE_DATA =[
   { time: "12:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
   { time: "12:05 AM", title: "SUHANI RAAT", channel: "FM Rainbow" },
   { time: "01:00 AM", title: "हिन्दी में समाचार", channel: "FM Rainbow" },
@@ -286,3 +286,5 @@
   { time: "11:05 PM", title: "NEWS IN ENGLISH", channel: "Indraprastha" },
   { time: "11:10 PM", title: "FILM SANGEET – AAPKI FARMAISH", channel: "Indraprastha" }
 ]
+console.log("SCHEDULE LOADED", window.SCHEDULE_DATA.length);
+
