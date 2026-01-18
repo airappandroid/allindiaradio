@@ -19,8 +19,6 @@
   --green:#4cd964;
   --text:#ffffff;
   --channel:#9fb2ff;
-  --soft-shadow: 0 6px 14px rgba(0,0,0,.28);
-  --soft-shadow-active: 0 3px 8px rgba(0,0,0,.35);
 }
 
 /* RESET */
@@ -194,55 +192,11 @@ body{
   line-height:1.3;
   border-bottom:1px solid rgba(255,255,255,.15);
 }
-.today-heading span{
-  font-size:11px;
-  font-weight:500;
-  opacity:.7;
-  margin-left:4px;
-}
 
-.today-item{
-  display:flex;
-  gap:6px;
-  padding:6px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
+.view-full-wrap{
+  text-align:right;
+  margin-top:6px;
 }
-.today-item:last-child{border-bottom:none}
-
-.today-time{
-  min-width:52px;
-  font-weight:600;
-  font-size:11px;
-  color:var(--green);
-}
-
-.view-full-wrap{text-align:right;margin-top:6px}
-.view-full-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  padding:8px 14px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:600;
-  color:#111;
-  background:linear-gradient(135deg,#ff7a45,#ff9f68);
-  text-decoration:none;
- 
-  transition:all .25s ease;
-}
-
-.view-full-btn:active{
-  transform:scale(.95);
- 
-}
-
-.view-full-btn::after{
-  content:"›";
-  font-size:16px;
-  line-height:1;
-}
-
 
 /* CRICKET */
 .cricket-card{
@@ -587,7 +541,7 @@ a,button{
     <a href="go:AIR" class="quick-btn">📻 AIR</a>
     <a href="go:AIRNEWS" class="quick-btn">📰 News</a>
     <a href="go:LIVE2" class="quick-btn live-quick">🔴 LIVE</a>
-    <a href="go:LANG" class="quick-btn">🇮🇳 FM</a>
+    <a href="go:HINDIR" class="quick-btn">🇮🇳 Hindi</a>
    
   </div>
 </section>
@@ -877,21 +831,30 @@ const FIXED_ORDER = [
 document.addEventListener("DOMContentLoaded", function () {
 
   const headlines = [
-  "PM मोदी आज असम के कालीबोर में काजीरंगा वन्यजीव कॉरिडोर की आधारशिला रखेंगे",
-  "मौनी अमावस्या आज, प्रयागराज माघ मेले का प्रमुख स्नान पर्व",
-  "BMC चुनाव 2026: मुंबई में BJP गठबंधन को बहुमत, ठाकरे ब्रदर्स को झटका",
-  "सरकार ने 242 अवैध सट्टेबाजी और जुए की वेबसाइट्स ब्लॉक कीं",
-  "JEE Main 2026 एडमिट कार्ड जारी, परीक्षा 21–24 जनवरी",
-  "जनवरी 2026 से Amrit Bharat II Express शुरू, रेल सफर में बदलाव",
-  "भारत 114 नए राफेल जेट खरीदेगा, मेक इन इंडिया को मंजूरी",
-  "ED ने 2672 करोड़ बैंक घोटाले में प्रत्युष सुरेका को किया गिरफ्तार",
-  "WPL 2026: RCB ने गुजरात जायंट्स को हराया, टीम unbeaten",
-  "U-19 वर्ल्ड कप: भारत ने बांग्लादेश को 18 रन से हराया",
-  "WPL Live: DC बनाम RCB मुकाबला जारी",
-  "ईरान-अमेरिका तनाव बढ़ा, खामेनेई ने ट्रंप पर हमला बोला",
-  "दिल्ली में GRAP लागू, ट्रैफिक और प्रदूषण पर सख्ती",
-  "Q3 रिजल्ट्स आज: HDFC, ICICI और Yes Bank के नतीजे",
-  "CBFC की सख्ती, फिल्मों से हटे आपत्तिजनक सीन"
+   "बंगाल में TMC के महाजंगलराज को विदा करना है, सिंगूर में बोले पीएम मोदी",
+      "पीएम मोदी ने असम के कालीबोर पहुंचकर काजीरंगा एलिवेटेड कॉरिडोर की आधारशिला रखी",
+      "रक्षा मंत्री राजनाथ सिंह नागपुर दौरे पर, RSS को दुनिया का सबसे बड़ा संगठन बताया",
+      "RCP की एंट्री पर ललन सिंह का 'फुल स्टॉप', गिनाए 43 सीटों वाले पुराने जख्म",
+      "जेडीयू का RCP सिंह पर सख्त रुख: पार्टी में दोबारा जगह नहीं मिलेगी",
+      "'M' पर फोकस: पीएम मोदी ने सिंगूर में लॉक किया बंगाल फतह का फॉर्मूला",
+   
+      "ईरान में सत्ता विरोधी आंदोलन खूनी विद्रोह बन गया, 5000 से ज्यादा मौतें",
+      "ईरान में विरोध प्रदर्शनों का खौफनाक आंकड़ा, 5,000 से ज्यादा मौतें, करीब 500 सुरक्षाकर्मी भी शामिल",
+      "ट्रंप ने नोबेल फाउंडेशन पर दबाव बनाया, लेकिन फाउंडेशन ने साफ मना कर दिया",
+      "ट्रंप की हसरत पर नोबेल फाउंडेशन ने फेरा पानी, खैरात नहीं बांटी",
+      "अमेरिका के सबसे बड़े बैंक के पीछे पड़े ट्रंप, केस दर्ज कराने की दी धमकी",
+  
+    
+      "दिल्ली-NCR में GRAP-4 लागू, प्रदूषण 'गंभीर', स्कूलों पर असर",
+      "कल दिल्ली-NCR दिखेगा या नहीं? मौसम विभाग ने दिया ये अलर्ट",
+      "प्रयागराज में मौनी अमावस्या स्नान: भारी भीड़, सुरक्षा बढ़ाई गई",
+   
+      "भोपाल में पूर्व विधायक ने बहन-बेटियों को 'प्लॉट' कहा, हंगामा",
+      "IndiGo प्लेन में बम की धमकी: लखनऊ में इमरजेंसी लैंडिंग",
+      "DGCA का इंडिगो पर एक्शन: CEO को चेतावनी, सीनियर VP को पद से हटाने के निर्देश",
+      "महाराष्ट्र नगर निकाय चुनाव: BJP की ऐतिहासिक जीत, MVA में उथल-पुथल",
+      "मौनी अमावस्या: प्रयागराज में 12 बजे तक 3 करोड़ 15 लाख ने स्नान किया",
+      "वाराणसी में सीएम योगी का दावा: यूपी में पीएम आवास से 62 लाख को घर मिला"
 ];
 
 
