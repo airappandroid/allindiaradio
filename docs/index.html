@@ -19,12 +19,6 @@
   --green:#4cd964;
   --text:#ffffff;
   --channel:#9fb2ff;
-  --card-grad: linear-gradient(
-    180deg,
-    rgba(255,255,255,.06),
-    rgba(255,255,255,.02)
-  );
-
   --soft-shadow: 0 6px 14px rgba(0,0,0,.28);
   --soft-shadow-active: 0 3px 8px rgba(0,0,0,.35);
 }
@@ -85,8 +79,6 @@ body{
   color:#ffffff;
   background:rgba(255,255,255,.08);
 }
-.icon-btn:active{transform:scale(.92)}
-
 /* SECTION */
 .section{padding:10px}
 .section-head{
@@ -257,7 +249,6 @@ body{
   color:#111;
   font-weight:600;
 }
-.cricket-card small{color:#2b2b2b}
 
 /* SUB SECTION */
 .sub-section{margin-top:14px}
@@ -496,15 +487,6 @@ a,button{
   overflow:hidden;
 }
 
-/* =========================
-   ● GREEN NOW PLAYING DOT
-   ========================= */
-
-/* reset */
-.station-show::before{
-  content:"";
-}
-
 /* space for dot (only playing) */
 .station-tile.playing .station-show{
   position:relative;
@@ -540,6 +522,7 @@ a,button{
   border:1px solid rgba(255,140,0,.7);
   
 }
+
 .next-card{
   margin-top:14px;
   display:flex;
@@ -553,7 +536,6 @@ a,button{
   font-size:13px;
   box-shadow:0 8px 18px rgba(255,120,0,.45);
 }
-
 .next-card .arrow{
   font-size:18px;
 }
@@ -605,7 +587,7 @@ a,button{
     <a href="go:AIR" class="quick-btn">📻 AIR</a>
     <a href="go:AIRNEWS" class="quick-btn">📰 News</a>
     <a href="go:LIVE2" class="quick-btn live-quick">🔴 LIVE</a>
-    <a href="go:HINDIR" class="quick-btn">🇮🇳 Hindi</a>
+    <a href="go:LANG" class="quick-btn">🇮🇳 FM</a>
    
   </div>
 </section>
