@@ -145,13 +145,14 @@ function render(){
 
   const now = new Date();
 
-  // current time → minutes
-  let currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-  // agar minute > 0 ho → next full hour se dikhaye
+  // start time → next full hour
+  let startMinutes = now.getHours() * 60 + now.getMinutes();
   if (now.getMinutes() > 0) {
-    currentMinutes = (now.getHours() + 1) * 60;
+    startMinutes = (now.getHours() + 1) * 60;
   }
+
+  // ⏰ sirf next 5 hours
+  const endMinutes = startMinutes + (5 * 60);
 
   function timeToMinutes(t){
     const [time, meridian] = t.split(" ");
@@ -163,24 +164,26 @@ function render(){
     return h * 60 + m;
   }
 
-  // channel filter
   const channelFiltered = data.filter(item =>
     selected === "all" || item.channel === selected
   );
 
-  // upcoming programmes (today)
-  let upcoming = channelFiltered.filter(item =>
-    timeToMinutes(item.time) >= currentMinutes
-  );
+  let windowed = channelFiltered.filter(item => {
+    const mins = timeToMinutes(item.time);
+    return mins >= startMinutes && mins < endMinutes;
+  });
 
-  // 🔄 agar aaj kuch bhi upcoming nahi mila
-  // to automatically next cycle (00:00 AM se)
-  if (upcoming.length === 0) {
-    upcoming = channelFiltered;
+  // agar aaj ke window me kuch nahi mila
+  // to next cycle (12 AM – 4:59 AM)
+  if (windowed.length === 0) {
+    windowed = channelFiltered.filter(item => {
+      const mins = timeToMinutes(item.time);
+      return mins < (5 * 60);
+    });
   }
 
   const grouped = {};
-  upcoming.forEach(i=>{
+  windowed.forEach(i=>{
     if(!grouped[i.channel]) grouped[i.channel] = [];
     grouped[i.channel].push(i);
   });
