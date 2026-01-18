@@ -72,8 +72,19 @@ h1{
   padding:10px 12px;
   font-weight:700;
   font-size:15px;
+  text-align:center;
   border-bottom:1px solid var(--border-color);
 }
+
+/* boxed channel label */
+.channel-title span{
+  display:inline-block;
+  padding:4px 14px;
+  border:1px solid var(--time-color);
+  border-radius:16px;
+  color:var(--time-color);
+}
+
 
 /* ===== SCHEDULE ROWS ===== */
 .schedule-item{
@@ -192,7 +203,7 @@ function render(){
     const div = document.createElement("div");
     div.className = "channel";
     div.innerHTML = `
-      <div class="channel-title">${channel}</div>
+      <div class="channel-title"><span>${channel}</span></div>
       ${grouped[channel].map(p=>`
         <div class="schedule-item">
           <div class="time">${p.time}</div>
