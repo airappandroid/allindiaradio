@@ -19,6 +19,14 @@
   --green:#4cd964;
   --text:#ffffff;
   --channel:#9fb2ff;
+  --card-grad: linear-gradient(
+    180deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.02)
+  );
+
+  --soft-shadow: 0 6px 14px rgba(0,0,0,.28);
+  --soft-shadow-active: 0 3px 8px rgba(0,0,0,.35);
 }
 
 /* RESET */
@@ -79,12 +87,6 @@ body{
 }
 .icon-btn:active{transform:scale(.92)}
 
-/* DIVIDER */
-.header-divider{
-  height:1px;
-  background:linear-gradient(to right,transparent,#ff6a3d,transparent);
-}
-
 /* SECTION */
 .section{padding:10px}
 .section-head{
@@ -118,15 +120,6 @@ body{
   color:#fff;
   font-size:14px;
   position:relative;
-}
-
-/* LIVE DOT */
-.live-dot{
-  position:absolute;
-  top:8px;
-  right:8px;
-  font-size:14px;
-  
 }
 
 /* LIVE TV CARD */
@@ -168,7 +161,6 @@ body{
   height:6px;
   background:#fff;
   border-radius:50%;
-  animation:blink 1s infinite;
 }
 
 
@@ -232,17 +224,6 @@ body{
   color:var(--green);
 }
 
-.program{
-  font-weight:500;
-  font-size:12px;
-}
-
-.channel{
-  font-size:11px;
-  color:var(--channel);
-  opacity:.85;
-}
-
 .view-full-wrap{text-align:right;margin-top:6px}
 .view-full-btn{
   display:inline-flex;
@@ -255,13 +236,13 @@ body{
   color:#111;
   background:linear-gradient(135deg,#ff7a45,#ff9f68);
   text-decoration:none;
-  box-shadow:0 6px 14px rgba(255,122,69,.35);
+ 
   transition:all .25s ease;
 }
 
 .view-full-btn:active{
   transform:scale(.95);
-  box-shadow:0 3px 8px rgba(255,122,69,.35);
+ 
 }
 
 .view-full-btn::after{
@@ -273,7 +254,6 @@ body{
 
 /* CRICKET */
 .cricket-card{
-  background:linear-gradient(135deg,#ff7a45,#ff9f68);
   color:#111;
   font-weight:600;
 }
@@ -308,7 +288,6 @@ body{
 
 /* HIGHLIGHT CARD – CLEAN MERGED */
 .highlight-card{
-  background:linear-gradient(135deg,#ff7a45,#ff9f68);
   color:#111;
   font-weight:600;
   border-radius:18px;
@@ -444,14 +423,8 @@ a,button{
   100%{opacity:1}
 }
 
-/* Radio green dot */
-.live-dot{
-  animation: blink 1.2s infinite;
-}
-
 /* TV / Cricket red LIVE badge */
-.live-badge,
-.live-tv::before{
+.live-badge{
   animation: blink 1.2s infinite;
 }
 .live-quick{
@@ -459,86 +432,142 @@ a,button{
   font-weight:700;
   
 }
+
 /* =========================
-   🎧 NOW PLAYING – PREMIUM UI
+   🔊 NOW PLAYING – PREMIUM LIST
    ========================= */
 
-#nowPlaying{
+.now-list{
   display:flex;
   flex-direction:column;
-  gap:10px;
+  gap:12px;
 }
 
+/* MAIN CARD */
+.station-tile{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 16px;
+  border-radius:18px;
+  text-decoration:none;
+  color:#ffffff;
 
- .now-card{
-  position: relative;
-  display: block;
-  padding:14px 18px 14px 54px;
-  border-radius:999px;   /* 🔥 pill shape */
+  background:linear-gradient(145deg,#1b2450,#121a33);
+ 
 
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,.08),
-    rgba(255,255,255,.02)
-  );
-
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 6px 16px rgba(0,0,0,.25);
-
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-
-  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+  transition:transform .2s ease, box-shadow .2s ease;
 }
 
-
-.now-card::before{
-  content:"🎧";
-  position:absolute;
-  left:14px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:18px;
-  opacity:.85;
+.station-tile:active{
+  transform:scale(.97);
 }
 
-.now-live{
-  position:absolute;
-  top:8px;
-  right:10px;
-  font-size:9px;
+/* LEFT SIDE */
+.station-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* ICON */
+.station-icon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+/* TEXT */
+.station-name{
+  font-size:15px;
   font-weight:700;
-  padding:2px 5px;
-  border-radius:6px;
-  background:#16a34a;   /* थोड़ा darker green */
-  color:#dcfce7;
-  box-shadow: 0 0 0 2px rgba(34,197,94,.25);
+  line-height:1.2;
 }
 
-.now-title{
+.station-show{
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+/* =========================
+   ● GREEN NOW PLAYING DOT
+   ========================= */
+
+/* reset */
+.station-show::before{
+  content:"";
+}
+
+/* space for dot (only playing) */
+.station-tile.playing .station-show{
+  position:relative;
+  padding-left:14px;
+}
+
+/* green dot */
+.station-tile.playing .station-show::before{
+  content:"●";
+  position:absolute;
+  left:0;
+  top:1px;
+  font-size:10px;
+  line-height:1;
+  color:#22c55e; /* 🔥 green */
+}
+
+
+/* PLAY BUTTON */
+.play-btn{
+  padding:8px 14px;
+  border-radius:20px;
   font-size:13px;
   font-weight:600;
-  color:#ffffff;
-  line-height:1.3;
+  color:#111;
+  background:linear-gradient(135deg,#ff7a45,#ff9f68);
+ 
+  white-space:nowrap;
 }
 
-.now-channel{
-  font-size:11px;
-  margin-top:1px;
-  color:#9fb2ff;
-  opacity:.9;
+/* 🔴 ACTIVE / NOW PLAYING */
+.station-tile.playing{
+  border:1px solid rgba(255,140,0,.7);
+  
+}
+.next-card{
+  margin-top:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+  border-radius:16px;
+  text-decoration:none;
+  color:#111;
+  font-weight:600;
+  font-size:13px;
+  box-shadow:0 8px 18px rgba(255,120,0,.45);
 }
 
-.now-icon{
-  position:absolute;
-  left:14px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:16px;
-  opacity:.85;
+.next-card .arrow{
+  font-size:18px;
 }
+.horizontal-scroll{
+  overflow-x:auto;
+}
+.cricket-card,
+.highlight-card,
+.next-card,
+.play-btn{
+  background: linear-gradient(135deg,#ff7a45,#ff9f68);
+}
+
+
 
 </style>
 </head>
@@ -584,38 +613,25 @@ a,button{
 <section class="section">
   <div class="today-air">
 
-    <div class="today-heading">
-      🎧 Now Playing
-    </div>
+   <div class="today-heading">
+  📻 Popular Stations
+</div>
+
 
     <div id="nowPlaying"></div>
 
     <div class="view-full-wrap">
-      <a href="https://airappandroid.github.io/allindiaradio/schedule.html"
-         target="_blank"
-         class="view-full-btn">
-         See What’s Next
-      </a>
+     <a href="https://airappandroid.github.io/allindiaradio/schedule.html"
+   class="next-card">
+  <span>🕒 See What’s Next</span>
+  <span class="arrow">›</span>
+</a>
+
     </div>
 
   </div>
 </section>
 
-
-<!-- 🔥 POPULAR STATIONS -->
-<section class="section">
-  <div class="section-head">
-    <h3>⭐ Popular Stations</h3>
-    <a href="go:LANG" class="view-all">View All</a>
-  </div>
-  <div class="row">
-    <a href="go:FMR" class="card"><span class="live-dot">🟢</span>FM Rainbow</a>
-    <a href="go:VBSDELHI" class="card"><span class="live-dot">🟢</span>Vividh Bharati</a>
-    <a href="go:FMG" class="card"><span class="live-dot">🟢</span>FM Gold</a>
-    <a href="go:INDRA" class="card"><span class="live-dot">🟢</span>AIR Indraprastha</a>
-    <a href="go:AARA" class="card"><span class="live-dot">🟢</span>AIR Aaradhana</a>
-  </div>
-</section>
 
 <!-- 🏏 CRICKET HUB -->
 <section class="section">
@@ -627,7 +643,7 @@ a,button{
   <div class="row">
     <a href="go:COMM" class="card cricket-card">
    <span class="live-badge">LIVE</span>
-      🎧 Commentary<br><small>IND vs NZ</small>
+      🎧 Commentary<br><small>on Match Days</small>
     </a>
     <a href="go:SCORE" class="card cricket-card">
       📊 Live Score<br><small>Match Updates</small>
@@ -725,7 +741,7 @@ a,button{
           
     <a href="go:DNEWS" class="card podcast-card">
   <div class="podcast-title">Daily News</div>
-  <div class="podcast-time fresh">🕒 Updated: 18 Jan</div>
+  <div class="podcast-time fresh">🕒 Updated: 17 Jan</div>
 </a>
 
  <a href="go:DBLIVE" class="card podcast-card">
@@ -775,107 +791,126 @@ function closePrivacy(){
 
 <!-- 2️⃣ फिर LOGIC -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function(){
 
   const box = document.getElementById("nowPlaying");
-  if (!box) return;
+  if(!box) return;
+const listBox = document.createElement("div");
+listBox.className = "now-list";
+box.appendChild(listBox);
 
-  // 🔗 Channel → Section mapping
   const CHANNEL_LINKS = {
-    "Vividh Bharati": "go:FMR",
+    "FM Rainbow": "go:FMR",
+     "Vividh Bharati": "go:N002",
     "FM Gold": "go:FMG",
-    "Vividh Bharati": "go:N002",
     "Indraprastha": "go:INDRA"
   };
 
-  function toMinutes(timeStr){
-    const [t, meridian] = timeStr.split(" ");
-    let [h, m] = t.split(":").map(Number);
-    if (meridian === "PM" && h !== 12) h += 12;
-    if (meridian === "AM" && h === 12) h = 0;
-    return h * 60 + m;
-  }
-
-  function getCurrentShow(data){
-    const now = new Date();
-    const currentMinutes = now.getHours() * 60 + now.getMinutes();
-
-    let show = data[0];
-
-    for (let i = 0; i < data.length; i++) {
-      const start = toMinutes(data[i].time);
-      const next = data[i + 1]
-        ? toMinutes(data[i + 1].time)
-        : 1440;
-
-      if (currentMinutes >= start && currentMinutes < next) {
-        show = data[i];
-        break;
-      }
+  function getStationIcon(channel){
+    switch(channel){
+      case "FM Rainbow": return "🌈";
+       case "Vividh Bharati": return "🎶";
+      case "FM Gold": return "💛";
+      case "Indraprastha": return "🏛️";
+      default: return "📻";
     }
-    return show;
   }
+
+  function toMinutes(t){
+    const [time, p] = t.split(" ");
+    let [h,m] = time.split(":").map(Number);
+    if(p==="PM" && h!==12) h+=12;
+    if(p==="AM" && h===12) h=0;
+    return h*60+m;
+  }
+
+  function getCurrentShow(list){
+    const now = new Date();
+    const cur = now.getHours()*60 + now.getMinutes();
+
+    for(let i=0;i<list.length;i++){
+      const start = toMinutes(list[i].time);
+      const end = list[i+1] ? toMinutes(list[i+1].time) : 1440;
+      if(cur>=start && cur<end) return list[i];
+    }
+    return list[0];
+  }
+const FIXED_ORDER = [
+  "FM Rainbow",
+  "Vividh Bharati",
+  "FM Gold",
+  "Indraprastha"
+];
 
   function renderNowPlaying(){
 
-    if (!window.SCHEDULE_DATA) {
-      box.innerHTML = "❌ Schedule data not available";
-      return;
-    }
-
-    box.innerHTML = "";
-
-    const channels = [...new Set(
-      window.SCHEDULE_DATA.map(s => s.channel)
-    )].slice(0,4);
-
-    channels.forEach(channelName => {
-
-      const channelData = window.SCHEDULE_DATA
-        .filter(s => s.channel === channelName);
-
-      if (!channelData.length) return;
-
-      const show = getCurrentShow(channelData);
-
-      // 🔥 channel based section
-      const link = CHANNEL_LINKS[channelName] || "go:FMR";
-
-      box.innerHTML += `
-        <a href="${link}" class="now-card">
-          <span class="now-live">LIVE</span>
-          <div class="now-title">${show.title}</div>
-          <div class="now-channel">${channelName}</div>
-        </a>
-      `;
-    });
+  if(!window.SCHEDULE_DATA){
+    listBox.textContent = "Loading…";
+    return;
   }
 
+  listBox.innerHTML = "";
+
+  const channels = FIXED_ORDER.filter(ch =>
+    window.SCHEDULE_DATA.some(i => i.channel === ch)
+  );
+
+  channels.forEach((channel,index)=>{
+
+    const data = window.SCHEDULE_DATA.filter(
+      s=>s.channel === channel
+    );
+    if(!data.length) return;
+
+    const show = getCurrentShow(data);
+    const link = CHANNEL_LINKS[channel] || "go:FMR";
+    const playingClass = index < 4 ? "playing" : "";
+
+    const item = document.createElement("a");
+    item.className = `station-tile ${playingClass}`;
+    item.href = link;
+
+    item.innerHTML = `
+      <div class="station-left">
+        <div class="station-icon">${getStationIcon(channel)}</div>
+        <div>
+          <div class="station-name">${channel}</div>
+          <div class="station-show">${show.title}</div>
+        </div>
+      </div>
+      <div class="play-btn">▶ Play</div>
+    `;
+
+    listBox.appendChild(item);
+  });
+}
+
   renderNowPlaying();
-  setInterval(renderNowPlaying, 60000);
+  setInterval(renderNowPlaying, 60000); // 🔄 auto update every minute
 });
 </script>
+
 <!-- 📰 BREAKING NEWS SCRIPT -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
- const headlines = [
-  "मौनी अमावस्या आज मनाई जा रही है, प्रयागराज में माघ मेले का तीसरा शाही स्नान",
-  "अमावस्या तिथि आज रात 12:03 से कल सुबह 1:21 बजे तक",
-  "जम्मू-कश्मीर के किश्तवाड़ में सुरक्षा बलों और आतंकवादियों के बीच एनकाउंटर",
-  "दिल्ली-NCR में स्मॉग, AQI Severe, GRAP Stage-4 फिर लागू",
-  "उत्तर भारत में बारिश का अलर्ट, ठंड और कोहरा जारी",
-  "कांग्रेस हाईकमान कर्नाटक पावर टसल पर महीने के अंत तक फैसला",
-  "PM मोदी असम दौरे पर, काजीरंगा एलिवेटेड कॉरिडोर की आधारशिला रखेंगे",
-  "गणतंत्र दिवस 2026 परेड में नया ट्विस्ट, स्वदेशी हथियारों का प्रदर्शन",
-  "21 से 29 जनवरी तक राष्ट्रपति भवन आम जनता के लिए बंद",
-  "इंडिगो पर DGCA का ₹22.2 करोड़ जुर्माना",
-  "बॉडोलैंड लॉटरी रिजल्ट आज दोपहर 3 बजे",
-  "ट्रंप की यूरोपीय देशों पर टैरिफ धमकी, भारत-US ट्रेड पर असर संभव",
-  "भारत बनाम न्यूजीलैंड तीसरा ODI आज इंदौर में",
-  "दिल्ली में पेट्रोल ₹94.72 और डीजल ₹87.62"
+  const headlines = [
+  "PM मोदी आज असम के कालीबोर में काजीरंगा वन्यजीव कॉरिडोर की आधारशिला रखेंगे",
+  "मौनी अमावस्या आज, प्रयागराज माघ मेले का प्रमुख स्नान पर्व",
+  "BMC चुनाव 2026: मुंबई में BJP गठबंधन को बहुमत, ठाकरे ब्रदर्स को झटका",
+  "सरकार ने 242 अवैध सट्टेबाजी और जुए की वेबसाइट्स ब्लॉक कीं",
+  "JEE Main 2026 एडमिट कार्ड जारी, परीक्षा 21–24 जनवरी",
+  "जनवरी 2026 से Amrit Bharat II Express शुरू, रेल सफर में बदलाव",
+  "भारत 114 नए राफेल जेट खरीदेगा, मेक इन इंडिया को मंजूरी",
+  "ED ने 2672 करोड़ बैंक घोटाले में प्रत्युष सुरेका को किया गिरफ्तार",
+  "WPL 2026: RCB ने गुजरात जायंट्स को हराया, टीम unbeaten",
+  "U-19 वर्ल्ड कप: भारत ने बांग्लादेश को 18 रन से हराया",
+  "WPL Live: DC बनाम RCB मुकाबला जारी",
+  "ईरान-अमेरिका तनाव बढ़ा, खामेनेई ने ट्रंप पर हमला बोला",
+  "दिल्ली में GRAP लागू, ट्रैफिक और प्रदूषण पर सख्ती",
+  "Q3 रिजल्ट्स आज: HDFC, ICICI और Yes Bank के नतीजे",
+  "CBFC की सख्ती, फिल्मों से हटे आपत्तिजनक सीन"
 ];
-
 
 
   const el = document.getElementById("breakingText");
@@ -892,6 +927,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
 </body>
 </html>
