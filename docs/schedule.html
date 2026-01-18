@@ -6,154 +6,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+/* ===== ROOT COLORS (DO NOT CHANGE) ===== */
 :root{
-  --bg:#020617;
-  --card:#0f172a;
-  --glass:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.12);
-  --accent:#22d3ee;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
+  --page-bg: #020617;      /* 🔒 same as before */
+  --time-color: #38bdf8;   /* 🔒 same as before */
+  --text-color: #e5e7eb;
+  --border-color: rgba(255,255,255,.15);
 }
 
-*{box-sizing:border-box}
+/* ===== BASE ===== */
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background:radial-gradient(circle at top, #0f172a, #020617);
-  color:var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page-bg);
+  color: var(--text-color);
 }
 
 .container{
-  max-width:950px;
+  max-width:900px;
   margin:auto;
   padding:16px;
 }
 
+/* ===== DATE / TITLE ===== */
 h1{
-  text-align:left;
-  font-size:22px;
-  margin:4px 0 14px;   /* 👈 niche space */
+  font-size:20px;
+  font-weight:700;
+  margin-bottom:12px;
 }
 
-
-/* 🔍 Controls */
+/* ===== FILTER ===== */
 .controls{
-  display:flex;
-  margin-bottom:22px;
+  margin-bottom:16px;
 }
 
-.controls input,
 .controls select{
   width:100%;
-  height:48px;
-  padding:0 16px;
-  border-radius:16px;
-  background:
-    linear-gradient(180deg,
-      rgba(34,211,238,.18),
-      rgba(255,255,255,.08)
-    );
-  border:1.5px solid #22d3ee;
-  color:#ffffff;
+  height:42px;
+  padding:0 12px;
   font-size:14px;
-  font-weight:600;
-  outline:none;
-  backdrop-filter:blur(14px);
-  box-shadow:
-    0 0 0 1px rgba(34,211,238,.35),
-    0 8px 24px rgba(34,211,238,.15);
+  border-radius:6px;
+  border:1px solid var(--border-color);
+  background:rgba(255,255,255,.06);
+  color:var(--text-color);
 }
 
-
-/* placeholder */
-.controls input::placeholder{
-  color:#9ca3af;
-}
-
-/* 🔽 dropdown fix */
-.controls select{
-  appearance:none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, #ffffff 50%),
-    linear-gradient(135deg, #ffffff 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) 20px,
-    calc(100% - 12px) 20px;
-  background-size:6px 6px;
-  background-repeat:no-repeat;
-}
-
-/* dropdown options */
 .controls select option{
-  background:#020617;
-  color:#ffffff;
-}
-/* focus */
-.controls input:focus,
-.controls select:focus{
-  border-color:#22d3ee;
-  box-shadow:0 0 0 2px rgba(34,211,238,.25);
+  background: var(--page-bg);
+  color: var(--text-color);
 }
 
-.controls select:hover{
-  box-shadow:
-    0 0 0 2px rgba(34,211,238,.45),
-    0 10px 30px rgba(34,211,238,.25);
-}
-.controls select:focus{
-  box-shadow:
-    0 0 0 3px rgba(34,211,238,.55),
-    0 12px 34px rgba(34,211,238,.35);
-}
-/* 📻 Channel Card */
+/* ===== CHANNEL BLOCK ===== */
 .channel{
-  margin-bottom:22px;
-  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  border:1px solid var(--border);
-  border-radius:16px;
+  border:1px solid var(--border-color);
+  border-radius:6px;
+  margin-bottom:18px;
   overflow:hidden;
-  backdrop-filter:blur(14px);
 }
 
 .channel-title{
-  padding:14px 16px;
-  font-size:17px;
+  padding:10px 12px;
   font-weight:700;
-  color:var(--accent);
-  border-bottom:1px solid var(--border);
+  font-size:15px;
+  border-bottom:1px solid var(--border-color);
 }
 
+/* ===== SCHEDULE ROWS ===== */
 .schedule-item{
   display:flex;
-  gap:14px;
-  padding:12px 16px;
-  border-bottom:1px dashed rgba(255,255,255,.08);
+  gap:12px;
+  padding:8px 12px;
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .schedule-item:last-child{
   border-bottom:none;
 }
 
+/* 🔒 time color locked */
 .time{
-  min-width:74px;
+  min-width:70px;
   font-weight:700;
   font-size:13px;
-  color:#38bdf8;
+  color: var(--time-color);
 }
 
+/* title */
 .title{
-  font-size:14px;
+  font-size:13px;
   line-height:1.4;
 }
 
-/* empty */
-.empty{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
-}
 </style>
 </head>
 
