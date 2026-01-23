@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIR Radio</title>
@@ -55,22 +56,48 @@ body{
   color:#ffffff;
 }
 
-/* ===== QUICK BUTTONS ===== */
+/* ===== QUICK BUTTON ===== */
+/* GRID WRAPPER */
 .quick-buttons{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 10px;
 }
+
+/* BUTTON */
 .qbtn{
-  padding:16px;
-  border-radius:22px;
-  text-align:center;
-  font-size:13px;
-  font-weight:700;
-  background:#2b2d31;
-  box-shadow:0 6px 18px rgba(0,0,0,.65);
-  border:1px solid #33363c;
+  padding: 12px 14px;
+  border-radius: 20px;
+  background: #2b2d31;
+  border: 1px solid #33363c;
+   width: 100%;
+  box-shadow: 0 6px 18px rgba(0,0,0,.65);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #e8e8e8;
 }
+
+/* ICON */
+.qicon svg{
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+/* TEXT */
+.qtext{
+  white-space: nowrap;
+}
+
 
 /* ===== CARD COMMON ===== */
 .card{
@@ -101,7 +128,7 @@ body{
 }
 
 .station-name{
-  font-size:15px;
+  font-size:16px;
   font-weight:600;
   margin-bottom:6px;
 }
@@ -148,25 +175,41 @@ body{
 }
 
 .cricket-buttons{
-  display:flex;
-  gap:14px;
-  margin-top:14px;
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
 }
 
 .cbtn{
-  flex:1;
-  padding:14px;
-  border-radius:20px;
-  background:#2f3136;
-  text-align:center;
-  border:1px solid #3a3d42;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 12px;
+   width: 100%;
+  border-radius: 20px;
+  background: #2f3136;
+  text-align: center;
+  border: 1px solid #3a3d42;
 }
+.cricket-buttons a{
+  flex: 1 1 0;
+  min-width: 0;     /* 🔥 यही main fix है */
+}
+
+.cbtn b{
+  display: block;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .cbtn small{
-  display:block;
-  font-size:12px;
-  color:#b3b7bd;
-  margin-top:4px;
+  display: block;
+  font-size: 12px;
+  color: #b3b7bd;
+  margin-top: 4px;
 }
+
 
 .live-badge{
   position:absolute;
@@ -298,10 +341,55 @@ body{
 
 <!-- QUICK -->
 <div class="quick-buttons">
-  <a href="go:AIR"><div class="qbtn">📻 AIR Radio</div></a>
-  <a href="go:FM2"><div class="qbtn">📡 FM Radio</div></a>
-  <a href="go:AIRNEWS"><div class="qbtn">📰 AIR News</div></a>
-  <a href="go:LIVE2"><div class="qbtn">📺 Live News</div></a>
+
+  <!-- AIR RADIO -->
+  <a href="go:AIR">
+    <div class="qbtn">
+      <span class="qicon">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 7h16v10H4zM6 9h6v2H6zM6 13h4v2H6zM15 10a2 2 0 110 4 2 2 0 010-4z"/>
+        </svg>
+      </span>
+      <span class="qtext">AIR Radio</span>
+    </div>
+  </a>
+
+  <!-- FM RADIO -->
+  <a href="go:FM2">
+    <div class="qbtn">
+      <span class="qicon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/>
+        </svg>
+      </span>
+      <span class="qtext">FM Radio</span>
+    </div>
+  </a>
+
+  <!-- AIR NEWS -->
+  <a href="go:AIRNEWS">
+    <div class="qbtn">
+      <span class="qicon">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 4h14v16H4zM6 7h10v2H6zM6 11h10v2H6zM6 15h6v2H6zM20 8v8a2 2 0 01-2 2v-2V8z"/>
+        </svg>
+      </span>
+      <span class="qtext">AIR News</span>
+    </div>
+  </a>
+
+  <!-- LIVE NEWS -->
+  <a href="go:LIVE2">
+    <div class="qbtn">
+      <span class="qicon">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/>
+        </svg>
+      </span>
+      <span class="qtext">Live News</span>
+    </div>
+  </a>
+
 </div>
 
 <h2 class="section-title">🔥 Popular Stations</h2>
@@ -313,11 +401,11 @@ body{
   <div class="cricket-title">Live Cricket</div>
 
   <div class="cricket-buttons">
-    <a href="go:COMM"><div class="cbtn" style="position:relative"><b>🎙 Commentary</b><small>On Match Days</small><span class="live-badge">LIVE</span></div></a>
-    <a href="go:SCORE"><div class="cbtn"><b>📊 Live Score</b><small>Cricket Updates</small></div></a>
+    <a href="go:COMM"><div class="cbtn" style="position:relative">🎙 Commentary<small>On Match Days</small><span class="live-badge">LIVE</span></div></a>
+    <a href="go:SCORE"><div class="cbtn">📊 Live Score<small>Cricket Updates</small></div></a>
   </div>
 
- <div class="upcoming-title">📅 Upcoming Matches</div>
+  <div class="upcoming-title">📅 Upcoming Matches</div>
   <div class="match"><div class="match-name">India vs New Zealand, 3rd T20I</div><div class="match-time">25 Jan 2026 | 7:00 PM</div></div>
   <div class="match"><div class="match-name">India vs New Zealand, 4th T20I</div><div class="match-time">28 Jan 2026 | 7:00 PM</div></div>
    <div class="match"><div class="match-name">India vs New Zealand, 5th T20I</div><div class="match-time">31 Jan 2026 | 7:00 PM</div></div>
