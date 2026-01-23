@@ -5,41 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIR Radio</title>
 
-<style>
-*{-webkit-tap-highlight-color:transparent;box-sizing:border-box}
+<style>*{
+  -webkit-tap-highlight-color:transparent;
+  box-sizing:border-box
+}
+
 a{text-decoration:none;color:inherit}
 a:active,a:focus{outline:none}
 
+/* ===== BASE ===== */
 body{
   margin:0;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-  background:radial-gradient(circle at top,#121212,#000);
-  color:#fff;
+  background:#1e1f22;            /* charcoal base */
+  color:#e8e8e8;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 .header{
-  position:sticky;top:0;z-index:10;
-  display:flex;justify-content:space-between;align-items:center;
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   padding:14px 16px;
-  background:#0b0b0b;
-  box-shadow:0 4px 14px rgba(0,0,0,.7)
+  background:#26282c;
+  box-shadow:0 2px 10px rgba(0,0,0,.6);
 }
-.header-left,.header-right{display:flex;gap:16px}
+.header-left,.header-right{
+  display:flex;
+  gap:16px
+}
 .icon{font-size:18px}
-.header-title{font-size:18px;font-weight:700}
+.header-title{
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
 
-/* LAYOUT */
+/* ===== LAYOUT ===== */
 .container{padding:16px}
 
 .section-title{
-  font-size:23px;font-weight:800;
+  font-size:23px;
+  font-weight:800;
   letter-spacing:.4px;
   margin:28px 0 14px;
-  opacity:.95
+  color:#ffffff;
 }
 
-/* QUICK BUTTONS */
+/* ===== QUICK BUTTONS ===== */
 .quick-buttons{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -47,53 +63,49 @@ body{
 }
 .qbtn{
   padding:18px;
-  border-radius:18px;
+  border-radius:22px;
   text-align:center;
   font-size:16px;
   font-weight:700;
-  background:linear-gradient(180deg,#202020,#151515);
-  box-shadow:0 10px 26px rgba(0,0,0,.6)
+  background:#2b2d31;
+  box-shadow:0 6px 18px rgba(0,0,0,.65);
+  border:1px solid #33363c;
 }
 
-/* CARD */
+/* ===== CARD COMMON ===== */
 .card{
-  background:linear-gradient(180deg,#1c1c1c,#121212);
-  border-radius:18px;
+  background:#2b2d31;
+  border-radius:22px;
   padding:14px;
   margin-bottom:14px;
-  box-shadow:0 8px 22px rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.04)
+  box-shadow:0 8px 22px rgba(0,0,0,.65);
+  border:1px solid #33363c;
 }
 
-/* Popular Stations list container */
+/* ===== POPULAR STATIONS ===== */
 #stations{
   display:flex;
   flex-direction:column;
   gap:14px;
 }
 
-/* Single station card */
 .station{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   padding:14px;
-  border-radius:18px;
-
-  background:linear-gradient(180deg,#1c1c1c,#121212);
-  box-shadow:0 8px 22px rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.04);
+  border-radius:22px;
+  background:#2b2d31;
+  box-shadow:0 8px 22px rgba(0,0,0,.65);
+  border:1px solid #33363c;
 }
 
-/* Left content */
 .station-name{
   font-size:16px;
   font-weight:600;
   margin-bottom:6px;
 }
 
-/* Program row */
 .program-row{
   display:flex;
   align-items:center;
@@ -102,107 +114,168 @@ body{
 
 .program{
   font-size:13px;
-  opacity:.75;
+  color:#b3b7bd;
   line-height:1.3;
 }
 
-/* Live dot */
+/* LIVE DOT */
 .live-dot{
   width:9px;
   height:9px;
   border-radius:50%;
-  background:#00ff6a;
-  box-shadow:0 0 8px rgba(0,255,106,.85);
+  background:#00e676;
+  box-shadow:0 0 8px rgba(76,194,255,.8);
   flex-shrink:0;
 }
 
-/* Play button (visual only) */
+/* PLAY BUTTON */
 .play{
   width:42px;
   height:42px;
   border-radius:50%;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
-  background:radial-gradient(circle at top,#3a3a3a,#1c1c1c);
+  background:#3a3d42;
   box-shadow:0 6px 14px rgba(0,0,0,.7);
-
   font-size:16px;
-  opacity:.9;
 }
 
+/* ===== CRICKET ===== */
+.cricket-title{
+  font-size:20px;
+  font-weight:800;
+}
 
-/* CRICKET */
-.cricket-title{font-size:20px;font-weight:800}
-.cricket-buttons{display:flex;gap:14px;margin-top:14px}
+.cricket-buttons{
+  display:flex;
+  gap:14px;
+  margin-top:14px;
+}
+
 .cbtn{
   flex:1;
   padding:14px;
-  border-radius:18px;
-  background:linear-gradient(180deg,#2b2b2b,#1a1a1a);
-  text-align:center
+  border-radius:20px;
+  background:#2f3136;
+  text-align:center;
+  border:1px solid #3a3d42;
 }
-.cbtn small{display:block;font-size:12px;opacity:.7;margin-top:4px}
-.live-badge{
-  position:absolute;top:8px;right:10px;
-  background:#ff3b3b;
-  font-size:10px;font-weight:700;
-  padding:2px 6px;border-radius:6px;
-  animation:blink 1.2s infinite
+.cbtn small{
+  display:block;
+  font-size:12px;
+  color:#b3b7bd;
+  margin-top:4px;
 }
-@keyframes blink{0%{opacity:1}50%{opacity:.3}100%{opacity:1}}
 
-.upcoming-title{font-size:18px;font-weight:800;margin:22px 0 12px}
+.live-badge{
+  position:absolute;
+  top:8px;
+  right:10px;
+  background:#ff3b3b;
+  font-size:10px;
+  font-weight:700;
+  padding:2px 6px;
+  border-radius:6px;
+  animation:blink 1.2s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:.3}
+  100%{opacity:1}
+}
+
+.upcoming-title{
+  font-size:18px;
+  font-weight:800;
+  margin:22px 0 12px;
+}
+
 .match{
-  background:rgba(255,255,255,.04);
-  border-radius:14px;
+  background:#24262a;
+  border-radius:16px;
   padding:14px;
-  margin-bottom:10px
+  margin-bottom:10px;
+  border:1px solid #33363c;
 }
 .match-name{font-weight:600}
-.match-time{font-size:12px;opacity:.65;margin-top:4px}
+.match-time{
+  font-size:12px;
+  color:#b3b7bd;
+  margin-top:4px;
+}
 
-/* NEWS */
+/* ===== NEWS ===== */
 .news-card{padding:14px 0}
-.news-title{font-size:15px;font-weight:600}
-.news-desc{font-size:13px;opacity:.7;margin-top:4px}
-.news-date{font-size:11px;opacity:.5;margin-top:4px}
+.news-title{
+  font-size:15px;
+  font-weight:600;
+}
+.news-desc{
+  font-size:13px;
+  color:#b3b7bd;
+  margin-top:4px;
+}
+.news-date{
+  font-size:11px;
+  color:#8a8f98;
+  margin-top:4px;
+}
 .news-divider{
   height:1px;
-  background:linear-gradient(to right,transparent,rgba(255,255,255,.15),transparent);
-  margin:8px 0
+  background:linear-gradient(
+    to right,
+    transparent,
+    #3a3d42,
+    transparent
+  );
+  margin:8px 0;
 }
 
-/* PODCAST */
-.podcast{display:flex;align-items:center}
+/* ===== PODCAST ===== */
+.podcast{
+  display:flex;
+  align-items:center;
+}
 .updated{
   font-size:13px;
-  color:#2dff8a;
+  color:#4cc2ff;
   margin-top:6px;
-  font-weight:500
+  font-weight:500;
 }
 
-/* PRIVACY */
+/* ===== PRIVACY MODAL ===== */
 .modal{
-  display:none;position:fixed;inset:0;
+  display:none;
+  position:fixed;
+  inset:0;
   background:rgba(0,0,0,.6);
   backdrop-filter:blur(4px);
-  justify-content:center;align-items:center;z-index:20
+  justify-content:center;
+  align-items:center;
+  z-index:20;
 }
 .modal-box{
-  width:85%;max-width:340px;
-  background:#1a1a1a;
-  padding:20px;border-radius:20px
+  width:85%;
+  max-width:340px;
+  background:#2b2d31;
+  padding:20px;
+  border-radius:22px;
 }
-.modal-box p{font-size:13px;opacity:.8;line-height:1.5}
+.modal-box p{
+  font-size:13px;
+  color:#b3b7bd;
+  line-height:1.5;
+}
 .close-btn{
   margin-top:14px;
-  background:#2b2b2b;
-  padding:10px;border-radius:12px;
-  text-align:center
+  background:#3a3d42;
+  padding:10px;
+  border-radius:14px;
+  text-align:center;
 }
+
 </style>
 </head>
 
@@ -212,12 +285,12 @@ body{
 <div class="header">
   <div class="header-left">
     <a href="http://action_share"><div class="icon">🔗</div></a>
-    <a href="go:FEED"target="_blank"><div class="icon">📝</div></a>
+    <a href="go:FEED" target="_blank"><div class="icon">📝</div></a>
   </div>
   <div class="header-title">🇮🇳 AIR Radio</div>
   <div class="header-right">
     <a href="http://action_search"><div class="icon">🔍</div></a>
-    <div class="icon" onclick="privacyModal.style.display='flex'">🔒</div>
+    <div class="icon" onclick="openPrivacy()">🔒</div>
   </div>
 </div>
 
@@ -253,7 +326,7 @@ body{
 <!-- NEWS -->
 <h2 class="section-title">📰 News Articles</h2>
 <div class="card">
-   <a href="go:news2"><div class="news-card"><div class="news-title">26 जनवरी से पहले दिल्ली हाई अलर्ट!</div><div class="news-desc">आख़िर किसकी धमकी से बढ़ी सुरक्षा?</div><div class="news-date">23 Jan 2026</div></div><div class="news-divider"></div></a>
+   <a href="go:news2"><div class="news-card"><div class="news-title">😳 26 जनवरी से पहले दिल्ली हाई अलर्ट!</div><div class="news-desc">आख़िर किसकी धमकी से बढ़ी सुरक्षा?👀</div><div class="news-date">23 Jan 2026</div></div><div class="news-divider"></div></a>
   <a href="go:news1"><div class="news-card"><div class="news-title">T20 World Cup से बाहर हुई बांग्लादेश!</div><div class="news-desc">ICC के अल्टीमेटम के बाद बड़ा फैसला</div><div class="news-date">22 Jan 2026</div></div><div class="news-divider"></div></a>
   <a href="go:news3"><div class="news-card"><div class="news-title">New education policy update</div><div class="news-desc">Major changes announced for higher studies.</div><div class="news-date">20 Jan 2026</div></div><div class="news-divider"></div></a>
   <a href="go:news4"><div class="news-card"><div class="news-title">Weather alert in north India</div><div class="news-desc">IMD issues cold wave warning.</div><div class="news-date">20 Jan 2026</div></div><div class="news-divider"></div></a>
@@ -274,7 +347,7 @@ body{
     <p>This app does not collect any personal information.</p>
     <p>All streams are from publicly available sources.</p>
     <p>No login, no tracking, no background data usage.</p>
-    <div class="close-btn" onclick="privacyModal.style.display='none'">Close</div>
+    <div class="close-btn" onclick="closePrivacy()">Close</div>
   </div>
 </div>
 
@@ -286,7 +359,7 @@ body{
 <script>
 const popularStations = [
   { name:"FM Rainbow", code:"FMR" },
-  { name:"Vividh Bharati", code:"N002" },
+  { name:"Vividh Bharati", code:"VV" },
   { name:"FM Gold", code:"FMG" },
   { name:"Indraprashtha", code:"INDRA" }
 ];
@@ -351,6 +424,22 @@ renderStations();
 setInterval(renderStations,60000);
 </script>
 
+<script>
+const privacyModal = document.getElementById("privacyModal");
 
+function openPrivacy(){
+  privacyModal.style.display = "flex";
+}
+
+function closePrivacy(){
+  privacyModal.style.display = "none";
+}
+
+privacyModal.addEventListener("click", function(e){
+  if(e.target === privacyModal){
+    closePrivacy();
+  }
+});
+</script>
 </body>
 </html>
