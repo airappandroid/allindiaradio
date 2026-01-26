@@ -13,6 +13,10 @@
 
 a{text-decoration:none;color:inherit}
 a:active,a:focus{outline:none}
+html {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
 
 /* ===== BASE ===== */
 body{
@@ -256,25 +260,6 @@ body{
 .cbtn.score:active{
   transform:scale(.95);
   opacity:.8;
-}
-/* LIVE BADGE */
-.live-badge{
-  position:absolute;
-  top:8px;
-  right:10px;
-  background:#ffffff;
-  color:#d32f2f;
-  font-size:10px;
-  font-weight:800;
-  padding:2px 6px;
-  border-radius:6px;
-  animation:blink 1.2s infinite;
-}
-
-@keyframes blink{
-  0%{opacity:1}
-  50%{opacity:.4}
-  100%{opacity:1}
 }
 
 /* UPCOMING */
