@@ -38,6 +38,7 @@ window.SCHEDULE_DATA = [
   { "time": "7:05 PM", "title": "WESTERN MUSIC – You Asked For It", "channel": "FM Rainbow" },
   { "time": "8:00 PM", "title": "MUSIC MASTI (Dance Hits)", "channel": "FM Rainbow" },
   { "time": "9:00 PM", "title": "AAPKI YAAD AATI RAHI (90s Hits)", "channel": "FM Rainbow" },
+  { "time": "9:30 PM", "title": "Issues Before the Parliament", "channel": "FM Rainbow" },
   { "time": "10:00 PM", "title": "हिन्दी में समाचार", "channel": "FM Rainbow" },
   { "time": "10:05 PM", "title": "WESTERN MUSIC – Music Mix", "channel": "FM Rainbow" },
   { "time": "11:00 PM", "title": "हिन्दी में समाचार", "channel": "FM Rainbow" },
