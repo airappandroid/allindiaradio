@@ -83,7 +83,7 @@ window.SCHEDULE_DATA = [
   { "time": "10:30 PM", "title": "ढलती जाए रात", "channel": "Vividh Bharati" },
   { "time": "11:00 PM", "title": "रंग तरंग", "channel": "Vividh Bharati" },
 
- window.SCHEDULE_DATA = [
+ 
   { "time": "12:00 AM", "title": "हिन्दी समाचार", "channel": "FM Gold" },
   { "time": "12:05 AM", "title": "English News", "channel": "FM Gold" },
   { "time": "12:10 AM", "title": "निशिगंधा", "channel": "FM Gold" },
