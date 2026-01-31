@@ -42,7 +42,7 @@ window.SCHEDULE_DATA = [
   { "time": "11:00 PM", "title": "हिन्दी मे समाचार", "channel": "FM Rainbow" },
   { "time": "11:05 PM", "title": "RANG - E - MEHFIL (Ghazals)", "channel": "FM Rainbow" },
 
- window.SCHEDULE_DATA = [
+
   { "time": "12:00 AM", "title": "यादों की महफ़िल (Film Music)", "channel": "Vividh Bharati" },
   { "time": "1:00 AM", "title": "विविध भारती की गीतमाला", "channel": "Vividh Bharati" },
   { "time": "2:00 AM", "title": "सदाबहार नग्मे (Golden Hits 1955–1965)", "channel": "Vividh Bharati" },
