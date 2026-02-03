@@ -55,52 +55,54 @@ body{
   color:#ffffff;
 }
 
-/* ===== QUICK BUTTON ===== */
-/* GRID WRAPPER */
+/* ===== QUICK BUTTONS ONE ROW ===== */
 .quick-buttons{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-bottom: 10px;
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
 }
 
-/* BUTTON */
-.qbtn{
-  padding: 10px 12px;
-  border-radius: 16px;
-  background: #2b2d31;
-  border: 1px solid #33363c;
-  width: 100%;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition:transform .1s ease, opacity .1s ease;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #e8e8e8;
+.quick-buttons a{
+  flex:1;
+  min-width:0;
+  text-decoration:none;
 }
+
+.qbtn{
+  padding:10px 6px;
+  border-radius:16px;
+  background:#2b2d31;
+  border:1px solid #33363c;
+  text-align:center;
+  font-size:12px;
+  font-weight:700;
+  color:#e8e8e8;
+  box-shadow:0 2px 4px rgba(0,0,0,.25);
+  transition:transform .1s ease, opacity .1s ease;
+  height:100%;
+}
+
 .qbtn:active{
   transform:scale(.96);
   opacity:.85;
 }
-/* ICON */
-.qicon svg{
-  width: 16px;
-  height: 16px;
-  fill: currentColor;
-  flex-shrink: 0;
+
+/* ICON STYLE */
+.icon{
+  margin-bottom:4px;
 }
 
-/* TEXT */
-.qtext{
-  white-space: normal;
-  text-align:center;
-  line-height:1.2;
+.icon svg{
+  width:20px;
+  height:20px;
+  fill:#4cc2ff;
 }
 
+/* TEXT WRAP */
+.label{
+  line-height:1.15;
+  word-break:break-word;
+}
 
 
 /* ===== CARD COMMON ===== */
@@ -404,6 +406,43 @@ body{
   transform:scale(.9);
   opacity:.85;
 }
+/* ===== POPULAR STATES (MATCHING EXISTING UI) ===== */
+
+.state-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.state-item{
+  background:#24262a;
+  border:1px solid #33363c;
+  border-radius:16px;
+  padding:12px 10px;
+  text-align:center;
+  font-size:14px;
+  font-weight:600;
+  color:#e8e8e8;
+  text-decoration:none;
+  box-shadow:0 2px 4px rgba(0,0,0,.25);
+  transition:transform .1s ease, opacity .1s ease;
+}
+
+.state-item:active{
+  transform:scale(.96);
+  opacity:.85;
+}
+
+.view-all-states{
+  display:block;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  color:#4cc2ff;
+  text-decoration:none;
+  margin-top:6px;
+}
 
 </style>
 </head>
@@ -424,56 +463,81 @@ body{
   <!-- AIR RADIO -->
   <a href="go:A2">
     <div class="qbtn">
-      <span class="qicon">
+      <div class="icon">
+        <!-- Radio SVG -->
         <svg viewBox="0 0 24 24">
-          <path d="M4 7h16v10H4zM6 9h6v2H6zM6 13h4v2H6zM15 10a2 2 0 110 4 2 2 0 010-4z"/>
+          <path d="M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8H3zm16 8H5v-6h14v6zM7 4l10 4H7V4zm2 9h3v3H9v-3zm7 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
         </svg>
-      </span>
-      <span class="qtext">AIR Radio</span>
+      </div>
+      <div class="label">AIR</div>
     </div>
   </a>
 
   <!-- FM RADIO -->
   <a href="go:FM2">
     <div class="qbtn">
-      <span class="qicon">
+      <div class="icon">
+        <!-- Signal SVG -->
         <svg viewBox="0 0 24 24">
           <path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/>
         </svg>
-      </span>
-      <span class="qtext">FM Radio</span>
+      </div>
+      <div class="label">FM</div>
     </div>
   </a>
 
   <!-- AIR NEWS -->
   <a href="go:AIRNEWS">
     <div class="qbtn">
-      <span class="qicon">
+      <div class="icon">
+        <!-- Newspaper SVG -->
         <svg viewBox="0 0 24 24">
           <path d="M4 4h14v16H4zM6 7h10v2H6zM6 11h10v2H6zM6 15h6v2H6zM20 8v8a2 2 0 01-2 2v-2V8z"/>
         </svg>
-      </span>
-      <span class="qtext">AIR News</span>
+      </div>
+      <div class="label">News</div>
     </div>
   </a>
 
   <!-- LIVE NEWS -->
   <a href="go:LIVE2">
     <div class="qbtn">
-      <span class="qicon">
+      <div class="icon">
+        <!-- Live Broadcast SVG -->
         <svg viewBox="0 0 24 24">
           <path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/>
         </svg>
-      </span>
-      <span class="qtext">Live News</span>
+      </div>
+      <div class="label">Live</div>
     </div>
   </a>
 
 </div>
 
+
 <h2 class="section-title">🔥 Popular Stations</h2>
 <div id="stations"></div>
 
+<!--Popular States--->
+
+<h2 class="section-title">📍 Popular States</h2>
+
+<div class="card">
+  <div class="state-grid">
+
+    <a href="go:DELHI" class="state-item">Delhi</a>
+    <a href="go:UP" class="state-item">Uttar Pradesh</a>
+
+    <a href="go:MH" class="state-item">Maharashtra</a>
+    <a href="go:BIHAR" class="state-item">Bihar</a>
+
+    <a href="go:WB" class="state-item">West Bengal</a>
+    <a href="go:TN" class="state-item">Tamil Nadu</a>
+
+  </div>
+
+  <a href="go:S201" class="view-all-states">View All States →</a>
+</div>
 
 <!-- 🏏 CRICKET HUB -->
 <h2 class="section-title">🏏 Cricket Hub</h2>
