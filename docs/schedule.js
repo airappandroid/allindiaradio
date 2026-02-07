@@ -1,4 +1,5 @@
 window.SCHEDULE_DATA = [
+
   { "time": "12:00 AM", "title": "Hindi News", "channel": "FM Rainbow" },
   { "time": "12:05 AM", "title": "Zero Hour Show – Late Night Mood Songs", "channel": "FM Rainbow" },
 
@@ -21,13 +22,14 @@ window.SCHEDULE_DATA = [
   { "time": "06:05 AM", "title": "Suprabhat – Positive Morning Programme", "channel": "FM Rainbow" },
 
   { "time": "07:00 AM", "title": "Hindi News", "channel": "FM Rainbow" },
-  { "time": "07:05 AM", "title": "Good Morning Delhi / NCR – Informative Morning Show", "channel": "FM Rainbow" },
+  { "time": "07:05 AM", "title": "Good Morning Delhi / NCR – Morning Informative Show", "channel": "FM Rainbow" },
 
-  { "time": "08:00 AM", "title": "Good Morning Delhi / NCR – City Updates & News", "channel": "FM Rainbow" },
+  { "time": "08:00 AM", "title": "Good Morning Delhi / NCR – City Updates & Dial-In", "channel": "FM Rainbow" },
 
   { "time": "09:00 AM", "title": "Dil Ke Tarane Gaane Naye Purane", "channel": "FM Rainbow" },
 
-  { "time": "10:00 AM", "title": "Pariksha Pe Charcha – Hon’ble PM Narendra Modi (Special Broadcast) + Matchless Music Hour", "channel": "FM Rainbow" },
+  { "time": "10:00 AM", "title": "Hindi News", "channel": "FM Rainbow" },
+  { "time": "10:05 AM", "title": "Western Music – Matchless Music Hour", "channel": "FM Rainbow" },
 
   { "time": "11:00 AM", "title": "Hindi News", "channel": "FM Rainbow" },
   { "time": "11:05 AM", "title": "Bollywood Trails – Updates & Songs", "channel": "FM Rainbow" },
@@ -36,30 +38,35 @@ window.SCHEDULE_DATA = [
   { "time": "12:05 PM", "title": "Western Music – Play It Cool", "channel": "FM Rainbow" },
 
   { "time": "01:00 PM", "title": "Hindi News", "channel": "FM Rainbow" },
-  { "time": "01:05 PM", "title": "Merawala Song – Listener Requests (Cancer Awareness Special)", "channel": "FM Rainbow" },
+  { "time": "01:05 PM", "title": "Merawala Song – Listener Requests", "channel": "FM Rainbow" },
 
-  { "time": "02:00 PM", "title": "Aashiyana – Travel & Tourism Programme", "channel": "FM Rainbow" },
+  { "time": "02:00 PM", "title": "Aashiyana – Entertainment Programme", "channel": "FM Rainbow" },
 
-  { "time": "03:00 PM", "title": "Radio Doctor – Tooth Sensitivity (Live Phone-In)", "channel": "FM Rainbow" },
+  { "time": "03:00 PM", "title": "Radio Doctor – First Aid in Household Accidents (Live Phone-In)", "channel": "FM Rainbow" },
 
   { "time": "04:00 PM", "title": "Hindi News", "channel": "FM Rainbow" },
-  { "time": "04:05 PM", "title": "Alpha Gen – Thank God It’s Friday", "channel": "FM Rainbow" },
+  { "time": "04:05 PM", "title": "Alpha Gen – Let’s Detox", "channel": "FM Rainbow" },
 
   { "time": "05:00 PM", "title": "Hindi News", "channel": "FM Rainbow" },
-  { "time": "05:05 PM", "title": "Citylights – City Events & Traffic Updates", "channel": "FM Rainbow" },
+  { "time": "05:05 PM", "title": "Citylights – Events, Traffic & Dial-In", "channel": "FM Rainbow" },
 
   { "time": "06:00 PM", "title": "Hindi News", "channel": "FM Rainbow" },
-  { "time": "06:05 PM", "title": "Message Masala Mix – Audience Interaction", "channel": "FM Rainbow" },
+
+  {
+    "time": "06:30 PM",
+    "title": "ICC Men’s Cricket T20 World Cup 2026 – India vs USA (Live Commentary & Special Segments)",
+    "channel": "FM Rainbow"
+  },
 
   { "time": "07:00 PM", "title": "Hindi News", "channel": "FM Rainbow" },
-  { "time": "07:05 PM", "title": "Western Music – Friday Fiesta", "channel": "FM Rainbow" },
+  { "time": "07:05 PM", "title": "Western Music – Saturday Sizzlers", "channel": "FM Rainbow" },
 
   { "time": "08:00 PM", "title": "Music Masti – Non-Stop Dance Hits", "channel": "FM Rainbow" },
 
   { "time": "09:00 PM", "title": "Aapki Yaad Aati Rahi – 1990s Onwards Hits", "channel": "FM Rainbow" },
 
   { "time": "10:00 PM", "title": "Hindi News", "channel": "FM Rainbow" },
-  { "time": "10:05 PM", "title": "Western Music – Weekender", "channel": "FM Rainbow" },
+  { "time": "10:05 PM", "title": "Western Music – In The Groove", "channel": "FM Rainbow" },
 
   { "time": "11:00 PM", "title": "Hindi News", "channel": "FM Rainbow" },
   { "time": "11:05 PM", "title": "Rang-E-Mehfil – Ghazal Based Programme", "channel": "FM Rainbow" },
