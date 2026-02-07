@@ -75,59 +75,60 @@ window.SCHEDULE_DATA = [
   { "time": "12:00 AM", "title": "Yaadon Ki Mehfil – Film Music (Repeat)", "channel": "Vividh Bharati" },
   { "time": "01:00 AM", "title": "Vividh Bharati Ki Geetmala – Hit Film Songs (Repeat)", "channel": "Vividh Bharati" },
   { "time": "02:00 AM", "title": "Sadabahar Nagme – Golden Hits (1955–1965) (Repeat)", "channel": "Vividh Bharati" },
-  { "time": "03:00 AM", "title": "Sakhi Saheli – Women’s Programme (Repeat)", "channel": "Vividh Bharati" },
-  { "time": "04:00 AM", "title": "Tarane Naye Purane – Non-Stop Hindi Film Songs (Repeat)", "channel": "Vividh Bharati" },
+  { "time": "03:00 AM", "title": "Hello Saheli – Phone-In Programme", "channel": "Vividh Bharati" },
+  { "time": "04:00 AM", "title": "Tarane Naye Purane – Non-Stop Film Songs (Repeat)", "channel": "Vividh Bharati" },
 
   { "time": "05:00 AM", "title": "Jaago Subah Ho Gayi", "channel": "Vividh Bharati" },
   { "time": "05:59 AM", "title": "Opening Announcements", "channel": "Vividh Bharati" },
 
   { "time": "06:00 AM", "title": "Hindi News", "channel": "Vividh Bharati" },
   { "time": "06:05 AM", "title": "Vandanvaar / Chintan – Devotional", "channel": "Vividh Bharati" },
-  { "time": "06:35 AM", "title": "Shri Ram Charit Manas – Part 91", "channel": "Vividh Bharati" },
-  { "time": "06:45 AM", "title": "Sangeet Sarita – Sarod Series (Ustad Amjad Ali Khan, Part 6)", "channel": "Vividh Bharati" },
+  { "time": "06:35 AM", "title": "Shri Ram Charit Manas – Part 92", "channel": "Vividh Bharati" },
+  { "time": "06:45 AM", "title": "Sangeet Sarita – Sarod Series (Ustad Amjad Ali Khan, Part 7)", "channel": "Vividh Bharati" },
 
   { "time": "07:00 AM", "title": "Bhule Bisre Geet – Hits of 1940–1955", "channel": "Vividh Bharati" },
   { "time": "07:30 AM", "title": "Hum Hain Rahi Pyar Ke – Duets (1955–1979)", "channel": "Vividh Bharati" },
 
   { "time": "08:00 AM", "title": "Samachar Prabhat (Hindi News)", "channel": "Vividh Bharati" },
-  { "time": "08:15 AM", "title": "Vande Mataram: Ek Jayghosh – Part 14", "channel": "Vividh Bharati" },
+  { "time": "08:15 AM", "title": "Triveni", "channel": "Vividh Bharati" },
   { "time": "08:30 AM", "title": "Bharat Ki Goonj – Social Media Hits (1960–Present)", "channel": "Vividh Bharati" },
 
   { "time": "09:00 AM", "title": "Bharat Ki Goonj", "channel": "Vividh Bharati" },
-  { "time": "09:30 AM", "title": "Aaj Ke Fankaar – Lyricist Pradeep", "channel": "Vividh Bharati" },
+  { "time": "09:30 AM", "title": "Aaj Ke Fankar – Jagjit Singh", "channel": "Vividh Bharati" },
 
-  { "time": "10:00 AM", "title": "Hello Farmaish – Listener Requests", "channel": "Vividh Bharati" },
+  { "time": "10:00 AM", "title": "Geeton Bhari Kahani – Sindoor (Repeat)", "channel": "Vividh Bharati" },
   { "time": "11:00 AM", "title": "Rang Tarang – Film, Ghazal, Qawwali, Pop & Folk", "channel": "Vividh Bharati" },
 
   { "time": "12:00 PM", "title": "Yaadon Ki Mehfil – Film Music", "channel": "Vividh Bharati" },
   { "time": "01:00 PM", "title": "Vividh Bharati Ki Geetmala", "channel": "Vividh Bharati" },
 
   { "time": "02:00 PM", "title": "Mid-Day News (English)", "channel": "Vividh Bharati" },
-  { "time": "02:15 PM", "title": "Vande Mataram: Ek Jayghosh – Part 14", "channel": "Vividh Bharati" },
+  { "time": "02:15 PM", "title": "Triveni", "channel": "Vividh Bharati" },
   { "time": "02:30 PM", "title": "Sadabahar Nagme – Golden Hits (1955–1965)", "channel": "Vividh Bharati" },
 
-  { "time": "03:00 PM", "title": "Hello Saheli – Live Phone-In Programme", "channel": "Vividh Bharati" },
-  { "time": "04:00 PM", "title": "Geeton Bhari Kahani – Sindoor", "channel": "Vividh Bharati" },
+  { "time": "03:30 PM", "title": "Natya Tarang – Aankh Ki Kirkiri (Part 1)", "channel": "Vividh Bharati" },
+  { "time": "04:00 PM", "title": "Bombay Talkies – Rajshri Deshpande Interview (Part 3)", "channel": "Vividh Bharati" },
 
   { "time": "05:00 PM", "title": "Chhayageet (Repeat)", "channel": "Vividh Bharati" },
   { "time": "05:30 PM", "title": "Tarane Naye Purane – Non-Stop Film Songs", "channel": "Vividh Bharati" },
 
-  { "time": "06:45 PM", "title": "Sangeet Sarita – Sarod Series (Part 6)", "channel": "Vividh Bharati" },
-  { "time": "07:00 PM", "title": "Jaymala – Mixed Hit Songs", "channel": "Vividh Bharati" },
-  { "time": "07:45 PM", "title": "Indradhanush – Guldasta (Non-Filmi Ghazals)", "channel": "Vividh Bharati" },
+  { "time": "06:45 PM", "title": "Sangeet Sarita – Sarod Series (Part 7)", "channel": "Vividh Bharati" },
+  { "time": "07:00 PM", "title": "Vishesh Jaymala – Jackie Shroff", "channel": "Vividh Bharati" },
+  { "time": "07:45 PM", "title": "Jigyasa – Science Programme", "channel": "Vividh Bharati" },
 
-  { "time": "08:00 PM", "title": "Hawamahal – Radio Drama", "channel": "Vividh Bharati" },
+  { "time": "08:00 PM", "title": "Hawamahal – Premchand Story ‘Prayashchit’ (Part 1)", "channel": "Vividh Bharati" },
   { "time": "08:15 PM", "title": "Chitralok – Hits of 1990–2021", "channel": "Vividh Bharati" },
 
   { "time": "08:45 PM", "title": "Samachar Sandhya (Hindi News)", "channel": "Vividh Bharati" },
   { "time": "09:00 PM", "title": "Aap Ke Liye – Film Songs", "channel": "Vividh Bharati" },
   { "time": "09:30 PM", "title": "Chhayageet", "channel": "Vividh Bharati" },
 
-  { "time": "10:00 PM", "title": "Aaj Ke Fankaar – Lata Mangeshkar", "channel": "Vividh Bharati" },
-  { "time": "10:30 PM", "title": "Dhalti Jaaye Raat – Soft Romantic Songs", "channel": "Vividh Bharati" },
-  { "time": "11:00 PM", "title": "Rang Tarang – Film Songs Mix (Repeat)", "channel": "Vividh Bharati" },
+  { "time": "10:00 PM", "title": "Aaj Ke Fankar – Jagjit Singh", "channel": "Vividh Bharati" },
+  { "time": "10:30 PM", "title": "Dhalti Jaaye Raat – Soft Romantic Film Songs", "channel": "Vividh Bharati" },
 
+  { "time": "11:00 PM", "title": "Rang Tarang – Film Songs Mix (Repeat)", "channel": "Vividh Bharati" },
  
+
   { "time": "12:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "12:05 AM", "title": "News in English", "channel": "FM Gold" },
   { "time": "12:10 AM", "title": "Nishigandha – Superhit Evergreen Film Songs", "channel": "FM Gold" },
@@ -146,7 +147,7 @@ window.SCHEDULE_DATA = [
 
   { "time": "04:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "04:05 AM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "04:10 AM", "title": "Arunima – Soothing & Positive Songs", "channel": "FM Gold" },
+  { "time": "04:10 AM", "title": "Arunima – Soothing Songs with Positive Thoughts", "channel": "FM Gold" },
 
   { "time": "05:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "05:05 AM", "title": "News in English", "channel": "FM Gold" },
@@ -155,7 +156,7 @@ window.SCHEDULE_DATA = [
   { "time": "06:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "06:05 AM", "title": "News in English", "channel": "FM Gold" },
   { "time": "06:10 AM", "title": "Arpan – Devotional Songs", "channel": "FM Gold" },
-  { "time": "06:44 AM", "title": "Shri Ram Charit Manas – Uttar Kand (Part 19)", "channel": "FM Gold" },
+  { "time": "06:44 AM", "title": "Shri Ram Charit Manas – Uttar Kand (Part 20)", "channel": "FM Gold" },
   { "time": "06:55 AM", "title": "News in Sanskrit", "channel": "FM Gold" },
 
   { "time": "07:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
@@ -166,11 +167,11 @@ window.SCHEDULE_DATA = [
   { "time": "08:00 AM", "title": "Samachar Prabhat (Hindi)", "channel": "FM Gold" },
   { "time": "08:15 AM", "title": "Morning News (English)", "channel": "FM Gold" },
   { "time": "08:30 AM", "title": "News in Urdu", "channel": "FM Gold" },
-  { "time": "08:45 AM", "title": "Musical Dillagi – Lata Mangeshkar Punyatithi Special", "channel": "FM Gold" },
+  { "time": "08:45 AM", "title": "Musical Dillagi – Special Theme Show", "channel": "FM Gold" },
 
   { "time": "09:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "09:05 AM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "09:10 AM", "title": "Musical Dillagi – Social Awareness Special", "channel": "FM Gold" },
+  { "time": "09:10 AM", "title": "Musical Dillagi – Awareness Special", "channel": "FM Gold" },
 
   { "time": "10:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "10:05 AM", "title": "News in English", "channel": "FM Gold" },
@@ -180,24 +181,25 @@ window.SCHEDULE_DATA = [
 
   { "time": "11:00 AM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "11:05 AM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "11:10 AM", "title": "Tasveer – Ooty (Tamil Nadu Travelogue)", "channel": "FM Gold" },
+  { "time": "11:10 AM", "title": "Tasveer – Patratu Valley (Jharkhand)", "channel": "FM Gold" },
 
   { "time": "12:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "12:05 PM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "12:10 PM", "title": "Ek Kadam Buzurgon Ki Ore – Senior Citizens Special", "channel": "FM Gold" },
+  { "time": "12:10 PM", "title": "Ghar Aangan – Women & Family Show", "channel": "FM Gold" },
 
   { "time": "01:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "01:05 PM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "01:10 PM", "title": "Kalakar Bemisaal – Lata Mangeshkar", "channel": "FM Gold" },
+  { "time": "01:10 PM", "title": "Kalakar Bemisaal – Nida Fazli", "channel": "FM Gold" },
   { "time": "01:50 PM", "title": "Urdu Samachar", "channel": "FM Gold" },
 
   { "time": "02:00 PM", "title": "Mid Day News (English)", "channel": "FM Gold" },
   { "time": "02:15 PM", "title": "Dopahar Samachar (Hindi)", "channel": "FM Gold" },
-  { "time": "02:30 PM", "title": "Unnat Kisan – Natural Farming Special", "channel": "FM Gold" },
+  { "time": "02:30 PM", "title": "Kisan Ki Baat – Sponsored Programme", "channel": "FM Gold" },
 
   { "time": "03:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "03:05 PM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "03:10 PM", "title": "Manbhavan – Request Show", "channel": "FM Gold" },
+  { "time": "03:10 PM", "title": "New India Samachar", "channel": "FM Gold" },
+  { "time": "03:25 PM", "title": "Manbhavan – Request Show", "channel": "FM Gold" },
 
   { "time": "04:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "04:05 PM", "title": "News in English", "channel": "FM Gold" },
@@ -207,7 +209,7 @@ window.SCHEDULE_DATA = [
 
   { "time": "05:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "05:05 PM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "05:10 PM", "title": "Paani Par Likhi Kahani – Radio Feature", "channel": "FM Gold" },
+  { "time": "05:10 PM", "title": "Gaate Gungunate – 80s & 90s Classics", "channel": "FM Gold" },
 
   { "time": "06:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "06:05 PM", "title": "News in English", "channel": "FM Gold" },
@@ -221,14 +223,14 @@ window.SCHEDULE_DATA = [
   { "time": "07:25 PM", "title": "Saanjh Dhale – Old Forgotten Songs", "channel": "FM Gold" },
   { "time": "07:45 PM", "title": "Pradeshik Samachar", "channel": "FM Gold" },
 
-  { "time": "08:00 PM", "title": "Sansad Sameeksha (Hindi)", "channel": "FM Gold" },
-  { "time": "08:15 PM", "title": "Parliament Review (English)", "channel": "FM Gold" },
+  { "time": "08:00 PM", "title": "This Week in Parliament (Hindi)", "channel": "FM Gold" },
+  { "time": "08:15 PM", "title": "This Week in Parliament (English)", "channel": "FM Gold" },
   { "time": "08:30 PM", "title": "Sports Scan", "channel": "FM Gold" },
   { "time": "08:45 PM", "title": "Samachar Sandhya (Hindi)", "channel": "FM Gold" },
 
   { "time": "09:00 PM", "title": "News at Nine (English)", "channel": "FM Gold" },
   { "time": "09:15 PM", "title": "Spot Light", "channel": "FM Gold" },
-  { "time": "09:30 PM", "title": "Current Affairs", "channel": "FM Gold" },
+  { "time": "09:30 PM", "title": "Sahitya Bharati", "channel": "FM Gold" },
 
   { "time": "10:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "10:05 PM", "title": "News in English", "channel": "FM Gold" },
@@ -238,13 +240,14 @@ window.SCHEDULE_DATA = [
 
   { "time": "11:00 PM", "title": "News in Hindi", "channel": "FM Gold" },
   { "time": "11:05 PM", "title": "News in English", "channel": "FM Gold" },
-  { "time": "11:10 PM", "title": "Geet Mere Manmeet – Evergreen Classics", "channel": "FM Gold" },
+  { "time": "11:10 PM", "title": "Geet Mere Manmeet – Evergreen Film Hits", "channel": "FM Gold" },
 
  
  
+
   { "time": "12:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "12:05 AM", "title": "News in English", "channel": "Indraprastha" },
-  { "time": "12:10 AM", "title": "Suron Ka Safarnama – Lata Mangeshkar", "channel": "Indraprastha" },
+  { "time": "12:10 AM", "title": "Suron Ka Safarnama – Hasrat Jaipuri", "channel": "Indraprastha" },
 
   { "time": "01:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "01:05 AM", "title": "News in English", "channel": "Indraprastha" },
@@ -260,20 +263,20 @@ window.SCHEDULE_DATA = [
 
   { "time": "04:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "04:05 AM", "title": "Archana – Carnatic Devotional Music", "channel": "Indraprastha" },
-  { "time": "04:25 AM", "title": "Naad Brahma – Carnatic Classical Vocal", "channel": "Indraprastha" },
+  { "time": "04:25 AM", "title": "Naad Brahma – Carnatic Classical (Flute)", "channel": "Indraprastha" },
   { "time": "04:55 AM", "title": "Vande Mataram & Opening Announcements", "channel": "Indraprastha" },
 
   { "time": "05:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "05:05 AM", "title": "News in English", "channel": "Indraprastha" },
   { "time": "05:10 AM", "title": "Aao Yog Karein – Yoga for Wellness", "channel": "Indraprastha" },
-  { "time": "05:20 AM", "title": "Desh Bhakti Sangeet – Patriotic Songs", "channel": "Indraprastha" },
-  { "time": "05:30 AM", "title": "Swar Ranjani – Hindustani Classical (Raag Bhatiyar)", "channel": "Indraprastha" },
+  { "time": "05:20 AM", "title": "Desh Bhakti Sangeet", "channel": "Indraprastha" },
+  { "time": "05:30 AM", "title": "Swar Ranjani – Hindustani Classical (Raag Lalit)", "channel": "Indraprastha" },
 
   { "time": "06:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "06:05 AM", "title": "News in English", "channel": "Indraprastha" },
   { "time": "06:10 AM", "title": "Vandana – Devotional Programme", "channel": "Indraprastha" },
-  { "time": "06:40 AM", "title": "Chintan – Thoughts of Raja Ram Mohan Roy", "channel": "Indraprastha" },
-  { "time": "06:45 AM", "title": "Ram Charit Manas – Uttar Kand (Part 14)", "channel": "Indraprastha" },
+  { "time": "06:40 AM", "title": "Chintan – Gandhian Thoughts", "channel": "Indraprastha" },
+  { "time": "06:45 AM", "title": "Ram Charit Manas – Uttar Kand (Part 15)", "channel": "Indraprastha" },
   { "time": "06:55 AM", "title": "News in Sanskrit", "channel": "Indraprastha" },
 
   { "time": "07:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
@@ -281,21 +284,22 @@ window.SCHEDULE_DATA = [
   { "time": "07:10 AM", "title": "Sangeetika – Bhajan Series", "channel": "Indraprastha" },
   { "time": "07:30 AM", "title": "Geeton Bhari Good Morning – Film Songs", "channel": "Indraprastha" },
 
-  { "time": "08:00 AM", "title": "Samachar Prabhat (Hindi News)", "channel": "Indraprastha" },
+  { "time": "08:00 AM", "title": "Samachar Prabhat (Hindi)", "channel": "Indraprastha" },
   { "time": "08:15 AM", "title": "Morning News (English)", "channel": "Indraprastha" },
   { "time": "08:30 AM", "title": "News in Urdu", "channel": "Indraprastha" },
-  { "time": "08:45 AM", "title": "Swar Ganga – Hindustani Classical (Raag Alahiya Bilawal)", "channel": "Indraprastha" },
+  { "time": "08:45 AM", "title": "Swasthya Patrika – Hamari Sehat", "channel": "Indraprastha" },
 
-  { "time": "09:15 AM", "title": "Gandhi Charcha – Economic Equality & Poverty", "channel": "Indraprastha" },
+  { "time": "09:15 AM", "title": "Dharti Aakash – Earth Sciences Talk", "channel": "Indraprastha" },
   { "time": "09:30 AM", "title": "Mitti Di Mehak – Punjabi Programme", "channel": "Indraprastha" },
 
-  { "time": "10:00 AM", "title": "Pariksha Pe Charcha – PM Narendra Modi (Special Recording)", "channel": "Indraprastha" },
+  { "time": "10:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
+  { "time": "10:05 AM", "title": "News in English", "channel": "Indraprastha" },
   { "time": "10:10 AM", "title": "Film Sangeet – Aap Ki Pasand", "channel": "Indraprastha" },
 
   { "time": "11:00 AM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "11:05 AM", "title": "News in English", "channel": "Indraprastha" },
   { "time": "11:10 AM", "title": "Sabrang – Musical Selections", "channel": "Indraprastha" },
-  { "time": "11:30 AM", "title": "Sur Manjari – Hindustani Classical (Raag Shuddh Sarang)", "channel": "Indraprastha" },
+  { "time": "11:30 AM", "title": "Sur Manjari – Hindustani Classical (Raag Todi)", "channel": "Indraprastha" },
 
   { "time": "12:00 PM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "12:05 PM", "title": "News in English", "channel": "Indraprastha" },
@@ -303,20 +307,20 @@ window.SCHEDULE_DATA = [
 
   { "time": "01:00 PM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "01:05 PM", "title": "News in English", "channel": "Indraprastha" },
-  { "time": "01:10 PM", "title": "Ek Hi Film Se – Lekin", "channel": "Indraprastha" },
+  { "time": "01:10 PM", "title": "Ek Hi Film Se – Hare Rama Hare Krishna", "channel": "Indraprastha" },
   { "time": "01:40 PM", "title": "News in Punjabi", "channel": "Indraprastha" },
   { "time": "01:50 PM", "title": "News in Urdu", "channel": "Indraprastha" },
 
   { "time": "02:00 PM", "title": "Mid Day News (English)", "channel": "Indraprastha" },
   { "time": "02:15 PM", "title": "Mid Day News (Hindi)", "channel": "Indraprastha" },
-  { "time": "02:30 PM", "title": "Ek Hi Kalakar – Lata Mangeshkar", "channel": "Indraprastha" },
+  { "time": "02:30 PM", "title": "Ek Hi Kalakar – Sujit Kumar", "channel": "Indraprastha" },
 
-  { "time": "03:00 PM", "title": "Sponsored Programme – NCERT", "channel": "Indraprastha" },
-  { "time": "03:30 PM", "title": "Urdu Majlis – Aabshar-e-Ghazal", "channel": "Indraprastha" },
+  { "time": "03:00 PM", "title": "Braj Madhuri – Folk & Talk", "channel": "Indraprastha" },
+  { "time": "03:30 PM", "title": "Natak – Jeene Ki Raah (Repeat)", "channel": "Indraprastha" },
 
   { "time": "04:00 PM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "04:05 PM", "title": "News in English", "channel": "Indraprastha" },
-  { "time": "04:10 PM", "title": "SOS / Announcements / Jingles", "channel": "Indraprastha" },
+  { "time": "04:10 PM", "title": "SOS / Announcements", "channel": "Indraprastha" },
   { "time": "04:20 PM", "title": "Employment News", "channel": "Indraprastha" },
   { "time": "04:30 PM", "title": "Parikrama (Bilingual)", "channel": "Indraprastha" },
 
@@ -327,26 +331,30 @@ window.SCHEDULE_DATA = [
 
   { "time": "06:00 PM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "06:05 PM", "title": "News in English", "channel": "Indraprastha" },
-  { "time": "06:10 PM", "title": "Sanskrit Varta – Origin & Development of Sanskrit", "channel": "Indraprastha" },
+  { "time": "06:10 PM", "title": "Chahal Pahal – Magazine Programme", "channel": "Indraprastha" },
   { "time": "06:20 PM", "title": "News in Sanskrit", "channel": "Indraprastha" },
-  { "time": "06:30 PM", "title": "Gram Sansaar – Rural Banking & Discussion", "channel": "Indraprastha" },
+
+  {
+    "time": "06:30 PM",
+    "title": "ICC Men’s Cricket T20 World Cup 2026 – India vs USA (Live Commentary & Special Segments)",
+    "channel": "Indraprastha"
+  },
 
   { "time": "07:00 PM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "07:05 PM", "title": "Krishi Jagat – Agriculture Programme", "channel": "Indraprastha" },
   { "time": "07:30 PM", "title": "Ghazal / Qawwali", "channel": "Indraprastha" },
   { "time": "07:45 PM", "title": "Pradeshik Samachar", "channel": "Indraprastha" },
 
-  { "time": "08:00 PM", "title": "Geet Malika – Film Songs", "channel": "Indraprastha" },
-  { "time": "08:45 PM", "title": "Samachar Sandhya (Hindi News)", "channel": "Indraprastha" },
+  { "time": "08:00 PM", "title": "Mushaira", "channel": "Indraprastha" },
+  { "time": "08:30 PM", "title": "Film Music", "channel": "Indraprastha" },
+  { "time": "08:45 PM", "title": "Samachar Sandhya (Hindi)", "channel": "Indraprastha" },
   { "time": "09:00 PM", "title": "Evening News (English)", "channel": "Indraprastha" },
   { "time": "09:15 PM", "title": "News in Urdu", "channel": "Indraprastha" },
-  { "time": "09:30 PM", "title": "Current Affairs", "channel": "Indraprastha" },
+  { "time": "09:30 PM", "title": "Sahitya Bharati", "channel": "Indraprastha" },
 
-  { "time": "10:00 PM", "title": "Parliament Question Hour – Recording", "channel": "Indraprastha" },
-  { "time": "10:10 PM", "title": "Maati Ke Rang – Rajasthani Folk (Repeat)", "channel": "Indraprastha" },
-  { "time": "10:30 PM", "title": "Raag Ranjan – Hindustani Classical (Raag Jog)", "channel": "Indraprastha" },
+  { "time": "10:00 PM", "title": "Akashvani Sangeet Sammelan – Light & Folk Music", "channel": "Indraprastha" },
 
   { "time": "11:00 PM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "11:05 PM", "title": "News in English", "channel": "Indraprastha" },
-  { "time": "11:10 PM", "title": "Aapki Farmaish – Film Songs", "channel": "Indraprastha" }
+  { "time": "11:10 PM", "title": "Film Sangeet – Aapki Farmaish", "channel": "Indraprastha" }
 ];
