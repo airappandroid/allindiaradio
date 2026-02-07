@@ -13,6 +13,7 @@
 
 a{text-decoration:none;color:inherit}
 a:active,a:focus{outline:none}
+
 html {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -103,7 +104,6 @@ body{
   line-height:1.15;
   word-break:break-word;
 }
-
 
 /* ===== CARD COMMON ===== */
 .card{
@@ -443,6 +443,53 @@ body{
   text-decoration:none;
   margin-top:6px;
 }
+/* ===== TOGGLE SYSTEM ===== */
+.content-toggles{
+  display:flex;
+  gap:8px;
+  margin:6px 0 14px;
+}
+
+.toggle-btn{
+  flex:1;
+  padding:10px 6px;
+  border-radius:14px;
+  border:1px solid #33363c;
+  background:#2b2d31;
+  color:#e8e8e8;
+  font-size:12px;
+  font-weight:700;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.ticon svg{
+  width:20px;
+  height:20px;
+  fill:#4cc2ff;
+}
+.toggle-btn.active .ticon svg{
+  fill:#000;
+}
+.toggle-btn.active{
+  background:#4cc2ff;
+  color:#000;
+  border-color:#4cc2ff;
+}
+
+.toggle-section{
+  display:none;
+}
+
+.back-home{
+  font-size:13px;
+  color:#4cc2ff;
+  font-weight:700;
+  margin-bottom:8px;
+  cursor:pointer;
+}
 
 </style>
 </head>
@@ -454,7 +501,7 @@ body{
   <img src="https://res.cloudinary.com/dzczl0fzu/image/upload/v1770435647/ChatGPT_Image_Feb_7_2026_09_08_02_AM_cojbii.jpg" alt="AIR Banner">
 </div></a>
 
-
+   
 <div class="container">
 
 <!-- QUICK -->
@@ -513,7 +560,43 @@ body{
   </a>
 
 </div>
+<div class="content-toggles">
+  
+  <button class="toggle-btn" onclick="openSection('cricketSection', this)">
+    <span class="ticon">
+      <!-- Cricket SVG -->
+      <svg viewBox="0 0 24 24">
+        <path d="M14 2l8 8-2 2-8-8 2-2zM2 14l8 8 2-2-8-8-2 2z"/>
+      </svg>
+    </span>
+    <span>Cricket</span>
+  </button>
 
+  <button class="toggle-btn" onclick="openSection('newsSection', this)">
+    <span class="ticon">
+      <!-- News SVG -->
+      <svg viewBox="0 0 24 24">
+        <path d="M4 4h14v16H4zM6 7h10v2H6zM6 11h10v2H6zM6 15h6v2H6zM20 8v8a2 2 0 01-2 2V8z"/>
+      </svg>
+    </span>
+    <span>Read News</span>
+  </button>
+
+  <button class="toggle-btn" onclick="openSection('podcastSection', this)">
+    <span class="ticon">
+      <!-- Podcast SVG -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3a6 6 0 00-6 6v3a6 6 0 0012 0V9a6 6 0 00-6-6zm-1 14h2v4h-2z"/>
+      </svg>
+    </span>
+    <span>Podcasts</span>
+  </button>
+
+</div>
+
+
+<!--Popular Stations-->
+<div id="homeContent">
 
 <h2 class="section-title">🔥 Popular Stations</h2>
 <div id="stations"></div>
@@ -538,8 +621,13 @@ body{
 
   <a href="go:A2" class="view-all-states">View All States →</a>
 </div>
+</div>
+
 
 <!-- 🏏 CRICKET HUB -->
+<div id="cricketSection" class="toggle-section">
+<div class="back-home" onclick="goHome()">← Back to Home</div>
+
 <h2 class="section-title">🏏 Cricket Hub</h2>
 
 <div class="card cricket-card">
@@ -567,7 +655,7 @@ body{
 
   <!-- UPCOMING -->
   <div class="upcoming-title">📅 Upcoming Matches</div>
-
+   
 <div class="match">
     <div class="match-name">India vs America (T20-WC)</div>
     <div class="match-time">7 Feb 2026 | 7:00 PM</div>
@@ -577,13 +665,19 @@ body{
     <div class="match-name">India vs Namibia (T20-WC)</div>
     <div class="match-time">12 Feb 2026 | 7:00 PM</div>
   </div>
-<div class="match">
+  
+   <div class="match">
     <div class="match-name">India vs Pakistan (T20-WC)</div>
     <div class="match-time">15 Feb 2026 | 7:00 PM</div>
 </div>
    
 </div>
+</div>
+
 <!-- NEWS -->  
+<div id="newsSection" class="toggle-section">
+<div class="back-home" onclick="goHome()">← Back to Home</div>
+
 <h2 class="section-title">📰 News Articles</h2>
 <div class="card news-list">
 
@@ -635,10 +729,15 @@ body{
     </div>
     <a href="go:news4" class="news-read">READ</a>
   </div>
-  
-   
+
+
 </div>
+</div>
+
 <!-- PODCAST -->
+<div id="podcastSection" class="toggle-section">
+<div class="back-home" onclick="goHome()">← Back to Home</div>
+
 <h2 class="section-title">🎧 Podcasts</h2>
 
 <div class="card podcast">
@@ -652,7 +751,7 @@ body{
 <div class="card podcast">
   <div class="podcast-text">
     <div class="station-name">BBC दिनभर: पूरा दिन,पूरी ख़बर</div>
-    <div class="updated">Last updated: 6 Feb 2026 · 9:45 PM</div>
+    <div class="updated">Last updated: 6 Feb 2026 · 9:47 PM</div>
   </div>
   <a href="go:S301" class="podcast-play">▶</a>
 </div>
@@ -665,6 +764,8 @@ body{
   </div>
   <a href="go:MANN" class="podcast-play">▶</a>
 </div>
+</div>
+
 <!-- JS : POPULAR STATIONS ONLY -->
 
 <script src="https://airappandroid.github.io/allindiaradio/schedule.js"></script>
@@ -675,7 +776,7 @@ if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
 
 const popularStations = [
   { name:"FM Rainbow", code:"FMR" },
-  { name:"Vividh Bharati", code:"N002" },
+  { name:"Vividh Bharati", code:"VV" },
   { name:"FM Gold", code:"FMG" },
   { name:"Indraprastha", code:"INDRA" }
 ];
@@ -763,6 +864,37 @@ setInterval(updateProgramsOnly, 60000);
 
 /* Extra safety refresh after schedule loads */
 setTimeout(updateProgramsOnly, 4000);
+function openSection(id, btn){
+  document.getElementById("homeContent").style.display = "none";
+
+  document.querySelectorAll('.toggle-section').forEach(sec=>{
+    sec.style.display = "none";
+  });
+
+  document.querySelectorAll('.toggle-btn').forEach(b=>{
+    b.classList.remove('active');
+  });
+
+  document.getElementById(id).style.display = "block";
+  btn.classList.add('active');
+
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function goHome(){
+  document.getElementById("homeContent").style.display = "block";
+
+  document.querySelectorAll('.toggle-section').forEach(sec=>{
+    sec.style.display = "none";
+  });
+
+  document.querySelectorAll('.toggle-btn').forEach(b=>{
+    b.classList.remove('active');
+  });
+
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
 </script>
 
 </body>
