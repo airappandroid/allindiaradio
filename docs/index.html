@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +63,9 @@ body{
   gap:8px;
   margin-bottom:14px;
 }
-
+.quick-buttons > *{
+  flex:1;
+}
 .quick-buttons a{
   flex:1;
   min-width:0;
@@ -290,122 +293,7 @@ body{
   color:#b3b7bd;
   margin-top:3px;
 }
-/* ===== NEWS WITH READ BUTTON ===== */
 
-.news-item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:10px 0;
-}
-
-.news-text{
-  flex:1;
-  min-width:0;
-}
-
-.news-title{
-  font-size:15px;
-  font-weight:600;
-  line-height:1.3;
-}
-
-.news-desc{
-  font-size:13px;
-  color:#b3b7bd;
-  margin-top:4px;
-  line-height:1.4;
-}
-
-.news-date{
-  font-size:11px;
-  color:#8a8f98;
-  margin-top:4px;
-  font-weight:500;
-}
-
-/* READ pill button */
-.news-read{
-  background:#4cc2ff;
-  color:#000;
-  font-size:11px;
-  font-weight:700;
-  padding:6px 12px;
-  border-radius:999px;
-  text-decoration:none;
-  flex-shrink:0;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  transition:transform .1s ease, opacity .1s ease;
-}
-
-.news-read:active{
-  transform:scale(.95);
-  opacity:.8;
-}
-.news-divider{
-  height:1px;
-  background:#3a3d42;
-  margin:8px 0;
-  opacity:.6;
-}
-/* ===== PODCAST SECTION (PLAY BUTTON ONLY CLICKABLE) ===== */
-
-.podcast{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:10px 12px;
-  line-height:1.3;
-}
-
-.podcast-text{
-  flex:1;
-  min-width:0;
-}
-
-/* Podcast Title */
-.podcast .station-name{
-  font-size:14px;
-  font-weight:600;
-  margin-bottom:4px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* Last Updated Text */
-.updated{
-  font-size:10px;
-  color:#4cc2ff;
-  margin-top:2px;
-  font-weight:500;
-}
-
-/* Play Icon Button (ONLY clickable area) */
-.podcast-play{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  background:#4cc2ff;
-  color:#000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:15px;
-  font-weight:700;
-  flex-shrink:0;
-  text-decoration:none;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  transition:transform .1s ease, opacity .1s ease;
-}
-
-/* Touch feedback */
-.podcast-play:active{
-  transform:scale(.9);
-  opacity:.85;
-}
 /* ===== POPULAR STATES (MATCHING EXISTING UI) ===== */
 
 .state-grid{
@@ -533,19 +421,6 @@ body{
     </div>
   </a>
 
-  <!-- AIR NEWS -->
-  <a href="go:AIRNEWS">
-    <div class="qbtn">
-      <div class="icon">
-        <!-- Newspaper SVG -->
-        <svg viewBox="0 0 24 24">
-          <path d="M4 4h14v16H4zM6 7h10v2H6zM6 11h10v2H6zM6 15h6v2H6zM20 8v8a2 2 0 01-2 2v-2V8z"/>
-        </svg>
-      </div>
-      <div class="label">News</div>
-    </div>
-  </a>
-
   <!-- LIVE NEWS -->
   <a href="go:LIVE2">
     <div class="qbtn">
@@ -559,41 +434,16 @@ body{
     </div>
   </a>
 
-</div>
-<div class="content-toggles">
-  
-  <button class="toggle-btn" onclick="openSection('cricketSection', this)">
-    <span class="ticon">
-      <!-- Cricket SVG -->
-      <svg viewBox="0 0 24 24">
-        <path d="M14 2l8 8-2 2-8-8 2-2zM2 14l8 8 2-2-8-8-2 2z"/>
-      </svg>
-    </span>
-    <span>Cricket</span>
-  </button>
-
-  <button class="toggle-btn" onclick="openSection('newsSection', this)">
-    <span class="ticon">
-      <!-- News SVG -->
-      <svg viewBox="0 0 24 24">
-        <path d="M4 4h14v16H4zM6 7h10v2H6zM6 11h10v2H6zM6 15h6v2H6zM20 8v8a2 2 0 01-2 2V8z"/>
-      </svg>
-    </span>
-    <span>Read News</span>
-  </button>
-
-  <button class="toggle-btn" onclick="openSection('podcastSection', this)">
-    <span class="ticon">
-      <!-- Podcast SVG -->
-      <svg viewBox="0 0 24 24">
-        <path d="M12 3a6 6 0 00-6 6v3a6 6 0 0012 0V9a6 6 0 00-6-6zm-1 14h2v4h-2z"/>
-      </svg>
-    </span>
-    <span>Podcasts</span>
-  </button>
+<button class="toggle-btn" onclick="openSection('cricketSection', this)">
+  <span class="ticon">
+    <svg viewBox="0 0 24 24">
+      <path d="M14 2l8 8-2 2-8-8 2-2zM2 14l8 8 2-2-8-8-2 2z"/>
+    </svg>
+  </span>
+  <span>Cricket</span>
+</button>
 
 </div>
-
 
 <!--Popular Stations-->
 <div id="homeContent">
@@ -619,7 +469,7 @@ body{
 
   </div>
 
-  <a href="go:A2" class="view-all-states">View All States →</a>
+  <a href="go:S201" class="view-all-states">View All States →</a>
 </div>
 </div>
 
@@ -653,116 +503,25 @@ body{
 
   </div>
 
-  <!-- UPCOMING -->
+ <!-- UPCOMING -->
   <div class="upcoming-title">📅 Upcoming Matches</div>
   
 <div class="match">
-    <div class="match-name">India vs Netherlands (T20-WC)</div>
-    <div class="match-time">18 Feb 2026 | 7:00 PM</div>
+    <div class="match-name">India vs West Indies (T20-WC)</div>
+    <div class="match-time">1 Mar 2026 | 7:00 PM</div>
   </div>
 <div class="match">
-    <div class="match-name">India vs South Africa (T20-WC)</div>
-    <div class="match-time">22 Feb 2026 | 7:00 PM</div>
+    <div class="match-name">India vs England 1st T20</div>
+    <div class="match-time">1 Jul 2026 | 11:00 PM</div>
   </div>
  <div class="match">
-    <div class="match-name">India vs Zimbabwe (T20-WC)</div>
-    <div class="match-time">26 Feb 2026 | 7:00 PM</div>
+    <div class="match-name">India vs England 2nd T20</div>
+    <div class="match-time">4 Jul 2026 | 7:00 PM</div>
 </div>
   
 </div>
 </div>
 
-<!-- NEWS -->  
-<div id="newsSection" class="toggle-section">
-<div class="back-home" onclick="goHome()">← Back to Home</div>
-
-<h2 class="section-title">📰 News Articles</h2>
-<div class="card news-list">
-
-<div class="news-item">
-    <div class="news-text">
-      <div class="news-title">😮 आसमान में बड़ा फैसला</div>
-      <div class="news-desc">क्या बदल जाएगा ताकत का संतुलन?</div>
-      <div class="news-date">17 Feb 2026</div>
-    </div>
-    <a href="go:news1" class="news-read">READ</a>
-  </div>
-   <div class="news-divider"></div>
-   
-<div class="news-item">
-    <div class="news-text">
-      <div class="news-title">⛈️ IND vs PAK: Weather अपडेट!</div>
-      <div class="news-desc">क्या मैच धुलेगा कल कोलंबो में?</div>
-      <div class="news-date">14 Feb 2026</div>
-    </div>
-    <a href="go:news5" class="news-read">READ</a>
-  </div>
-   <div class="news-divider"></div>
-   
-   
-<div class="news-item">
-    <div class="news-text">
-      <div class="news-title">👀 बांग्लादेश में सत्ता परिवर्तन </div>
-      <div class="news-desc">ऐसा नतीजा जिसकी किसी ने उम्मीद नहीं की थी…</div>
-      <div class="news-date">13 Feb 2026</div>
-    </div>
-    <a href="go:news4" class="news-read">READ</a>
-  </div>
-        <div class="news-divider"></div>
-   
-<div class="news-item">
-    <div class="news-text">
-      <div class="news-title">😱 राजपाल यादव पर 9 करोड़ का कर्ज </div>
-      <div class="news-desc">स्टार्स दे रहे मदद </div>
-      <div class="news-date">11 Feb 2026</div>
-    </div>
-    <a href="go:news3" class="news-read">READ</a>
-  </div>
-    <div class="news-divider"></div>
-   
-<div class="news-item">
-    <div class="news-text">
-      <div class="news-title">📢 सरकार का बड़ा एक्शन!</div>
-      <div class="news-desc">AI-जनरेटेड कंटेंट पर सख्त नियम लागू</div>
-      <div class="news-date">10 Feb 2026</div>
-    </div>
-    <a href="go:news2" class="news-read">READ</a>
-  </div>
-    
-    
-</div>
-</div>
-<!-- PODCAST -->
-<div id="podcastSection" class="toggle-section">
-<div class="back-home" onclick="goHome()">← Back to Home</div>
-
-<h2 class="section-title">🎧 Podcasts</h2>
-
-<div class="card podcast">
-  <div class="podcast-text">
-    <div class="station-name">DB दिनभर – हर दिन, हर बड़ी खबर</div>
-    <div class="updated">Last updated: 18 Feb 2026 · 9:39 PM</div>
-  </div>
-  <a href="go:DB" class="podcast-play">▶</a>
-</div>
-   
-<div class="card podcast">
-  <div class="podcast-text">
-    <div class="station-name">BBC दिनभर: पूरा दिन,पूरी ख़बर</div>
-    <div class="updated">Last updated: 19 Feb 2026 · 10:39 PM</div>
-  </div>
-  <a href="go:S301" class="podcast-play">▶</a>
-</div>
-
-
-<div class="card podcast">
-  <div class="podcast-text">
-    <div class="station-name">प्रधानमंत्री के साथ मन की बात</div>
-    <div class="updated">Last updated: 25 Jan 2026 · 12:10 PM</div>
-  </div>
-  <a href="go:MANN" class="podcast-play">▶</a>
-</div>
-</div>
 
 <!-- JS : POPULAR STATIONS ONLY -->
 
@@ -774,7 +533,7 @@ if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
 
 const popularStations = [
   { name:"FM Rainbow", code:"FMR" },
-  { name:"Vividh Bharati", code:"N002" },
+  { name:"Vividh Bharati", code:"N2" },
   { name:"FM Gold", code:"FMG" },
   { name:"Indraprastha", code:"INDRA" }
 ];
