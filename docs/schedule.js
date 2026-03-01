@@ -42,7 +42,7 @@ window.SCHEDULE_DATA = [
   { "time": "11:00 PM", "title": "News in Hindi", "channel": "FM Rainbow" },
   { "time": "11:05 PM", "title": "Rang-E-Mehfil (Ghazal Programme)", "channel": "FM Rainbow" },
  
-  window.SCHEDULE_DATA = [
+  
   { "time": "12:00 AM", "title": "Yadon Ki Mehfil", "channel": "Vividh Bharati" },
   { "time": "1:00 AM", "title": "Vividh Bharati Ki Geetmala", "channel": "Vividh Bharati" },
   { "time": "2:00 AM", "title": "Sadabahar Nagme (1955-1965)", "channel": "Vividh Bharati" },
