@@ -311,3 +311,4 @@ window.SCHEDULE_DATA = [
   { "time": "11:00 PM", "title": "News in Hindi", "channel": "Indraprastha" },
   { "time": "11:05 PM", "title": "News in English", "channel": "Indraprastha" },
   { "time": "11:10 PM", "title": "Aapki Farmaish", "channel": "Indraprastha" },
+  ];
