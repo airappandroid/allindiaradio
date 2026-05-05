@@ -1,180 +1,136 @@
 window.SCHEDULE_DATA = [
-  { "time": "12:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "12:05 AM", "title": "Zero Hour Show\nLate night Bollywood songs", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "01:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "01:05 AM", "title": "Suhani Raat\nSoft romantic songs (90s & new)", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "02:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "02:05 AM", "title": "Bhulaye Na Bane\nSoft melodious songs", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "03:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "03:05 AM", "title": "Midnight Melodies\nNon-stop Bollywood music", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "04:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "04:05 AM", "title": "Sa Re Ga Ma\nMorning mood songs", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "05:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "05:05 AM", "title": "Aradhana\nDevotional songs & Vande Mataram", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "06:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "06:05 AM", "title": "Suprabhat\nPositive morning show", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "07:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
+  { "time": "12:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "12:05 AM", "title": "Zero Hour Show\nLate night songs", "channel": "FM Rainbow Delhi" },
+
+  { "time": "01:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "01:05 AM", "title": "Suhani Raat\nRomantic mix songs", "channel": "FM Rainbow Delhi" },
+
+  { "time": "02:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "02:05 AM", "title": "Bhulaye Na Bane\nMelodious songs", "channel": "FM Rainbow Delhi" },
+
+  { "time": "03:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "03:05 AM", "title": "Midnight Melodies\nBollywood music", "channel": "FM Rainbow Delhi" },
+
+  { "time": "04:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "04:05 AM", "title": "Sa Re Ga Ma\nMorning songs", "channel": "FM Rainbow Delhi" },
+
+  { "time": "05:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "05:05 AM", "title": "Aradhana\nDevotional songs", "channel": "FM Rainbow Delhi" },
+
+  { "time": "06:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "06:05 AM", "title": "Suprabhat\nMorning positive show", "channel": "FM Rainbow Delhi" },
+
+  { "time": "07:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
   { "time": "07:05 AM", "title": "Good Morning Delhi\nCity updates & talk", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "08:00 AM", "title": "Good Morning Delhi\nNews & city highlights", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "09:00 AM", "title": "Dil Ke Tarane\nBollywood old & new hits", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "10:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "10:05 AM", "title": "Western Music Hour\nMatchless music mix", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "11:00 AM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
+
+  { "time": "08:00 AM", "title": "Good Morning Delhi\nNews & city updates", "channel": "FM Rainbow Delhi" },
+
+  { "time": "09:00 AM", "title": "Dil Ke Tarane\nNew & old songs", "channel": "FM Rainbow Delhi" },
+
+  { "time": "10:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "10:05 AM", "title": "Western Music\nMatchless Music Hour", "channel": "FM Rainbow Delhi" },
+
+  { "time": "11:00 AM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
   { "time": "11:05 AM", "title": "Bollywood Trails\nUpdates & songs", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "12:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "12:05 PM", "title": "Western Music\nPlay It Cool mix", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "01:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "01:05 PM", "title": "Rainbow Helpline\nKV admission discussion", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "02:00 PM", "title": "Aashiyana\nFamily issues talk", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "03:00 PM", "title": "Radio Doctor\nHealth talk: Haemophilia", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "04:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "04:05 PM", "title": "Alpha Gen\nYouth talk show", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "05:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
+
+  { "time": "12:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "12:05 PM", "title": "Western Music\nPlay It Cool", "channel": "FM Rainbow Delhi" },
+
+  { "time": "01:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "01:05 PM", "title": "Rainbow Helpline\nTalk & music", "channel": "FM Rainbow Delhi" },
+
+  { "time": "02:00 PM", "title": "Aashiyana\nWomen special", "channel": "FM Rainbow Delhi" },
+
+  { "time": "03:00 PM", "title": "Radio Doctor\nHealth talk show", "channel": "FM Rainbow Delhi" },
+
+  { "time": "04:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "04:05 PM", "title": "Alpha Gen\nCareer show", "channel": "FM Rainbow Delhi" },
+
+  { "time": "05:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
   { "time": "05:05 PM", "title": "Citylights\nCity updates & traffic", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "06:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
+
+  { "time": "06:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
   { "time": "06:05 PM", "title": "Message Masala Mix\nAudience interaction", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "07:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "07:05 PM", "title": "Western Music\nCountry Carnival", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "08:00 PM", "title": "Music Masti\nNon-stop dance hits", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "09:00 PM", "title": "Aapki Yaad\n90s & later hits", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "10:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "10:05 PM", "title": "Western Music\nRainbow showcase hits", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "11:00 PM", "title": "Hindi News\nLatest news update", "channel": "FM Rainbow Delhi" },
-  
-  { "time": "11:05 PM", "title": "Rang-e-Mehfil\nGhazal program", "channel": "FM Rainbow Delhi" },
+
+  { "time": "07:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "07:05 PM", "title": "Western Music\nYou Asked For It", "channel": "FM Rainbow Delhi" },
+
+  { "time": "08:00 PM", "title": "Music Masti\nDance hits", "channel": "FM Rainbow Delhi" },
+
+  { "time": "09:00 PM", "title": "Aapki Yaad Aati Rahi\n90s & later hits", "channel": "FM Rainbow Delhi" },
+
+  { "time": "10:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "10:05 PM", "title": "Western Music\nMusic Mix", "channel": "FM Rainbow Delhi" },
+
+  { "time": "11:00 PM", "title": "News in Hindi", "channel": "FM Rainbow Delhi" },
+  { "time": "11:05 PM", "title": "Rang-e-Mehfil\nGhazal show", "channel": "FM Rainbow Delhi" },
   
   
   
-  { "time": "12:00 AM", "title": "Instrumental Music\nLate night intro music", "channel": "Vividh Bharati" },
-  
+  { "time": "12:00 AM", "title": "Promo & Instrumental Music", "channel": "Vividh Bharati" },
   { "time": "12:05 AM", "title": "Yaadon Ki Mehfil\nClassic film songs", "channel": "Vividh Bharati" },
-  
   { "time": "01:00 AM", "title": "Surila Safar\nHit film songs", "channel": "Vividh Bharati" },
-  
-  { "time": "02:00 AM", "title": "Sadabahar Nagme\nGolden hits (1955–65)", "channel": "Vividh Bharati" },
-  
-  { "time": "03:00 AM", "title": "Man Chahe Geet\nListener’s choice songs", "channel": "Vividh Bharati" },
-  
-  { "time": "03:30 AM", "title": "Natyatarang\nDrama: Inspector General", "channel": "Vividh Bharati" },
-  
-  { "time": "04:00 AM", "title": "Tarane Naye Purane\nOld & new songs", "channel": "Vividh Bharati" },
-  
-  { "time": "05:00 AM", "title": "Jago Subah Ho Gayi\nDevotional songs", "channel": "Vividh Bharati" },
-  
-  { "time": "06:00 AM", "title": "Hindi News\nMorning news update", "channel": "Vividh Bharati" },
-  
-  { "time": "06:05 AM", "title": "Vandanwar\nDevotional thoughts", "channel": "Vividh Bharati" },
-  
-  { "time": "06:30 AM", "title": "Jharokha\nProgram highlights", "channel": "Vividh Bharati" },
-  
-  { "time": "06:35 AM", "title": "Ram Charit Manas\nReligious recitation", "channel": "Vividh Bharati" },
-  
-  { "time": "06:45 AM", "title": "Sangeet Sarita\nClassical music series", "channel": "Vividh Bharati" },
-  
+  { "time": "02:00 AM", "title": "Sadabahar Nagme\nGolden era songs", "channel": "Vividh Bharati" },
+  { "time": "03:00 AM", "title": "Sakhi Saheli\nWomen’s programme", "channel": "Vividh Bharati" },
+  { "time": "04:00 AM", "title": "Tarane Naye Purane\nNonstop songs", "channel": "Vividh Bharati" },
+
+  { "time": "05:00 AM", "title": "Jago Subah Ho Gayi\nDevotional music", "channel": "Vividh Bharati" },
+  { "time": "05:45 AM", "title": "Filler Music", "channel": "Vividh Bharati" },
+  { "time": "05:50 AM", "title": "Signature Tune", "channel": "Vividh Bharati" },
+  { "time": "05:52 AM", "title": "Vande Mataram", "channel": "Vividh Bharati" },
+  { "time": "05:56 AM", "title": "Opening Announcement", "channel": "Vividh Bharati" },
+  { "time": "05:57 AM", "title": "Mangal Dhwani", "channel": "Vividh Bharati" },
+
+  { "time": "06:00 AM", "title": "Hindi News", "channel": "Vividh Bharati" },
+  { "time": "06:05 AM", "title": "Vandanvar / Chintan\nDevotional thoughts", "channel": "Vividh Bharati" },
+  { "time": "06:30 AM", "title": "Jharokha\nProgramme highlights", "channel": "Vividh Bharati" },
+  { "time": "06:35 AM", "title": "Ram Charit Manas", "channel": "Vividh Bharati" },
+  { "time": "06:45 AM", "title": "Sangeet Sarita\nClassical music", "channel": "Vividh Bharati" },
+
   { "time": "07:00 AM", "title": "Bhule Bisre Geet\nVintage songs", "channel": "Vividh Bharati" },
-  
   { "time": "07:30 AM", "title": "Hum Hain Rahi Pyar Ke\nGolden duets", "channel": "Vividh Bharati" },
-  
-  { "time": "08:00 AM", "title": "Samachar Prabhat\nMorning news", "channel": "Vividh Bharati" },
-  
-  { "time": "08:15 AM", "title": "Triveni\nPatriotic feature", "channel": "Vividh Bharati" },
-  
+
+  { "time": "08:00 AM", "title": "Morning News", "channel": "Vividh Bharati" },
+  { "time": "08:15 AM", "title": "Triveni\nMusic & thoughts", "channel": "Vividh Bharati" },
   { "time": "08:30 AM", "title": "Chitralok\nLatest film songs", "channel": "Vividh Bharati" },
-  
-  { "time": "09:30 AM", "title": "Aaj Ke Fankar\nArtist spotlight", "channel": "Vividh Bharati" },
-  
-  { "time": "10:00 AM", "title": "Pitara\nInterview special", "channel": "Vividh Bharati" },
-  
-  { "time": "11:00 AM", "title": "Rang Tarang\nMixed music show", "channel": "Vividh Bharati" },
-  
-  { "time": "12:00 PM", "title": "Hindi News\nMidday update", "channel": "Vividh Bharati" },
-  
+
+  { "time": "09:30 AM", "title": "Aaj Ke Fankar\nNaushad special", "channel": "Vividh Bharati" },
+  { "time": "10:00 AM", "title": "Pitara\nHealth talk", "channel": "Vividh Bharati" },
+  { "time": "11:00 AM", "title": "Rang Tarang\nMixed music", "channel": "Vividh Bharati" },
+
+  { "time": "12:00 PM", "title": "Hindi News", "channel": "Vividh Bharati" },
   { "time": "12:05 PM", "title": "Yaadon Ki Mehfil\nFilm songs", "channel": "Vividh Bharati" },
-  
-  { "time": "01:00 PM", "title": "Surila Safar\nListener requests", "channel": "Vividh Bharati" },
-  
-  { "time": "02:00 PM", "title": "Triveni\nRepeat broadcast", "channel": "Vividh Bharati" },
-  
-  { "time": "02:15 PM", "title": "Dopahar Samachar\nAfternoon news", "channel": "Vividh Bharati" },
-  
-  { "time": "02:30 PM", "title": "Sadabahar Nagme\nGolden hits", "channel": "Vividh Bharati" },
-  
-  { "time": "03:00 PM", "title": "Sakhi Saheli\nWomen’s talk show", "channel": "Vividh Bharati" },
-  
-  { "time": "04:00 PM", "title": "Pitara\nHealth talk", "channel": "Vividh Bharati" },
-  
+
+  { "time": "01:00 PM", "title": "Surila Safar\nListener picks", "channel": "Vividh Bharati" },
+  { "time": "02:00 PM", "title": "Triveni\nRepeat", "channel": "Vividh Bharati" },
+  { "time": "02:15 PM", "title": "Afternoon News", "channel": "Vividh Bharati" },
+  { "time": "02:30 PM", "title": "Sadabahar Nagme\nClassic hits", "channel": "Vividh Bharati" },
+
+  { "time": "03:00 PM", "title": "Sakhi Saheli\nWomen’s show", "channel": "Vividh Bharati" },
+  { "time": "04:00 PM", "title": "Pitara\nFilm personalities", "channel": "Vividh Bharati" },
+
   { "time": "05:00 PM", "title": "Chhayageet\nFilm songs", "channel": "Vividh Bharati" },
-  
-  { "time": "05:30 PM", "title": "Tarane Naye Purane\nMix songs", "channel": "Vividh Bharati" },
-  
-  { "time": "06:00 PM", "title": "Hindi News\nEvening update", "channel": "Vividh Bharati" },
-  
+  { "time": "05:30 PM", "title": "Tarane Naye Purane\nNew & old songs", "channel": "Vividh Bharati" },
+
+  { "time": "06:00 PM", "title": "Hindi News", "channel": "Vividh Bharati" },
   { "time": "06:05 PM", "title": "Tarane Naye Purane\nContinued", "channel": "Vividh Bharati" },
-  
   { "time": "06:30 PM", "title": "Jharokha\nHighlights", "channel": "Vividh Bharati" },
-  
   { "time": "06:35 PM", "title": "Sandhya Ranjan\nFilm music", "channel": "Vividh Bharati" },
-  
-  { "time": "06:45 PM", "title": "Sangeet Sarita\nClassical repeat", "channel": "Vividh Bharati" },
-  
-  { "time": "07:00 PM", "title": "Jaymala\nPopular songs", "channel": "Vividh Bharati" },
-  
-  { "time": "07:45 PM", "title": "Indradhanush\nSongs from one film", "channel": "Vividh Bharati" },
-  
+  { "time": "06:45 PM", "title": "Sangeet Sarita\nRepeat", "channel": "Vividh Bharati" },
+
+  { "time": "07:00 PM", "title": "Vishesh Jaimala\nCelebrity special", "channel": "Vividh Bharati" },
+  { "time": "07:45 PM", "title": "Indradhanush\nPop express", "channel": "Vividh Bharati" },
+
   { "time": "08:00 PM", "title": "Hawamahal\nRadio drama", "channel": "Vividh Bharati" },
-  
   { "time": "08:15 PM", "title": "Chitralok\nNew songs", "channel": "Vividh Bharati" },
-  
-  { "time": "08:45 PM", "title": "Samachar Sandhya\nEvening news", "channel": "Vividh Bharati" },
-  
+  { "time": "08:45 PM", "title": "Evening News", "channel": "Vividh Bharati" },
+
   { "time": "09:00 PM", "title": "Aap Ke Liye\nFilm songs", "channel": "Vividh Bharati" },
-  
-  { "time": "09:30 PM", "title": "Aaj Ke Fankar\nArtist feature", "channel": "Vividh Bharati" },
-  
-  { "time": "10:00 PM", "title": "Chhayageet\nMusic special", "channel": "Vividh Bharati" },
-  
+  { "time": "09:30 PM", "title": "Aaj Ke Fankar\nNaushad special", "channel": "Vividh Bharati" },
+
+  { "time": "10:00 PM", "title": "Chhayageet\nMusic show", "channel": "Vividh Bharati" },
   { "time": "10:30 PM", "title": "Dhalti Jaye Raat\nRomantic songs", "channel": "Vividh Bharati" },
-  
+
   { "time": "11:00 PM", "title": "Rang Tarang\nMixed songs", "channel": "Vividh Bharati" },
   
  
