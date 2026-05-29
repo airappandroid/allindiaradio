@@ -175,3 +175,4 @@ window.SCHEDULE_DATA = [
   { "time": "10:10 PM", "title": "Maati Ke Rang - Bhojpuri Folk Songs and Cultural Heritage Showcase", "channel": "Indraprastha" },
   { "time": "10:30 PM", "title": "Raag Ranjan - Hindustani Classical Vocal Performance in Raag Malkauns", "channel": "Indraprastha" },
   { "time": "11:10 PM", "title": "Aapki Farmaish - Listener Requests and Favourite Hindi Film Songs", "channel": "Indraprastha" },
+  ];
