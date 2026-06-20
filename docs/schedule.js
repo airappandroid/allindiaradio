@@ -68,7 +68,7 @@ window.SCHEDULE_DATA = [
   { "time": "8:15 AM", "title": "त्रिवेणी", "channel": "Vividh Bharati" },
   { "time": "8:30 AM", "title": "चित्रलोक", "channel": "Vividh Bharati" },
   { "time": "9:30 AM", "title": "आज के फ़नकार", "channel": "Vividh Bharati" },
-  { "time": "10:00 AM", "title": "पिटारा : उजाले उनकी यादों के", "channel": "Vividh Bharati" },
+  { "time": "10:00 AM", "title": "पिटारा ", "channel": "Vividh Bharati" },
   { "time": "11:00 AM", "title": "रंग तरंग", "channel": "Vividh Bharati" },
   { "time": "12:00 PM", "title": "हिंदी समाचार", "channel": "Vividh Bharati" },
   { "time": "12:05 PM", "title": "यादों की महफ़िल", "channel": "Vividh Bharati" },
