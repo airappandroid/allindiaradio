@@ -250,7 +250,7 @@ window.SCHEDULE_DATA = [
   { "time": "1:50 PM", "title": "NEWS IN URDU", "channel": "Indraprastha" },
   { "time": "2:00 PM", "title": "MID DAY NEWS IN ENGLISH", "channel": "Indraprastha" },
   { "time": "2:15 PM", "title": "MID DAY NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "2:30 PM", "title": "एक ही कलाकार - KISHORE KUMAR", "channel": "Indraprastha" },
+  { "time": "2:30 PM", "title": "एक ही कलाकार", "channel": "Indraprastha" },
   { "time": "3:00 PM", "title": "Matinee Melodies", "channel": "Indraprastha" },
   { "time": "3:30 PM", "title": "Urdu Majlis", "channel": "Indraprastha" },
   { "time": "4:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
