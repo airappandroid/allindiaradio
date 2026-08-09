@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +23,7 @@ html {
 body{
   margin:0;
   font-family:Roboto,system-ui,-apple-system,BlinkMacSystemFont,Arial,sans-serif;
-  background:#1e1f22;            /* charcoal base */
+  background:#1e1f22;             /* charcoal base */
   color:#e8e8e8;
 }
 /* ===== TOP MOBILE AD (320x100) ===== */
@@ -196,7 +195,7 @@ body{
 /* ===== CRICKET CARD ===== */
 .cricket-card{
   background:#2b2d31;
-  padding:10px 12px 12px;
+  padding:14px;
 }
 
 /* TITLE */
@@ -210,7 +209,7 @@ body{
 .cricket-buttons{
   display:flex;
   gap:12px;
-  margin-bottom:18px;
+  margin-bottom:12px;
 }
 
 .cricket-buttons a{
@@ -251,7 +250,7 @@ body{
   border-color:#ff6b6b;
   color:#ffffff;
 }
-  .cbtn.commentary:active{
+.cbtn.commentary:active{
   transform:scale(.95);
   opacity:.8;
 }
@@ -267,31 +266,28 @@ body{
   opacity:.8;
 }
 
-/* UPCOMING */
-.upcoming-title{
-  font-size:15px;
-  font-weight:800;
- margin:14px 0 8px;
-}
-
-/* MATCH CARD */
-.match{
+/* BACK TO HOME BUTTON */
+.back-home-btn{
+  display:block;
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border-radius:16px;
   background:#24262a;
-  border-radius:14px;
-  padding:11px 12px;
-  margin-bottom:8px;
   border:1px solid #33363c;
+  color:#4cc2ff;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:.3px;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 2px 4px rgba(0,0,0,.25);
+  transition:transform .1s ease, opacity .1s ease;
 }
 
-.match-name{
-  font-size:13px;
-  font-weight:600;
-}
-
-.match-time{
-  font-size:11px;
-  color:#b3b7bd;
-  margin-top:3px;
+.back-home-btn:active{
+  transform:scale(.97);
+  opacity:.85;
 }
 
 /* ===== POPULAR STATES (MATCHING EXISTING UI) ===== */
@@ -369,14 +365,6 @@ body{
 
 .toggle-section{
   display:none;
-}
-
-.back-home{
-  font-size:13px;
-  color:#4cc2ff;
-  font-weight:700;
-  margin-bottom:8px;
-  cursor:pointer;
 }
 
 </style>
@@ -476,7 +464,6 @@ body{
 
 <!-- 🏏 CRICKET HUB -->
 <div id="cricketSection" class="toggle-section">
-<div class="back-home" onclick="goHome()">← Back to Home</div>
 
 <h2 class="section-title">🏏 Cricket Hub</h2>
 
@@ -489,7 +476,6 @@ body{
       <div class="cbtn commentary">
         <b>Commentary</b>
         <small>On Match Days</small>
-        
       </div>
     </a>
 
@@ -503,21 +489,9 @@ body{
 
   </div>
 
-<!-- UPCOMING -->
-  <div class="upcoming-title">📅 Upcoming Matches</div>
-  
-<div class="match">
-    <div class="match-name">Ireland vs India, 1st T20I</div>
-    <div class="match-time">26 June 2026 | 7:30 PM</div>
-  </div>
- <div class="match">
-    <div class="match-name">Ireland vs India, 2nd T20I</div>
-    <div class="match-time">28 June 2026 | 7:30 PM</div>
-</div>
-  <div class="match">
-    <div class="match-name">England vs India, 1st T20I</div>
-    <div class="match-time">1 July 2026 | 10:00 PM</div>
-  </div>
+  <!-- BACK TO HOME BUTTON -->
+  <div class="back-home-btn" onclick="goHome()">← Back to Home</div>
+
 </div>
 </div>
 
