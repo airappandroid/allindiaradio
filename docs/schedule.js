@@ -177,7 +177,7 @@ window.SCHEDULE_DATA = [
   { "time": "7:25 PM", "title": "SAANJH DHALE", "channel": "FM Gold" },
   { "time": "7:45 PM", "title": "PRADESHIK SAMACHAAR", "channel": "FM Gold" },
   { "time": "8:00 PM", "title": "SANSAD SAMEEKSHA (HINDI)", "channel": "FM Gold" },
-  { "time": "8:15 PM", "title": "PARLIAMENT REVIEW (ENGLISH)", "channel": "FM Gold" },
+  { "time": "8:15 PM", "title": "SWAR DHAROHAR", "channel": "FM Gold" },
   { "time": "8:30 PM", "title": "SPORTS SCAN", "channel": "FM Gold" },
   { "time": "8:45 PM", "title": "SAMACHAR SANDHYA (Hindi)", "channel": "FM Gold" },
   { "time": "9:00 PM", "title": "NEWS AT NINE (English)", "channel": "FM Gold" },
