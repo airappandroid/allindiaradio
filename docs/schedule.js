@@ -276,3 +276,4 @@ window.SCHEDULE_DATA = [
   { "time": "11:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
   { "time": "11:10 PM", "title": "आपकी फरमाइश (Film Songs)", "channel": "Indraprastha" },
   { "time": "11:59 PM", "title": "समापन उद्घोषणा (Closing Announcement)", "channel": "Indraprastha" },
+  ];
