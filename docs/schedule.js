@@ -270,3 +270,4 @@ window.SCHEDULE_DATA = [
   { "time": "11:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
   { "time": "11:10 PM", "title": "फिल्म संगीत : आपकी फरमाइश (Sponsored by Jago Grahak Jago)", "channel": "Indraprastha" },
   { "time": "11:59 PM", "title": "समापन घोषणा (Transmission Close & AIRLIVENEWS Update)", "channel": "Indraprastha" },
+  ];
