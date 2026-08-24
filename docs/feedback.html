@@ -402,7 +402,6 @@
       align-items: center;
       font-size: 0.65rem;
       color: var(--text-muted);
-      gap: 4px;
     }
 
     .privacy-btn {
@@ -672,8 +671,7 @@
 
           <div class="footer">
             <span>Status: ${m.status.toUpperCase()}</span>
-            <span>Update: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
-            <button class="privacy-btn" onclick="openPrivacyModal()">Privacy</button>
+            <button class="privacy-btn" onclick="openPrivacyModal()">Privacy Policy</button>
           </div>
         `;
       } catch (e) {
