@@ -1,135 +1,915 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BBC दिनभर – Podcast</title>
+
+<title>Live Cricket Score</title>
 
 <style>
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, sans-serif;
-    background: linear-gradient(180deg, #0b1220, #0f172a);
-    color: #ffffff;
-  }
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-  .header {
-    padding: 16px;
-    font-size: 20px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0b1020;
+    color:#fff;
+    min-height:100vh;
+}
 
-  .subline {
-    padding: 0 16px 10px;
-    font-size: 13px;
-    opacity: 0.8;
-  }
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:15px;
+}
 
-  .container {
-    padding: 12px 16px;
-  }
+/* HEADER */
 
-  a.card {
-    background: #1e293b;
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin-bottom: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-decoration: none;
-    color: #fff;
-    transition: background 0.2s ease;
-  }
+.header{
+    background:#161d33;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
 
-  a.card:active {
-    background: #334155;
-  }
+.logo{
+    font-size:22px;
+    font-weight:800;
+}
 
-  .title {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 6px;
-  }
+.logo span{
+    color:#ff7a45;
+}
 
-  .meta {
-    font-size: 13px;
-    opacity: 0.75;
-  }
+.live-badge{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background:#25151b;
+    color:#ff5c67;
+    border:1px solid #4a2228;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
 
-  .play-btn {
-    width: 46px;
-    height: 46px;
-    background: #facc15;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #000;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
+.live-dot{
+    width:8px;
+    height:8px;
+    background:#ff3b4d;
+    border-radius:50%;
+    animation:pulse 1.3s infinite;
+}
+
+@keyframes pulse{
+    50%{opacity:.35}
+}
+
+/* MATCH CARD */
+
+.match-card{
+    background:#161d33;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.match-top{
+    text-align:center;
+    padding:22px 15px 15px;
+}
+
+.series{
+    color:#9fb2ff;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.match-title{
+    font-size:20px;
+    font-weight:800;
+}
+
+.match-info{
+    margin-top:12px;
+    color:#aab2c7;
+    font-size:13px;
+}
+
+/* STATUS */
+
+.status-box{
+    margin:0 15px 15px;
+    background:#241c20;
+    border:1px solid #493034;
+    border-radius:13px;
+    padding:13px;
+    text-align:center;
+}
+
+.status-title{
+    color:#ff7a45;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.status-note{
+    margin-top:5px;
+    color:#d7dbea;
+    font-size:13px;
+}
+
+/* TEAMS */
+
+.teams{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    padding:0 15px 15px;
+}
+
+.team{
+    background:#10172a;
+    border-radius:16px;
+    padding:18px 10px;
+    text-align:center;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.team-logo{
+    width:55px;
+    height:55px;
+    object-fit:contain;
+    margin-bottom:8px;
+}
+
+.team-name{
+    color:#cbd2e4;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.team-score{
+    margin-top:8px;
+    font-size:27px;
+    font-weight:800;
+}
+
+.team-score small{
+    font-size:14px;
+    color:#9aa5be;
+    font-weight:normal;
+}
+
+.batting{
+    margin-top:7px;
+    color:#4cd964;
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* CURRENT SCORE */
+
+.current{
+    margin:0 15px 15px;
+    background:#10172a;
+    border-radius:15px;
+    padding:18px;
+}
+
+.current-heading{
+    color:#9fb2ff;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:10px;
+}
+
+.current-score{
+    font-size:36px;
+    font-weight:900;
+}
+
+.current-score span{
+    font-size:17px;
+    color:#aab2c7;
+    font-weight:normal;
+}
+
+.score-meta{
+    display:flex;
+    gap:25px;
+    margin-top:10px;
+    color:#aab2c7;
+    font-size:13px;
+}
+
+.score-meta strong{
+    color:#fff;
+}
+
+/* MATCH DETAILS */
+
+.details{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    padding:0 15px 15px;
+}
+
+.detail{
+    background:#10172a;
+    padding:13px;
+    border-radius:12px;
+}
+
+.detail-label{
+    color:#7f8aa5;
+    font-size:11px;
+    margin-bottom:5px;
+}
+
+.detail-value{
+    color:#fff;
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:#69748f;
+    font-size:11px;
+    padding:18px;
+}
+
+.refresh{
+    color:#4cd964;
+}
+
+/* LOADING */
+
+.loading{
+    text-align:center;
+    padding:50px 10px;
+    color:#aab2c7;
+}
+
+.spinner{
+    width:30px;
+    height:30px;
+    border:3px solid #293149;
+    border-top-color:#ff7a45;
+    border-radius:50%;
+    margin:0 auto 15px;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+/* ERROR */
+
+.error{
+    padding:30px;
+    text-align:center;
+    color:#ff6875;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .container{
+        padding:10px;
+    }
+
+    .header{
+        padding:15px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .match-title{
+        font-size:18px;
+    }
+
+    .team-score{
+        font-size:23px;
+    }
+
+    .current-score{
+        font-size:32px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  🎙️ BBC दिनभर – Podcast
-</div>
-  
-<div class="subline">
-  📅 Monday to Friday · ⏰ हर रात 9 बजे अपडेट
-</div>
-
 <div class="container">
 
-<a href="go:BBCNEWS1" open class="card">
-    <div>
-      <div class="title">ट्रंप के रुख से क्या NATO टूटने की कगार पर है?</div>
-      <div class="meta">Updated: 20 Jan 2026 · 10:00 PM</div>
-    </div>
-    <div class="play-btn">▶</div>
-  </a>
-  
-<a href="go:BBCNEWS5" open class="card">
-    <div>
-      <div class="title">अमेरिका–यूरोप के रिश्ते क्यों बदले?</div>
-      <div class="meta">Updated: 19 Jan 2026 · 9:42 PM</div>
-    </div>
-    <div class="play-btn">▶</div>
-  </a>
+    <header class="header">
+        <div class="logo">
+            Cric<span>Live</span>
+        </div>
 
-<a href="go:BBCNEWS4" open class="card">
-    <div>
-      <div class="title">ईरान vs अमेरिका, UNSC में जुबानी जंग</div>
-      <div class="meta">Updated: 16 Jan 2026 · 9:55 PM</div>
-    </div>
-    <div class="play-btn">▶</div>
-  </a>
-  
-  
- <a href="go:BBCNEWS3" open class="card">
-    <div>
-      <div class="title">ईरान में हालात बेकाबू—अगला कदम?</div>
-      <div class="meta">Updated: 15 Jan 2026 · 9:40 PM</div>
-    </div>
-    <div class="play-btn">▶</div>
-  </a>
-  
-<a href="go:BBCNEWS2" open class="card">
-    <div>
-      <div class="title">ईरान को ट्रंप की चेतावनी: ‘अगर फांसी दी… तो’</div>
-      <div class="meta">Updated: 14 Jan 2026 · 9:00 PM</div>
-    </div>
-    <div class="play-btn">▶</div>
-  </a>
+        <div class="live-badge">
+            <span class="live-dot"></span>
+            LIVE
+        </div>
+    </header>
 
+
+    <div id="app">
+
+        <div class="loading">
+            <div class="spinner"></div>
+            Loading live score...
+        </div>
+
+    </div>
 
 </div>
+
+
+<script>
+
+const API_URL =
+"https://dev-styxsportsapigateway.azurewebsites.net/score/api/livescorebymatchid/97904";
+
+const REFRESH_TIME = 15000;
+
+
+/* --------------------------------
+   HELPERS
+-------------------------------- */
+
+function esc(value){
+
+    if(value === null || value === undefined)
+        return "";
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+}
+
+
+function get(obj, keys, fallback=""){
+
+    for(const key of keys){
+
+        if(obj &&
+           obj[key] !== undefined &&
+           obj[key] !== null &&
+           obj[key] !== ""){
+
+            return obj[key];
+        }
+    }
+
+    return fallback;
+}
+
+
+/* --------------------------------
+   FIND TEAM
+-------------------------------- */
+
+function getTeams(data){
+
+    let teams = [];
+
+    if(Array.isArray(data?.teams))
+        teams = data.teams;
+
+    else if(Array.isArray(data?.response?.teams))
+        teams = data.response.teams;
+
+    else if(Array.isArray(data?.responseData?.result?.teams))
+        teams = data.responseData.result.teams;
+
+    else if(Array.isArray(data?.result?.teams))
+        teams = data.result.teams;
+
+    return teams;
+}
+
+
+/* --------------------------------
+   FIND SCORE
+-------------------------------- */
+
+function getScore(data){
+
+    let score =
+        data?.live_score ||
+        data?.response?.live_score ||
+        data?.responseData?.result?.live_score ||
+        data?.result?.live_score ||
+        {};
+
+    return score;
+}
+
+
+/* --------------------------------
+   LOAD API
+-------------------------------- */
+
+async function loadScore(){
+
+    try{
+
+        const response = await fetch(
+            API_URL + "?_=" + Date.now(),
+            {
+                method:"GET",
+                cache:"no-store"
+            }
+        );
+
+        if(!response.ok)
+            throw new Error("API Error");
+
+        const data = await response.json();
+
+        renderScore(data);
+
+    }catch(error){
+
+        console.error(error);
+
+        document.getElementById("app").innerHTML = `
+            <div class="match-card">
+                <div class="error">
+                    Unable to load live score.<br><br>
+                    Please try again.
+                </div>
+            </div>
+        `;
+    }
+}
+
+
+/* --------------------------------
+   RENDER
+-------------------------------- */
+
+function renderScore(data){
+
+    console.log("API DATA:",data);
+
+    const root =
+        data?.response ||
+        data?.responseData?.result ||
+        data?.result ||
+        data;
+
+    const live =
+        data?.live_score ||
+        root?.live_score ||
+        {};
+
+    const teams = getTeams(data);
+
+
+    /* MATCH */
+
+    const teamBatting =
+        get(data,
+            ["team_batting"],
+            get(root,["team_batting"],"India")
+        );
+
+    const teamBowling =
+        get(data,
+            ["team_bowling"],
+            get(root,["team_bowling"],"Sri Lanka")
+        );
+
+
+    const status =
+        get(data,
+            ["status_str","status"],
+            get(root,["status_str","status"],"Live")
+        );
+
+
+    const statusNote =
+        get(data,
+            ["status_note"],
+            get(root,["status_note"],"")
+        );
+
+
+    const dayRemaining =
+        get(data,
+            ["day_remaining_over"],
+            get(root,["day_remaining_over"],"")
+        );
+
+
+    const runs =
+        get(live,
+            ["runs","score"],
+            get(data,["runs"],"0")
+        );
+
+
+    const wickets =
+        get(live,
+            ["wickets"],
+            get(data,["wickets"],"0")
+        );
+
+
+    const overs =
+        get(live,
+            ["overs"],
+            get(data,["overs"],"0")
+        );
+
+
+    const runRate =
+        get(live,
+            ["run_rate","runrate","rr"],
+            get(data,["run_rate","runrate","rr"],"0")
+        );
+
+
+    const venue =
+        get(root,
+            ["venue","venue_name","ground"],
+            get(data,["venue","venue_name","ground"],"")
+        );
+
+
+    const toss =
+        get(root,
+            ["toss","toss_result","toss_winner"],
+            get(data,["toss","toss_result","toss_winner"],"")
+        );
+
+
+    /* TEAMS */
+
+    let india = {
+        name:"India",
+        score:"",
+        overs:"",
+        logo:""
+    };
+
+    let sriLanka = {
+        name:"Sri Lanka",
+        score:"",
+        overs:"",
+        logo:""
+    };
+
+
+    teams.forEach(team => {
+
+        const name =
+            get(team,
+                ["name","team_name","short_name"],
+                ""
+            );
+
+        const score =
+            get(team,
+                ["score","runs","live_score"],
+                ""
+            );
+
+        const teamOvers =
+            get(team,
+                ["overs","over"],
+                ""
+            );
+
+        const logo =
+            get(team,
+                ["logo","image","team_logo"],
+                ""
+            );
+
+
+        if(name.toLowerCase().includes("india")){
+
+            india = {
+                name:name,
+                score:score,
+                overs:teamOvers,
+                logo:logo
+            };
+
+        }
+
+        if(
+            name.toLowerCase().includes("sri") ||
+            name.toLowerCase().includes("lanka")
+        ){
+
+            sriLanka = {
+                name:name,
+                score:score,
+                overs:teamOvers,
+                logo:logo
+            };
+        }
+
+    });
+
+
+    /* FALLBACK CURRENT SCORE */
+
+    if(!india.score && teamBatting === "India")
+        india.score = `${runs}/${wickets}`;
+
+    if(!sriLanka.score && teamBatting === "Sri Lanka")
+        sriLanka.score = `${runs}/${wickets}`;
+
+
+    document.getElementById("app").innerHTML = `
+
+        <section class="match-card">
+
+            <div class="match-top">
+
+                <div class="series">
+                    TEST MATCH
+                </div>
+
+                <div class="match-title">
+                    ${esc(teamBatting)} vs ${esc(teamBowling)}
+                </div>
+
+                <div class="match-info">
+                    Day 2 • Session 3
+                </div>
+
+            </div>
+
+
+            <div class="status-box">
+
+                <div class="status-title">
+                    ${esc(status)}
+                </div>
+
+                <div class="status-note">
+                    ${esc(
+                        statusNote ||
+                        "Live match update"
+                    )}
+                </div>
+
+            </div>
+
+
+            <div class="teams">
+
+                <div class="team">
+
+                    ${
+                        india.logo
+                        ?
+                        `<img class="team-logo"
+                              src="${esc(india.logo)}"
+                              onerror="this.style.display='none'">`
+                        :
+                        ""
+                    }
+
+                    <div class="team-name">
+                        🇮🇳 ${esc(india.name)}
+                    </div>
+
+                    <div class="team-score">
+                        ${esc(india.score || "—")}
+                    </div>
+
+                    ${
+                        india.overs
+                        ?
+                        `<div class="batting">
+                            ${esc(india.overs)} overs
+                         </div>`
+                        :
+                        ""
+                    }
+
+                    ${
+                        teamBatting.toLowerCase().includes("india")
+                        ?
+                        `<div class="batting">● BATTING</div>`
+                        :
+                        ""
+                    }
+
+                </div>
+
+
+                <div class="team">
+
+                    ${
+                        sriLanka.logo
+                        ?
+                        `<img class="team-logo"
+                              src="${esc(sriLanka.logo)}"
+                              onerror="this.style.display='none'">`
+                        :
+                        ""
+                    }
+
+                    <div class="team-name">
+                        🇱🇰 ${esc(sriLanka.name)}
+                    </div>
+
+                    <div class="team-score">
+                        ${esc(sriLanka.score || "—")}
+                    </div>
+
+                    ${
+                        sriLanka.overs
+                        ?
+                        `<div class="batting">
+                            ${esc(sriLanka.overs)} overs
+                         </div>`
+                        :
+                        ""
+                    }
+
+                    ${
+                        teamBatting.toLowerCase().includes("sri")
+                        ?
+                        `<div class="batting">● BATTING</div>`
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </div>
+
+
+            <div class="current">
+
+                <div class="current-heading">
+                    Current Innings
+                </div>
+
+                <div class="current-score">
+
+                    ${esc(runs)}/${esc(wickets)}
+
+                    <span>
+                        (${esc(overs)} overs)
+                    </span>
+
+                </div>
+
+
+                <div class="score-meta">
+
+                    <div>
+                        RR:
+                        <strong>
+                            ${esc(runRate || "—")}
+                        </strong>
+                    </div>
+
+                    <div>
+                        Batting:
+                        <strong>
+                            ${esc(teamBatting)}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="details">
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        BOWLING
+                    </div>
+
+                    <div class="detail-value">
+                        ${esc(teamBowling)}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        MATCH STATE
+                    </div>
+
+                    <div class="detail-value">
+                        ${esc(status)}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        VENUE
+                    </div>
+
+                    <div class="detail-value">
+                        ${esc(
+                            venue ||
+                            "Sinhalese Sports Club Ground"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-label">
+                        OVERS
+                    </div>
+
+                    <div class="detail-value">
+                        ${esc(overs)}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="footer">
+
+            Auto refresh:
+            <span class="refresh">
+                Every 15 seconds
+            </span>
+
+            <br><br>
+
+            Last updated:
+            <span id="updatedTime"></span>
+
+        </div>
+
+    `;
+
+
+    document.getElementById("updatedTime")
+        .textContent =
+        new Date().toLocaleTimeString(
+            "en-IN",
+            {
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit"
+            }
+        );
+}
+
+
+/* --------------------------------
+   START
+-------------------------------- */
+
+loadScore();
+
+setInterval(
+    loadScore,
+    REFRESH_TIME
+);
+
+</script>
 
 </body>
 </html>
