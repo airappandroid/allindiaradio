@@ -1,137 +1,688 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Live Match Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --card-bg: #111a2e;
+      --card-border: rgba(255, 255, 255, 0.07);
+      --accent-green: #10b981;
+      --accent-red: #f43f5e;
+      --accent-amber: #f59e0b;
+      --accent-purple: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-sub: #64748b;
+    }
 
-<style>
-:root{
-  --bg:#0b1020;
-  --card:#161d33;
-  --accent:#ff7a45;
-  --text:#e5e7eb;
-  --muted:#94a3b8;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Roboto,sans-serif;
-}
+    body {
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% 0%, #131f38 0%, var(--bg-dark) 65%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 10px 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
 
-/* TOP BAR */
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 16px;
-  background:#020617;
-  position:sticky;
-  top:0;
-}
-.topbar h1{
-  font-size:18px;
-  margin:0;
-}
-.icon{
-  font-size:18px;
-}
+    .match-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 16px 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      position: relative;
+      margin-top: 4px;
+      transform: translateZ(0);
+      contain: layout style paint;
+    }
 
-/* CONTENT */
-.container{
-  padding:16px;
-}
+    .match-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), transparent);
+      border-radius: 10px;
+    }
 
-/* CARD */
-.box{
-  background:var(--card);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:16px;
-}
+    .audio-stream-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.16), rgba(168, 85, 247, 0.16));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 12px;
+      text-decoration: none;
+      color: #fff;
+      gap: 8px;
+      cursor: pointer;
+      transform: translateZ(0);
+    }
 
-.box h2{
-  font-size:16px;
-  margin:0 0 8px;
-}
+    .audio-stream-card:active {
+      transform: scale(0.98);
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(168, 85, 247, 0.25));
+    }
 
-.box p{
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.6;
-}
+    .audio-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-/* BUTTONS */
-.btn{
-  display:block;
-  margin-top:14px;
-  padding:14px;
-  text-align:center;
-  background:var(--accent);
-  color:#000;
-  border-radius:24px;
-  font-size:15px;
-  font-weight:500;
-}
+    .audio-title {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #f8fafc;
+      letter-spacing: 0.2px;
+    }
 
-.btn-outline{
-  background:none;
-  border:1px solid var(--accent);
-  color:var(--accent);
-}
+    .audio-sub {
+      font-size: 0.68rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
 
-a{
-  text-decoration:none;
-}
-</style>
+    .listen-now-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #a855f7, #6366f1);
+      color: #ffffff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .listen-now-btn svg {
+      width: 12px;
+      height: 12px;
+      fill: currentColor;
+    }
+
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .format-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      color: var(--text-muted);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: #fda4af;
+      text-transform: uppercase;
+    }
+
+    .live-badge.stumps {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: #fbbf24;
+    }
+
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-red);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(0.9); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    .session-info {
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #38bdf8;
+      letter-spacing: 0.3px;
+      margin-bottom: 10px;
+    }
+
+    .teams-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .team-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 13px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+    }
+
+    .team-row.active {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .team-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .team-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #1a253a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .team-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .team-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .team-right {
+      text-align: right;
+    }
+
+    .score-highlight {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-green);
+      letter-spacing: -0.5px;
+    }
+
+    .overs-highlight {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    .yet-to-bat {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .metric-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 8px 12px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .metric-title {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .metric-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .commentary-banner {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .commentary-action {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .ball-badge {
+      background: var(--accent-amber);
+      color: #000;
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 2px 5px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+
+    .commentary-text-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .commentary-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fbbf24;
+    }
+
+    .commentary-sub {
+      font-size: 0.72rem;
+      color: #fde68a;
+      font-weight: 500;
+      line-height: 1.35;
+      white-space: pre-line;
+    }
+
+    .match-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+
+    .btn-container {
+      margin-bottom: 10px;
+    }
+
+    .scorecard-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 10px 14px;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transform: translateZ(0);
+    }
+
+    .scorecard-btn:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    .scorecard-btn svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      gap: 4px;
+    }
+
+    .privacy-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.65rem;
+      font-family: inherit;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+
+    .privacy-btn:hover {
+      color: #38bdf8;
+    }
+
+    .loader {
+      text-align: center;
+      padding: 30px 0;
+      color: var(--text-sub);
+      font-size: 0.82rem;
+    }
+
+    /* Modal Popup Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #111a2e;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      max-width: 380px;
+      width: 100%;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #38bdf8;
+    }
+
+    .modal-close {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #94a3b8;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .modal-line {
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      line-height: 1.45;
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <h1>💡 Feedback & Support</h1>
-  <a href="http://action_search" class="icon">🔍</a>
-</div>
-
-<div class="container">
-
-  <!-- FEEDBACK / REPORT -->
-  <div class="box">
-    <h2>💬 Send Feedback / Report Issue</h2>
-    <p>
-      Want a new station, language or feature?  
-      Or any radio / TV channel not working?
-      <br><br>
-      Tap below and tell us — we genuinely read every message.
-    </p>
-
-    <a class="btn"
-       href="http://action_offices">
-       Send Feedback
-    </a>
+  <div class="match-card" id="matchWidget">
+    <div class="loader">Loading Live Match Data...</div>
   </div>
 
-  <!-- SUPPORT APP -->
-  <div class="box">
-    <h2>❤️ Support the App</h2>
-    <p>
-      If you enjoy using this app,
-      your support helps us grow and improve.
-    </p>
-
-    <!-- RATE APP -->
-    <a class="btn" href="http://play.google.com/store/apps/details?id=oc.t">
-      ⭐ Rate App
-    </a>
-
-    <!-- SHARE APP -->
-    <a class="btn btn-outline" href="http://action_share">
-      Share App
-    </a>
+  <!-- Privacy Policy Popup Modal -->
+  <div class="modal-overlay" id="privacyModal" onclick="handleBackdropClick(event)">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-title">Privacy Policy</span>
+        <button class="modal-close" onclick="closePrivacyModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-line">1. <strong>CricVoice: Live Cricket Score</strong> does not collect or store personal identifiable user data.</div>
+        <div class="modal-line">2. Anonymous device diagnostics and crash logs may be collected solely to improve app stability.</div>
+        <div class="modal-line">3. Third-party advertising partners (such as Google AdMob) may use standard device IDs to serve ads.</div>
+        <div class="modal-line">4. For support or privacy questions, contact us directly at <strong>aminurmarch4@gmail.com</strong>.</div>
+      </div>
+    </div>
   </div>
 
-</div>
+  <script>
+    const API_URL = 'https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a46abf321dc815bb318261b';
 
+    function openPrivacyModal() {
+      document.getElementById('privacyModal').classList.add('active');
+    }
+
+    function closePrivacyModal() {
+      document.getElementById('privacyModal').classList.remove('active');
+    }
+
+    function handleBackdropClick(event) {
+      if (event.target.id === 'privacyModal') {
+        closePrivacyModal();
+      }
+    }
+
+    function getTeamScore(team, prefix) {
+      if (!team) return { runs: 0, wkts: 0, ovs: '0.0', batted: false };
+      const s1 = team[`${prefix}_1_score`];
+      const s2 = team[`${prefix}_2_score`];
+      if (s2 && s2.overs) return { runs: s2.runs, wkts: s2.wickets, ovs: s2.overs, batted: true };
+      if (s1 && s1.overs) return { runs: s1.runs, wkts: s1.wickets, ovs: s1.overs, batted: true };
+      return { runs: 0, wkts: 0, ovs: '0.0', batted: false };
+    }
+
+    async function loadCricketData() {
+      const card = document.getElementById('matchWidget');
+      try {
+        const req = await fetch(API_URL);
+        const res = await req.json();
+        const m = res.responseData.result;
+
+        const currentBatting = m.settingObj?.currentTeam || '';
+        const teamA = m.teams.a;
+        const teamB = m.teams.b;
+
+        const scoreA = getTeamScore(teamA, 'a');
+        const scoreB = getTeamScore(teamB, 'b');
+
+        const session = (m.now && m.now.day && m.now.sessionCount) 
+          ? `Day ${m.now.day} • Session ${m.now.sessionCount}` 
+          : '';
+
+        const isStumps = (m.status || '').toLowerCase() === 'stumps';
+        const commentary = m.lastCommentary;
+        const hasCommentary = commentary && (commentary.primaryText || commentary.secondaryText);
+
+        card.innerHTML = `
+          <!-- Deep link trigger for Commentary -->
+          <a href="go:commentary" class="audio-stream-card">
+            <div class="audio-left">
+              <div class="audio-title">Ball By Ball Commentary</div>
+              <div class="audio-sub">Listen to live audio coverage</div>
+            </div>
+            <div class="listen-now-btn">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span>Listen Now</span>
+            </div>
+          </a>
+
+          <div class="header-bar">
+            <span class="format-tag">${m.format}</span>
+            <div class="live-badge ${isStumps ? 'stumps' : ''}">
+              ${!isStumps ? '<span class="pulse-dot"></span>' : ''}
+              ${m.status}
+            </div>
+          </div>
+
+          ${session ? `<div class="session-info">${session}</div>` : ''}
+
+          <div class="teams-wrap">
+            <!-- Team A -->
+            <div class="team-row ${currentBatting === 'a' ? 'active' : ''}">
+              <div class="team-left">
+                <div class="team-avatar">${teamA.shortName ? teamA.shortName.substring(0, 2) : 'A'}</div>
+                <div class="team-meta">
+                  <span class="team-name">${teamA.name}</span>
+                  <span class="team-sub">${teamA.shortName}</span>
+                </div>
+              </div>
+              <div class="team-right">
+                ${scoreA.batted 
+                  ? `<div class="score-highlight">${scoreA.runs}/${scoreA.wkts}</div>
+                     <div class="overs-highlight">${scoreA.ovs} Ov</div>`
+                  : `<span class="yet-to-bat">Yet to Bat</span>`
+                }
+              </div>
+            </div>
+
+            <!-- Team B -->
+            <div class="team-row ${currentBatting === 'b' ? 'active' : ''}">
+              <div class="team-left">
+                <div class="team-avatar">${teamB.shortName ? teamB.shortName.substring(0, 2) : 'B'}</div>
+                <div class="team-meta">
+                  <span class="team-name">${teamB.name}</span>
+                  <span class="team-sub">${teamB.shortName}</span>
+                </div>
+              </div>
+              <div class="team-right">
+                ${scoreB.batted 
+                  ? `<div class="score-highlight">${scoreB.runs}/${scoreB.wkts}</div>
+                     <div class="overs-highlight">${scoreB.ovs} Ov</div>`
+                  : `<span class="yet-to-bat">Yet to Bat</span>`
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <span class="metric-title">CRR</span>
+              <span class="metric-val">${m.now?.run_rate || '0.00'}</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Overs Left</span>
+              <span class="metric-val">${m.now?.overLeft || '-'}</span>
+            </div>
+          </div>
+
+          ${hasCommentary ? `
+            <div class="commentary-banner">
+              <div class="commentary-action">
+                <span class="ball-badge">${isStumps ? 'STUMPS' : 'LIVE UPDATE'}</span>
+                <div class="commentary-text-wrap">
+                  ${commentary.primaryText ? `<span class="commentary-text">${commentary.primaryText}</span>` : ''}
+                  ${commentary.secondaryText ? `<span class="commentary-sub">${commentary.secondaryText}</span>` : ''}
+                </div>
+              </div>
+            </div>
+          ` : ''}
+
+          ${m.announcement1 ? `<div class="match-note">${m.announcement1}</div>` : ''}
+
+          <!-- Deep link trigger for Scorecard -->
+          <div class="btn-container">
+            <a href="go:card" class="scorecard-btn">
+              <span>View Full Scorecard</span>
+              <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="footer">
+            <span>Status: ${m.status.toUpperCase()}</span>
+            <span>Update: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
+            <button class="privacy-btn" onclick="openPrivacyModal()">Privacy</button>
+          </div>
+        `;
+      } catch (e) {
+        console.error('Data Sync Error:', e);
+      }
+    }
+
+    loadCricketData();
+    setInterval(loadCricketData, 5000);
+  </script>
 </body>
 </html>
