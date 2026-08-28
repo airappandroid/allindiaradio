@@ -3,195 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Vividh Bharati</title>
+    <title>Vividh Bharati Live</title>
     <!-- Live Schedule Source -->
     <script src="https://airappandroid.github.io/allindiaradio/schedule.js" defer></script>
     <style>
         :root {
-            --bg-base: #0a0d14;
-            --card-bg: #141b29;
-            --card-border: #212c40;
-            --accent-blue: #3b82f6;
-            --accent-emerald: #10b981;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-highlight: #60a5fa;
-            --live-red: #ef4444;
+            --bg-main: #0b0f17;
+            --surface: #131b28;
+            --surface-hover: #1c273a;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.25);
+            --live-red: #f43f5e;
+            --emerald: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-sub: #64748b;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-primary);
-            padding: 12px 12px 35px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 12px 14px 40px;
             min-height: 100vh;
-            transform: translateZ(0);
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Section Headings */
-        .section-header {
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.8px;
+        /* Section Headers */
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
-            color: var(--text-highlight);
-            margin: 18px 4px 8px;
+            color: #93c5fd;
+            margin: 20px 4px 10px;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .section-header:first-of-type {
-            margin-top: 2px;
+        .section-title:first-of-type {
+            margin-top: 4px;
         }
 
-        /* Popular Stations List */
-        .featured-list {
+        /* Popular / Live Stations */
+        .stations-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .featured-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-left: 4px solid var(--accent-blue);
-            border-radius: 14px;
-            padding: 12px 14px;
+        .station-card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: 18px;
+            padding: 14px 14px 12px;
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            contain: content;
-        }
-
-        .featured-card:active {
-            background-color: #1a2335;
-        }
-
-        .card-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .station-details {
-            display: flex;
-            align-items: center;
             gap: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+            transition: transform 0.12s ease, background-color 0.12s ease;
         }
 
-        .station-icon {
-            font-size: 1.35rem;
-            background: #1c2638;
-            width: 40px;
-            height: 40px;
+        .station-card:active {
+            transform: scale(0.98);
+            background-color: var(--surface-hover);
+        }
+
+        .card-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Station Logo / Gradient Badges */
+        .station-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
-            border: 1px solid #28354d;
-            flex-shrink: 0;
-        }
-
-        .station-title {
-            font-size: 0.95rem;
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 1.1rem;
             color: #ffffff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .station-subtitle {
-            font-size: 0.74rem;
-            color: var(--text-secondary);
-            margin-top: 2px;
+        .vb-grad { background: linear-gradient(135deg, #f97316, #ea580c); }
+        .gold-grad { background: linear-gradient(135deg, #eab308, #ca8a04); }
+        .rainbow-grad { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+        .indra-grad { background: linear-gradient(135deg, #a855f7, #7c3aed); }
+
+        .station-info {
+            flex: 1;
+            min-width: 0;
         }
 
-        .card-actions {
+        .station-title-row {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            margin-bottom: 2px;
         }
 
-        /* Play Button Icon */
-        .play-btn {
-            width: 34px;
-            height: 34px;
-            background-color: #2563eb;
+        .station-name {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .station-desc {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Play Button */
+        .play-circle {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            box-shadow: 0 4px 14px var(--primary-glow);
         }
 
-        .play-btn svg {
+        .play-circle svg {
             width: 14px;
             height: 14px;
             fill: #ffffff;
             margin-left: 2px;
         }
 
-        /* Live Indicator Badge */
-        .live-badge {
-            background: #2b171c;
-            color: var(--live-red);
-            border: 1px solid #4a1d24;
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 3px 7px;
-            border-radius: 16px;
+        /* Seamless Program Bar */
+        .program-strip {
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            padding: 7px 10px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
+            overflow: hidden;
+        }
+
+        .live-tag {
+            background: rgba(244, 63, 94, 0.15);
+            color: var(--live-red);
+            font-size: 0.62rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            letter-spacing: 0.4px;
         }
 
         .live-dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background-color: var(--live-red);
             border-radius: 50%;
         }
 
-        /* Current Program Box */
-        .program-banner {
-            background-color: #0c111a;
-            border: 1px solid #1a2333;
-            border-radius: 8px;
-            padding: 8px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .program-tag {
-            font-size: 0.66rem;
-            font-weight: 700;
-            color: #93c5fd;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .program-name {
-            font-size: 0.82rem;
+        .program-title {
+            font-size: 0.78rem;
             color: #cbd5e1;
-            line-height: 1.3;
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Live Cricket Card */
+        /* Cricket Feature Card */
         .cricket-card {
-            background: #0d231e;
-            border: 1px solid #164e40;
-            border-left: 4px solid var(--accent-emerald);
+            background: linear-gradient(135deg, #064e3b 0%, #062f27 100%);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 18px;
+            padding: 14px 16px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 6px 20px rgba(6, 78, 59, 0.25);
+            transition: transform 0.12s ease;
+        }
+
+        .cricket-card:active {
+            transform: scale(0.98);
+        }
+
+        .cricket-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cricket-avatar {
+            width: 44px;
+            height: 44px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .cricket-play {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+        }
+
+        /* 2-Column Grid Sections */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .tile-card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
             border-radius: 14px;
             padding: 12px 14px;
             text-decoration: none;
@@ -199,382 +252,317 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            contain: content;
+            transition: transform 0.12s ease, background-color 0.12s ease;
         }
 
-        .cricket-card:active {
-            background-color: #12332c;
+        .tile-card:active {
+            transform: scale(0.97);
+            background-color: var(--surface-hover);
         }
 
-        .cricket-play-btn {
-            background-color: #059669;
-        }
-
-        /* Grid Layout */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        .state-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            text-decoration: none;
-            color: inherit;
+        .tile-info {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            contain: content;
+            gap: 10px;
+            min-width: 0;
         }
 
-        .state-card:active {
-            background-color: #1a2335;
+        .tile-icon {
+            font-size: 1.15rem;
+            flex-shrink: 0;
         }
 
-        .state-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .state-icon {
-            font-size: 1.2rem;
-        }
-
-        .state-name {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: #f1f5f9;
-        }
-
-        .state-arrow {
-            color: #475569;
-            font-size: 0.75rem;
-        }
-
-        /* News Compact Card */
-        .compact-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            text-decoration: none;
-            color: inherit;
+        .tile-text {
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            min-height: 75px;
-            contain: content;
+            min-width: 0;
         }
 
-        .compact-card:active {
-            background-color: #1a2335;
-        }
-
-        .compact-icon {
-            font-size: 1.25rem;
-            margin-bottom: 4px;
-        }
-
-        .compact-name {
-            font-size: 0.86rem;
+        .tile-name {
+            font-size: 0.88rem;
             font-weight: 600;
-            color: #f1f5f9;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .compact-sub {
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-            margin-top: 2px;
+        .tile-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .tile-arrow {
+            color: var(--text-sub);
+            font-size: 0.75rem;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <!-- Featured Live Programs (Auto Updated from schedule.js) -->
-    <div class="section-header">🔥 Popular Stations</div>
-    <div class="featured-list">
+    <!-- Popular Live Stations -->
+    <div class="section-title">🔥 Featured Live Stations</div>
+    <div class="stations-list">
         
         <!-- Vividh Bharati -->
-        <a href="go:s1" class="featured-card">
-            <div class="card-top">
-                <div class="station-details">
-                    <div class="station-icon">📻</div>
-                    <div>
-                        <div class="station-title">Vividh Bharati National</div>
-                        <div class="station-subtitle">All India Relay • Hindi Hits</div>
+        <a href="go:s1" class="station-card">
+            <div class="card-main">
+                <div class="station-avatar vb-grad">VB</div>
+                <div class="station-info">
+                    <div class="station-title-row">
+                        <span class="station-name">Vividh Bharati National</span>
                     </div>
+                    <div class="station-desc">National Relay • Hindi Golden Hits</div>
                 </div>
-                <div class="card-actions">
-                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
-                    <div class="play-btn">
-                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                    </div>
+                <div class="play-circle">
+                    <svg viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4"></polygon></svg>
                 </div>
             </div>
-            <div class="program-banner">
-                <span class="program-tag">🕒 On Air Now</span>
-                <span class="program-name" data-channel="Vividh Bharati">Fetching live program...</span>
+            <div class="program-strip">
+                <span class="live-tag"><span class="live-dot"></span> LIVE</span>
+                <span class="program-title" data-channel="Vividh Bharati">Fetching live schedule...</span>
             </div>
         </a>
 
         <!-- AIR FM Gold -->
-        <a href="go:s2" class="featured-card">
-            <div class="card-top">
-                <div class="station-details">
-                    <div class="station-icon">📻</div>
-                    <div>
-                        <div class="station-title">AIR FM Gold 106.4</div>
-                        <div class="station-subtitle">Delhi • News & Classics</div>
+        <a href="go:s2" class="station-card">
+            <div class="card-main">
+                <div class="station-avatar gold-grad">FG</div>
+                <div class="station-info">
+                    <div class="station-title-row">
+                        <span class="station-name">AIR FM Gold 106.4</span>
                     </div>
+                    <div class="station-desc">Delhi • News, Classics & Talk</div>
                 </div>
-                <div class="card-actions">
-                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
-                    <div class="play-btn">
-                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                    </div>
+                <div class="play-circle">
+                    <svg viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4"></polygon></svg>
                 </div>
             </div>
-            <div class="program-banner">
-                <span class="program-tag">🕒 On Air Now</span>
-                <span class="program-name" data-channel="FM Gold">Fetching live program...</span>
+            <div class="program-strip">
+                <span class="live-tag"><span class="live-dot"></span> LIVE</span>
+                <span class="program-title" data-channel="FM Gold">Fetching live schedule...</span>
             </div>
         </a>
 
         <!-- AIR FM Rainbow -->
-        <a href="go:s3" class="featured-card">
-            <div class="card-top">
-                <div class="station-details">
-                    <div class="station-icon">📻</div>
-                    <div>
-                        <div class="station-title">AIR FM Rainbow 102.6</div>
-                        <div class="station-subtitle">Delhi • Songs & Western Music</div>
+        <a href="go:s3" class="station-card">
+            <div class="card-main">
+                <div class="station-avatar rainbow-grad">FR</div>
+                <div class="station-info">
+                    <div class="station-title-row">
+                        <span class="station-name">AIR FM Rainbow 102.6</span>
                     </div>
+                    <div class="station-desc">Delhi • Hits, Pop & Western Music</div>
                 </div>
-                <div class="card-actions">
-                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
-                    <div class="play-btn">
-                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                    </div>
+                <div class="play-circle">
+                    <svg viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4"></polygon></svg>
                 </div>
             </div>
-            <div class="program-banner">
-                <span class="program-tag">🕒 On Air Now</span>
-                <span class="program-name" data-channel="FM Rainbow Delhi">Fetching live program...</span>
+            <div class="program-strip">
+                <span class="live-tag"><span class="live-dot"></span> LIVE</span>
+                <span class="program-title" data-channel="FM Rainbow Delhi">Fetching live schedule...</span>
             </div>
         </a>
 
         <!-- AIR Indraprastha -->
-        <a href="go:s4" class="featured-card">
-            <div class="card-top">
-                <div class="station-details">
-                    <div class="station-icon">📻</div>
-                    <div>
-                        <div class="station-title">AIR Indraprastha</div>
-                        <div class="station-subtitle">Delhi MW • Classical & Spoken</div>
+        <a href="go:s4" class="station-card">
+            <div class="card-main">
+                <div class="station-avatar indra-grad">IP</div>
+                <div class="station-info">
+                    <div class="station-title-row">
+                        <span class="station-name">AIR Indraprastha</span>
                     </div>
+                    <div class="station-desc">Delhi MW • Classical, Drama & Talk</div>
                 </div>
-                <div class="card-actions">
-                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
-                    <div class="play-btn">
-                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                    </div>
+                <div class="play-circle">
+                    <svg viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4"></polygon></svg>
                 </div>
             </div>
-            <div class="program-banner">
-                <span class="program-tag">🕒 On Air Now</span>
-                <span class="program-name" data-channel="Indraprastha">Fetching live program...</span>
+            <div class="program-strip">
+                <span class="live-tag"><span class="live-dot"></span> LIVE</span>
+                <span class="program-title" data-channel="Indraprastha">Fetching live schedule...</span>
             </div>
         </a>
 
     </div>
 
     <!-- Live Cricket Commentary -->
-    <div class="section-header">🏏 Live Cricket Audio</div>
+    <div class="section-title">🏏 Live Cricket Audio</div>
     <a href="go:cricket" class="cricket-card">
-        <div class="station-details">
-            <div class="station-icon" style="background: #11382e; border-color: #1c5949;">🎙️</div>
+        <div class="cricket-details">
+            <div class="cricket-avatar">🎙️</div>
             <div>
-                <div class="station-title">AIR Cricket Commentary</div>
-                <div class="station-subtitle" style="color: #6ee7b7;">Live Sports Stream • Hindi & English</div>
+                <div class="station-name">AIR Live Cricket Commentary</div>
+                <div class="station-desc" style="color: #a7f3d0;">Ball-by-Ball Live Match Audio</div>
             </div>
         </div>
-        <div class="play-btn cricket-play-btn">
-            <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+        <div class="play-circle cricket-play">
+            <svg viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4"></polygon></svg>
         </div>
     </a>
 
     <!-- FM Radio by Language -->
-    <div class="section-header">🎶 FM Radio (By Language)</div>
-    <div class="grid-container">
-        <a href="go:fm_hindi" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🎵</span>
-                <span class="state-name">Hindi FM</span>
+    <div class="section-title">🎶 FM Radio (By Language)</div>
+    <div class="grid-2col">
+        <a href="go:fm_hindi" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🎵</span>
+                <div class="tile-text">
+                    <span class="tile-name">Hindi FM</span>
+                    <span class="tile-sub">Top Bollywood</span>
+                </div>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:fm_assamese" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🎵</span>
-                <span class="state-name">Assamese FM</span>
+        <a href="go:fm_assamese" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🎵</span>
+                <div class="tile-text">
+                    <span class="tile-name">Assamese FM</span>
+                    <span class="tile-sub">Regional Hits</span>
+                </div>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:fm_bengali" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🎵</span>
-                <span class="state-name">Bengali FM</span>
+        <a href="go:fm_bengali" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🎵</span>
+                <div class="tile-text">
+                    <span class="tile-name">Bengali FM</span>
+                    <span class="tile-sub">Bangla Music</span>
+                </div>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:fm_punjabi" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🎵</span>
-                <span class="state-name">Punjabi FM</span>
+        <a href="go:fm_punjabi" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🎵</span>
+                <div class="tile-text">
+                    <span class="tile-name">Punjabi FM</span>
+                    <span class="tile-sub">Folk & Bhangra</span>
+                </div>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:fm_south" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🎵</span>
-                <span class="state-name">South Indian FM</span>
+        <a href="go:fm_south" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🎵</span>
+                <div class="tile-text">
+                    <span class="tile-name">South Hits</span>
+                    <span class="tile-sub">Tamil, Telugu etc.</span>
+                </div>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:fm_english" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🎵</span>
-                <span class="state-name">English & Pop</span>
+        <a href="go:fm_english" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🎵</span>
+                <div class="tile-text">
+                    <span class="tile-name">English FM</span>
+                    <span class="tile-sub">Pop & Global Hits</span>
+                </div>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
     </div>
 
     <!-- Popular States -->
-    <div class="section-header">📍 Popular States</div>
-    <div class="grid-container">
-        <a href="go:delhi" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🏛️</span>
-                <span class="state-name">Delhi</span>
+    <div class="section-title">📍 Popular States</div>
+    <div class="grid-2col">
+        <a href="go:delhi" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🏛️</span>
+                <span class="tile-name">Delhi</span>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:maharashtra" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🌆</span>
-                <span class="state-name">Maharashtra</span>
+        <a href="go:maharashtra" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🌆</span>
+                <span class="tile-name">Maharashtra</span>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:assam" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🦏</span>
-                <span class="state-name">Assam</span>
+        <a href="go:assam" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🦏</span>
+                <span class="tile-name">Assam</span>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:bengal" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🐅</span>
-                <span class="state-name">West Bengal</span>
+        <a href="go:bengal" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🐅</span>
+                <span class="tile-name">West Bengal</span>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:up" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🕌</span>
-                <span class="state-name">Uttar Pradesh</span>
+        <a href="go:up" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🕌</span>
+                <span class="tile-name">Uttar Pradesh</span>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:bihar" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🌾</span>
-                <span class="state-name">Bihar</span>
+        <a href="go:bihar" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🌾</span>
+                <span class="tile-name">Bihar</span>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:tamilnadu" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🛕</span>
-                <span class="state-name">Tamil Nadu</span>
+        <a href="go:tamilnadu" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">🛕</span>
+                <span class="tile-name">Tamil Nadu</span>
             </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
 
-        <a href="go:karnataka" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">💻</span>
-                <span class="state-name">Karnataka</span>
+        <a href="go:karnataka" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">💻</span>
+                <span class="tile-name">Karnataka</span>
             </div>
-            <span class="state-arrow">❯</span>
-        </a>
-
-        <a href="go:gujarat" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🦁</span>
-                <span class="state-name">Gujarat</span>
-            </div>
-            <span class="state-arrow">❯</span>
-        </a>
-
-        <a href="go:rajasthan" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🏰</span>
-                <span class="state-name">Rajasthan</span>
-            </div>
-            <span class="state-arrow">❯</span>
-        </a>
-
-        <a href="go:punjab" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🚜</span>
-                <span class="state-name">Punjab</span>
-            </div>
-            <span class="state-arrow">❯</span>
-        </a>
-
-        <a href="go:kerala" class="state-card">
-            <div class="state-info">
-                <span class="state-icon">🌴</span>
-                <span class="state-name">Kerala</span>
-            </div>
-            <span class="state-arrow">❯</span>
+            <span class="tile-arrow">❯</span>
         </a>
     </div>
 
-    <!-- Live News Bulletins -->
-    <div class="section-header">📢 Live News Bulletins</div>
-    <div class="grid-container">
-        <a href="go:news_hindi" class="compact-card">
-            <div class="compact-icon">📰</div>
-            <div>
-                <div class="compact-name">National Hindi News</div>
-                <div class="compact-sub">Live AIR Bulletin</div>
+    <!-- Live News Audio -->
+    <div class="section-title">📢 Live News Bulletins</div>
+    <div class="grid-2col">
+        <a href="go:news_hindi" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">📰</span>
+                <div class="tile-text">
+                    <span class="tile-name">Hindi Bulletin</span>
+                    <span class="tile-sub">Live AIR News</span>
+                </div>
             </div>
+            <span class="tile-arrow">❯</span>
         </a>
-        <a href="go:news_english" class="compact-card">
-            <div class="compact-icon">📰</div>
-            <div>
-                <div class="compact-name">National English News</div>
-                <div class="compact-sub">Live AIR Bulletin</div>
+
+        <a href="go:news_english" class="tile-card">
+            <div class="tile-info">
+                <span class="tile-icon">📰</span>
+                <div class="tile-text">
+                    <span class="tile-name">English Bulletin</span>
+                    <span class="tile-sub">Live AIR News</span>
+                </div>
             </div>
+            <span class="tile-arrow">❯</span>
         </a>
     </div>
 
