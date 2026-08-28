@@ -1,142 +1,610 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Indians Stranded in Iran – Full Update</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vividh Bharati</title>
+    <!-- Live Schedule Source -->
+    <script src="https://airappandroid.github.io/allindiaradio/schedule.js" defer></script>
+    <style>
+        :root {
+            --bg-base: #080c14;
+            --card-bg: rgba(18, 24, 38, 0.78);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-highlight: #60a5fa;
+            --live-red: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.09) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(16, 185, 129, 0.07) 0%, transparent 45%);
+            color: var(--text-primary);
+            padding: 14px 14px 40px;
+            min-height: 100vh;
+        }
+
+        /* Section Headings */
+        .section-header {
+            font-size: 0.84rem;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: var(--text-highlight);
+            margin: 20px 4px 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-header:first-of-type {
+            margin-top: 2px;
+        }
+
+        /* Popular Stations List */
+        .featured-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .featured-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-left: 3.5px solid var(--accent-blue);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 16px;
+            padding: 14px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.45);
+            transition: transform 0.12s ease, border-color 0.12s ease;
+        }
+
+        .featured-card:active {
+            transform: scale(0.98);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .station-details {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .station-icon {
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.05);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .station-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 0.2px;
+        }
+
+        .station-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .card-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Play Button Icon */
+        .play-btn {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+            flex-shrink: 0;
+        }
+
+        .play-btn svg {
+            width: 15px;
+            height: 15px;
+            fill: #ffffff;
+            margin-left: 2px;
+        }
+
+        /* Live Indicator Badge */
+        .live-badge {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--live-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--live-red);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--live-red);
+            animation: pulse-dot 1.4s infinite ease-in-out;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* On Air Program Box */
+        .program-banner {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .program-tag {
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #93c5fd;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .program-name {
+            font-size: 0.84rem;
+            color: #e2e8f0;
+            line-height: 1.35;
+            font-weight: 500;
+        }
+
+        /* Live Cricket Card */
+        .cricket-card {
+            background: linear-gradient(135deg, rgba(6, 78, 59, 0.85), rgba(4, 47, 46, 0.95));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-left: 3.5px solid var(--accent-emerald);
+            border-radius: 16px;
+            padding: 14px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+            transition: transform 0.12s ease;
+        }
+
+        .cricket-card:active {
+            transform: scale(0.98);
+        }
+
+        .cricket-play-btn {
+            background: linear-gradient(135deg, #059669, #047857);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+        }
+
+        /* States & Radio Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .state-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 12px 14px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.12s ease;
+        }
+
+        .state-card:active {
+            transform: scale(0.97);
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        .state-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .state-icon {
+            font-size: 1.25rem;
+        }
+
+        .state-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .state-arrow {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* News & Compact Card */
+        .compact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 80px;
+            transition: transform 0.12s ease;
+        }
+
+        .compact-card:active {
+            transform: scale(0.97);
+        }
+
+        .compact-icon {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .compact-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .compact-sub {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+    </style>
 </head>
+<body>
 
-<body style="margin:0; padding:12px; background:#0b1220; font-family: system-ui, -apple-system, sans-serif; color:#e6e6e6;">
+    <!-- Featured Live Programs (Auto Updated from schedule.js) -->
+    <div class="section-header">🔥 Popular Stations</div>
+    <div class="featured-list">
+        
+        <!-- Vividh Bharati -->
+        <a href="go:s1" class="featured-card">
+            <div class="card-top">
+                <div class="station-details">
+                    <div class="station-icon">📻</div>
+                    <div>
+                        <div class="station-title">Vividh Bharati National</div>
+                        <div class="station-subtitle">All India Relay • Hindi Hits</div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="program-banner">
+                <span class="program-tag">🕒 On Air Now</span>
+                <span class="program-name" data-channel="Vividh Bharati">Fetching live program...</span>
+            </div>
+        </a>
 
-<!-- HEADLINE CARD -->
-<div style="background:linear-gradient(135deg,#4a0000,#7f0000); padding:16px; border-radius:18px; margin-bottom:14px;">
-  <h2 style="margin:0; font-size:20px; line-height:1.3; color:#fff;">
-    🚨 ईरान में फंसे 9,000+ भारतीय, निकासी को लेकर बड़ा अपडेट
-  </h2>
-  <p style="margin:6px 0 0; font-size:13px; color:#ffdede;">
-    MEA Alert | Iran Crisis | Jan 2026
-  </p>
-</div>
+        <!-- AIR FM Gold -->
+        <a href="go:s2" class="featured-card">
+            <div class="card-top">
+                <div class="station-details">
+                    <div class="station-icon">📻</div>
+                    <div>
+                        <div class="station-title">AIR FM Gold 106.4</div>
+                        <div class="station-subtitle">Delhi • News & Classics</div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="program-banner">
+                <span class="program-tag">🕒 On Air Now</span>
+                <span class="program-name" data-channel="FM Gold">Fetching live program...</span>
+            </div>
+        </a>
 
-<!-- INTRO -->
-<div style="background:#121a2f; padding:14px; border-radius:16px; margin-bottom:12px;">
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    ईरान में जारी
-    <span style="color:#ffd54f; font-weight:600;">हिंसक विरोध प्रदर्शनों</span>
-    और अस्थिर हालात के बीच
-    <span style="color:#ffd54f;">करीब 9,000 भारतीय नागरिक</span>
-    वहां फंसे हुए हैं।
-    विदेश मंत्रालय (MEA) ने
-    <span style="color:#ffd54f;">16 जनवरी 2026</span>
-    को इसकी पुष्टि की और
-    <span style="color:#ffd54f;">स्थिति पर कड़ी निगरानी</span>
-    की बात कही।
-  </p>
-</div>
+        <!-- AIR FM Rainbow -->
+        <a href="go:s3" class="featured-card">
+            <div class="card-top">
+                <div class="station-details">
+                    <div class="station-icon">📻</div>
+                    <div>
+                        <div class="station-title">AIR FM Rainbow 102.6</div>
+                        <div class="station-subtitle">Delhi • Songs & Western Music</div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="program-banner">
+                <span class="program-tag">🕒 On Air Now</span>
+                <span class="program-name" data-channel="FM Rainbow Delhi">Fetching live program...</span>
+            </div>
+        </a>
 
-<!-- WHO ARE STRANDED -->
-<div style="background:#121a2f; padding:14px; border-radius:16px; margin-bottom:12px;">
-  <h3 style="margin:0 0 8px; font-size:16px; color:#ffb74d;">👥 कौन-कौन फंसे हैं?</h3>
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    • <span style="color:#ffd54f;">छात्र</span> (खासतौर पर मेडिकल, 1,500–2,000 J&K से)<br>
-    • <span style="color:#ffd54f;">तीर्थयात्री</span><br>
-    • <span style="color:#ffd54f;">कारोबारी व प्रोफेशनल्स</span><br>
-    • <span style="color:#ffd54f;">नाविक</span> (MT Valiant Roar के 16 भारतीय क्रू)<br>
-    • पर्यटक और रेजिडेंट इंडियंस
-  </p>
-</div>
+        <!-- AIR Indraprastha -->
+        <a href="go:s4" class="featured-card">
+            <div class="card-top">
+                <div class="station-details">
+                    <div class="station-icon">📻</div>
+                    <div>
+                        <div class="station-title">AIR Indraprastha</div>
+                        <div class="station-subtitle">Delhi MW • Classical & Spoken</div>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <div class="live-badge"><span class="live-dot"></span> LIVE</div>
+                    <div class="play-btn">
+                        <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="program-banner">
+                <span class="program-tag">🕒 On Air Now</span>
+                <span class="program-name" data-channel="Indraprastha">Fetching live program...</span>
+            </div>
+        </a>
 
-<!-- WHY CRISIS -->
-<div style="background:#121a2f; padding:14px; border-radius:16px; margin-bottom:12px;">
-  <h3 style="margin:0 0 8px; font-size:16px; color:#ff8a80;">🔥 हालात क्यों बिगड़े?</h3>
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    दिसंबर 2025 से शुरू हुए
-    <span style="color:#ffd54f;">आर्थिक और राजनीतिक विरोध</span>
-    अब हिंसक हो चुके हैं।
-    <span style="color:#ffd54f;">इंटरनेट ब्लैकआउट</span>,
-    सख्त क्रैकडाउन और
-    <span style="color:#ffd54f;">2,500–3,400+</span>
-    मौतों की रिपोर्ट सामने आई है।
-    हालात
-    <span style="color:#ffd54f;">31 प्रांतों</span>
-    तक फैल चुके हैं।
-  </p>
-</div>
+    </div>
 
-<!-- TRAVEL ADVISORY -->
-<div style="background:#121a2f; padding:14px; border-radius:16px; margin-bottom:12px;">
-  <h3 style="margin:0 0 8px; font-size:16px; color:#ffcc80;">✈️ भारत की ट्रैवल एडवाइजरी</h3>
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    • ईरान की
-    <span style="color:#ffd54f;">गैर-जरूरी यात्रा से बचें</span><br>
-    • वहां मौजूद भारतीय
-    <span style="color:#ffd54f;">किसी भी उपलब्ध माध्यम से निकलें</span><br>
-    • भीड़ और प्रदर्शन से दूर रहें<br>
-    • पासपोर्ट और ID तैयार रखें
-  </p>
-</div>
+    <!-- Live Cricket Commentary -->
+    <div class="section-header">🏏 Live Cricket Audio</div>
+    <a href="go:cricket" class="cricket-card">
+        <div class="station-details">
+            <div class="station-icon" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3);">🎙️</div>
+            <div>
+                <div class="station-title">AIR Cricket Commentary</div>
+                <div class="station-subtitle" style="color: #a7f3d0;">Live Sports Stream • Hindi & English</div>
+            </div>
+        </div>
+        <div class="play-btn cricket-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+        </div>
+    </a>
 
-<!-- EVACUATION -->
-<div style="background:#121a2f; padding:14px; border-radius:16px; margin-bottom:12px;">
-  <h3 style="margin:0 0 8px; font-size:16px; color:#81d4fa;">🛫 निकासी की स्थिति</h3>
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    • <span style="color:#ffd54f;">15 जनवरी</span> से निकासी की तैयारी<br>
-    • कुछ छात्र और तीर्थयात्री
-    <span style="color:#ffd54f;">कमर्शियल फ्लाइट्स</span> से लौटे<br>
-    • हालात में थोड़ी स्थिरता के बाद
-    <span style="color:#ffd54f;">ऑपरेशन होल्ड</span> पर<br>
-    • जरूरत पड़ी तो
-    <span style="color:#ffd54f;">स्पेशल फ्लाइट्स / IAF</span>
-  </p>
-</div>
+    <!-- Popular States -->
+    <div class="section-header">📍 Popular States</div>
+    <div class="grid-container">
+        <a href="go:delhi" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🏛️</span>
+                <span class="state-name">Delhi</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
 
-<!-- NAVY ISSUE -->
-<div style="background:#121a2f; padding:14px; border-radius:16px; margin-bottom:12px;">
-  <h3 style="margin:0 0 8px; font-size:16px; color:#ef9a9a;">⚓ भारतीय नाविकों का मामला</h3>
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    ईरानी रिवोल्यूशनरी गार्ड्स द्वारा
-    <span style="color:#ffd54f;">MT Valiant Roar</span>
-    टैंकर को रोके जाने के बाद
-    <span style="color:#ffd54f;">16 भारतीय क्रू</span>
-    फंसे हैं।
-    भारत ने
-    <span style="color:#ffd54f;">कंसुलर एक्सेस</span>
-    की मांग की है।
-  </p>
-</div>
+        <a href="go:maharashtra" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🌆</span>
+                <span class="state-name">Maharashtra</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
 
-<!-- STATE SUPPORT -->
-<div style="background:#121a2f; padding:14px; border-radius:16px; margin-bottom:12px;">
-  <h3 style="margin:0 0 8px; font-size:16px; color:#a5d6a7;">🏛️ राज्यों की पहल</h3>
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    <span style="color:#ffd54f;">Jammu & Kashmir सरकार</span>
-    ने नोडल ऑफिसर नियुक्त किया।
-    CM
-    <span style="color:#ffd54f;">ओमर अब्दुल्लाह</span>
-    ने विदेश मंत्री से संपर्क किया।
-  </p>
-</div>
+        <a href="go:assam" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🦏</span>
+                <span class="state-name">Assam</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
 
-<!-- CURRENT STATUS -->
-<div style="background:#121a2f; padding:14px; border-radius:16px;">
-  <h3 style="margin:0 0 8px; font-size:16px; color:#ffb74d;">📌 मौजूदा स्थिति</h3>
-  <p style="margin:0; font-size:15px; line-height:1.7;">
-    MEA के अनुसार हालात
-    <span style="color:#ffd54f;">तेज़ी से बदल</span>
-    रहे हैं।
-    युद्ध का खतरा फिलहाल टला है,
-    लेकिन
-    <span style="color:#ffd54f;">भारत पूरी तरह सतर्क</span>
-    है और
-    ज़रूरत पड़ने पर
-    <span style="color:#ffd54f;">तुरंत कार्रवाई</span>
-    की जाएगी।
-  </p>
-</div>
+        <a href="go:bengal" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🐅</span>
+                <span class="state-name">West Bengal</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
 
-<p style="text-align:center; margin:16px 0 4px; font-size:12px; color:#8a8a8a;">
-  © All India Radio
-</p>
+        <a href="go:up" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🕌</span>
+                <span class="state-name">Uttar Pradesh</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
 
+        <a href="go:bihar" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🌾</span>
+                <span class="state-name">Bihar</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
+
+        <a href="go:tamilnadu" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🛕</span>
+                <span class="state-name">Tamil Nadu</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
+
+        <a href="go:karnataka" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">💻</span>
+                <span class="state-name">Karnataka</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
+
+        <a href="go:gujarat" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🦁</span>
+                <span class="state-name">Gujarat</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
+
+        <a href="go:rajasthan" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🏰</span>
+                <span class="state-name">Rajasthan</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
+
+        <a href="go:punjab" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🚜</span>
+                <span class="state-name">Punjab</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
+
+        <a href="go:kerala" class="state-card">
+            <div class="state-info">
+                <span class="state-icon">🌴</span>
+                <span class="state-name">Kerala</span>
+            </div>
+            <span class="state-arrow">❯</span>
+        </a>
+    </div>
+
+    <!-- Live News Bulletins -->
+    <div class="section-header">📢 Live News Bulletins</div>
+    <div class="grid-container">
+        <a href="go:news_hindi" class="compact-card">
+            <div class="compact-icon">📰</div>
+            <div>
+                <div class="compact-name">National Hindi News</div>
+                <div class="compact-sub">Live AIR Bulletin</div>
+            </div>
+        </a>
+        <a href="go:news_english" class="compact-card">
+            <div class="compact-icon">📰</div>
+            <div>
+                <div class="compact-name">National English News</div>
+                <div class="compact-sub">Live AIR Bulletin</div>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        function parseTimeToMinutes(timeStr) {
+            if (!timeStr) return 0;
+            const parts = timeStr.trim().split(' ');
+            if (parts.length < 2) return 0;
+
+            const [hStr, mStr] = parts[0].split(':');
+            let hours = parseInt(hStr, 10);
+            let minutes = parseInt(mStr, 10) || 0;
+            const modifier = parts[1].toUpperCase();
+
+            if (modifier === 'PM' && hours < 12) hours += 12;
+            if (modifier === 'AM' && hours === 12) hours = 0;
+
+            return (hours * 60) + minutes;
+        }
+
+        function updateSchedule() {
+            if (!window.SCHEDULE_DATA || !Array.isArray(window.SCHEDULE_DATA)) return;
+
+            const now = new Date();
+            const currentMinutes = (now.getHours() * 60) + now.getMinutes();
+            const elements = document.querySelectorAll('[data-channel]');
+
+            elements.forEach(el => {
+                const targetChannel = el.getAttribute('data-channel').toLowerCase();
+                const matchedShows = window.SCHEDULE_DATA
+                    .filter(item => item.channel && item.channel.toLowerCase() === targetChannel)
+                    .map(item => ({
+                        ...item,
+                        mins: parseTimeToMinutes(item.time)
+                    }))
+                    .sort((a, b) => a.mins - b.mins);
+
+                if (matchedShows.length > 0) {
+                    let activeShow = matchedShows[0];
+                    for (let i = 0; i < matchedShows.length; i++) {
+                        if (matchedShows[i].mins <= currentMinutes) {
+                            activeShow = matchedShows[i];
+                        } else {
+                            break;
+                        }
+                    }
+                    el.textContent = `${activeShow.title} (${activeShow.time})`;
+                } else {
+                    el.textContent = "Live Stream Broadcast";
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updateSchedule();
+            setInterval(updateSchedule, 60000);
+        });
+
+        setTimeout(updateSchedule, 1200);
+    </script>
 </body>
 </html>
