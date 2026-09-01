@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIR Radio</title>
 
-<style>*{
-  -webkit-tap-highlight-color:transparent;
-  box-sizing:border-box
+<style>
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
-a{text-decoration:none;color:inherit}
-a:active,a:focus{outline:none}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+a:active, a:focus {
+  outline: none;
+}
 
 html {
   touch-action: manipulation;
@@ -20,374 +25,371 @@ html {
 }
 
 /* ===== BASE ===== */
-body{
-  margin:0;
-  font-family:Roboto,system-ui,-apple-system,BlinkMacSystemFont,Arial,sans-serif;
-  background:#1e1f22;             /* charcoal base */
-  color:#e8e8e8;
+body {
+  margin: 0;
+  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  background: #1e1f22;
+  color: #e8e8e8;
 }
+
 /* ===== TOP MOBILE AD (320x100) ===== */
-.top-ad{
-  width:100%;
-  padding:8px 10px 0;
-  display:flex;
-  justify-content:center;
-  background:#1e1f22;
+.top-ad {
+  width: 100%;
+  padding: 8px 10px 0;
+  display: flex;
+  justify-content: center;
+  background: #1e1f22;
 }
 
-.top-ad img{
-  width:100%;
-  max-width:320px;   /* Ad width */
-  height:auto;       /* Keeps 320x100 ratio */
-  border-radius:12px;
-  display:block;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
+.top-ad img {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
 }
-
 
 /* ===== LAYOUT ===== */
-.container{padding:10px 14px 14px}
+.container {
+  padding: 10px 14px 14px;
+}
 
-.section-title{
-  font-size:17px;
-  font-weight:800;
-  letter-spacing:.4px;
-  margin:18px 0 10px;
-  color:#ffffff;
+.section-title {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: .4px;
+  margin: 18px 0 10px;
+  color: #ffffff;
 }
 
 /* ===== QUICK BUTTONS ONE ROW ===== */
-.quick-buttons{
-  display:flex;
-  gap:8px;
-  margin-bottom:14px;
+.quick-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
 }
-.quick-buttons > *{
-  flex:1;
+.quick-buttons > * {
+  flex: 1;
 }
-.quick-buttons a{
-  flex:1;
-  min-width:0;
-  text-decoration:none;
-}
-
-.qbtn{
-  padding:10px 6px;
-  border-radius:16px;
-  background:#2b2d31;
-  border:1px solid #33363c;
-  text-align:center;
-  font-size:12px;
-  font-weight:700;
-  color:#e8e8e8;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  transition:transform .1s ease, opacity .1s ease;
-  height:100%;
+.quick-buttons a {
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
 }
 
-.qbtn:active{
-  transform:scale(.96);
-  opacity:.85;
+.qbtn {
+  padding: 10px 6px;
+  border-radius: 16px;
+  background: #2b2d31;
+  border: 1px solid #33363c;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #e8e8e8;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  transition: transform .1s ease, opacity .1s ease;
+  height: 100%;
+}
+
+.qbtn:active {
+  transform: scale(.96);
+  opacity: .85;
 }
 
 /* ICON STYLE */
-.icon{
-  margin-bottom:4px;
+.icon {
+  margin-bottom: 4px;
 }
 
-.icon svg{
-  width:20px;
-  height:20px;
-  fill:#4cc2ff;
+.icon svg {
+  width: 20px;
+  height: 20px;
+  fill: #4cc2ff;
 }
 
 /* TEXT WRAP */
-.label{
-  line-height:1.15;
-  word-break:break-word;
+.label {
+  line-height: 1.15;
+  word-break: break-word;
 }
 
 /* ===== CARD COMMON ===== */
-.card{
-  background:#2b2d31;
-  border-radius:22px;
-  padding:14px;
-  margin-bottom:14px;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  border:1px solid #33363c;
+.card {
+  background: #2b2d31;
+  border-radius: 22px;
+  padding: 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  border: 1px solid #33363c;
 }
 
 /* ===== POPULAR STATIONS ===== */
-#stations{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+#stations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.station{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:11px 12px;
-  border-radius:18px;
-  background:#2b2d31;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  border:1px solid #33363c;
+.station {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 12px;
+  border-radius: 18px;
+  background: #2b2d31;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  border: 1px solid #33363c;
 }
 
-.station-name{
-  font-size:15px;
-  font-weight:600;
-  margin-bottom:6px;
+.station-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
-.station-info{
-  flex:1;
-  min-width:0;
-}
-
-.program-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.station-info {
+  flex: 1;
+  min-width: 0;
 }
 
-.program{
-  font-size:12px;
-  font-weight:500;
-  color:#b3b7bd;
-  line-height:1.3;
+.program-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.program {
+  font-size: 12px;
+  font-weight: 500;
+  color: #b3b7bd;
+  line-height: 1.3;
 }
 
 /* LIVE DOT */
-.live-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#00e676;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  flex-shrink:0;
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00e676;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  flex-shrink: 0;
 }
 
 /* PLAY BUTTON */
-.play{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#4cc2ff;
-  color:#000;
-  font-size:14px;
-  font-weight:700;
-  flex-shrink:0;
-  text-decoration:none;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  transition:transform .1s ease, opacity .1s ease;
+.play {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4cc2ff;
+  color: #000;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  transition: transform .1s ease, opacity .1s ease;
 }
 
-.play:active{
-  transform:scale(.9);
-  opacity:.85;
+.play:active {
+  transform: scale(.9);
+  opacity: .85;
 }
-
 
 /* ===== CRICKET CARD ===== */
-.cricket-card{
-  background:#2b2d31;
-  padding:14px;
+.cricket-card {
+  background: #2b2d31;
+  padding: 14px;
 }
 
-/* TITLE */
-.cricket-title{
-  font-size:18px;
-  font-weight:800;
-  margin-bottom:12px;
+.cricket-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 12px;
 }
 
-/* BUTTON ROW */
-.cricket-buttons{
-  display:flex;
-  gap:12px;
-  margin-bottom:12px;
+.cricket-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.cricket-buttons a{
-  flex:1 1 0;
-  min-width:0;
-  text-decoration:none;
+.cricket-buttons a {
+  flex: 1 1 0;
+  min-width: 0;
+  text-decoration: none;
 }
 
-/* COMMON BUTTON */
-.cbtn{
-  position:relative;
-  padding:14px 12px;
-  border-radius:20px;
-  text-align:center;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  border:1px solid transparent;
+.cbtn {
+  position: relative;
+  padding: 14px 12px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  border: 1px solid transparent;
 }
 
-.cbtn b{
-  display:block;
-  font-size:14px;
-  font-weight:800;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+.cbtn b {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.cbtn small{
-  display:block;
-  font-size:12px;
-  margin-top:4px;
-  opacity:.9;
+.cbtn small {
+  display: block;
+  font-size: 12px;
+  margin-top: 4px;
+  opacity: .9;
 }
 
 /* 🔴 LIVE COMMENTARY */
-.cbtn.commentary{
-  background:linear-gradient(135deg,#b71c1c,#ff3b3b);
-  border-color:#ff6b6b;
-  color:#ffffff;
+.cbtn.commentary {
+  background: linear-gradient(135deg,#b71c1c,#ff3b3b);
+  border-color: #ff6b6b;
+  color: #ffffff;
 }
-.cbtn.commentary:active{
-  transform:scale(.95);
-  opacity:.8;
+.cbtn.commentary:active {
+  transform: scale(.95);
+  opacity: .8;
 }
 
 /* 🔵 LIVE SCORE */
-.cbtn.score{
-  background:linear-gradient(135deg,#0d47a1,#1e88e5);
-  border-color:#64b5f6;
-  color:#ffffff;
+.cbtn.score {
+  background: linear-gradient(135deg,#0d47a1,#1e88e5);
+  border-color: #64b5f6;
+  color: #ffffff;
 }
-.cbtn.score:active{
-  transform:scale(.95);
-  opacity:.8;
+.cbtn.score:active {
+  transform: scale(.95);
+  opacity: .8;
 }
 
 /* BACK TO HOME BUTTON */
-.back-home-btn{
-  display:block;
-  width:100%;
-  padding:14px;
-  margin-top:8px;
-  border-radius:16px;
-  background:#24262a;
-  border:1px solid #33363c;
-  color:#4cc2ff;
-  font-size:16px;
-  font-weight:800;
-  letter-spacing:.3px;
-  text-align:center;
-  cursor:pointer;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  transition:transform .1s ease, opacity .1s ease;
+.back-home-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border-radius: 16px;
+  background: #24262a;
+  border: 1px solid #33363c;
+  color: #4cc2ff;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  transition: transform .1s ease, opacity .1s ease;
 }
 
-.back-home-btn:active{
-  transform:scale(.97);
-  opacity:.85;
+.back-home-btn:active {
+  transform: scale(.97);
+  opacity: .85;
 }
 
-/* ===== POPULAR STATES (MATCHING EXISTING UI) ===== */
-
-.state-grid{
-  display:grid;
-  grid-template-columns:repeat(2, 1fr);
-  gap:10px;
-  margin-bottom:10px;
+/* ===== POPULAR STATES ===== */
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-.state-item{
-  background:#24262a;
-  border:1px solid #33363c;
-  border-radius:16px;
-  padding:12px 10px;
-  text-align:center;
-  font-size:14px;
-  font-weight:600;
-  color:#e8e8e8;
-  text-decoration:none;
-  box-shadow:0 2px 4px rgba(0,0,0,.25);
-  transition:transform .1s ease, opacity .1s ease;
+.state-item {
+  background: #24262a;
+  border: 1px solid #33363c;
+  border-radius: 16px;
+  padding: 12px 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e8e8e8;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  transition: transform .1s ease, opacity .1s ease;
 }
 
-.state-item:active{
-  transform:scale(.96);
-  opacity:.85;
+.state-item:active {
+  transform: scale(.96);
+  opacity: .85;
 }
 
-.view-all-states{
-  display:block;
-  text-align:center;
-  font-size:13px;
-  font-weight:700;
-  color:#4cc2ff;
-  text-decoration:none;
-  margin-top:6px;
+.view-all-states {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #4cc2ff;
+  text-decoration: none;
+  margin-top: 6px;
 }
+
 /* ===== TOGGLE SYSTEM ===== */
-.content-toggles{
-  display:flex;
-  gap:8px;
-  margin:6px 0 14px;
+.content-toggles {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 14px;
 }
 
-.toggle-btn{
-  flex:1;
-  padding:10px 6px;
-  border-radius:14px;
-  border:1px solid #33363c;
-  background:#2b2d31;
-  color:#e8e8e8;
-  font-size:12px;
-  font-weight:700;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
+.toggle-btn {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 14px;
+  border: 1px solid #33363c;
+  background: #2b2d31;
+  color: #e8e8e8;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
 }
-.ticon svg{
-  width:20px;
-  height:20px;
-  fill:#4cc2ff;
+.ticon svg {
+  width: 20px;
+  height: 20px;
+  fill: #4cc2ff;
 }
-.toggle-btn.active .ticon svg{
-  fill:#000;
+.toggle-btn.active .ticon svg {
+  fill: #000;
 }
-.toggle-btn.active{
-  background:#4cc2ff;
-  color:#000;
-  border-color:#4cc2ff;
-}
-
-.toggle-section{
-  display:none;
+.toggle-btn.active {
+  background: #4cc2ff;
+  color: #000;
+  border-color: #4cc2ff;
 }
 
+.toggle-section {
+  display: none;
+}
 </style>
 </head>
 
 <body>
 <!-- TOP AD BANNER -->
-  <a href="go:COMM"> 
-<div class="top-ad">
-  <img src="https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/file_0000000021e08211b4960dad0c90dbff.jpg" alt="AIR Banner">
-</div></a>
+<a href="go:COMM"> 
+  <div class="top-ad">
+    <img src="https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/file_0000000021e08211b4960dad0c90dbff.jpg" alt="AIR Banner">
+  </div>
+</a>
 
-   
 <div class="container">
 
-<!-- QUICK -->
+<!-- QUICK BUTTONS -->
 <div class="quick-buttons">
 
   <!-- AIR RADIO -->
   <a href="go:A2">
     <div class="qbtn">
       <div class="icon">
-        <!-- Radio SVG -->
         <svg viewBox="0 0 24 24">
           <path d="M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8H3zm16 8H5v-6h14v6zM7 4l10 4H7V4zm2 9h3v3H9v-3zm7 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
         </svg>
@@ -400,7 +402,6 @@ body{
   <a href="go:FM2">
     <div class="qbtn">
       <div class="icon">
-        <!-- Signal SVG -->
         <svg viewBox="0 0 24 24">
           <path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/>
         </svg>
@@ -413,7 +414,6 @@ body{
   <a href="go:LIVEN">
     <div class="qbtn">
       <div class="icon">
-        <!-- Live Broadcast SVG -->
         <svg viewBox="0 0 24 24">
           <path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/>
         </svg>
@@ -422,82 +422,73 @@ body{
     </div>
   </a>
 
-<button class="toggle-btn" onclick="openSection('cricketSection', this)">
-  <span class="ticon">
-    <svg viewBox="0 0 24 24">
-      <path d="M14 2l8 8-2 2-8-8 2-2zM2 14l8 8 2-2-8-8-2 2z"/>
-    </svg>
-  </span>
-  <span>Cricket</span>
-</button>
+  <button class="toggle-btn" onclick="openSection('cricketSection', this)">
+    <span class="ticon">
+      <svg viewBox="0 0 24 24">
+        <path d="M14 2l8 8-2 2-8-8 2-2zM2 14l8 8 2-2-8-8-2 2z"/>
+      </svg>
+    </span>
+    <span>Cricket</span>
+  </button>
 
 </div>
 
-<!--Popular Stations-->
+<!-- Popular Stations & States -->
 <div id="homeContent">
 
-<h2 class="section-title">🔥 Popular Stations</h2>
-<div id="stations"></div>
+  <h2 class="section-title">🔥 Popular Stations</h2>
+  <div id="stations"></div>
 
-<!--Popular States--->
+  <h2 class="section-title">📍 Popular States</h2>
 
-<h2 class="section-title">📍 Popular States</h2>
+  <div class="card">
+    <div class="state-grid">
+      <a href="go:DELHI" class="state-item">Delhi</a>
+      <a href="go:UP" class="state-item">Uttar Pradesh</a>
+      <a href="go:MH" class="state-item">Maharashtra</a>
+      <a href="go:BIHAR" class="state-item">Bihar</a>
+      <a href="go:WB" class="state-item">West Bengal</a>
+      <a href="go:TN" class="state-item">Tamil Nadu</a>
+    </div>
 
-<div class="card">
-  <div class="state-grid">
-
-    <a href="go:DELHI" class="state-item">Delhi</a>
-    <a href="go:UP" class="state-item">Uttar Pradesh</a>
-
-    <a href="go:MH" class="state-item">Maharashtra</a>
-    <a href="go:BIHAR" class="state-item">Bihar</a>
-
-    <a href="go:WB" class="state-item">West Bengal</a>
-    <a href="go:TN" class="state-item">Tamil Nadu</a>
-
+    <a href="go:A2" class="view-all-states">View All States →</a>
   </div>
-
-  <a href="go:A2" class="view-all-states">View All States →</a>
 </div>
-</div>
-
 
 <!-- 🏏 CRICKET HUB -->
 <div id="cricketSection" class="toggle-section">
 
-<h2 class="section-title">🏏 Cricket Hub</h2>
+  <h2 class="section-title">🏏 Cricket Hub</h2>
 
-<div class="card cricket-card">
+  <div class="card cricket-card">
 
-  <div class="cricket-buttons">
+    <div class="cricket-buttons">
+      <!-- LIVE COMMENTARY -->
+      <a href="go:COMM">
+        <div class="cbtn commentary">
+          <b>Commentary</b>
+          <small>On Match Days</small>
+        </div>
+      </a>
 
-    <!-- LIVE COMMENTARY -->
-    <a href="go:COMM">
-      <div class="cbtn commentary">
-        <b>Commentary</b>
-        <small>On Match Days</small>
-      </div>
-    </a>
+      <!-- LIVE SCORE -->
+      <a href="go:SCORE">
+        <div class="cbtn score">
+          <b>Score</b>
+          <small>Cricket Updates</small>
+        </div>
+      </a>
+    </div>
 
-    <!-- LIVE SCORE -->
-    <a href="go:SCORE">
-      <div class="cbtn score">
-        <b>Score</b>
-        <small>Cricket Updates</small>
-      </div>
-    </a>
+    <!-- BACK TO HOME BUTTON -->
+    <div class="back-home-btn" onclick="goHome()">← Back to Home</div>
 
   </div>
-
-  <!-- BACK TO HOME BUTTON -->
-  <div class="back-home-btn" onclick="goHome()">← Back to Home</div>
-
-</div>
 </div>
 
+</div>
 
 <!-- JS : POPULAR STATIONS ONLY -->
-
 <script src="https://airappandroid.github.io/allindiaradio/schedule.js"></script>
 
 <script>
@@ -505,59 +496,67 @@ body{
 if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
 
 const popularStations = [
-  { name:"FM Rainbow", code:"FMR" },
-  { name:"Vividh Bharati", code:"N002" },
-  { name:"FM Gold", code:"FMG" },
-  { name:"Indraprastha", code:"INDRA" }
+  { name: "FM Rainbow", code: "FMR" },
+  { name: "Vividh Bharati", code: "N002" },
+  { name: "FM Gold", code: "FMG" },
+  { name: "Indraprastha", code: "INDRA" }
 ];
 
 const lastProgram = {};
 
-function timeToMinutes(t){
-  if(!t) return 0;
+function timeToMinutes(t) {
+  if (!t) return 0;
+  t = t.trim();
 
   // 24hr format support
-  if(!t.includes(" ")){
-    let [h,m] = t.split(":").map(Number);
-    return h*60+m;
+  if (!t.includes(" ")) {
+    let [h, m] = t.split(":").map(Number);
+    return (h || 0) * 60 + (m || 0);
   }
 
-  const [a,b] = t.split(" ");
-  let [h,m] = a.split(":").map(Number);
-  if(b==="PM" && h!==12) h+=12;
-  if(b==="AM" && h===12) h=0;
-  return h*60+m;
+  const parts = t.split(/\s+/);
+  let [h, m] = parts[0].split(":").map(Number);
+  const meridiem = (parts[1] || "").toUpperCase();
+
+  if (meridiem === "PM" && h !== 12) h += 12;
+  if (meridiem === "AM" && h === 12) h = 0;
+
+  return (h || 0) * 60 + (m || 0);
 }
 
-function getCurrentProgram(channel){
-  if(!window.SCHEDULE_DATA.length) return lastProgram[channel] || "Live Broadcast";
+function getCurrentProgram(channel) {
+  if (!window.SCHEDULE_DATA || !window.SCHEDULE_DATA.length) {
+    return lastProgram[channel] || "Live Broadcast";
+  }
 
   const now = new Date();
-  const nowMin = now.getHours()*60 + now.getMinutes();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
 
   const list = window.SCHEDULE_DATA
-    .filter(p =>
-      p.channel &&
-      p.channel.toLowerCase().includes(channel.toLowerCase().trim())
-    )
-    .map(p => ({...p, min: timeToMinutes(p.time)}))
-    .sort((a,b)=>a.min-b.min);
+    .filter(p => p.channel && p.channel.toLowerCase().includes(channel.toLowerCase().trim()))
+    .map(p => ({ ...p, min: timeToMinutes(p.time) }))
+    .sort((a, b) => a.min - b.min);
 
-  for(let i=0;i<list.length;i++){
-    const cur=list[i], next=list[i+1];
-    if(nowMin>=cur.min && (!next || nowMin<next.min)){
+  if (!list.length) return lastProgram[channel] || "Live Broadcast";
+
+  for (let i = 0; i < list.length; i++) {
+    const cur = list[i];
+    const next = list[i + 1];
+    if (nowMin >= cur.min && (!next || nowMin < next.min)) {
       lastProgram[channel] = cur.title;
       return cur.title;
     }
   }
+
   return lastProgram[channel] || "Live Broadcast";
 }
 
-function renderStations(){
+function renderStations() {
   const box = document.getElementById("stations");
+  if (!box) return;
   box.innerHTML = "";
 
-  popularStations.forEach(st=>{
+  popularStations.forEach(st => {
     const div = document.createElement("div");
     div.className = "station";
 
@@ -579,10 +578,12 @@ function renderStations(){
 }
 
 /* 🔄 Only update program text (no DOM rebuild) */
-function updateProgramsOnly(){
-  document.querySelectorAll(".program").forEach(el=>{
+function updateProgramsOnly() {
+  document.querySelectorAll(".program").forEach(el => {
     const channel = el.getAttribute("data-channel");
-    el.textContent = getCurrentProgram(channel);
+    if (channel) {
+      el.textContent = getCurrentProgram(channel);
+    }
   });
 }
 
@@ -592,40 +593,40 @@ renderStations();
 /* Update every 60 seconds */
 setInterval(updateProgramsOnly, 60000);
 
-/* Extra safety refresh after schedule loads */
-setTimeout(updateProgramsOnly, 4000);
-function openSection(id, btn){
+/* Safety refresh after schedule loads */
+setTimeout(updateProgramsOnly, 3000);
+setTimeout(updateProgramsOnly, 6000);
+
+function openSection(id, btn) {
   document.getElementById("homeContent").style.display = "none";
 
-  document.querySelectorAll('.toggle-section').forEach(sec=>{
+  document.querySelectorAll('.toggle-section').forEach(sec => {
     sec.style.display = "none";
   });
 
-  document.querySelectorAll('.toggle-btn').forEach(b=>{
+  document.querySelectorAll('.toggle-btn').forEach(b => {
     b.classList.remove('active');
   });
 
   document.getElementById(id).style.display = "block";
   btn.classList.add('active');
 
-  window.scrollTo({top:0, behavior:"smooth"});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function goHome(){
+function goHome() {
   document.getElementById("homeContent").style.display = "block";
 
-  document.querySelectorAll('.toggle-section').forEach(sec=>{
+  document.querySelectorAll('.toggle-section').forEach(sec => {
     sec.style.display = "none";
   });
 
-  document.querySelectorAll('.toggle-btn').forEach(b=>{
+  document.querySelectorAll('.toggle-btn').forEach(b => {
     b.classList.remove('active');
   });
 
-  window.scrollTo({top:0, behavior:"smooth"});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
 </script>
-
 </body>
 </html>
