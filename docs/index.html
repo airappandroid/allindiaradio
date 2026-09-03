@@ -140,12 +140,6 @@ body {
   background: linear-gradient(145deg, #2c2e33, #222428);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 3px 10px rgba(0,0,0,.25);
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-
-.station:active {
-  transform: scale(.98);
-  border-color: rgba(76, 194, 255, 0.4);
 }
 
 /* STATION LOGO / THUMBNAIL */
@@ -246,14 +240,6 @@ body {
   color: #e2e8f0;
   text-decoration: none;
   letter-spacing: .2px;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-
-.state-item:active {
-  transform: scale(.96);
-  background: rgba(76, 194, 255, 0.1);
-  border-color: #4cc2ff;
-  color: #4cc2ff;
 }
 
 .view-all-states {
@@ -530,22 +516,22 @@ if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
 const popularStations = [
   { 
     name: "FM Rainbow", 
-    code: "FMR",
+    code: "FMR", 
     logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(2).jpg" 
   },
   { 
     name: "Vividh Bharati", 
-    code: "N002",
+    code: "N002", 
     logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images.jpg" 
   },
   { 
     name: "FM Gold", 
-    code: "FMG",
+    code: "FMG", 
     logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(1).jpg" 
   },
   { 
     name: "Indraprastha", 
-    code: "INDRA",
+    code: "INDRA", 
     logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(3).jpg" 
   }
 ];
