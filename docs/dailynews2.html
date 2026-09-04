@@ -1,703 +1,686 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Radio & TV Live</title>
-    <style>
-        :root {
-            --bg: #090B10;
-            --surface: #131926;
-            --surface-hover: #1A2234;
-            --border: rgba(255, 255, 255, 0.08);
-            --border-focus: rgba(0, 240, 255, 0.3);
-            --accent-cyan: #00F0FF;
-            --accent-red: #FF3B30;
-            --text-primary: #FFFFFF;
-            --text-secondary: #94A3B8;
-            --text-muted: #64748B;
-        }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIR Radio</title>
 
-        body {
-            background-color: var(--bg);
-            color: var(--text-primary);
-            padding: 16px 0 80px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
+<style>
+:root {
+  --bg-main: #0c0e14;
+  --card-bg: #161922;
+  --card-border: #232733;
+  --accent-cyan: #00e5ff;
+  --accent-blue: #0091ea;
+  --accent-gradient: linear-gradient(135deg, #00e5ff, #0091ea);
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --live-green: #10b981;
+}
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            padding: 0 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+*{
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
 
-        /* 1. Ultra-Modern Audio Commentary Banner */
-        .commentary-card {
-            position: relative;
-            width: 100%;
-            height: 105px;
-            background: linear-gradient(135deg, #131A2E 0%, #0D111A 100%);
-            border: 1px solid rgba(0, 240, 255, 0.2);
-            border-radius: 16px;
-            text-decoration: none;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-        }
+a{
+  text-decoration: none;
+  color: inherit;
+}
+a:active, a:focus{ outline: none; }
 
-        .commentary-card::before {
-            content: '';
-            position: absolute;
-            top: -30px;
-            right: -30px;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
+html {
+  touch-action: manipulation;
+}
 
-        .commentary-content {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            z-index: 1;
-        }
+/* ===== ZERO-LAG BASE THEME ===== */
+body{
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
 
-        .live-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 59, 48, 0.15);
-            border: 1px solid rgba(255, 59, 48, 0.3);
-            color: #FF5A52;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 20px;
-            width: fit-content;
-            letter-spacing: 0.5px;
-        }
+/* ===== TOP MOBILE AD (320x100) ===== */
+.top-ad{
+  width: 100%;
+  padding: 12px 14px 4px;
+  display: flex;
+  justify-content: center;
+}
 
-        .pulse-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent-red);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-red);
-            animation: pulse-glow 1.4s infinite;
-        }
+.top-ad img{
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+  border: 1px solid var(--card-border);
+}
 
-        .commentary-title {
-            font-size: 15px;
-            font-weight: 700;
-            letter-spacing: -0.2px;
-        }
+/* ===== LIVE CRICKET SCORE STRIP ===== */
+.cricket-strip-container {
+  padding: 8px 16px 4px;
+}
 
-        .commentary-sub {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
+.cricket-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
 
-        /* Equalizer Animation Bars */
-        .eq-wrapper {
-            display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            height: 24px;
-            padding-right: 6px;
-        }
+.cricket-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-gradient);
+}
 
-        .eq-bar {
-            width: 4px;
-            background: var(--accent-cyan);
-            border-radius: 2px;
-            animation: bounce 1.2s infinite ease-in-out;
-        }
-        .eq-bar:nth-child(1) { height: 10px; animation-delay: 0.1s; }
-        .eq-bar:nth-child(2) { height: 20px; animation-delay: 0.3s; }
-        .eq-bar:nth-child(3) { height: 14px; animation-delay: 0.2s; }
-        .eq-bar:nth-child(4) { height: 24px; animation-delay: 0.4s; }
+.cs-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
 
-        /* 2. Live Score Strip (Solid background, no blur) */
-        .score-pill {
-            width: 100%;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 10px 14px;
-            text-decoration: none;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: border-color 0.2s;
-        }
+.cs-tour {
+  color: var(--accent-cyan);
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-        .score-pill:active {
-            border-color: var(--border-focus);
-        }
+.cs-status-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--live-green);
+  text-transform: uppercase;
+}
 
-        .score-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.cs-match-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-        .sport-badge {
-            width: 24px;
-            height: 24px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-        }
+.cs-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
 
-        .match-teams {
-            font-size: 12px;
-            font-weight: 600;
-            color: #fff;
-        }
+.cs-team.right {
+  flex-direction: row-reverse;
+  text-align: right;
+}
 
-        .match-score {
-            font-size: 12px;
-            font-weight: 700;
-            color: #FBBF24;
-        }
+.cs-flag {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #232733;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-        /* 3. Category Cards */
-        .category-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
+.cs-team-info {
+  display: flex;
+  flex-direction: column;
+}
 
-        .category-box {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 14px 8px;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.15s ease, background 0.15s;
-        }
+.cs-team-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
 
-        .category-box:active {
-            transform: scale(0.97);
-            background: var(--surface-hover);
-        }
+.cs-team-score {
+  font-size: 12px;
+  font-weight: 600;
+  color: #cbd5e1;
+}
 
-        .cat-icon-wrap {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.cs-vs {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted);
+  padding: 0 10px;
+}
 
-        .icon-air { background: linear-gradient(135deg, #FF6B00, #FF2D55); }
-        .icon-fm { background: linear-gradient(135deg, #8B5CF6, #EC4899); }
-        .icon-tv { background: linear-gradient(135deg, #00C6FF, #0072FF); }
+.cs-note {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.3;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 4px 8px;
+  border-radius: 8px;
+}
 
-        .cat-icon-wrap svg {
-            width: 20px;
-            height: 20px;
-            fill: #fff;
-        }
+/* ===== LAYOUT ===== */
+.container{
+  padding: 10px 16px 24px;
+}
 
-        .category-box span {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
+.section-title{
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  margin: 22px 0 12px;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-        /* Section Header */
-        .section-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 4px;
-        }
+/* ===== QUICK NAVIGATION ===== */
+.quick-buttons{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
 
-        .section-bar h3 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
+.qbtn{
+  padding: 12px 4px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform .1s ease, background .15s ease;
+}
 
-        /* 4. Popular Stations Vertical List */
-        .station-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
+.qbtn:active{
+  transform: scale(0.95);
+  background: #1f2330;
+}
 
-        .pro-station-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 10px 14px;
-            text-decoration: none;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            position: relative;
-            transition: background 0.15s, border-color 0.15s;
-        }
+.icon svg{
+  width: 22px;
+  height: 22px;
+  fill: var(--accent-cyan);
+}
 
-        .pro-station-card:active {
-            border-color: var(--border-focus);
-            background: var(--surface-hover);
-        }
+/* ===== POPULAR STATIONS ===== */
+#stations{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-        .station-logo-box {
-            position: relative;
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            flex-shrink: 0;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 13px;
-            color: #fff;
-        }
+.station{
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  position: relative;
+}
 
-        .logo-rainbow { background: linear-gradient(135deg, #FF416C, #FF4B2B); }
-        .logo-vividh { background: linear-gradient(135deg, #11998E, #38EF7D); }
-        .logo-gold { background: linear-gradient(135deg, #F7971E, #FFD200); color: #000; }
-        .logo-indra { background: linear-gradient(135deg, #8E2DE2, #4A00E0); }
+.station-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #10121a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
 
-        .station-logo-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+.station-info{
+  flex: 1;
+  min-width: 0;
+  padding-right: 10px;
+}
 
-        .station-meta {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
+.station-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+}
 
-        .station-meta h4 {
-            font-size: 13px;
-            font-weight: 700;
-            color: #fff;
-        }
+.station-name{
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: .2px;
+}
 
-        .station-meta p {
-            font-size: 11px;
-            color: var(--accent-cyan);
-            line-height: 1.35;
-            white-space: normal;
-            word-break: break-word;
-        }
+.program-row{
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
 
-        .play-indicator {
-            width: 28px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+.program{
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  word-break: break-word;
+}
 
-        .play-indicator svg {
-            width: 10px;
-            height: 10px;
-            fill: #fff;
-            margin-left: 1px;
-        }
+.live-dot-wrapper {
+  margin-top: 5px;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-        /* 5. Chips */
-        .chip-scroll {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-bottom: 2px;
-        }
+.live-dot{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--live-green);
+  z-index: 1;
+}
 
-        .chip-scroll::-webkit-scrollbar {
-            display: none;
-        }
+.live-dot-wrapper::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--live-green);
+  animation: live-pulse 1.6s infinite ease-out;
+}
 
-        .filter-chip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 7px 14px;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-decoration: none;
-            white-space: nowrap;
-        }
+@keyframes live-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
 
-        .filter-chip:active {
-            background: var(--accent-cyan);
-            color: #000;
-            border-color: var(--accent-cyan);
-        }
+.play{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-gradient);
+  flex-shrink: 0;
+  transition: transform .1s ease;
+}
 
-        /* 6. Solid Bottom Navigation (No backdrop-filter) */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 420px;
-            height: 62px;
-            background: #0E131F;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 100;
-        }
+.play svg {
+  width: 14px;
+  height: 14px;
+  fill: #060e18;
+  margin-left: 2px;
+}
 
-        .nav-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 10px;
-            font-weight: 600;
-            transition: color 0.15s;
-        }
+.play:active{
+  transform: scale(0.9);
+}
 
-        .nav-btn.active {
-            color: var(--accent-cyan);
-        }
+/* ===== POPULAR STATES ===== */
+.states-container{
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid var(--card-border);
+}
 
-        .nav-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
+.state-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
 
-        @keyframes pulse-glow {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.1); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+.state-item{
+  background: #11131a;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform .1s ease, background .15s ease;
+}
 
-        @keyframes bounce {
-            0%, 100% { transform: scaleY(0.4); }
-            50% { transform: scaleY(1); }
-        }
-    </style>
+.state-item::after {
+  content: "›";
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.state-item:active{
+  transform: scale(0.97);
+  background: #1a1e29;
+}
+
+.view-all-states{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  padding: 4px 0;
+}
+</style>
 </head>
+
 <body>
 
-    <main class="container">
+<!-- TOP AD -->
+<a href="go:S401">
+  <div class="top-ad">
+    <img src="https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/file_0000000021e08211b4960dad0c90dbff.jpg" alt="AIR Banner">
+  </div>
+</a>
 
-        <a href="go:s1" class="commentary-card">
-            <div class="commentary-content">
-                <span class="live-tag"><span class="pulse-dot"></span> AIR BROADCAST</span>
-                <div class="commentary-title">Live Cricket Commentary</div>
-                <div class="commentary-sub">Special Live Sports Relay from Studio</div>
-            </div>
-            <div class="eq-wrapper">
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-                <div class="eq-bar"></div>
-            </div>
-        </a>
+<!-- LIVE CRICKET SCORE STRIP -->
+<div class="cricket-strip-container" id="cricketSection" style="display: none;">
+  <div class="cricket-card" id="cricketCard">
+    <!-- JS ৰ জৰিয়তে তথ্য যোগ হ'ব -->
+  </div>
+</div>
 
-        <a href="go:cricket_score" class="score-pill" id="scoreContainer">
-            <div class="score-left">
-                <div class="sport-badge">🏏</div>
-                <div class="match-teams">Match status loading...</div>
-            </div>
-            <div class="match-score">--/--</div>
-        </a>
+<div class="container">
 
-        <div class="category-row">
-            <a href="go:air" class="category-box">
-                <div class="cat-icon-wrap icon-air">
-                    <svg viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-.83-.51-1.57-1.24-1.85L12 2 3.24 6.15zM12 4.45L18.6 7.5H5.4L12 4.45zM4 9h16v11H4V9zm8 2c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
-                </div>
-                <span>AIR Radio</span>
-            </a>
-
-            <a href="go:fm" class="category-box">
-                <div class="cat-icon-wrap icon-fm">
-                    <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
-                </div>
-                <span>FM Stations</span>
-            </a>
-
-            <a href="go:tv" class="category-box">
-                <div class="cat-icon-wrap icon-tv">
-                    <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
-                </div>
-                <span>Live TV</span>
-            </a>
+  <div class="quick-buttons">
+    <a href="go:S201">
+      <div class="qbtn">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8H3zm16 8H5v-6h14v6zM7 4l10 4H7V4zm2 9h3v3H9v-3zm7 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
+          </svg>
         </div>
+        <div>AIR Radio</div>
+      </div>
+    </a>
 
-        <div class="section-bar">
-            <h3>Popular Stations</h3>
+    <a href="go:S202">
+      <div class="qbtn">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/>
+          </svg>
         </div>
-        <div class="station-list">
-            <a href="go:play_rainbow" class="pro-station-card">
-                <div class="station-logo-box logo-rainbow">
-                    <span>FR</span>
-                    <img src="YOUR_RAINBOW_THUMBNAIL_URL" alt="" onerror="this.style.display='none'">
-                </div>
-                <div class="station-meta">
-                    <h4>FM Rainbow</h4>
-                    <p id="prog-rainbow">Loading...</p>
-                </div>
-                <div class="play-indicator">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </a>
+        <div>FM Radio</div>
+      </div>
+    </a>
 
-            <a href="go:play_vividh" class="pro-station-card">
-                <div class="station-logo-box logo-vividh">
-                    <span>VB</span>
-                    <img src="YOUR_VIVIDH_BHARATI_THUMBNAIL_URL" alt="" onerror="this.style.display='none'">
-                </div>
-                <div class="station-meta">
-                    <h4>Vividh Bharati</h4>
-                    <p id="prog-vividh">Loading...</p>
-                </div>
-                <div class="play-indicator">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </a>
-
-            <a href="go:play_gold" class="pro-station-card">
-                <div class="station-logo-box logo-gold">
-                    <span>FG</span>
-                    <img src="YOUR_FM_GOLD_THUMBNAIL_URL" alt="" onerror="this.style.display='none'">
-                </div>
-                <div class="station-meta">
-                    <h4>FM Gold</h4>
-                    <p id="prog-gold">Loading...</p>
-                </div>
-                <div class="play-indicator">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </a>
-
-            <a href="go:play_indraprastha" class="pro-station-card">
-                <div class="station-logo-box logo-indra">
-                    <span>IP</span>
-                    <img src="YOUR_INDRAPRASTHA_THUMBNAIL_URL" alt="" onerror="this.style.display='none'">
-                </div>
-                <div class="station-meta">
-                    <h4>Indraprastha</h4>
-                    <p id="prog-indraprastha">Loading...</p>
-                </div>
-                <div class="play-indicator">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                </div>
-            </a>
+    <a href="go:S501">
+      <div class="qbtn">
+        <div class="icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/>
+          </svg>
         </div>
+        <div>Live News</div>
+      </div>
+    </a>
+  </div>
 
-        <div class="section-bar">
-            <h3>State Radio Stations</h3>
+  <div id="homeContent">
+    <div class="section-title">🔥 Popular Stations</div>
+    <div id="stations"></div>
+
+    <div class="section-title">📍 Popular States</div>
+    <div class="states-container">
+      <div class="state-grid">
+        <a href="go:DELHI" class="state-item">Delhi</a>
+        <a href="go:UP" class="state-item">Uttar Pradesh</a>
+        <a href="go:MH" class="state-item">Maharashtra</a>
+        <a href="go:BIHAR" class="state-item">Bihar</a>
+        <a href="go:WB" class="state-item">West Bengal</a>
+        <a href="go:TN" class="state-item">Tamil Nadu</a>
+      </div>
+      <a href="go:S201" class="view-all-states">View All States &nbsp;→</a>
+    </div>
+  </div>
+
+</div>
+
+<script id="schedule-script" src="https://airappandroid.github.io/allindiaradio/schedule.js"></script>
+
+<script>
+/* ===== LIVE CRICKET SCORE FETCH & AUTO UPDATE ===== */
+const CRICKET_API_URL = "https://dev-styxsportsapigateway.azurewebsites.net/score/api/livescorebymatchid/98316";
+
+async function fetchLiveCricketScore() {
+  try {
+    const response = await fetch(CRICKET_API_URL);
+    if (!response.ok) return;
+    
+    const data = await response.json();
+    if (data && data.data && data.data.length > 0) {
+      renderCricketStrip(data.data[0].livescore);
+    }
+  } catch (error) {
+    console.error("Live Cricket Score Error:", error);
+  }
+}
+
+function renderCricketStrip(scoreData) {
+  if (!scoreData) return;
+
+  const section = document.getElementById("cricketSection");
+  const card = document.getElementById("cricketCard");
+
+  const tournament = scoreData.competition ? (scoreData.competition.abbr || scoreData.competition.title) : "Cricket";
+  const teamA = scoreData.teama || {};
+  const teamB = scoreData.teamb || {};
+  
+  const teamAScore = teamA.scores_full || teamA.scores || "";
+  const teamBScore = teamB.scores_full || teamB.scores || "";
+  
+  let statusText = scoreData.status_str || "Scheduled";
+  let noteText = scoreData.status_note || scoreData.subtitle || "";
+
+  card.innerHTML = `
+    <div class="cs-meta">
+      <span class="cs-tour">${tournament}</span>
+      <span class="cs-status-tag">
+        <span class="live-dot" style="width: 6px; height: 6px;"></span>
+        ${statusText}
+      </span>
+    </div>
+
+    <div class="cs-match-row">
+      <div class="cs-team">
+        <img class="cs-flag" src="${teamA.logo_url || ''}" alt="${teamA.short_name || 'Team A'}" onerror="this.style.opacity='0'">
+        <div class="cs-team-info">
+          <span class="cs-team-name">${teamA.short_name || teamA.name || 'Team A'}</span>
+          ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
         </div>
-        <div class="chip-scroll">
-            <a href="go:state_assam" class="filter-chip">Assam</a>
-            <a href="go:state_delhi" class="filter-chip">Delhi</a>
-            <a href="go:state_bengal" class="filter-chip">West Bengal</a>
-            <a href="go:state_mumbai" class="filter-chip">Maharashtra</a>
-            <a href="go:state_punjab" class="filter-chip">Punjab</a>
-            <a href="go:state_all" class="filter-chip">All States</a>
+      </div>
+
+      <div class="cs-vs">VS</div>
+
+      <div class="cs-team right">
+        <img class="cs-flag" src="${teamB.logo_url || ''}" alt="${teamB.short_name || 'Team B'}" onerror="this.style.opacity='0'">
+        <div class="cs-team-info">
+          <span class="cs-team-name">${teamB.short_name || teamB.name || 'Team B'}</span>
+          ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
         </div>
+      </div>
+    </div>
 
-        <div class="section-bar">
-            <h3>Browse by Language</h3>
+    ${noteText ? `<div class="cs-note">${noteText}</div>` : ''}
+  `;
+
+  section.style.display = "block";
+}
+
+// প্ৰাৰম্ভিক কল
+fetchLiveCricketScore();
+
+// প্ৰতি ২০ ছেকেণ্ডত স্বয়ংক্ৰিয় আপডেট
+setInterval(fetchLiveCricketScore, 20000);
+
+
+/* ===== RADIO DATA & SCHEDULE ===== */
+if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
+
+const popularStations = [
+  { 
+    name: "FM Rainbow", 
+    code: "FMR", 
+    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(2).jpg" 
+  },
+  { 
+    name: "Vividh Bharati", 
+    code: "VV", 
+    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images.jpg" 
+  },
+  { 
+    name: "FM Gold", 
+    code: "FMG", 
+    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(1).jpg" 
+  },
+  { 
+    name: "Indraprastha", 
+    code: "INDRA", 
+    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(3).jpg" 
+  }
+];
+
+const lastProgram = {};
+
+function timeToMinutes(t){
+  if(!t) return 0;
+  t = t.trim();
+  if(!t.includes(" ")){
+    let [h, m] = t.split(":").map(Number);
+    return (h || 0) * 60 + (m || 0);
+  }
+  const parts = t.split(/\s+/);
+  let [h, m] = parts[0].split(":").map(Number);
+  const meridiem = (parts[1] || "").toUpperCase();
+  h = h || 0;
+  m = m || 0;
+  if(meridiem === "PM" && h !== 12) h += 12;
+  if(meridiem === "AM" && h === 12) h = 0;
+  return h * 60 + m;
+}
+
+function getCurrentProgram(channel){
+  if(!window.SCHEDULE_DATA || !window.SCHEDULE_DATA.length) {
+    return lastProgram[channel] || "Live Broadcast";
+  }
+
+  const now = new Date();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+
+  const list = window.SCHEDULE_DATA
+    .filter(p =>
+      p.channel &&
+      p.channel.toLowerCase().includes(channel.toLowerCase().trim())
+    )
+    .map(p => ({...p, min: timeToMinutes(p.time)}))
+    .sort((a,b) => a.min - b.min);
+
+  if(!list.length) return lastProgram[channel] || "Live Broadcast";
+
+  if(nowMin < list[0].min){
+    const prevShow = list[list.length - 1].title;
+    lastProgram[channel] = prevShow;
+    return prevShow;
+  }
+
+  for(let i = 0; i < list.length; i++){
+    const cur = list[i], next = list[i + 1];
+    if(nowMin >= cur.min && (!next || nowMin < next.min)){
+      lastProgram[channel] = cur.title;
+      return cur.title;
+    }
+  }
+  return lastProgram[channel] || "Live Broadcast";
+}
+
+function renderStations(){
+  const box = document.getElementById("stations");
+  box.innerHTML = "";
+
+  popularStations.forEach(st=>{
+    const div = document.createElement("div");
+    div.className = "station";
+
+    div.innerHTML = `
+      <img class="station-logo" src="${st.logo}" alt="${st.name}" width="46" height="46" loading="lazy" decoding="async" onerror="this.src='https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/gVkZQ1787940599.png'">
+      <div class="station-info">
+        <div class="station-header">
+          <div class="station-name">${st.name}</div>
         </div>
-        <div class="chip-scroll">
-            <a href="go:lang_as" class="filter-chip">Assamese</a>
-            <a href="go:lang_hi" class="filter-chip">Hindi</a>
-            <a href="go:lang_bn" class="filter-chip">Bengali</a>
-            <a href="go:lang_en" class="filter-chip">English</a>
-            <a href="go:lang_all" class="filter-chip">All Languages</a>
+        <div class="program-row">
+          <div class="live-dot-wrapper">
+            <span class="live-dot"></span>
+          </div>
+          <div class="program" data-channel="${st.name}">
+            ${getCurrentProgram(st.name)}
+          </div>
         </div>
+      </div>
+      <a href="go:${st.code}" class="play">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </a>
+    `;
 
-    </main>
+    box.appendChild(div);
+  });
+}
 
-    <nav class="bottom-nav">
-        <a href="go:home" class="nav-btn active">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            <span>Home</span>
-        </a>
-        <a href="go:radio" class="nav-btn">
-            <svg viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-.83-.51-1.57-1.24-1.85L12 2 3.24 6.15zM12 4.45L18.6 7.5H5.4L12 4.45zM4 9h16v11H4V9zm8 2c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4z"/></svg>
-            <span>Radio</span>
-        </a>
-        <a href="go:tv" class="nav-btn">
-            <svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"/></svg>
-            <span>Live TV</span>
-        </a>
-        <a href="go:settings" class="nav-btn">
-            <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-            <span>Settings</span>
-        </a>
-    </nav>
+function updateProgramsOnly(){
+  document.querySelectorAll(".program").forEach(el=>{
+    const channel = el.getAttribute("data-channel");
+    el.textContent = getCurrentProgram(channel);
+  });
+}
 
-    <script>
-        window.addEventListener('unhandledrejection', e => e.preventDefault());
+renderStations();
 
-        const TARGET_API = "https://dev-styxsportsapigateway.azurewebsites.net/score/api/livescorebymatchid/98316/";
-        const PROXY_API = "https://api.allorigins.win/raw?url=" + encodeURIComponent(TARGET_API);
+const scheduleScript = document.getElementById("schedule-script");
+if (scheduleScript) {
+  scheduleScript.addEventListener("load", updateProgramsOnly);
+}
 
-        async function fetchScore() {
-            try {
-                let response = await fetch(PROXY_API).catch(() => null);
-                if (!response || !response.ok) response = await fetch(TARGET_API).catch(() => null);
-                if (!response || !response.ok) throw new Error();
+setInterval(updateProgramsOnly, 60000);
+</script>
 
-                const data = await response.json();
-                const container = document.getElementById('scoreContainer');
-                if (container) {
-                    const team1 = data.team1ShortName || data.team1 || "IND";
-                    const team2 = data.team2ShortName || data.team2 || "AUS";
-                    const score1 = data.team1Score || data.score || "Live";
-
-                    container.innerHTML = `
-                        <div class="score-left">
-                            <div class="sport-badge">🏏</div>
-                            <div class="match-teams">${team1} vs ${team2}</div>
-                        </div>
-                        <div class="match-score">${score1}</div>
-                    `;
-                }
-            } catch (e) {
-                const container = document.getElementById('scoreContainer');
-                if (container) {
-                    container.innerHTML = `
-                        <div class="score-left">
-                            <div class="sport-badge">🏏</div>
-                            <div class="match-teams">Cricket Live Score</div>
-                        </div>
-                        <div class="match-score" style="color: #64748B;">Tap to view</div>
-                    `;
-                }
-            }
-        }
-        fetchScore();
-        setInterval(fetchScore, 20000);
-    </script>
-
-    <script>
-        const SCHEDULE_URL = "https://airappandroid.github.io/allindiaradio/schedule.js";
-
-        function timeToMinutes(timeStr) {
-            if (!timeStr) return -1;
-            const match = timeStr.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
-            if (!match) return -1;
-            let hours = parseInt(match[1], 10);
-            const minutes = parseInt(match[2], 10);
-            const period = match[3].toUpperCase();
-            if (period === 'PM' && hours !== 12) hours += 12;
-            if (period === 'AM' && hours === 12) hours = 0;
-            return hours * 60 + minutes;
-        }
-
-        function getActiveShow(items) {
-            if (!items || items.length === 0) return "Playing Live AIR";
-
-            const parsed = items.map(item => ({
-                title: item.title,
-                mins: timeToMinutes(item.time)
-            })).filter(item => item.mins !== -1);
-
-            if (parsed.length === 0) return items[0].title || "Playing Live AIR";
-            parsed.sort((a, b) => a.mins - b.mins);
-
-            const now = new Date();
-            const curMins = now.getHours() * 60 + now.getMinutes();
-
-            let activeTitle = parsed[parsed.length - 1].title;
-            for (let i = 0; i < parsed.length; i++) {
-                if (parsed[i].mins <= curMins) {
-                    activeTitle = parsed[i].title;
-                } else {
-                    break;
-                }
-            }
-            return activeTitle;
-        }
-
-        function parseAndDisplaySchedule() {
-            const data = window.SCHEDULE_DATA;
-            if (!Array.isArray(data) || data.length === 0) return;
-
-            const stations = {
-                'rainbow': data.filter(i => i.channel && i.channel.toLowerCase().includes('rainbow')),
-                'vividh': data.filter(i => i.channel && i.channel.toLowerCase().includes('vividh')),
-                'gold': data.filter(i => i.channel && i.channel.toLowerCase().includes('gold')),
-                'indraprastha': data.filter(i => i.channel && i.channel.toLowerCase().includes('indraprastha'))
-            };
-
-            for (let key in stations) {
-                const el = document.getElementById(`prog-${key}`);
-                if (el) {
-                    el.innerText = getActiveShow(stations[key]);
-                }
-            }
-        }
-
-        function loadScheduleData() {
-            const oldScript = document.getElementById('dynamicScheduleScript');
-            if (oldScript) oldScript.remove();
-
-            const script = document.createElement('script');
-            script.id = 'dynamicScheduleScript';
-            script.src = SCHEDULE_URL + "?v=" + new Date().getTime();
-            script.onload = parseAndDisplaySchedule;
-            script.onerror = () => {
-                ['rainbow', 'vividh', 'gold', 'indraprastha'].forEach(id => {
-                    const el = document.getElementById(`prog-${id}`);
-                    if (el && el.innerText.includes("Loading")) el.innerText = "Playing Live AIR";
-                });
-            };
-            document.head.appendChild(script);
-        }
-
-        loadScheduleData();
-        setInterval(loadScheduleData, 60000);
-    </script>
 </body>
 </html>
