@@ -51,6 +51,155 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,.25);
 }
 
+/* ===== LIVE CRICKET SCORE STRIP ===== */
+.cricket-strip-container {
+  padding: 8px 14px 2px;
+}
+
+.cricket-card {
+  background: linear-gradient(145deg, #2c2e33, #222428);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.cricket-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #4cc2ff, #0091ea);
+}
+
+.cs-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.cs-tour {
+  color: #4cc2ff;
+  max-width: 70%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-status-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #00e676;
+  text-transform: uppercase;
+}
+
+.cs-match-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.cs-team.right {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.cs-flag {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #1a1b1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cs-team-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-team-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cs-team-score {
+  font-size: 12px;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.cs-vs {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  padding: 0 10px;
+}
+
+/* BOTTOM BAR: NOTE (LEFT) & SCORECARD BUTTON (RIGHT) */
+.cs-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 10px;
+  border-radius: 10px;
+  margin-top: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cs-note {
+  font-size: 11.5px;
+  color: #a6abb4;
+  text-align: left;
+  line-height: 1.3;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-btn-card {
+  font-size: 11px;
+  font-weight: 700;
+  color: #001f33;
+  background: linear-gradient(135deg, #4cc2ff, #0091ea);
+  padding: 4px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .1s ease, opacity .1s ease;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 145, 234, 0.3);
+}
+
+.cs-btn-card:active {
+  transform: scale(0.94);
+  opacity: 0.9;
+}
+
 /* ===== LAYOUT ===== */
 .container {
   padding: 10px 14px 14px;
@@ -268,6 +417,11 @@ body {
   </div>
 </a>
 
+<!-- LIVE CRICKET SCORE STRIP -->
+<div class="cricket-strip-container" id="cricketSection" style="display: none;">
+  <div class="cricket-card" id="cricketCard"></div>
+</div>
+
 <div class="container">
 
 <!-- QUICK BUTTONS -->
@@ -335,12 +489,88 @@ body {
 
 </div>
 
-<!-- 1. মূল JavaScript লজিক (Functions আগত ডিফাইন কৰা হৈছে) -->
+<!-- 1. মূল JavaScript লজিক -->
 <script>
-/* Fallback safety */
+/* ===== LIVE CRICKET SCORE LOGIC ===== */
+const matchId = "98315";
+
+async function fetchLiveScore() {
+  const cloudflareProxyUrl = `https://cricvoice.aminurmarch.workers.dev/?matchId=${matchId}&_t=${Date.now()}`;
+  try {
+    const response = await fetch(cloudflareProxyUrl);
+    if (!response.ok) return;
+
+    const data = await response.json();
+    if (data && data.data && data.data.length > 0) {
+      renderCricketStrip(data.data[0].livescore);
+    }
+  } catch (error) {
+    console.error("Live Cricket Score Error:", error);
+  }
+}
+
+function renderCricketStrip(scoreData) {
+  if (!scoreData) return;
+
+  const section = document.getElementById("cricketSection");
+  const card = document.getElementById("cricketCard");
+
+  const tournament = scoreData.competition ? (scoreData.competition.abbr || scoreData.competition.title) : "Cricket";
+  const teamA = scoreData.teama || {};
+  const teamB = scoreData.teamb || {};
+  
+  const teamAScore = teamA.scores_full || teamA.scores || "";
+  const teamBScore = teamB.scores_full || teamB.scores || "";
+  
+  let statusText = scoreData.status_str || "Scheduled";
+  let noteText = scoreData.status_note || scoreData.result || scoreData.subtitle || "";
+
+  card.innerHTML = `
+    <div class="cs-meta">
+      <span class="cs-tour">${tournament}</span>
+      <span class="cs-status-tag">
+        <span class="live-dot" style="margin-top: 0;"></span>
+        ${statusText}
+      </span>
+    </div>
+
+    <div class="cs-match-row">
+      <div class="cs-team">
+        <img class="cs-flag" src="${teamA.logo_url || ''}" alt="${teamA.short_name || 'Team A'}" onerror="this.style.opacity='0'">
+        <div class="cs-team-info">
+          <span class="cs-team-name">${teamA.short_name || teamA.name || 'Team A'}</span>
+          ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
+        </div>
+      </div>
+
+      <div class="cs-vs">VS</div>
+
+      <div class="cs-team right">
+        <img class="cs-flag" src="${teamB.logo_url || ''}" alt="${teamB.short_name || 'Team B'}" onerror="this.style.opacity='0'">
+        <div class="cs-team-info">
+          <span class="cs-team-name">${teamB.short_name || teamB.name || 'Team B'}</span>
+          ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-bottom-bar">
+      <div class="cs-note">${noteText}</div>
+      <a href="go:card1" class="cs-btn-card">Scorecard</a>
+    </div>
+  `;
+
+  section.style.display = "block";
+}
+
+// স্ক'ৰ আৰম্ভণি আৰু প্ৰতি ১ মিনিটৰ মূৰে মূৰে আপডেট (60000ms)
+fetchLiveScore();
+setInterval(fetchLiveScore, 60000);
+
+
+/* ===== RADIO & SCHEDULE LOGIC ===== */
 if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
 
-/* Popular Stations Data */
 const popularStations = [
   { 
     name: "FM Rainbow", 
@@ -367,7 +597,6 @@ const popularStations = [
 const defaultFallbackLogo = "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/file_0000000021e08211b4960dad0c90dbff.jpg";
 const lastProgram = {};
 
-/* Regex-based robust Time Parser (Supports 12-hr, 24-hr, spaces & no-spaces) */
 function timeToMinutes(t) {
   if (!t) return 0;
   const match = t.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
@@ -382,7 +611,6 @@ function timeToMinutes(t) {
   return (h || 0) * 60 + (m || 0);
 }
 
-/* Accurate Current Program Lookup including midnight & wrap-around */
 function getCurrentProgram(channel) {
   if (!window.SCHEDULE_DATA || !window.SCHEDULE_DATA.length) {
     return lastProgram[channel] || "Live Broadcast";
@@ -399,7 +627,6 @@ function getCurrentProgram(channel) {
 
   let currentTitle = "Live Broadcast";
 
-  // মাজনিশা প্ৰথম অনুষ্ঠানৰ পূৰ্বৰ সময় হ'লে যোৱানিশাৰ শেষৰ প্ৰগ্ৰেম ধৰিব
   if (nowMin < list[0].min) {
     currentTitle = list[list.length - 1].title;
   } else {
@@ -446,7 +673,6 @@ function renderStations() {
   });
 }
 
-/* DOM সলনি নকৰাকৈ কেৱল টেক্সট আপডেট কৰা ফাংচন */
 function updateProgramsOnly() {
   document.querySelectorAll(".program").forEach(el => {
     const channel = el.getAttribute("data-channel");
@@ -456,14 +682,11 @@ function updateProgramsOnly() {
   });
 }
 
-/* Initial render */
 renderStations();
-
-/* Update every 60 seconds */
 setInterval(updateProgramsOnly, 60000);
 </script>
 
-<!-- 2. বাহিৰৰ স্ক্ৰিপ্ট (updateProgramsOnly ফাংচন ডিফাইন হোৱাৰ পাছত লোড হ'ব) -->
+<!-- 2. বাহিৰৰ স্ক্ৰিপ্ট -->
 <script src="https://airappandroid.github.io/allindiaradio/schedule.js" onload="updateProgramsOnly()"></script>
 </body>
 </html>
