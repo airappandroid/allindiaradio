@@ -24,31 +24,32 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== BASE ===== */
+/* ===== BASE: MODERN DEEP DARK THEME ===== */
 body {
   margin: 0;
-  font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  background: #1e1f22;
-  color: #e8e8e8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #0c0e14;
+  color: #f1f5f9;
 }
 
 /* ===== TOP MOBILE AD (320x100) ===== */
 .top-ad {
   width: 100%;
-  padding: 8px 10px 0;
+  padding: 10px 14px 2px;
   display: flex;
   justify-content: center;
-  background: #1e1f22;
+  background: #0c0e14;
 }
 
 .top-ad img {
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
   height: 100px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 16px;
   display: block;
-  box-shadow: 0 2px 4px rgba(0,0,0,.25);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* ===== LIVE CRICKET SCORE STRIP ===== */
@@ -57,16 +58,16 @@ body {
 }
 
 .cricket-card {
-  background: linear-gradient(145deg, #2c2e33, #222428);
+  background: linear-gradient(145deg, #151821, #10121a);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
-  padding: 10px 14px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 .cricket-card::before {
@@ -76,20 +77,20 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(135deg, #4cc2ff, #0091ea);
+  background: linear-gradient(90deg, #38bdf8, #818cf8);
 }
 
 .cs-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.3px;
 }
 
 .cs-tour {
-  color: #4cc2ff;
+  color: #38bdf8;
   max-width: 70%;
   white-space: nowrap;
   overflow: hidden;
@@ -99,9 +100,11 @@ body {
 .cs-status-tag {
   display: flex;
   align-items: center;
-  gap: 5px;
-  color: #00e676;
+  gap: 6px;
+  color: #10b981;
   text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.5px;
 }
 
 .cs-match-row {
@@ -113,7 +116,7 @@ body {
 .cs-team {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   flex: 1;
 }
 
@@ -123,12 +126,13 @@ body {
 }
 
 .cs-flag {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   object-fit: cover;
-  background: #1a1b1e;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1a1d26;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 .cs-team-info {
@@ -145,32 +149,30 @@ body {
 .cs-team-score {
   font-size: 12px;
   font-weight: 600;
-  color: #cbd5e1;
+  color: #94a3b8;
 }
 
 .cs-vs {
   font-size: 11px;
   font-weight: 800;
-  color: #64748b;
+  color: #475569;
   padding: 0 10px;
 }
 
-/* BOTTOM BAR: NOTE (LEFT) & SCORECARD BUTTON (RIGHT) */
 .cs-bottom-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   background: rgba(255, 255, 255, 0.03);
-  padding: 6px 10px;
-  border-radius: 10px;
-  margin-top: 2px;
+  padding: 7px 12px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .cs-note {
   font-size: 11.5px;
-  color: #a6abb4;
+  color: #94a3b8;
   text-align: left;
   line-height: 1.3;
   flex: 1;
@@ -182,46 +184,43 @@ body {
 .cs-btn-card {
   font-size: 11px;
   font-weight: 700;
-  color: #001f33;
-  background: linear-gradient(135deg, #4cc2ff, #0091ea);
-  padding: 4px 12px;
+  color: #031326;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  padding: 5px 14px;
   border-radius: 20px;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform .1s ease, opacity .1s ease;
+  transition: transform .12s ease;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 145, 234, 0.3);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
 }
 
 .cs-btn-card:active {
   transform: scale(0.94);
-  opacity: 0.9;
 }
 
 /* ===== LAYOUT ===== */
 .container {
-  padding: 10px 14px 14px;
+  padding: 12px 14px 18px;
 }
 
 .section-title {
   font-size: 16px;
   font-weight: 800;
-  letter-spacing: .4px;
-  margin: 18px 0 10px;
+  letter-spacing: .3px;
+  margin: 20px 0 12px;
   color: #ffffff;
 }
 
-/* ===== QUICK BUTTONS ONE ROW ===== */
+/* ===== REDESIGNED MODERN QUICK BUTTONS ===== */
 .quick-buttons {
   display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 18px;
 }
-.quick-buttons > * {
-  flex: 1;
-}
+
 .quick-buttons a {
   flex: 1;
   min-width: 0;
@@ -229,60 +228,85 @@ body {
 }
 
 .qbtn {
-  padding: 12px 6px;
-  border-radius: 16px;
-  background: #2b2d31;
-  border: 1px solid #33363c;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 700;
-  color: #e8e8e8;
-  box-shadow: 0 2px 4px rgba(0,0,0,.25);
-  transition: transform .1s ease, opacity .1s ease;
-  height: 100%;
+  padding: 14px 8px 12px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #181b24, #11131a);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .qbtn:active {
-  transform: scale(.96);
-  opacity: .85;
+  transform: scale(0.95);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* ICON STYLE */
-.icon {
-  margin-bottom: 4px;
+/* Rounded Glow Containers for Icons */
+.icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  transition: transform 0.15s ease;
 }
 
-.icon svg {
+.icon-box svg {
   width: 20px;
   height: 20px;
-  fill: #4cc2ff;
 }
 
-/* TEXT WRAP */
+/* Individual Neon Gradients */
+.qb-air .icon-box {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.06));
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+}
+.qb-air .icon-box svg { fill: #38bdf8; }
+
+.qb-fm .icon-box {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(147, 51, 234, 0.06));
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
+}
+.qb-fm .icon-box svg { fill: #c084fc; }
+
+.qb-news .icon-box {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(225, 29, 72, 0.06));
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.15);
+}
+.qb-news .icon-box svg { fill: #fb7185; }
+
 .label {
-  line-height: 1.15;
-  word-break: break-word;
+  font-size: 12px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.2px;
 }
 
 /* ===== CARD COMMON ===== */
 .card {
-  background: #2b2d31;
+  background: linear-gradient(145deg, #151821, #10121a);
   border-radius: 20px;
   padding: 14px;
   margin-bottom: 14px;
-  box-shadow: 0 3px 8px rgba(0,0,0,.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-/* ===== MODERN POPULAR STATIONS WITH LOGO ===== */
+/* ===== MODERN POPULAR STATIONS ===== */
 #stations {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 12px;
 }
 
 .station {
@@ -291,20 +315,19 @@ body {
   gap: 12px;
   padding: 12px 14px;
   border-radius: 20px;
-  background: linear-gradient(145deg, #2c2e33, #222428);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 3px 10px rgba(0,0,0,.25);
+  background: linear-gradient(145deg, #161922, #11131a);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
-/* STATION LOGO / THUMBNAIL */
 .station-thumb {
   width: 48px;
   height: 48px;
   border-radius: 14px;
   object-fit: cover;
-  background: #1a1b1e;
+  background: #1a1d26;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   flex-shrink: 0;
 }
 
@@ -327,52 +350,48 @@ body {
   gap: 7px;
 }
 
-/* SLEEK GLOWING LIVE DOT */
 .live-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #00e676;
-  box-shadow: 0 0 6px rgba(0, 230, 118, 0.7);
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
   flex-shrink: 0;
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
-/* FULL VISIBILITY FOR PROGRAM NAME */
 .program {
   font-size: 12.5px;
   font-weight: 500;
-  color: #a6abb4;
+  color: #94a3b8;
   line-height: 1.35;
   word-break: break-word;
-  white-space: normal;
 }
 
 /* TOUCH TARGET OPTIMIZED PLAY BUTTON */
 .play {
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #4cc2ff, #0091ea);
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
   flex-shrink: 0;
   text-decoration: none;
-  box-shadow: 0 3px 8px rgba(0, 145, 234, 0.35);
-  transition: transform .12s ease, box-shadow .12s ease;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+  transition: transform .12s ease;
 }
 
 .play svg {
-  width: 18px;
-  height: 18px;
-  fill: #001f33;
+  width: 17px;
+  height: 17px;
+  fill: #041426;
   margin-left: 2px;
 }
 
 .play:active {
-  transform: scale(.92);
-  box-shadow: 0 1px 4px rgba(0, 145, 234, 0.2);
+  transform: scale(0.92);
 }
 
 /* ===== POPULAR STATES (OUTLINE CHIPS GRID) ===== */
@@ -385,16 +404,18 @@ body {
 
 .state-item {
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 12px 8px;
   text-align: center;
   font-size: 13.5px;
   font-weight: 600;
-  color: #e2e8f0;
-  text-decoration: none;
+  color: #cbd5e1;
   letter-spacing: .2px;
-  display: block;
+}
+
+.state-item:active {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .view-all-states {
@@ -402,8 +423,7 @@ body {
   text-align: center;
   font-size: 13px;
   font-weight: 700;
-  color: #4cc2ff;
-  text-decoration: none;
+  color: #38bdf8;
   padding: 8px 0 4px;
 }
 </style>
@@ -424,13 +444,13 @@ body {
 
 <div class="container">
 
-<!-- QUICK BUTTONS -->
+<!-- MODERN QUICK BUTTONS -->
 <div class="quick-buttons">
 
   <!-- AIR RADIO -->
-  <a href="go:A2">
+  <a href="go:A2" class="qb-air">
     <div class="qbtn">
-      <div class="icon">
+      <div class="icon-box">
         <svg viewBox="0 0 24 24">
           <path d="M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8H3zm16 8H5v-6h14v6zM7 4l10 4H7V4zm2 9h3v3H9v-3zm7 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
         </svg>
@@ -440,9 +460,9 @@ body {
   </a>
 
   <!-- FM RADIO -->
-  <a href="go:FM2">
+  <a href="go:FM2" class="qb-fm">
     <div class="qbtn">
-      <div class="icon">
+      <div class="icon-box">
         <svg viewBox="0 0 24 24">
           <path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/>
         </svg>
@@ -452,9 +472,9 @@ body {
   </a>
 
   <!-- LIVE NEWS -->
-  <a href="go:LIVEN">
+  <a href="go:LIVEN" class="qb-news">
     <div class="qbtn">
-      <div class="icon">
+      <div class="icon-box">
         <svg viewBox="0 0 24 24">
           <path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/>
         </svg>
@@ -489,7 +509,6 @@ body {
 
 </div>
 
-<!-- 1. মূল JavaScript লজিক -->
 <script>
 /* ===== LIVE CRICKET SCORE LOGIC ===== */
 const matchId = "98315";
@@ -563,10 +582,8 @@ function renderCricketStrip(scoreData) {
   section.style.display = "block";
 }
 
-// স্ক'ৰ আৰম্ভণি আৰু প্ৰতি ১ মিনিটৰ মূৰে মূৰে আপডেট (60000ms)
 fetchLiveScore();
 setInterval(fetchLiveScore, 60000);
-
 
 /* ===== RADIO & SCHEDULE LOGIC ===== */
 if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
@@ -686,7 +703,6 @@ renderStations();
 setInterval(updateProgramsOnly, 60000);
 </script>
 
-<!-- 2. বাহিৰৰ স্ক্ৰিপ্ট -->
 <script src="https://airappandroid.github.io/allindiaradio/schedule.js" onload="updateProgramsOnly()"></script>
 </body>
 </html>
