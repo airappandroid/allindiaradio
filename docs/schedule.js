@@ -72,7 +72,7 @@ window.SCHEDULE_DATA = [
   { "time": "8:15 AM", "title": "वन्दे मातरम: एक जयघोष (भाग - 44, लेखक: मिलिंद सबनीस)", "channel": "Vividh Bharati" },
   { "time": "8:30 AM", "title": "चित्रलोक (Hit Film Songs: 2011 - Till Date)", "channel": "Vividh Bharati" },
   { "time": "9:30 AM", "title": "आज के फ़नकार (अभिनेता: ऋषि कपूर - आलेख एवं स्वर: यूनुस खान)", "channel": "Vividh Bharati" },
-  { "time": "10:00 AM", "title": "पिटारा : हैलो फर्माइश (সংবাদক: মমতা সিং)", "channel": "Vividh Bharati" },
+  { "time": "10:00 AM", "title": "पिटारा : हैलो फर्माइश (संवादक - ममता सिंहং)", "channel": "Vividh Bharati" },
   { "time": "11:00 AM", "title": "रंग तरंग (Film, Ghazal, Qawwali, Pop & Folk Songs)", "channel": "Vividh Bharati" },
   { "time": "12:00 PM", "title": "हिंदी समाचार (Relay Delhi)", "channel": "Vividh Bharati" },
   { "time": "12:05 PM", "title": "यादों की महफ़िल (Classic Film Songs)", "channel": "Vividh Bharati" },
