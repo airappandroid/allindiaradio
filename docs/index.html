@@ -246,7 +246,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-/* Rounded Glow Containers for Icons */
 .icon-box {
   width: 42px;
   height: 42px;
@@ -263,7 +262,6 @@ body {
   height: 20px;
 }
 
-/* Individual Neon Gradients */
 .qb-air .icon-box {
   background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.06));
   border: 1px solid rgba(56, 189, 248, 0.3);
@@ -368,7 +366,6 @@ body {
   word-break: break-word;
 }
 
-/* TOUCH TARGET OPTIMIZED PLAY BUTTON */
 .play {
   width: 44px;
   height: 44px;
@@ -394,7 +391,7 @@ body {
   transform: scale(0.92);
 }
 
-/* ===== POPULAR STATES (OUTLINE CHIPS GRID) ===== */
+/* ===== POPULAR STATES ===== */
 .state-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -447,7 +444,6 @@ body {
 <!-- MODERN QUICK BUTTONS -->
 <div class="quick-buttons">
 
-  <!-- AIR RADIO -->
   <a href="go:A2" class="qb-air">
     <div class="qbtn">
       <div class="icon-box">
@@ -459,7 +455,6 @@ body {
     </div>
   </a>
 
-  <!-- FM RADIO -->
   <a href="go:FM2" class="qb-fm">
     <div class="qbtn">
       <div class="icon-box">
@@ -471,7 +466,6 @@ body {
     </div>
   </a>
 
-  <!-- LIVE NEWS -->
   <a href="go:LIVEN" class="qb-news">
     <div class="qbtn">
       <div class="icon-box">
@@ -511,7 +505,7 @@ body {
 
 <script>
 /* ===== LIVE CRICKET SCORE LOGIC ===== */
-const matchId = "98315";
+const matchId = "98317";
 
 async function fetchLiveScore() {
   const cloudflareProxyUrl = `https://cricvoice.aminurmarch.workers.dev/?matchId=${matchId}&_t=${Date.now()}`;
@@ -528,21 +522,68 @@ async function fetchLiveScore() {
   }
 }
 
+function extractMatchNote(scoreData) {
+  if (scoreData.result && scoreData.result.trim() !== "") {
+    return scoreData.result;
+  }
+  if (scoreData.status_note && scoreData.status_note.trim() !== "") {
+    return scoreData.status_note;
+  }
+
+  const isScheduled = scoreData.status === 1 || (scoreData.status_str && scoreData.status_str.toLowerCase().includes("sched"));
+  
+  if (isScheduled && scoreData.date_start_ist) {
+    try {
+      const parts = scoreData.date_start_ist.split(" ");
+      if (parts[1]) {
+        const timeSegments = parts[1].split(":");
+        let hour = parseInt(timeSegments[0], 10);
+        let min = parseInt(timeSegments[1], 10);
+
+        const ampm = hour >= 12 ? "PM" : "AM";
+        const hour12 = hour % 12 || 12;
+        const formattedMin = min < 10 ? "0" + min : min;
+        const timeFormatted = `${hour12}:${formattedMin} ${ampm} IST`;
+
+        if (hour >= 17) {
+          return `Match starts tonight at ${timeFormatted}`;
+        } else {
+          return `Match starts today at ${timeFormatted}`;
+        }
+      }
+    } catch (e) {
+      console.error("Time Parsing Error:", e);
+    }
+  }
+
+  if (isScheduled) {
+    return "Match starts tonight at 8:00 PM IST";
+  }
+
+  return scoreData.subtitle || "";
+}
+
 function renderCricketStrip(scoreData) {
   if (!scoreData) return;
 
   const section = document.getElementById("cricketSection");
   const card = document.getElementById("cricketCard");
 
-  const tournament = scoreData.competition ? (scoreData.competition.abbr || scoreData.competition.title) : "Cricket";
+  const tournament = scoreData.competition ? (scoreData.competition.abbr || scoreData.competition.title) : "Women's Asia Cup";
   const teamA = scoreData.teama || {};
   const teamB = scoreData.teamb || {};
   
+  // Team A আৰু Team B ৰ ঠাইত প্ৰকৃত নাম আৰু ল'গ'
+  const teamAName = teamA.short_name || teamA.name || "IND-W";
+  const teamBName = teamB.short_name || teamB.name || "PAK-W";
+  const teamALogo = teamA.logo_url || "https://gcdnimages.entitysport.com/assets/uploads/2025/09/IND-w.webp";
+  const teamBLogo = teamB.logo_url || "https://gcdnimages.entitysport.com/assets/uploads/2025/09/Pakistan.webp";
+
   const teamAScore = teamA.scores_full || teamA.scores || "";
   const teamBScore = teamB.scores_full || teamB.scores || "";
   
   let statusText = scoreData.status_str || "Scheduled";
-  let noteText = scoreData.status_note || scoreData.result || scoreData.subtitle || "";
+  let noteText = extractMatchNote(scoreData);
 
   card.innerHTML = `
     <div class="cs-meta">
@@ -555,9 +596,9 @@ function renderCricketStrip(scoreData) {
 
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="${teamA.logo_url || ''}" alt="${teamA.short_name || 'Team A'}" onerror="this.style.opacity='0'">
+        <img class="cs-flag" src="${teamALogo}" alt="${teamAName}" onerror="this.style.opacity='0'">
         <div class="cs-team-info">
-          <span class="cs-team-name">${teamA.short_name || teamA.name || 'Team A'}</span>
+          <span class="cs-team-name">${teamAName}</span>
           ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
         </div>
       </div>
@@ -565,9 +606,9 @@ function renderCricketStrip(scoreData) {
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${teamB.logo_url || ''}" alt="${teamB.short_name || 'Team B'}" onerror="this.style.opacity='0'">
+        <img class="cs-flag" src="${teamBLogo}" alt="${teamBName}" onerror="this.style.opacity='0'">
         <div class="cs-team-info">
-          <span class="cs-team-name">${teamB.short_name || teamB.name || 'Team B'}</span>
+          <span class="cs-team-name">${teamBName}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
         </div>
       </div>
