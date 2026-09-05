@@ -504,86 +504,94 @@ body {
 </div>
 
 <script>
-/* ===== LIVE CRICKET SCORE LOGIC ===== */
-const matchId = "98317";
+/* ===== LIVE CRICKET SCORE FETCH & AUTO UPDATE (CRICRADIO API) ===== */
+const matchId = "6a7521ed78dcf065703188c1";
+const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
+
+// দল অনুসৰি নিৰ্দিষ্ট Cricbuzz ল'গ' নিৰ্ধাৰণ
+function getTeamLogo(team) {
+  if (!team) return "";
+  const name = (team.shortName || team.name || "").toLowerCase();
+
+  if (name.includes("pak")) {
+    return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776311/pakistan-women.jpg";
+  }
+  if (name.includes("ind")) {
+    return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg";
+  }
+
+  if (team.logo) {
+    if (team.logo.startsWith("http")) return team.logo;
+    return `https://api.cricradio.com.au${team.logo.startsWith("/") ? "" : "/"}${team.logo}`;
+  }
+  return "";
+}
+
+// দলৰ স্ক'ৰ ফৰ্মেট কৰা ফাংশন
+function getFormattedScore(teamData, teamKey) {
+  if (!teamData) return "";
+  const s1 = teamData[`${teamKey}_1_score`];
+  const s2 = teamData[`${teamKey}_2_score`];
+  let scoreStr = "";
+
+  if (s1 && typeof s1.runs !== "undefined") {
+    scoreStr = `${s1.runs}/${s1.wickets ?? 0} (${s1.overs ?? "0.0"})`;
+  }
+  if (s2 && typeof s2.runs !== "undefined") {
+    scoreStr += (scoreStr ? " & " : "") + `${s2.runs}/${s2.wickets ?? 0} (${s2.overs ?? "0.0"})`;
+  }
+  return scoreStr;
+}
+
+// মেচৰ বৰ্ণনা উলিয়াই "MATCH STARTS AT..." লাইনটো ফিল্টাৰ কৰা
+function extractMatchNote(result) {
+  let note = "";
+  if (result.lastCommentary && result.lastCommentary.secondaryText) {
+    note = result.lastCommentary.secondaryText;
+  } else if (result.announcement1 && result.announcement1.trim() !== "") {
+    note = result.announcement1.trim();
+  } else {
+    note = result.status ? result.status.toUpperCase() : "";
+  }
+
+  const cleaned = note
+    .split(/\r?\n/)
+    .filter(line => !line.toLowerCase().includes("match starts at"))
+    .join(" • ")
+    .trim();
+
+  return cleaned;
+}
 
 async function fetchLiveScore() {
-  const cloudflareProxyUrl = `https://cricvoice.aminurmarch.workers.dev/?matchId=${matchId}&_t=${Date.now()}`;
   try {
-    const response = await fetch(cloudflareProxyUrl);
+    const response = await fetch(`${cricketApiUrl}&_t=${Date.now()}`);
     if (!response.ok) return;
 
     const data = await response.json();
-    if (data && data.data && data.data.length > 0) {
-      renderCricketStrip(data.data[0].livescore);
+    if (data && data.responseData && data.responseData.result) {
+      renderCricketStrip(data.responseData.result);
     }
   } catch (error) {
     console.error("Live Cricket Score Error:", error);
   }
 }
 
-function extractMatchNote(scoreData) {
-  if (scoreData.result && scoreData.result.trim() !== "") {
-    return scoreData.result;
-  }
-  if (scoreData.status_note && scoreData.status_note.trim() !== "") {
-    return scoreData.status_note;
-  }
-
-  const isScheduled = scoreData.status === 1 || (scoreData.status_str && scoreData.status_str.toLowerCase().includes("sched"));
-  
-  if (isScheduled && scoreData.date_start_ist) {
-    try {
-      const parts = scoreData.date_start_ist.split(" ");
-      if (parts[1]) {
-        const timeSegments = parts[1].split(":");
-        let hour = parseInt(timeSegments[0], 10);
-        let min = parseInt(timeSegments[1], 10);
-
-        const ampm = hour >= 12 ? "PM" : "AM";
-        const hour12 = hour % 12 || 12;
-        const formattedMin = min < 10 ? "0" + min : min;
-        const timeFormatted = `${hour12}:${formattedMin} ${ampm} IST`;
-
-        if (hour >= 17) {
-          return `Match starts tonight at ${timeFormatted}`;
-        } else {
-          return `Match starts today at ${timeFormatted}`;
-        }
-      }
-    } catch (e) {
-      console.error("Time Parsing Error:", e);
-    }
-  }
-
-  if (isScheduled) {
-    return "Match starts tonight at 8:00 PM IST";
-  }
-
-  return scoreData.subtitle || "";
-}
-
-function renderCricketStrip(scoreData) {
-  if (!scoreData) return;
+function renderCricketStrip(matchData) {
+  if (!matchData) return;
 
   const section = document.getElementById("cricketSection");
   const card = document.getElementById("cricketCard");
 
-  const tournament = scoreData.competition ? (scoreData.competition.abbr || scoreData.competition.title) : "Women's Asia Cup";
-  const teamA = scoreData.teama || {};
-  const teamB = scoreData.teamb || {};
-  
-  // Team A আৰু Team B ৰ ঠাইত প্ৰকৃত নাম আৰু ল'গ'
-  const teamAName = teamA.short_name || teamA.name || "IND-W";
-  const teamBName = teamB.short_name || teamB.name || "PAK-W";
-  const teamALogo = teamA.logo_url || "https://gcdnimages.entitysport.com/assets/uploads/2025/09/IND-w.webp";
-  const teamBLogo = teamB.logo_url || "https://gcdnimages.entitysport.com/assets/uploads/2025/09/Pakistan.webp";
+  const tournament = (matchData.format || "Cricket").toUpperCase();
+  const teamA = matchData.teams ? matchData.teams.a : {};
+  const teamB = matchData.teams ? matchData.teams.b : {};
 
-  const teamAScore = teamA.scores_full || teamA.scores || "";
-  const teamBScore = teamB.scores_full || teamB.scores || "";
-  
-  let statusText = scoreData.status_str || "Scheduled";
-  let noteText = extractMatchNote(scoreData);
+  const teamAScore = getFormattedScore(teamA, "a");
+  const teamBScore = getFormattedScore(teamB, "b");
+
+  const statusText = matchData.status ? matchData.status.toUpperCase() : "LIVE";
+  const noteText = extractMatchNote(matchData);
 
   card.innerHTML = `
     <div class="cs-meta">
@@ -596,9 +604,9 @@ function renderCricketStrip(scoreData) {
 
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="${teamALogo}" alt="${teamAName}" onerror="this.style.opacity='0'">
+        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${teamA.shortName || 'Team A'}" onerror="this.style.opacity='0'">
         <div class="cs-team-info">
-          <span class="cs-team-name">${teamAName}</span>
+          <span class="cs-team-name">${teamA.shortName || teamA.name || 'Team A'}</span>
           ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
         </div>
       </div>
@@ -606,9 +614,9 @@ function renderCricketStrip(scoreData) {
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${teamBLogo}" alt="${teamBName}" onerror="this.style.opacity='0'">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${teamB.shortName || 'Team B'}" onerror="this.style.opacity='0'">
         <div class="cs-team-info">
-          <span class="cs-team-name">${teamBName}</span>
+          <span class="cs-team-name">${teamB.shortName || teamB.name || 'Team B'}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
         </div>
       </div>
@@ -624,7 +632,7 @@ function renderCricketStrip(scoreData) {
 }
 
 fetchLiveScore();
-setInterval(fetchLiveScore, 60000);
+setInterval(fetchLiveScore, 30000);
 
 /* ===== RADIO & SCHEDULE LOGIC ===== */
 if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
