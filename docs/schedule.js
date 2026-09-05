@@ -240,7 +240,7 @@ window.SCHEDULE_DATA = [
   { "time": "11:05 AM", "title": "NEWS IN ENGLISH (Live from Studio 4)", "channel": "Indraprastha" },
   { "time": "11:10 AM", "title": "सबरस - ग़ज़ल एवं सुगम संगीत (Jagjit Singh, Runa Laila, Gurdas Maan & Bharti Singh)", "channel": "Indraprastha" },
   { "time": "11:25 AM", "title": "LIVE BROADCAST - National Awards to Teachers Ceremony from Vigyan Bhawan (Graced by Hon'ble President Smt. Droupadi Murmu)", "channel": "Indraprastha" },
-  { "time": "12:10 PM", "title": "महिला कार्यक्रम: घर आंगन - विशेष महिला परिचर्चा एवं प्रस्तुति", "channel": "Indraprastha" },
+  { "time": "12:10 PM", "title": "LIVE BROADCAST - National Awards to Teachers Ceremony from Vigyan Bhawan (Graced by Hon'ble President Smt. Droupadi Murmu)", "channel": "Indraprastha" },
   { "time": "1:00 PM", "title": "NEWS IN HINDI (Live from Studio 6)", "channel": "Indraprastha" },
   { "time": "1:05 PM", "title": "NEWS IN ENGLISH (Live from Studio 4)", "channel": "Indraprastha" },
   { "time": "1:10 PM", "title": "एक ही फिल्म से - फिल्म: 'अब्दुल्लाह' (Songs from Bollywood Movie 'Abdullah')", "channel": "Indraprastha" },
