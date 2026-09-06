@@ -14,8 +14,8 @@
       --text-sub: #8a99ad;
       --accent-cyan: #00a2ec;
       --accent-green: #22c55e;
-      --star-inactive: #94a3b8;
-      --star-active: #f59e0b;
+      --fav-inactive: #ffffff;
+      --fav-active: #ef4444;
       --radius: 16px;
     }
 
@@ -118,12 +118,17 @@
       border-radius: 14px;
       cursor: pointer;
       white-space: nowrap;
+      transition: all 0.2s ease;
     }
 
     .fav-toggle-btn.active {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: rgba(245, 158, 11, 0.4);
-      color: var(--star-active);
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: var(--fav-active);
+    }
+
+    .fav-toggle-btn.active svg {
+      fill: var(--fav-active);
     }
 
     .meta-bar {
@@ -206,31 +211,49 @@
       z-index: 2;
     }
 
+    /* High Visibility Heart Favorite Button */
     .fav-btn-badge {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      width: 24px;
-      height: 24px;
+      top: 6px;
+      right: 6px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: rgba(9, 13, 22, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 2;
+      z-index: 5;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .fav-btn-badge:active {
+      transform: scale(0.85);
     }
 
     .fav-btn-badge svg {
-      width: 13px;
-      height: 13px;
-      fill: var(--star-inactive);
-      transition: fill 0.2s;
+      width: 15px;
+      height: 15px;
+      fill: var(--fav-inactive);
+      opacity: 0.85;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+      transition: fill 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .fav-btn-badge.active {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: rgba(239, 68, 68, 0.6);
     }
 
     .fav-btn-badge.active svg {
-      fill: var(--star-active);
+      fill: var(--fav-active);
+      opacity: 1;
+      filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.8));
     }
 
     .station-name-grid {
@@ -454,8 +477,11 @@
         <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
       </button>
 
+      <!-- Updated Favorites Filter Button with Heart -->
       <button id="favFilterBtn" class="fav-toggle-btn" onclick="toggleFavFilter()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
         Favorites
       </button>
     </div>
@@ -891,7 +917,7 @@
               ${logoContent}
               <span class="status-dot-badge"></span>
               <button class="fav-btn-badge ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${station.id}')" aria-label="Favorite">
-                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
               </button>
             </div>
             
