@@ -1,686 +1,946 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>All India Radio Stations</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #131927;
+      --card-border: #1e2638;
+      --card-active: #1a2336;
+      --text-main: #ffffff;
+      --text-sub: #8a99ad;
+      --accent-cyan: #00a2ec;
+      --accent-green: #22c55e;
+      --star-inactive: #94a3b8;
+      --star-active: #f59e0b;
+      --radius: 16px;
+    }
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIR Radio</title>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
 
-<style>
-:root {
-  --bg-main: #0c0e14;
-  --card-bg: #161922;
-  --card-border: #232733;
-  --accent-cyan: #00e5ff;
-  --accent-blue: #0091ea;
-  --accent-gradient: linear-gradient(135deg, #00e5ff, #0091ea);
-  --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --live-green: #10b981;
-}
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      padding: 12px;
+      padding-bottom: 60px;
+    }
 
-*{
-  -webkit-tap-highlight-color: transparent;
-  box-sizing: border-box;
-}
+    /* Sticky Header */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      background: rgba(9, 13, 22, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding-bottom: 12px;
+      z-index: 100;
+    }
 
-a{
-  text-decoration: none;
-  color: inherit;
-}
-a:active, a:focus{ outline: none; }
+    .search-box-wrapper {
+      position: relative;
+      margin-bottom: 10px;
+    }
 
-html {
-  touch-action: manipulation;
-}
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      fill: var(--text-sub);
+      pointer-events: none;
+    }
 
-/* ===== ZERO-LAG BASE THEME ===== */
-body{
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg-main);
-  color: var(--text-primary);
-  min-height: 100vh;
-}
+    .search-box {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      font-size: 14.5px;
+      color: var(--text-main);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      outline: none;
+    }
 
-/* ===== TOP MOBILE AD (320x100) ===== */
-.top-ad{
-  width: 100%;
-  padding: 12px 14px 4px;
-  display: flex;
-  justify-content: center;
-}
+    .search-box::placeholder {
+      color: #64748b;
+    }
 
-.top-ad img{
-  width: 100%;
-  max-width: 350px;
-  height: auto;
-  border-radius: 14px;
-  display: block;
-  border: 1px solid var(--card-border);
-}
+    .search-box:focus {
+      border-color: var(--accent-cyan);
+    }
 
-/* ===== LIVE CRICKET SCORE STRIP ===== */
-.cricket-strip-container {
-  padding: 8px 16px 4px;
-}
+    .filter-row {
+      display: flex;
+      gap: 10px;
+    }
 
-.cricket-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 10px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
+    .state-picker-btn {
+      flex: 1;
+      padding: 11px 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
 
-.cricket-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent-gradient);
-}
+    .state-picker-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--text-sub);
+    }
 
-.cs-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-}
+    .fav-toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 11px 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-sub);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
 
-.cs-tour {
-  color: var(--accent-cyan);
-  max-width: 70%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    .fav-toggle-btn.active {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: var(--star-active);
+    }
 
-.cs-status-tag {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--live-green);
-  text-transform: uppercase;
-}
+    .meta-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 4px 12px 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
 
-.cs-match-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    /* 3-Column Grid */
+    .station-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
 
-.cs-team {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-}
+    /* Card Box */
+    .station-card-grid {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      content-visibility: auto;
+      contain-intrinsic-size: 0 170px;
+      transition: transform 0.15s ease, background-color 0.15s;
+    }
 
-.cs-team.right {
-  flex-direction: row-reverse;
-  text-align: right;
-}
+    .station-card-grid:active {
+      transform: scale(0.96);
+      background-color: var(--card-active);
+    }
 
-.cs-flag {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #232733;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
+    /* Artwork Container */
+    .station-img-wrap {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0a0f1d;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.cs-team-info {
-  display: flex;
-  flex-direction: column;
-}
+    .station-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-.cs-team-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-primary);
-}
+    .station-fallback-svg {
+      width: 34px;
+      height: 34px;
+      fill: #38bdf8;
+      opacity: 0.85;
+    }
 
-.cs-team-score {
-  font-size: 12px;
-  font-weight: 600;
-  color: #cbd5e1;
-}
+    /* Floating Badges */
+    .status-dot-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--accent-green);
+      box-shadow: 0 0 6px var(--accent-green);
+      z-index: 2;
+    }
 
-.cs-vs {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--text-muted);
-  padding: 0 10px;
-}
+    .fav-btn-badge {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(9, 13, 22, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+    }
 
-.cs-note {
-  font-size: 11.5px;
-  color: var(--text-secondary);
-  text-align: center;
-  line-height: 1.3;
-  background: rgba(255, 255, 255, 0.02);
-  padding: 4px 8px;
-  border-radius: 8px;
-}
+    .fav-btn-badge svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--star-inactive);
+      transition: fill 0.2s;
+    }
 
-/* ===== LAYOUT ===== */
-.container{
-  padding: 10px 16px 24px;
-}
+    .fav-btn-badge.active svg {
+      fill: var(--star-active);
+    }
 
-.section-title{
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: .4px;
-  text-transform: uppercase;
-  margin: 22px 0 12px;
-  color: #e2e8f0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    .station-name-grid {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.3;
+      height: 30px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      margin-bottom: 8px;
+      word-break: break-word;
+      text-align: center;
+      width: 100%;
+      padding: 0 2px;
+    }
 
-/* ===== QUICK NAVIGATION ===== */
-.quick-buttons{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
-}
+    .play-circle-grid {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 162, 236, 0.35);
+      margin-top: auto;
+    }
 
-.qbtn{
-  padding: 12px 4px;
-  border-radius: 14px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  text-align: center;
-  font-size: 12px;
-  font-weight: 700;
-  color: #cbd5e1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  cursor: pointer;
-  transition: transform .1s ease, background .15s ease;
-}
+    .play-circle-grid svg {
+      width: 13px;
+      height: 13px;
+      fill: #ffffff;
+      margin-left: 2px;
+    }
 
-.qbtn:active{
-  transform: scale(0.95);
-  background: #1f2330;
-}
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-sub);
+    }
 
-.icon svg{
-  width: 22px;
-  height: 22px;
-  fill: var(--accent-cyan);
-}
+    /* Modal Bottom Sheet */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      justify-content: flex-end;
+      flex-direction: column;
+    }
 
-/* ===== POPULAR STATIONS ===== */
-#stations{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+    .modal-overlay.active {
+      display: flex;
+    }
 
-.station{
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  position: relative;
-}
+    .modal-sheet {
+      background: #111726;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      border: 1px solid var(--card-border);
+      border-bottom: none;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-.station-logo {
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  object-fit: cover;
-  background: #10121a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  margin-right: 12px;
-  flex-shrink: 0;
-}
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
 
-.station-info{
-  flex: 1;
-  min-width: 0;
-  padding-right: 10px;
-}
+    .modal-handle {
+      width: 40px;
+      height: 4px;
+      background: #334155;
+      border-radius: 4px;
+      margin: 12px auto 6px auto;
+    }
 
-.station-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 3px;
-}
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 18px;
+    }
 
-.station-name{
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: .2px;
-}
+    .modal-header-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-.program-row{
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+    }
 
-.program{
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-secondary);
-  line-height: 1.35;
-  word-break: break-word;
-}
+    .modal-banner {
+      text-align: center;
+      padding: 10px 20px 14px 20px;
+    }
 
-.live-dot-wrapper {
-  margin-top: 5px;
-  flex-shrink: 0;
-  width: 8px;
-  height: 8px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .modal-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
 
-.live-dot{
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--live-green);
-  z-index: 1;
-}
+    .modal-subtitle {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
 
-.live-dot-wrapper::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: var(--live-green);
-  animation: live-pulse 1.6s infinite ease-out;
-}
+    .modal-search-wrapper {
+      padding: 0 16px 12px 16px;
+      position: relative;
+    }
 
-@keyframes live-pulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(2.4); opacity: 0; }
-}
+    .modal-search-input {
+      width: 100%;
+      padding: 11px 16px 11px 40px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+    }
 
-.play{
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--accent-gradient);
-  flex-shrink: 0;
-  transition: transform .1s ease;
-}
+    .modal-search-input:focus {
+      border-color: var(--accent-cyan);
+    }
 
-.play svg {
-  width: 14px;
-  height: 14px;
-  fill: #060e18;
-  margin-left: 2px;
-}
+    .modal-search-icon {
+      position: absolute;
+      left: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      fill: var(--text-sub);
+    }
 
-.play:active{
-  transform: scale(0.9);
-}
+    .state-list-scroll {
+      overflow-y: auto;
+      padding: 0 16px 30px 16px;
+      display: flex;
+      flex-direction: column;
+      -webkit-overflow-scrolling: touch;
+    }
 
-/* ===== POPULAR STATES ===== */
-.states-container{
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 14px;
-  border: 1px solid var(--card-border);
-}
+    .state-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
 
-.state-grid{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-bottom: 12px;
-}
+    .state-item:active {
+      background: rgba(255, 255, 255, 0.05);
+    }
 
-.state-item{
-  background: #11131a;
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  padding: 10px 12px;
-  text-align: left;
-  font-size: 13px;
-  font-weight: 600;
-  color: #e2e8f0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: transform .1s ease, background .15s ease;
-}
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.state-item::after {
-  content: "›";
-  font-size: 16px;
-  color: var(--text-muted);
-}
+    .state-item.selected .radio-circle {
+      border-color: var(--accent-cyan);
+    }
 
-.state-item:active{
-  transform: scale(0.97);
-  background: #1a1e29;
-}
-
-.view-all-states{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--accent-cyan);
-  padding: 4px 0;
-}
-</style>
+    .state-item.selected .radio-circle::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- TOP AD -->
-<a href="go:S401">
-  <div class="top-ad">
-    <img src="https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/file_0000000021e08211b4960dad0c90dbff.jpg" alt="AIR Banner">
-  </div>
-</a>
-
-<!-- LIVE CRICKET SCORE STRIP -->
-<div class="cricket-strip-container" id="cricketSection" style="display: none;">
-  <div class="cricket-card" id="cricketCard">
-    <!-- JS ৰ জৰিয়তে তথ্য যোগ হ'ব -->
-  </div>
-</div>
-
-<div class="container">
-
-  <div class="quick-buttons">
-    <a href="go:S201">
-      <div class="qbtn">
-        <div class="icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8H3zm16 8H5v-6h14v6zM7 4l10 4H7V4zm2 9h3v3H9v-3zm7 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
-          </svg>
-        </div>
-        <div>AIR Radio</div>
-      </div>
-    </a>
-
-    <a href="go:S202">
-      <div class="qbtn">
-        <div class="icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/>
-          </svg>
-        </div>
-        <div>FM Radio</div>
-      </div>
-    </a>
-
-    <a href="go:S501">
-      <div class="qbtn">
-        <div class="icon">
-          <svg viewBox="0 0 24 24">
-            <path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/>
-          </svg>
-        </div>
-        <div>Live News</div>
-      </div>
-    </a>
-  </div>
-
-  <div id="homeContent">
-    <div class="section-title">🔥 Popular Stations</div>
-    <div id="stations"></div>
-
-    <div class="section-title">📍 Popular States</div>
-    <div class="states-container">
-      <div class="state-grid">
-        <a href="go:DELHI" class="state-item">Delhi</a>
-        <a href="go:UP" class="state-item">Uttar Pradesh</a>
-        <a href="go:MH" class="state-item">Maharashtra</a>
-        <a href="go:BIHAR" class="state-item">Bihar</a>
-        <a href="go:WB" class="state-item">West Bengal</a>
-        <a href="go:TN" class="state-item">Tamil Nadu</a>
-      </div>
-      <a href="go:S201" class="view-all-states">View All States &nbsp;→</a>
+  <div class="sticky-header">
+    <div class="search-box-wrapper">
+      <svg class="search-icon" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707a1 1 0 001.414-1.414l-4.707-4.707A8 8 0 0010 2zm-6 8a6 6 0 1112 0 6 6 0 01-12 0z"/></svg>
+      <input type="text" id="searchInput" class="search-box" placeholder="Search station..." oninput="handleSearchDebounce()">
     </div>
-  </div>
-
-</div>
-
-<script id="schedule-script" src="https://airappandroid.github.io/allindiaradio/schedule.js"></script>
-
-<script>
-/* ===== LIVE CRICKET SCORE FETCH & AUTO UPDATE ===== */
-const CRICKET_API_URL = "https://dev-styxsportsapigateway.azurewebsites.net/score/api/livescorebymatchid/98316";
-
-async function fetchLiveCricketScore() {
-  try {
-    const response = await fetch(CRICKET_API_URL);
-    if (!response.ok) return;
     
-    const data = await response.json();
-    if (data && data.data && data.data.length > 0) {
-      renderCricketStrip(data.data[0].livescore);
-    }
-  } catch (error) {
-    console.error("Live Cricket Score Error:", error);
-  }
-}
+    <div class="filter-row">
+      <button class="state-picker-btn" onclick="openStateModal()">
+        <span id="selectedStateLabel">All States</span>
+        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+      </button>
 
-function renderCricketStrip(scoreData) {
-  if (!scoreData) return;
-
-  const section = document.getElementById("cricketSection");
-  const card = document.getElementById("cricketCard");
-
-  const tournament = scoreData.competition ? (scoreData.competition.abbr || scoreData.competition.title) : "Cricket";
-  const teamA = scoreData.teama || {};
-  const teamB = scoreData.teamb || {};
-  
-  const teamAScore = teamA.scores_full || teamA.scores || "";
-  const teamBScore = teamB.scores_full || teamB.scores || "";
-  
-  let statusText = scoreData.status_str || "Scheduled";
-  let noteText = scoreData.status_note || scoreData.subtitle || "";
-
-  card.innerHTML = `
-    <div class="cs-meta">
-      <span class="cs-tour">${tournament}</span>
-      <span class="cs-status-tag">
-        <span class="live-dot" style="width: 6px; height: 6px;"></span>
-        ${statusText}
-      </span>
+      <button id="favFilterBtn" class="fav-toggle-btn" onclick="toggleFavFilter()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        Favorites
+      </button>
     </div>
+  </div>
 
-    <div class="cs-match-row">
-      <div class="cs-team">
-        <img class="cs-flag" src="${teamA.logo_url || ''}" alt="${teamA.short_name || 'Team A'}" onerror="this.style.opacity='0'">
-        <div class="cs-team-info">
-          <span class="cs-team-name">${teamA.short_name || teamA.name || 'Team A'}</span>
-          ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
-        </div>
+  <div class="meta-bar">
+    <span id="stationCountText">Showing stations</span>
+  </div>
+
+  <!-- 3 Cards Per Row Grid -->
+  <div id="stationContainer" class="station-grid"></div>
+  
+  <div id="emptyMessage" class="empty-state" style="display: none;">
+    <p style="font-size: 15px; font-weight: 600; margin-bottom: 4px; color: #fff;">No Stations Found</p>
+    <p style="font-size: 13px;">Try selecting another state or keyword.</p>
+  </div>
+
+  <!-- Bottom Sheet State Selection Modal -->
+  <div id="stateModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
+    <div class="modal-sheet">
+      <div class="modal-handle"></div>
+      <div class="modal-header">
+        <span class="modal-header-tag">All Radios</span>
+        <button class="modal-close-btn" onclick="closeStateModal()">&times;</button>
       </div>
 
-      <div class="cs-vs">VS</div>
-
-      <div class="cs-team right">
-        <img class="cs-flag" src="${teamB.logo_url || ''}" alt="${teamB.short_name || 'Team B'}" onerror="this.style.opacity='0'">
-        <div class="cs-team-info">
-          <span class="cs-team-name">${teamB.short_name || teamB.name || 'Team B'}</span>
-          ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
-        </div>
+      <div class="modal-banner">
+        <h2 class="modal-title">Welcome! Pick your region</h2>
+        <p class="modal-subtitle">Pick your state to hear your local stations</p>
       </div>
+
+      <div class="modal-search-wrapper">
+        <svg class="modal-search-icon" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707a1 1 0 001.414-1.414l-4.707-4.707A8 8 0 0010 2zm-6 8a6 6 0 1112 0 6 6 0 01-12 0z"/></svg>
+        <input type="text" id="modalStateSearch" class="modal-search-input" placeholder="Search state..." oninput="filterModalStates()">
+      </div>
+
+      <div id="modalStateList" class="state-list-scroll"></div>
     </div>
+  </div>
 
-    ${noteText ? `<div class="cs-note">${noteText}</div>` : ''}
-  `;
+  <script>
+    const stations = [
+      { id: "s1", name: "Live News 24x7", state: "National", logo: "https://ik.imagekit.io/sqt8ptw1k/airnews.jpg" },
+      { id: "s2", name: "Vividh Bharati", state: "National", logo: "https://ik.imagekit.io/sqt8ptw1k/images.jpg" },
+      { id: "s3", name: "Raagam", state: "National", logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(1).jpg" },
+      { id: "s4", name: "Akashvani Sri Vijaya Puram", state: "Andaman and Nicobar Islands", logo: "" },
+      { id: "s5", name: "Akashvani Anantapur", state: "Andhra Pradesh", logo: "" },
+      { id: "s6", name: "Akashvani Kadapa", state: "Andhra Pradesh", logo: "" },
+      { id: "s7", name: "Akashvani Kurnool", state: "Andhra Pradesh", logo: "" },
+      { id: "s8", name: "Akashvani Markapur", state: "Andhra Pradesh", logo: "" },
+      { id: "s9", name: "FM Simahapuri Nellore", state: "Andhra Pradesh", logo: "" },
+      { id: "s10", name: "Akashvani Tirupati", state: "Andhra Pradesh", logo: "" },
+      { id: "s11", name: "Akashvani Andhra Pradesh", state: "Andhra Pradesh", logo: "" },
+      { id: "s12", name: "FM Rainbow Vijayawada", state: "Andhra Pradesh", logo: "" },
+      { id: "s13", name: "VB Telugu Vijayawada", state: "Andhra Pradesh", logo: "" },
+      { id: "s14", name: "Akashvani Visakhapatnam", state: "Andhra Pradesh", logo: "" },
+      { id: "s15", name: "FM Rainbow Visakhapatnam", state: "Andhra Pradesh", logo: "" },
+      { id: "s16", name: "Akashvani Itanagar", state: "Arunachal Pradesh", logo: "" },
+      { id: "s17", name: "FM Arun Itanagar", state: "Arunachal Pradesh", logo: "" },
+      { id: "s18", name: "Akashvani Pasighat", state: "Arunachal Pradesh", logo: "" },
+      { id: "s19", name: "Akashvani Tawang", state: "Arunachal Pradesh", logo: "" },
+      { id: "s20", name: "Akashvani Tezu", state: "Arunachal Pradesh", logo: "" },
+      { id: "s21", name: "Akashvani Dibrugarh", state: "Assam", logo: "" },
+      { id: "s22", name: "Akashvani Diphu", state: "Assam", logo: "" },
+      { id: "s23", name: "Akashvani Guwahati Mahabahu", state: "Assam", logo: "" },
+      { id: "s24", name: "Akashvani Guwahati Pragjyotishpur", state: "Assam", logo: "" },
+      { id: "s25", name: "Akashvani Haflong", state: "Assam", logo: "" },
+      { id: "s26", name: "Akashvani Jorhat", state: "Assam", logo: "" },
+      { id: "s27", name: "Akashvani Kokrajhar", state: "Assam", logo: "" },
+      { id: "s28", name: "Akashvani Nagaon", state: "Assam", logo: "" },
+      { id: "s29", name: "Akashvani Silchar", state: "Assam", logo: "" },
+      { id: "s30", name: "Akashvani Tezpur", state: "Assam", logo: "" },
+      { id: "s31", name: "Akashvani Bhagalpur", state: "Bihar", logo: "" },
+      { id: "s32", name: "Akashvani Darbhanga", state: "Bihar", logo: "" },
+      { id: "s33", name: "Akashvani Patna", state: "Bihar", logo: "" },
+      { id: "s34", name: "FM Rainbow Patna", state: "Bihar", logo: "" },
+      { id: "s35", name: "VBS Patna", state: "Bihar", logo: "" },
+      { id: "s36", name: "Akashvani Purnia Bihar", state: "Bihar", logo: "" },
+      { id: "s37", name: "Akashvani Sasaram", state: "Bihar", logo: "" },
+      { id: "s38", name: "Akashvani Chandigarh", state: "Chandigarh", logo: "" },
+      { id: "s39", name: "Akashvani Ambikapur", state: "Chhattisgarh", logo: "" },
+      { id: "s40", name: "Akashvani Bilaspur", state: "Chhattisgarh", logo: "" },
+      { id: "s41", name: "Akashvani Jagdalpur", state: "Chhattisgarh", logo: "" },
+      { id: "s42", name: "Akashvani Raigarh", state: "Chhattisgarh", logo: "" },
+      { id: "s43", name: "Akashvani Chhattisgarh", state: "Chhattisgarh", logo: "" },
+      { id: "s44", name: "Akashvani FM Raipur", state: "Chhattisgarh", logo: "" },
+      { id: "s45", name: "Akashvani Saraipali", state: "Chhattisgarh", logo: "" },
+      { id: "s46", name: "Akashvani Daman", state: "Daman and Diu", logo: "" },
+      { id: "s47", name: "FM Gold Delhi", state: "Delhi", logo: "" },
+      { id: "s48", name: "FM Rainbow Delhi", state: "Delhi", logo: "" },
+      { id: "s49", name: "Indraprastha", state: "Delhi", logo: "" },
+      { id: "s50", name: "VBS Delhi", state: "Delhi", logo: "" },
+      { id: "s51", name: "Akashvani Aaradhana", state: "Delhi", logo: "" },
+      { id: "s52", name: "Akashvani Mhadei Panaji", state: "Goa", logo: "" },
+      { id: "s53", name: "VBS Panaji", state: "Goa", logo: "" },
+      { id: "s54", name: "FM Rainbow Goa", state: "Goa", logo: "" },
+      { id: "s55", name: "Akashwani Gujarati", state: "Gujarat", logo: "" },
+      { id: "s56", name: "VBS Ahmedabad", state: "Gujarat", logo: "" },
+      { id: "s57", name: "Akashvani Ahwa", state: "Gujarat", logo: "" },
+      { id: "s58", name: "Akashvani Bhuj", state: "Gujarat", logo: "" },
+      { id: "s59", name: "Akashvani Godhra", state: "Gujarat", logo: "" },
+      { id: "s60", name: "Akashvani Himmatnagar", state: "Gujarat", logo: "" },
+      { id: "s61", name: "Akashvani Rajkot", state: "Gujarat", logo: "" },
+      { id: "s62", name: "VBS Rajkot", state: "Gujarat", logo: "" },
+      { id: "s63", name: "Akashvani Surat", state: "Gujarat", logo: "" },
+      { id: "s64", name: "Akashvani Vadodara", state: "Gujarat", logo: "" },
+      { id: "s65", name: "Akashvani Hisar", state: "Haryana", logo: "" },
+      { id: "s66", name: "Akashvani Kurukshetra", state: "Haryana", logo: "" },
+      { id: "s67", name: "Akashvani Rohtak", state: "Haryana", logo: "" },
+      { id: "s68", name: "Akashvani Dharamshala", state: "Himachal Pradesh", logo: "" },
+      { id: "s69", name: "Akashvani Hamirpur FM", state: "Himachal Pradesh", logo: "" },
+      { id: "s70", name: "Akashvani Shimla", state: "Himachal Pradesh", logo: "" },
+      { id: "s71", name: "Akashvani Shimla FM", state: "Himachal Pradesh", logo: "" },
+      { id: "s72", name: "Akashvani Bhaderwah", state: "Jammu and Kashmir", logo: "" },
+      { id: "s73", name: "Akashvani Jammu", state: "Jammu and Kashmir", logo: "" },
+      { id: "s74", name: "Akashvani Kathua", state: "Jammu and Kashmir", logo: "" },
+      { id: "s75", name: "Akashvani Srinagar", state: "Jammu and Kashmir", logo: "" },
+      { id: "s76", name: "Akashvani Chaibasa", state: "Jharkhand", logo: "" },
+      { id: "s77", name: "Akashvani Daltonganj", state: "Jharkhand", logo: "" },
+      { id: "s78", name: "Akashvani Hazaribagh", state: "Jharkhand", logo: "" },
+      { id: "s79", name: "Akashvani Jamshedpur", state: "Jharkhand", logo: "" },
+      { id: "s80", name: "VBS Jamshedpur", state: "Jharkhand", logo: "" },
+      { id: "s81", name: "Akashvani Ranchi", state: "Jharkhand", logo: "" },
+      { id: "s82", name: "FM Rainbow Ranchi", state: "Jharkhand", logo: "" },
+      { id: "s83", name: "VBS Ranchi", state: "Jharkhand", logo: "" },
+      { id: "s84", name: "Akashvani Bellari", state: "Karnataka", logo: "" },
+      { id: "s85", name: "Akashvani Karnataka", state: "Karnataka", logo: "" },
+      { id: "s86", name: "Amrutvarshini", state: "Karnataka", logo: "" },
+      { id: "s87", name: "Rainbow Kannada Kaamanbilu", state: "Karnataka", logo: "" },
+      { id: "s88", name: "VB KANNADA", state: "Karnataka", logo: "" },
+      { id: "s89", name: "Akashvani Bhadravati", state: "Karnataka", logo: "" },
+      { id: "s90", name: "Akashvani Bijapur", state: "Karnataka", logo: "" },
+      { id: "s91", name: "Akashvani Chitradurga", state: "Karnataka", logo: "" },
+      { id: "s92", name: "Akashvani Dharwad", state: "Karnataka", logo: "" },
+      { id: "s93", name: "Akashvani Kalaburgi", state: "Karnataka", logo: "" },
+      { id: "s94", name: "Akashvani Hassan", state: "Karnataka", logo: "" },
+      { id: "s95", name: "Akashvani Hospet", state: "Karnataka", logo: "" },
+      { id: "s96", name: "Akashvani Karwar", state: "Karnataka", logo: "" },
+      { id: "s97", name: "Akashvani Mysuru", state: "Karnataka", logo: "" },
+      { id: "s98", name: "Akashvani Mangalore", state: "Karnataka", logo: "" },
+      { id: "s99", name: "Akashvani Madikeri", state: "Karnataka", logo: "" },
+      { id: "s100", name: "Akashvani Raichur", state: "Karnataka", logo: "" },
+      { id: "s101", name: "Akashvani Devikulam", state: "Kerala", logo: "" },
+      { id: "s102", name: "Akashvani Kannur", state: "Kerala", logo: "" },
+      { id: "s103", name: "FM Rainbow Kochi", state: "Kerala", logo: "" },
+      { id: "s104", name: "Akashvani Kochi", state: "Kerala", logo: "" },
+      { id: "s105", name: "Akashvani Calicut", state: "Kerala", logo: "" },
+      { id: "s106", name: "Akashvani Kozhikode Real FM", state: "Kerala", logo: "" },
+      { id: "s107", name: "Akashvani Manjeri", state: "Kerala", logo: "" },
+      { id: "s108", name: "Akashvani Thrissur", state: "Kerala", logo: "" },
+      { id: "s109", name: "Akashvani Kerala", state: "Kerala", logo: "" },
+      { id: "s110", name: "VB MALAYALAM", state: "Kerala", logo: "" },
+      { id: "s111", name: "Akashvani Kargil", state: "Ladakh", logo: "" },
+      { id: "s112", name: "Akashvani Leh", state: "Ladakh", logo: "" },
+      { id: "s113", name: "Akashvani Kavaratti", state: "Lakshadweep", logo: "" },
+      { id: "s114", name: "Akashvani Balaghat", state: "Madhya Pradesh", logo: "" },
+      { id: "s115", name: "Akashvani Betul", state: "Madhya Pradesh", logo: "" },
+      { id: "s116", name: "Akashvani Bhopal", state: "Madhya Pradesh", logo: "" },
+      { id: "s117", name: "VBS Bhopal", state: "Madhya Pradesh", logo: "" },
+      { id: "s118", name: "Akashvani Chhatarpur", state: "Madhya Pradesh", logo: "" },
+      { id: "s119", name: "Akashvani Chhindwara", state: "Madhya Pradesh", logo: "" },
+      { id: "s120", name: "Akashvani Guna", state: "Madhya Pradesh", logo: "" },
+      { id: "s121", name: "Akashvani Gwalior", state: "Madhya Pradesh", logo: "" },
+      { id: "s122", name: "Akashvani Indore", state: "Madhya Pradesh", logo: "" },
+      { id: "s123", name: "VBS Indore", state: "Madhya Pradesh", logo: "" },
+      { id: "s124", name: "Akashvani Jabalpur", state: "Madhya Pradesh", logo: "" },
+      { id: "s125", name: "Akashvani Jabalpur FM", state: "Madhya Pradesh", logo: "" },
+      { id: "s126", name: "Akashvani Khandwa", state: "Madhya Pradesh", logo: "" },
+      { id: "s127", name: "Akashvani Rewa", state: "Madhya Pradesh", logo: "" },
+      { id: "s128", name: "Akashvani Sagar", state: "Madhya Pradesh", logo: "" },
+      { id: "s129", name: "Akashvani Shahdol", state: "Madhya Pradesh", logo: "" },
+      { id: "s130", name: "Akashvani Shivpuri", state: "Madhya Pradesh", logo: "" },
+      { id: "s131", name: "Akashvani Ahilyanagar", state: "Maharashtra", logo: "" },
+      { id: "s132", name: "Akashvani Akola", state: "Maharashtra", logo: "" },
+      { id: "s133", name: "Akashvani Amravati", state: "Maharashtra", logo: "" },
+      { id: "s134", name: "Akashvani Chhatrapati Sambhaji Nagar", state: "Maharashtra", logo: "" },
+      { id: "s135", name: "Akashvani Beed", state: "Maharashtra", logo: "" },
+      { id: "s136", name: "Akashvani Chandrapur", state: "Maharashtra", logo: "" },
+      { id: "s137", name: "Akashvani Dhule", state: "Maharashtra", logo: "" },
+      { id: "s138", name: "Akashvani Jalgaon", state: "Maharashtra", logo: "" },
+      { id: "s139", name: "Akashvani Kolhapur", state: "Maharashtra", logo: "" },
+      { id: "s140", name: "Akashvani Marathi Mumbai Asmita", state: "Maharashtra", logo: "" },
+      { id: "s141", name: "FM Gold Mumbai", state: "Maharashtra", logo: "" },
+      { id: "s142", name: "FM Rainbow Mumbai", state: "Maharashtra", logo: "" },
+      { id: "s143", name: "Samvadita Mumbai", state: "Maharashtra", logo: "" },
+      { id: "s144", name: "VBS Mumbai", state: "Maharashtra", logo: "" },
+      { id: "s145", name: "VBS Nagpur", state: "Maharashtra", logo: "" },
+      { id: "s146", name: "Akashvani Nagpur", state: "Maharashtra", logo: "" },
+      { id: "s147", name: "Akashvani Nanded", state: "Maharashtra", logo: "" },
+      { id: "s148", name: "Akashvani Nasik", state: "Maharashtra", logo: "" },
+      { id: "s149", name: "Akashvani Dharashiv", state: "Maharashtra", logo: "" },
+      { id: "s150", name: "Akashvani Parbhani", state: "Maharashtra", logo: "" },
+      { id: "s151", name: "Akashvani Pune", state: "Maharashtra", logo: "" },
+      { id: "s152", name: "Akashvani Pune FM", state: "Maharashtra", logo: "" },
+      { id: "s153", name: "Akashvani Ratnagiri", state: "Maharashtra", logo: "" },
+      { id: "s154", name: "Akashvani Sindhudurg", state: "Maharashtra", logo: "" },
+      { id: "s155", name: "Akashvani Sangli", state: "Maharashtra", logo: "" },
+      { id: "s156", name: "Akashvani Satara", state: "Maharashtra", logo: "" },
+      { id: "s157", name: "Akashvani Solapur", state: "Maharashtra", logo: "" },
+      { id: "s158", name: "Akashvani Yavatmal", state: "Maharashtra", logo: "" },
+      { id: "s159", name: "Akashvani Churachandpur", state: "Manipur", logo: "" },
+      { id: "s160", name: "Akashvani Imphal Kangla", state: "Manipur", logo: "" },
+      { id: "s161", name: "Akashvani Imphal Sangai", state: "Manipur", logo: "" },
+      { id: "s162", name: "Akashvani Jowai", state: "Meghalaya", logo: "" },
+      { id: "s163", name: "Akashvani Shillong", state: "Meghalaya", logo: "" },
+      { id: "s164", name: "FM Jongphi Shillong", state: "Meghalaya", logo: "" },
+      { id: "s165", name: "Akashvani North East Livestream", state: "Meghalaya", logo: "" },
+      { id: "s166", name: "Akashvani Tura", state: "Meghalaya", logo: "" },
+      { id: "s167", name: "Akashvani Aizawl", state: "Mizoram", logo: "" },
+      { id: "s168", name: "FM Zoawi Aizawl", state: "Mizoram", logo: "" },
+      { id: "s169", name: "Akashvani Lunglei", state: "Mizoram", logo: "" },
+      { id: "s170", name: "Akashvani Mokokchung", state: "Nagaland", logo: "" },
+      { id: "s171", name: "Akashvani Kohima", state: "Nagaland", logo: "" },
+      { id: "s172", name: "FM Tragopan Kohima", state: "Nagaland", logo: "" },
+      { id: "s173", name: "Akashvani Baripada", state: "Odisha", logo: "" },
+      { id: "s174", name: "Akashvani Berhampur", state: "Odisha", logo: "" },
+      { id: "s175", name: "Akashvani Bhawanipatna", state: "Odisha", logo: "" },
+      { id: "s176", name: "Akashvani Balangir", state: "Odisha", logo: "" },
+      { id: "s177", name: "Akashvani Odia", state: "Odisha", logo: "" },
+      { id: "s178", name: "FM Rainbow Cuttack", state: "Odisha", logo: "" },
+      { id: "s179", name: "VBS Cuttack", state: "Odisha", logo: "" },
+      { id: "s180", name: "Akashvani Jeypore", state: "Odisha", logo: "" },
+      { id: "s181", name: "Akashvani Joranda", state: "Odisha", logo: "" },
+      { id: "s182", name: "Akashvani Keonjhar", state: "Odisha", logo: "" },
+      { id: "s183", name: "Akashvani Puri FM", state: "Odisha", logo: "" },
+      { id: "s184", name: "Akashvani Rourkela", state: "Odisha", logo: "" },
+      { id: "s185", name: "Akashvani Mahanadi Sambalpur", state: "Odisha", logo: "" },
+      { id: "s186", name: "Akashvani Sambalpur", state: "Odisha", logo: "" },
+      { id: "s187", name: "Akashvani Karaikal", state: "Puducherry", logo: "" },
+      { id: "s188", name: "Akashvani Puducherry", state: "Puducherry", logo: "" },
+      { id: "s189", name: "FM Rainbow Puducherry", state: "Puducherry", logo: "" },
+      { id: "s190", name: "Akashvani Bhatinda", state: "Punjab", logo: "" },
+      { id: "s191", name: "Akashvani Punjabi", state: "Punjab", logo: "" },
+      { id: "s192", name: "FM Rainbow Jalandhar", state: "Punjab", logo: "" },
+      { id: "s193", name: "Akashvani Patiala", state: "Punjab", logo: "" },
+      { id: "s194", name: "Akashvani Alwar", state: "Rajasthan", logo: "" },
+      { id: "s195", name: "Akashvani Banswara", state: "Rajasthan", logo: "" },
+      { id: "s196", name: "Akashvani Barmer", state: "Rajasthan", logo: "" },
+      { id: "s197", name: "Akashvani Bikaner", state: "Rajasthan", logo: "" },
+      { id: "s198", name: "Akashvani Chittorgarh", state: "Rajasthan", logo: "" },
+      { id: "s199", name: "Akashvani Churu", state: "Rajasthan", logo: "" },
+      { id: "s200", name: "Akashvani Jaipur", state: "Rajasthan", logo: "" },
+      { id: "s201", name: "VBS Jaipur", state: "Rajasthan", logo: "" },
+      { id: "s202", name: "Akashvani Jaisalmer", state: "Rajasthan", logo: "" },
+      { id: "s203", name: "Akashvani Jhalawar", state: "Rajasthan", logo: "" },
+      { id: "s204", name: "Akashvani Jodhpur", state: "Rajasthan", logo: "" },
+      { id: "s205", name: "Akashvani Jodhpur Sun City FM", state: "Rajasthan", logo: "" },
+      { id: "s206", name: "Akashvani Kota", state: "Rajasthan", logo: "" },
+      { id: "s207", name: "Akashvani Mount Abu", state: "Rajasthan", logo: "" },
+      { id: "s208", name: "Akashvani Nagaur", state: "Rajasthan", logo: "" },
+      { id: "s209", name: "Akashvani Sawai Madhopur", state: "Rajasthan", logo: "" },
+      { id: "s210", name: "Akashvani Suratgarh", state: "Rajasthan", logo: "" },
+      { id: "s211", name: "Akashvani Udaipur", state: "Rajasthan", logo: "" },
+      { id: "s212", name: "Akashvani Udaipur FM Lake City", state: "Rajasthan", logo: "" },
+      { id: "s213", name: "Akashvani Gangtok", state: "Sikkim", logo: "" },
+      { id: "s214", name: "Akashvani Tamil Nadu", state: "Tamil Nadu", logo: "" },
+      { id: "s215", name: "FM Gold Chennai", state: "Tamil Nadu", logo: "" },
+      { id: "s216", name: "FM Rainbow Chennai", state: "Tamil Nadu", logo: "" },
+      { id: "s217", name: "VB Tamil Chennai", state: "Tamil Nadu", logo: "" },
+      { id: "s218", name: "Akashvani Coimbatore", state: "Tamil Nadu", logo: "" },
+      { id: "s219", name: "FM Rainbow Coimbatore", state: "Tamil Nadu", logo: "" },
+      { id: "s220", name: "Akashvani Dharmapuri", state: "Tamil Nadu", logo: "" },
+      { id: "s221", name: "Akashvani Kodaikanal", state: "Tamil Nadu", logo: "" },
+      { id: "s222", name: "Akashvani Madurai FM", state: "Tamil Nadu", logo: "" },
+      { id: "s223", name: "Akashvani Madurai", state: "Tamil Nadu", logo: "" },
+      { id: "s224", name: "FM Nagercoil Kumari", state: "Tamil Nadu", logo: "" },
+      { id: "s225", name: "Akashvani Ooty", state: "Tamil Nadu", logo: "" },
+      { id: "s226", name: "Akashvani Tiruchirappalli", state: "Tamil Nadu", logo: "" },
+      { id: "s227", name: "Akashvani Tiruchirappalli FM", state: "Tamil Nadu", logo: "" },
+      { id: "s228", name: "Akashvani Tirunelveli", state: "Tamil Nadu", logo: "" },
+      { id: "s229", name: "FM Rainbow Tirunelveli", state: "Tamil Nadu", logo: "" },
+      { id: "s230", name: "Akashvani Tuticorin", state: "Tamil Nadu", logo: "" },
+      { id: "s231", name: "Akashvani Adilabad", state: "Telangana", logo: "" },
+      { id: "s232", name: "Akashvani Telangana", state: "Telangana", logo: "" },
+      { id: "s233", name: "FM Rainbow Hyderabad", state: "Telangana", logo: "" },
+      { id: "s234", name: "VB Telugu Hyderabad", state: "Telangana", logo: "" },
+      { id: "s235", name: "Akashvani Kothagudem", state: "Telangana", logo: "" },
+      { id: "s236", name: "Akashvani Nizamabad", state: "Telangana", logo: "" },
+      { id: "s237", name: "Akashvani Warangal", state: "Telangana", logo: "" },
+      { id: "s238", name: "Akashvani Agartala", state: "Tripura", logo: "" },
+      { id: "s239", name: "FM Ujjayanta Agartala", state: "Tripura", logo: "" },
+      { id: "s240", name: "Akashvani Belonia", state: "Tripura", logo: "" },
+      { id: "s241", name: "Akashvani Kailashahar", state: "Tripura", logo: "" },
+      { id: "s242", name: "Akashvani Almora", state: "Uttarakhand", logo: "" },
+      { id: "s243", name: "Akashvani Dehradun", state: "Uttarakhand", logo: "" },
+      { id: "s244", name: "Akashvani Pauri", state: "Uttarakhand", logo: "" },
+      { id: "s245", name: "Akashvani Agra", state: "Uttar Pradesh", logo: "" },
+      { id: "s246", name: "Akashvani Prayagraj", state: "Uttar Pradesh", logo: "" },
+      { id: "s247", name: "Akashvani Bareilly", state: "Uttar Pradesh", logo: "" },
+      { id: "s248", name: "Akashvani Ayodhya", state: "Uttar Pradesh", logo: "" },
+      { id: "s249", name: "Akashvani Gorakhpur", state: "Uttar Pradesh", logo: "" },
+      { id: "s250", name: "Akashvani Jhansi", state: "Uttar Pradesh", logo: "" },
+      { id: "s251", name: "Akashvani Kanpur", state: "Uttar Pradesh", logo: "" },
+      { id: "s252", name: "FM Rainbow Kanpur", state: "Uttar Pradesh", logo: "" },
+      { id: "s253", name: "Akashvani Lucknow", state: "Uttar Pradesh", logo: "" },
+      { id: "s254", name: "FM Rainbow Lucknow", state: "Uttar Pradesh", logo: "" },
+      { id: "s255", name: "Akashvani Mathura", state: "Uttar Pradesh", logo: "" },
+      { id: "s256", name: "Akashvani Najibabad", state: "Uttar Pradesh", logo: "" },
+      { id: "s257", name: "Akashvani Obra", state: "Uttar Pradesh", logo: "" },
+      { id: "s258", name: "Akashvani Rampur", state: "Uttar Pradesh", logo: "" },
+      { id: "s259", name: "Akashvani Varanasi", state: "Uttar Pradesh", logo: "" },
+      { id: "s260", name: "KumbhVani", state: "Uttar Pradesh", logo: "" },
+      { id: "s261", name: "Akashvani Bangla", state: "West Bengal", logo: "" },
+      { id: "s262", name: "Akashvani Kolkata Geetanjali", state: "West Bengal", logo: "" },
+      { id: "s263", name: "Akashvani Kolkata Sanchayita", state: "West Bengal", logo: "" },
+      { id: "s264", name: "FM Gold Kolkata", state: "West Bengal", logo: "" },
+      { id: "s265", name: "FM Rainbow Kolkata", state: "West Bengal", logo: "" },
+      { id: "s266", name: "VBS Kolkata", state: "West Bengal", logo: "" },
+      { id: "s267", name: "Akashvani Kurseong", state: "West Bengal", logo: "" },
+      { id: "s268", name: "Akashvani Murshidabad", state: "West Bengal", logo: "" },
+      { id: "s269", name: "Akashvani Shantiniketan", state: "West Bengal", logo: "" },
+      { id: "s270", name: "Akashvani Maitree", state: "West Bengal", logo: "" },
+      { id: "s271", name: "Akashvani Siliguri", state: "West Bengal", logo: "" }
+    ];
 
-  section.style.display = "block";
-}
-
-// প্ৰাৰম্ভিক কল
-fetchLiveCricketScore();
-
-// প্ৰতি ২০ ছেকেণ্ডত স্বয়ংক্ৰিয় আপডেট
-setInterval(fetchLiveCricketScore, 20000);
-
-
-/* ===== RADIO DATA & SCHEDULE ===== */
-if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
-
-const popularStations = [
-  { 
-    name: "FM Rainbow", 
-    code: "FMR", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(2).jpg" 
-  },
-  { 
-    name: "Vividh Bharati", 
-    code: "VV", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images.jpg" 
-  },
-  { 
-    name: "FM Gold", 
-    code: "FMG", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(1).jpg" 
-  },
-  { 
-    name: "Indraprastha", 
-    code: "INDRA", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(3).jpg" 
-  }
-];
-
-const lastProgram = {};
-
-function timeToMinutes(t){
-  if(!t) return 0;
-  t = t.trim();
-  if(!t.includes(" ")){
-    let [h, m] = t.split(":").map(Number);
-    return (h || 0) * 60 + (m || 0);
-  }
-  const parts = t.split(/\s+/);
-  let [h, m] = parts[0].split(":").map(Number);
-  const meridiem = (parts[1] || "").toUpperCase();
-  h = h || 0;
-  m = m || 0;
-  if(meridiem === "PM" && h !== 12) h += 12;
-  if(meridiem === "AM" && h === 12) h = 0;
-  return h * 60 + m;
-}
-
-function getCurrentProgram(channel){
-  if(!window.SCHEDULE_DATA || !window.SCHEDULE_DATA.length) {
-    return lastProgram[channel] || "Live Broadcast";
-  }
-
-  const now = new Date();
-  const nowMin = now.getHours() * 60 + now.getMinutes();
-
-  const list = window.SCHEDULE_DATA
-    .filter(p =>
-      p.channel &&
-      p.channel.toLowerCase().includes(channel.toLowerCase().trim())
-    )
-    .map(p => ({...p, min: timeToMinutes(p.time)}))
-    .sort((a,b) => a.min - b.min);
-
-  if(!list.length) return lastProgram[channel] || "Live Broadcast";
-
-  if(nowMin < list[0].min){
-    const prevShow = list[list.length - 1].title;
-    lastProgram[channel] = prevShow;
-    return prevShow;
-  }
-
-  for(let i = 0; i < list.length; i++){
-    const cur = list[i], next = list[i + 1];
-    if(nowMin >= cur.min && (!next || nowMin < next.min)){
-      lastProgram[channel] = cur.title;
-      return cur.title;
+    // Safe LocalStorage helpers for Android WebView
+    function getSafeStorage(key, defaultVal) {
+      try {
+        const val = localStorage.getItem(key);
+        return val ? JSON.parse(val) : defaultVal;
+      } catch (e) {
+        return defaultVal;
+      }
     }
-  }
-  return lastProgram[channel] || "Live Broadcast";
-}
 
-function renderStations(){
-  const box = document.getElementById("stations");
-  box.innerHTML = "";
+    function setSafeStorage(key, val) {
+      try {
+        localStorage.setItem(key, JSON.stringify(val));
+      } catch (e) {}
+    }
 
-  popularStations.forEach(st=>{
-    const div = document.createElement("div");
-    div.className = "station";
+    let favorites = getSafeStorage("air_fav_stations", []);
+    let showOnlyFavs = false;
+    const uniqueStates = [...new Set(stations.map(s => s.state))].sort();
+    let selectedState = getSafeStorage("air_user_state", "");
 
-    div.innerHTML = `
-      <img class="station-logo" src="${st.logo}" alt="${st.name}" width="46" height="46" loading="lazy" decoding="async" onerror="this.src='https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/gVkZQ1787940599.png'">
-      <div class="station-info">
-        <div class="station-header">
-          <div class="station-name">${st.name}</div>
-        </div>
-        <div class="program-row">
-          <div class="live-dot-wrapper">
-            <span class="live-dot"></span>
+    const defaultIconSvg = `<svg class="station-fallback-svg" viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-.83-.51-1.57-1.24-1.85L12 2.65 3.24 6.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-8v-2h8v2zm0 4h-8v-2h8v2z"/></svg>`;
+
+    function handleImgError(imgElement) {
+      imgElement.outerHTML = defaultIconSvg;
+    }
+
+    function init() {
+      if (!selectedState) {
+        openStateModal();
+      } else {
+        document.getElementById("selectedStateLabel").textContent = selectedState;
+      }
+      renderModalStates();
+      filterStations();
+    }
+
+    function openStateModal() {
+      document.getElementById("modalStateSearch").value = "";
+      renderModalStates();
+      document.getElementById("stateModal").classList.add("active");
+      document.body.style.overflow = "hidden"; // Prevents background scrolling
+    }
+
+    function closeStateModal() {
+      document.getElementById("stateModal").classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    function closeModalOnOutsideClick(e) {
+      if (e.target.id === "stateModal") {
+        closeStateModal();
+      }
+    }
+
+    function selectState(stateName) {
+      selectedState = stateName;
+      setSafeStorage("air_user_state", stateName);
+      document.getElementById("selectedStateLabel").textContent = stateName || "All States";
+      closeStateModal();
+      filterStations();
+    }
+
+    function renderModalStates(filterText = "") {
+      const listEl = document.getElementById("modalStateList");
+      listEl.innerHTML = "";
+
+      const allOption = document.createElement("div");
+      allOption.className = `state-item ${selectedState === "" ? 'selected' : ''}`;
+      allOption.onclick = () => selectState("");
+      allOption.innerHTML = `<span>All States (All India)</span><div class="radio-circle"></div>`;
+      listEl.appendChild(allOption);
+
+      uniqueStates.forEach(state => {
+        if (!filterText || state.toLowerCase().includes(filterText.toLowerCase())) {
+          const item = document.createElement("div");
+          item.className = `state-item ${selectedState === state ? 'selected' : ''}`;
+          item.onclick = () => selectState(state);
+          item.innerHTML = `<span>${state}</span><div class="radio-circle"></div>`;
+          listEl.appendChild(item);
+        }
+      });
+    }
+
+    function filterModalStates() {
+      const q = document.getElementById("modalStateSearch").value.trim();
+      renderModalStates(q);
+    }
+
+    function renderStations(list) {
+      const container = document.getElementById("stationContainer");
+      const emptyMsg = document.getElementById("emptyMessage");
+      const countLabel = document.getElementById("stationCountText");
+
+      countLabel.textContent = `Showing ${list.length} stations`;
+
+      if (list.length === 0) {
+        container.innerHTML = "";
+        emptyMsg.style.display = "block";
+        return;
+      }
+      emptyMsg.style.display = "none";
+
+      const html = list.map(station => {
+        const isFav = favorites.includes(station.id);
+        
+        const logoContent = station.logo 
+          ? `<img class="station-logo-img" src="${station.logo}" alt="${station.name}" loading="lazy" onerror="handleImgError(this)">` 
+          : defaultIconSvg;
+
+        return `
+          <div class="station-card-grid" onclick="window.location.href='go:${station.id}'">
+            <div class="station-img-wrap">
+              ${logoContent}
+              <span class="status-dot-badge"></span>
+              <button class="fav-btn-badge ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${station.id}')" aria-label="Favorite">
+                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </button>
+            </div>
+            
+            <div class="station-name-grid" title="${station.name}">${station.name}</div>
+            
+            <div class="play-circle-grid">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
           </div>
-          <div class="program" data-channel="${st.name}">
-            ${getCurrentProgram(st.name)}
-          </div>
-        </div>
-      </div>
-      <a href="go:${st.code}" class="play">
-        <svg viewBox="0 0 24 24">
-          <path d="M8 5v14l11-7z"/>
-        </svg>
-      </a>
-    `;
+        `;
+      }).join('');
 
-    box.appendChild(div);
-  });
-}
+      container.innerHTML = html;
+    }
 
-function updateProgramsOnly(){
-  document.querySelectorAll(".program").forEach(el=>{
-    const channel = el.getAttribute("data-channel");
-    el.textContent = getCurrentProgram(channel);
-  });
-}
+    let searchTimer;
+    function handleSearchDebounce() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(filterStations, 100);
+    }
 
-renderStations();
+    function filterStations() {
+      const searchQuery = document.getElementById("searchInput").value.toLowerCase().trim();
 
-const scheduleScript = document.getElementById("schedule-script");
-if (scheduleScript) {
-  scheduleScript.addEventListener("load", updateProgramsOnly);
-}
+      const filtered = stations.filter(s => {
+        const matchesSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery) || s.state.toLowerCase().includes(searchQuery);
+        const matchesState = !selectedState || s.state === selectedState;
+        const matchesFav = !showOnlyFavs || favorites.includes(s.id);
+        return matchesSearch && matchesState && matchesFav;
+      });
 
-setInterval(updateProgramsOnly, 60000);
-</script>
+      renderStations(filtered);
+    }
 
+    function toggleFavorite(event, id) {
+      event.stopPropagation();
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(favId => favId !== id);
+      } else {
+        favorites.push(id);
+      }
+      setSafeStorage("air_fav_stations", favorites);
+      filterStations();
+    }
+
+    function toggleFavFilter() {
+      showOnlyFavs = !showOnlyFavs;
+      document.getElementById("favFilterBtn").classList.toggle("active", showOnlyFavs);
+      filterStations();
+    }
+
+    init();
+  </script>
 </body>
 </html>
