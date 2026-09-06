@@ -39,9 +39,7 @@
     .sticky-header {
       position: sticky;
       top: 0;
-      background: rgba(9, 13, 22, 0.94);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(9, 13, 22, 0.96);
       padding-bottom: 12px;
       z-index: 100;
     }
@@ -215,9 +213,7 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: rgba(9, 13, 22, 0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(9, 13, 22, 0.7);
       border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
@@ -275,7 +271,7 @@
 
     .empty-state {
       text-align: center;
-      padding: 60px 20px;
+      padding: 50px 20px;
       color: var(--text-sub);
     }
 
@@ -286,8 +282,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
+      background: rgba(4, 7, 13, 0.88);
       z-index: 1000;
       display: none;
       justify-content: flex-end;
@@ -307,7 +302,8 @@
       max-height: 85vh;
       display: flex;
       flex-direction: column;
-      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateZ(0);
     }
 
     @keyframes slideUp {
@@ -400,6 +396,9 @@
       display: flex;
       flex-direction: column;
       -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      transform: translateZ(0);
+      will-change: scroll-position;
     }
 
     .state-item {
@@ -446,12 +445,12 @@
   <div class="sticky-header">
     <div class="search-box-wrapper">
       <svg class="search-icon" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707a1 1 0 001.414-1.414l-4.707-4.707A8 8 0 0010 2zm-6 8a6 6 0 1112 0 6 6 0 01-12 0z"/></svg>
-      <input type="text" id="searchInput" class="search-box" placeholder="Search station..." oninput="handleSearchDebounce()">
+      <input type="text" id="searchInput" class="search-box" placeholder="Search station in selected state..." oninput="handleSearchDebounce()">
     </div>
     
     <div class="filter-row">
       <button class="state-picker-btn" onclick="openStateModal()">
-        <span id="selectedStateLabel">All States</span>
+        <span id="selectedStateLabel">Select State</span>
         <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
       </button>
 
@@ -463,15 +462,15 @@
   </div>
 
   <div class="meta-bar">
-    <span id="stationCountText">Showing stations</span>
+    <span id="stationCountText">Please select a state</span>
   </div>
 
   <!-- 3 Cards Per Row Grid -->
   <div id="stationContainer" class="station-grid"></div>
   
   <div id="emptyMessage" class="empty-state" style="display: none;">
-    <p style="font-size: 15px; font-weight: 600; margin-bottom: 4px; color: #fff;">No Stations Found</p>
-    <p style="font-size: 13px;">Try selecting another state or keyword.</p>
+    <p id="emptyTitle" style="font-size: 15px; font-weight: 600; margin-bottom: 4px; color: #fff;">Please Select a State</p>
+    <p id="emptySub" style="font-size: 13px;">Choose your state to start listening to local stations.</p>
   </div>
 
   <!-- Bottom Sheet State Selection Modal -->
@@ -479,13 +478,13 @@
     <div class="modal-sheet">
       <div class="modal-handle"></div>
       <div class="modal-header">
-        <span class="modal-header-tag">All Radios</span>
+        <span class="modal-header-tag">Regions</span>
         <button class="modal-close-btn" onclick="closeStateModal()">&times;</button>
       </div>
 
       <div class="modal-banner">
-        <h2 class="modal-title">Welcome! Pick your region</h2>
-        <p class="modal-subtitle">Pick your state to hear your local stations</p>
+        <h2 class="modal-title">Pick your state</h2>
+        <p class="modal-subtitle">Only stations from your chosen state will load</p>
       </div>
 
       <div class="modal-search-wrapper">
@@ -772,7 +771,6 @@
       { id: "s271", name: "Akashvani Siliguri", state: "West Bengal", logo: "" }
     ];
 
-    // Safe LocalStorage helpers for Android WebView
     function getSafeStorage(key, defaultVal) {
       try {
         const val = localStorage.getItem(key);
@@ -800,20 +798,24 @@
     }
 
     function init() {
+      renderModalStates();
+
       if (!selectedState) {
-        openStateModal();
+        document.getElementById("selectedStateLabel").textContent = "Select State";
+        document.getElementById("stationCountText").textContent = "No state selected";
+        document.getElementById("emptyMessage").style.display = "block";
+        openStateModal(); // Force user to choose their state on first run
       } else {
         document.getElementById("selectedStateLabel").textContent = selectedState;
+        filterStations();
       }
-      renderModalStates();
-      filterStations();
     }
 
     function openStateModal() {
       document.getElementById("modalStateSearch").value = "";
       renderModalStates();
       document.getElementById("stateModal").classList.add("active");
-      document.body.style.overflow = "hidden"; // Prevents background scrolling
+      document.body.style.overflow = "hidden";
     }
 
     function closeStateModal() {
@@ -830,7 +832,7 @@
     function selectState(stateName) {
       selectedState = stateName;
       setSafeStorage("air_user_state", stateName);
-      document.getElementById("selectedStateLabel").textContent = stateName || "All States";
+      document.getElementById("selectedStateLabel").textContent = stateName || "Select State";
       closeStateModal();
       filterStations();
     }
@@ -839,21 +841,20 @@
       const listEl = document.getElementById("modalStateList");
       listEl.innerHTML = "";
 
-      const allOption = document.createElement("div");
-      allOption.className = `state-item ${selectedState === "" ? 'selected' : ''}`;
-      allOption.onclick = () => selectState("");
-      allOption.innerHTML = `<span>All States (All India)</span><div class="radio-circle"></div>`;
-      listEl.appendChild(allOption);
+      const fragment = document.createDocumentFragment();
+      const lowerFilter = filterText.toLowerCase();
 
       uniqueStates.forEach(state => {
-        if (!filterText || state.toLowerCase().includes(filterText.toLowerCase())) {
+        if (!filterText || state.toLowerCase().includes(lowerFilter)) {
           const item = document.createElement("div");
           item.className = `state-item ${selectedState === state ? 'selected' : ''}`;
           item.onclick = () => selectState(state);
           item.innerHTML = `<span>${state}</span><div class="radio-circle"></div>`;
-          listEl.appendChild(item);
+          fragment.appendChild(item);
         }
       });
+
+      listEl.appendChild(fragment);
     }
 
     function filterModalStates() {
@@ -866,10 +867,12 @@
       const emptyMsg = document.getElementById("emptyMessage");
       const countLabel = document.getElementById("stationCountText");
 
-      countLabel.textContent = `Showing ${list.length} stations`;
+      countLabel.textContent = `Showing ${list.length} station(s)`;
 
       if (list.length === 0) {
         container.innerHTML = "";
+        document.getElementById("emptyTitle").textContent = "No Stations Found";
+        document.getElementById("emptySub").textContent = "Try searching with another keyword or pick another state.";
         emptyMsg.style.display = "block";
         return;
       }
@@ -911,13 +914,24 @@
     }
 
     function filterStations() {
+      // If no state is selected, don't render anything
+      if (!selectedState) {
+        document.getElementById("stationContainer").innerHTML = "";
+        document.getElementById("stationCountText").textContent = "Please select a state";
+        document.getElementById("emptyTitle").textContent = "Please Select a State";
+        document.getElementById("emptySub").textContent = "Choose your state to start listening to local stations.";
+        document.getElementById("emptyMessage").style.display = "block";
+        return;
+      }
+
       const searchQuery = document.getElementById("searchInput").value.toLowerCase().trim();
 
+      // Only include stations belonging strictly to the selected state
       const filtered = stations.filter(s => {
-        const matchesSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery) || s.state.toLowerCase().includes(searchQuery);
-        const matchesState = !selectedState || s.state === selectedState;
+        const matchesState = (s.state === selectedState);
+        const matchesSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery);
         const matchesFav = !showOnlyFavs || favorites.includes(s.id);
-        return matchesSearch && matchesState && matchesFav;
+        return matchesState && matchesSearch && matchesFav;
       });
 
       renderStations(filtered);
