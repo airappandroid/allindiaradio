@@ -211,7 +211,7 @@
       z-index: 2;
     }
 
-    /* High Visibility Heart Favorite Button */
+    /* High Visibility Heart Button */
     .fav-btn-badge {
       position: absolute;
       top: 6px;
@@ -220,16 +220,16 @@
       height: 28px;
       border-radius: 50%;
       background: rgba(9, 13, 22, 0.85);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
       border: 1px solid rgba(255, 255, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 5;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-      transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s ease;
     }
 
     .fav-btn-badge:active {
@@ -242,7 +242,7 @@
       fill: var(--fav-inactive);
       opacity: 0.85;
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
-      transition: fill 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+      transition: fill 0.2s ease, opacity 0.2s ease;
     }
 
     .fav-btn-badge.active {
@@ -298,14 +298,14 @@
       color: var(--text-sub);
     }
 
-    /* Modal Bottom Sheet */
+    /* Lightweight Optimized Modal */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(4, 7, 13, 0.88);
+      background: rgba(4, 7, 13, 0.85);
       z-index: 1000;
       display: none;
       justify-content: flex-end;
@@ -318,35 +318,28 @@
 
     .modal-sheet {
       background: #111726;
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
       border: 1px solid var(--card-border);
       border-bottom: none;
-      max-height: 85vh;
+      max-height: 80vh;
       display: flex;
       flex-direction: column;
-      animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: translateZ(0);
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
     }
 
     .modal-handle {
-      width: 40px;
+      width: 36px;
       height: 4px;
       background: #334155;
       border-radius: 4px;
-      margin: 12px auto 6px auto;
+      margin: 10px auto 4px auto;
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 18px;
+      padding: 4px 16px;
     }
 
     .modal-header-tag {
@@ -368,29 +361,29 @@
 
     .modal-banner {
       text-align: center;
-      padding: 10px 20px 14px 20px;
+      padding: 8px 16px 12px 16px;
     }
 
     .modal-title {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text-main);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .modal-subtitle {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-sub);
     }
 
     .modal-search-wrapper {
-      padding: 0 16px 12px 16px;
+      padding: 0 16px 10px 16px;
       position: relative;
     }
 
     .modal-search-input {
       width: 100%;
-      padding: 11px 16px 11px 40px;
+      padding: 10px 14px 10px 38px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
@@ -408,30 +401,28 @@
       left: 28px;
       top: 50%;
       transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       fill: var(--text-sub);
     }
 
+    /* Fast Scroll Area without Heavy GPU Layers */
     .state-list-scroll {
       overflow-y: auto;
-      padding: 0 16px 30px 16px;
+      padding: 0 16px 24px 16px;
       display: flex;
       flex-direction: column;
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-      transform: translateZ(0);
-      will-change: scroll-position;
     }
 
     .state-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 13px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       cursor: pointer;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 500;
       color: var(--text-main);
     }
@@ -441,13 +432,14 @@
     }
 
     .radio-circle {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       border: 2px solid #475569;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .state-item.selected .radio-circle {
@@ -456,8 +448,8 @@
 
     .state-item.selected .radio-circle::after {
       content: '';
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--accent-cyan);
     }
@@ -468,7 +460,7 @@
   <div class="sticky-header">
     <div class="search-box-wrapper">
       <svg class="search-icon" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707a1 1 0 001.414-1.414l-4.707-4.707A8 8 0 0010 2zm-6 8a6 6 0 1112 0 6 6 0 01-12 0z"/></svg>
-      <input type="text" id="searchInput" class="search-box" placeholder="Search station in selected state..." oninput="handleSearchDebounce()">
+      <input type="text" id="searchInput" class="search-box" placeholder="Search station..." oninput="handleSearchDebounce()">
     </div>
     
     <div class="filter-row">
@@ -477,7 +469,6 @@
         <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
       </button>
 
-      <!-- Updated Favorites Filter Button with Heart -->
       <button id="favFilterBtn" class="fav-toggle-btn" onclick="toggleFavFilter()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -491,7 +482,7 @@
     <span id="stationCountText">Please select a state</span>
   </div>
 
-  <!-- 3 Cards Per Row Grid -->
+  <!-- Station Grid -->
   <div id="stationContainer" class="station-grid"></div>
   
   <div id="emptyMessage" class="empty-state" style="display: none;">
@@ -499,7 +490,7 @@
     <p id="emptySub" style="font-size: 13px;">Choose your state to start listening to local stations.</p>
   </div>
 
-  <!-- Bottom Sheet State Selection Modal -->
+  <!-- State Selection Modal -->
   <div id="stateModal" class="modal-overlay" onclick="closeModalOnOutsideClick(event)">
     <div class="modal-sheet">
       <div class="modal-handle"></div>
@@ -824,7 +815,7 @@
     }
 
     function init() {
-      renderModalStates();
+      buildModalStatesOnce();
 
       if (!selectedState) {
         document.getElementById("selectedStateLabel").textContent = "Select State";
@@ -837,9 +828,35 @@
       }
     }
 
+    /* Build State List DOM Only Once */
+    function buildModalStatesOnce() {
+      const listEl = document.getElementById("modalStateList");
+      listEl.innerHTML = uniqueStates.map(state => `
+        <div class="state-item" data-state="${state}">
+          <span>${state}</span>
+          <div class="radio-circle"></div>
+        </div>
+      `).join('');
+
+      /* Event Delegation: No separate listeners per item */
+      listEl.addEventListener("click", (e) => {
+        const item = e.target.closest(".state-item");
+        if (item) {
+          selectState(item.getAttribute("data-state"));
+        }
+      });
+    }
+
     function openStateModal() {
-      document.getElementById("modalStateSearch").value = "";
-      renderModalStates();
+      const searchInput = document.getElementById("modalStateSearch");
+      searchInput.value = "";
+      
+      const items = document.querySelectorAll(".state-item");
+      items.forEach(item => {
+        item.style.display = "flex";
+        item.classList.toggle("selected", item.getAttribute("data-state") === selectedState);
+      });
+
       document.getElementById("stateModal").classList.add("active");
       document.body.style.overflow = "hidden";
     }
@@ -863,29 +880,14 @@
       filterStations();
     }
 
-    function renderModalStates(filterText = "") {
-      const listEl = document.getElementById("modalStateList");
-      listEl.innerHTML = "";
-
-      const fragment = document.createDocumentFragment();
-      const lowerFilter = filterText.toLowerCase();
-
-      uniqueStates.forEach(state => {
-        if (!filterText || state.toLowerCase().includes(lowerFilter)) {
-          const item = document.createElement("div");
-          item.className = `state-item ${selectedState === state ? 'selected' : ''}`;
-          item.onclick = () => selectState(state);
-          item.innerHTML = `<span>${state}</span><div class="radio-circle"></div>`;
-          fragment.appendChild(item);
-        }
-      });
-
-      listEl.appendChild(fragment);
-    }
-
+    /* Fast filtering using CSS display (Zero lag) */
     function filterModalStates() {
-      const q = document.getElementById("modalStateSearch").value.trim();
-      renderModalStates(q);
+      const q = document.getElementById("modalStateSearch").value.toLowerCase().trim();
+      const items = document.querySelectorAll(".state-item");
+      items.forEach(item => {
+        const text = item.getAttribute("data-state").toLowerCase();
+        item.style.display = (!q || text.includes(q)) ? "flex" : "none";
+      });
     }
 
     function renderStations(list) {
@@ -893,12 +895,19 @@
       const emptyMsg = document.getElementById("emptyMessage");
       const countLabel = document.getElementById("stationCountText");
 
-      countLabel.textContent = `Showing ${list.length} station(s)`;
+      countLabel.textContent = showOnlyFavs 
+        ? `Showing ${list.length} favorite station(s)` 
+        : `Showing ${list.length} station(s)`;
 
       if (list.length === 0) {
         container.innerHTML = "";
-        document.getElementById("emptyTitle").textContent = "No Stations Found";
-        document.getElementById("emptySub").textContent = "Try searching with another keyword or pick another state.";
+        if (showOnlyFavs) {
+          document.getElementById("emptyTitle").textContent = "No Favorites Found";
+          document.getElementById("emptySub").textContent = "Heart icon-ত টেপ কৰি ষ্টেচন ফেভাৰিট কৰক।";
+        } else {
+          document.getElementById("emptyTitle").textContent = "No Stations Found";
+          document.getElementById("emptySub").textContent = "Try searching with another keyword or pick another state.";
+        }
         emptyMsg.style.display = "block";
         return;
       }
@@ -940,7 +949,7 @@
     }
 
     function filterStations() {
-      if (!selectedState) {
+      if (!showOnlyFavs && !selectedState) {
         document.getElementById("stationContainer").innerHTML = "";
         document.getElementById("stationCountText").textContent = "Please select a state";
         document.getElementById("emptyTitle").textContent = "Please Select a State";
@@ -952,7 +961,7 @@
       const searchQuery = document.getElementById("searchInput").value.toLowerCase().trim();
 
       const filtered = stations.filter(s => {
-        const matchesState = (s.state === selectedState);
+        const matchesState = showOnlyFavs ? true : (s.state === selectedState);
         const matchesSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery);
         const matchesFav = !showOnlyFavs || favorites.includes(s.id);
         return matchesState && matchesSearch && matchesFav;
