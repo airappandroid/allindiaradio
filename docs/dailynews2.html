@@ -33,48 +33,13 @@
       padding-bottom: 60px;
     }
 
-    /* Sticky Header: ছলিড বেকগ্ৰাউণ্ড ব্যৱহাৰ কৰা হৈছে যাতে GPU compositing লেগ নহয় */
+    /* Sticky Header */
     .sticky-header {
       position: sticky;
       top: 0;
       background: var(--bg);
       padding-bottom: 12px;
       z-index: 100;
-    }
-
-    .search-box-wrapper {
-      position: relative;
-      margin-bottom: 10px;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      fill: var(--text-sub);
-      pointer-events: none;
-    }
-
-    .search-box {
-      width: 100%;
-      padding: 12px 16px 12px 42px;
-      font-size: 14.5px;
-      color: var(--text-main);
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      outline: none;
-    }
-
-    .search-box::placeholder {
-      color: #64748b;
-    }
-
-    .search-box:focus {
-      border-color: var(--accent-cyan);
     }
 
     .filter-row {
@@ -145,7 +110,6 @@
       gap: 10px;
     }
 
-    /* Card Box: transform translateZ(0) যোগ কৰা হৈছে মসৃণ স্ক্ৰলিঙৰ বাবে */
     .station-card-grid {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -161,7 +125,6 @@
       transform: translateZ(0);
     }
 
-    /* Artwork Container */
     .station-img-wrap {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -190,7 +153,6 @@
       opacity: 0.85;
     }
 
-    /* Floating Badges: box-shadow আঁতৰোৱা হৈছে */
     .status-dot-badge {
       position: absolute;
       top: 6px;
@@ -202,7 +164,6 @@
       z-index: 2;
     }
 
-    /* Heart Button: backdrop-filter আৰু shadow আঁতৰাই ছলিড বেকগ্ৰাউণ্ড দিয়া হৈছে */
     .fav-btn-badge {
       position: absolute;
       top: 6px;
@@ -261,7 +222,6 @@
       padding: 0 2px;
     }
 
-    /* Play Button: box-shadow আঁতৰোৱা হৈছে */
     .play-circle-grid {
       width: 30px;
       height: 30px;
@@ -441,11 +401,6 @@
 <body>
 
   <div class="sticky-header">
-    <div class="search-box-wrapper">
-      <svg class="search-icon" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707a1 1 0 001.414-1.414l-4.707-4.707A8 8 0 0010 2zm-6 8a6 6 0 1112 0 6 6 0 01-12 0z"/></svg>
-      <input type="text" id="searchInput" class="search-box" placeholder="Search station..." oninput="handleSearchDebounce()">
-    </div>
-    
     <div class="filter-row">
       <button class="state-picker-btn" onclick="openStateModal()">
         <span id="selectedStateLabel">Select State</span>
@@ -615,7 +570,7 @@
           document.getElementById("emptySub").textContent = "Heart icon-ত টেপ কৰি ষ্টেচন ফেভাৰিট কৰক।";
         } else {
           document.getElementById("emptyTitle").textContent = "No Stations Found";
-          document.getElementById("emptySub").textContent = "Try searching with another keyword or pick another state.";
+          document.getElementById("emptySub").textContent = "Please pick another state.";
         }
         emptyMsg.style.display = "block";
         return;
@@ -653,12 +608,6 @@
       container.innerHTML = html;
     }
 
-    let searchTimer;
-    function handleSearchDebounce() {
-      clearTimeout(searchTimer);
-      searchTimer = setTimeout(filterStations, 100);
-    }
-
     function filterStations() {
       if (!showOnlyFavs && !selectedState) {
         document.getElementById("stationContainer").innerHTML = "";
@@ -669,13 +618,10 @@
         return;
       }
 
-      const searchQuery = document.getElementById("searchInput").value.toLowerCase().trim();
-
       const filtered = stations.filter(s => {
         const matchesState = showOnlyFavs ? true : (s.state === selectedState);
-        const matchesSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery);
         const matchesFav = !showOnlyFavs || favorites.includes(s.id);
-        return matchesState && matchesSearch && matchesFav;
+        return matchesState && matchesFav;
       });
 
       renderStations(filtered);
