@@ -33,11 +33,11 @@
       padding-bottom: 60px;
     }
 
-    /* Sticky Header */
+    /* Sticky Header: ছলিড বেকগ্ৰাউণ্ড ব্যৱহাৰ কৰা হৈছে যাতে GPU compositing লেগ নহয় */
     .sticky-header {
       position: sticky;
       top: 0;
-      background: rgba(9, 13, 22, 0.96);
+      background: var(--bg);
       padding-bottom: 12px;
       z-index: 100;
     }
@@ -145,7 +145,7 @@
       gap: 10px;
     }
 
-    /* Card Box (Click animation আঁতৰোৱা হৈছে) */
+    /* Card Box: transform translateZ(0) যোগ কৰা হৈছে মসৃণ স্ক্ৰলিঙৰ বাবে */
     .station-card-grid {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -158,6 +158,7 @@
       position: relative;
       content-visibility: auto;
       contain-intrinsic-size: 0 170px;
+      transform: translateZ(0);
     }
 
     /* Artwork Container */
@@ -189,7 +190,7 @@
       opacity: 0.85;
     }
 
-    /* Floating Badges */
+    /* Floating Badges: box-shadow আঁতৰোৱা হৈছে */
     .status-dot-badge {
       position: absolute;
       top: 6px;
@@ -198,11 +199,10 @@
       height: 6px;
       border-radius: 50%;
       background-color: var(--accent-green);
-      box-shadow: 0 0 6px var(--accent-green);
       z-index: 2;
     }
 
-    /* Heart Button (Click scale আঁতৰোৱা হৈছে আৰু visual স্পষ্ট কৰা হৈছে) */
+    /* Heart Button: backdrop-filter আৰু shadow আঁতৰাই ছলিড বেকগ্ৰাউণ্ড দিয়া হৈছে */
     .fav-btn-badge {
       position: absolute;
       top: 6px;
@@ -210,16 +210,13 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(9, 13, 22, 0.75);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: #111726;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 5;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
       outline: none;
     }
 
@@ -229,7 +226,6 @@
       display: block;
     }
 
-    /* সাধাৰণ অৱস্থাত: পৰিষ্কাৰ বগা আউটলাইন */
     .fav-btn-badge svg path {
       fill: none;
       stroke: #ffffff;
@@ -238,7 +234,6 @@
       stroke-linejoin: round;
     }
 
-    /* ফেভাৰিট কৰিলে: উজ্জ্বল ৰঙা ফিল */
     .fav-btn-badge.active {
       background: rgba(239, 68, 68, 0.25);
       border-color: #ef4444;
@@ -266,6 +261,7 @@
       padding: 0 2px;
     }
 
+    /* Play Button: box-shadow আঁতৰোৱা হৈছে */
     .play-circle-grid {
       width: 30px;
       height: 30px;
@@ -274,7 +270,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(0, 162, 236, 0.35);
       margin-top: auto;
     }
 
@@ -631,7 +626,7 @@
         const isFav = favorites.includes(station.id);
         
         const logoContent = station.logo 
-          ? `<img class="station-logo-img" src="${station.logo}" alt="${station.name}" loading="lazy" onerror="handleImgError(this)">` 
+          ? `<img class="station-logo-img" src="${station.logo}" alt="${station.name}" loading="lazy" decoding="async" onerror="handleImgError(this)">` 
           : defaultIconSvg;
 
         return `
