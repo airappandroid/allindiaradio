@@ -6,14 +6,12 @@
   <title>All India Radio Stations</title>
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #131927;
-      --card-border: #1e2638;
+      --bg: #070a12;
+      --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #ffffff;
-      --text-sub: #8a99ad;
-      --accent-cyan: #00a2ec;
-      --accent-green: #22c55e;
-      --fav-active: #ef4444;
+      --text-sub: #8292a7;
+      --accent-cyan: #00b4d8;
+      --fav-active: #ff3366;
       --radius: 16px;
     }
 
@@ -21,7 +19,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
@@ -29,17 +27,13 @@
     body {
       background-color: var(--bg);
       color: var(--text-main);
-      padding: 12px;
+      padding: 14px;
       padding-bottom: 60px;
     }
 
-    /* Sticky Header */
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      background: var(--bg);
+    /* Header & Filter Controls */
+    .header-bar {
       padding-bottom: 12px;
-      z-index: 100;
     }
 
     .filter-row {
@@ -49,11 +43,11 @@
 
     .state-picker-btn {
       flex: 1;
-      padding: 11px 14px;
-      font-size: 13.5px;
+      padding: 13px 16px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--text-main);
-      background: var(--card-bg);
+      background: #111728;
       border: 1px solid var(--card-border);
       border-radius: 14px;
       display: flex;
@@ -62,21 +56,20 @@
       cursor: pointer;
     }
 
-    .state-picker-btn svg {
-      width: 14px;
-      height: 14px;
-      fill: var(--text-sub);
+    .state-picker-arrow {
+      font-size: 10px;
+      color: var(--text-sub);
     }
 
     .fav-toggle-btn {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 11px 14px;
-      font-size: 13.5px;
+      gap: 8px;
+      padding: 13px 18px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--text-sub);
-      background: var(--card-bg);
+      background: #111728;
       border: 1px solid var(--card-border);
       border-radius: 14px;
       cursor: pointer;
@@ -84,176 +77,147 @@
     }
 
     .fav-toggle-btn.active {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(255, 51, 102, 0.12);
+      border-color: rgba(255, 51, 102, 0.4);
       color: var(--fav-active);
-    }
-
-    .fav-toggle-btn.active svg {
-      fill: var(--fav-active);
     }
 
     .meta-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 4px 12px 4px;
-      font-size: 12px;
+      padding: 4px 6px 14px 6px;
+      font-size: 12.5px;
       font-weight: 600;
       color: var(--text-sub);
+      letter-spacing: 0.3px;
     }
 
-    /* 3-Column Grid */
+    /* High-Performance 2-Column Grid */
     .station-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .station-card-grid {
-      background: var(--card-bg);
+    .station-card-text {
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 8px;
+      border-radius: var(--radius);
+      padding: 14px 12px 12px 14px;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: space-between;
+      min-height: 125px;
       cursor: pointer;
       position: relative;
-      content-visibility: auto;
-      contain-intrinsic-size: 0 170px;
-      transform: translateZ(0);
-    }
-
-    .station-img-wrap {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      position: relative;
-      border-radius: 12px;
       overflow: hidden;
-      background: #0a0f1d;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      
+      /* GPU Acceleration & Paint Optimization */
+      transform: translateZ(0);
+      contain: layout paint;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
-    .station-logo-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .station-fallback-svg {
-      width: 34px;
-      height: 34px;
-      fill: #38bdf8;
+    .station-card-text:active {
       opacity: 0.85;
     }
 
-    .status-dot-badge {
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: var(--accent-green);
-      z-index: 2;
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
     }
 
-    .fav-btn-badge {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 28px;
-      height: 28px;
+    .station-wave-icon {
+      display: flex;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .station-wave-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .fav-text-btn {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: #111726;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      z-index: 5;
+      line-height: 1;
       outline: none;
     }
 
-    .fav-btn-badge svg {
-      width: 14px;
-      height: 14px;
-      display: block;
+    .fav-text-btn:active {
+      transform: scale(1.15);
     }
 
-    .fav-btn-badge svg path {
-      fill: none;
-      stroke: #ffffff;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .fav-text-btn.active {
+      color: var(--fav-active);
+      background: rgba(255, 51, 102, 0.2);
+      border-color: rgba(255, 51, 102, 0.4);
     }
 
-    .fav-btn-badge.active {
-      background: rgba(239, 68, 68, 0.25);
-      border-color: #ef4444;
-    }
-
-    .fav-btn-badge.active svg path {
-      fill: #ef4444;
-      stroke: #ef4444;
-    }
-
-    .station-name-grid {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--text-main);
-      line-height: 1.3;
-      height: 30px;
-      overflow: hidden;
+    .station-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #ffffff;
+      margin: 4px 0 10px 0;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
-      margin-bottom: 8px;
+      overflow: hidden;
       word-break: break-word;
-      text-align: center;
-      width: 100%;
-      padding: 0 2px;
+      letter-spacing: -0.1px;
     }
 
-    .play-circle-grid {
-      width: 30px;
-      height: 30px;
+    .card-bottom-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    /* Clean Play Button without Backdrop-Filter */
+    .play-circle-btn {
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--accent-cyan);
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: auto;
     }
 
-    .play-circle-grid svg {
-      width: 13px;
-      height: 13px;
-      fill: #ffffff;
+    .play-circle-symbol {
+      color: #ffffff;
+      font-size: 10px;
       margin-left: 2px;
     }
 
     .empty-state {
       text-align: center;
-      padding: 50px 20px;
+      padding: 60px 20px;
       color: var(--text-sub);
     }
 
-    /* Modal Styles */
+    /* Modal Overlay without Backdrop-Filter */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(4, 7, 13, 0.85);
+      background: rgba(4, 7, 13, 0.94);
       z-index: 1000;
       display: none;
       justify-content: flex-end;
@@ -266,13 +230,14 @@
 
     .modal-sheet {
       background: #111726;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-      border: 1px solid var(--card-border);
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-bottom: none;
       max-height: 80vh;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
     }
 
     .modal-handle {
@@ -281,42 +246,45 @@
       background: #334155;
       border-radius: 4px;
       margin: 10px auto 4px auto;
+      flex-shrink: 0;
     }
 
     .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 4px 16px;
+      padding: 8px 18px;
+      flex-shrink: 0;
     }
 
     .modal-header-tag {
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--accent-cyan);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
     }
 
     .modal-close-btn {
       background: none;
       border: none;
       color: var(--text-sub);
-      font-size: 24px;
+      font-size: 26px;
       cursor: pointer;
       line-height: 1;
     }
 
     .modal-banner {
       text-align: center;
-      padding: 8px 16px 12px 16px;
+      padding: 4px 18px 12px 18px;
+      flex-shrink: 0;
     }
 
     .modal-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       color: var(--text-main);
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .modal-subtitle {
@@ -325,16 +293,16 @@
     }
 
     .modal-search-wrapper {
-      padding: 0 16px 10px 16px;
-      position: relative;
+      padding: 0 18px 12px 18px;
+      flex-shrink: 0;
     }
 
     .modal-search-input {
       width: 100%;
-      padding: 10px 14px 10px 38px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
+      padding: 12px 16px;
+      background: #162035;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
       color: var(--text-main);
       font-size: 14px;
       outline: none;
@@ -344,19 +312,11 @@
       border-color: var(--accent-cyan);
     }
 
-    .modal-search-icon {
-      position: absolute;
-      left: 28px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 15px;
-      height: 15px;
-      fill: var(--text-sub);
-    }
-
     .state-list-scroll {
+      flex: 1;
+      min-height: 0;
       overflow-y: auto;
-      padding: 0 16px 24px 16px;
+      padding: 0 18px 26px 18px;
       display: flex;
       flex-direction: column;
       -webkit-overflow-scrolling: touch;
@@ -366,12 +326,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 13px 8px;
+      padding: 14px 8px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       cursor: pointer;
       font-size: 14.5px;
       font-weight: 500;
       color: var(--text-main);
+      flex-shrink: 0;
     }
 
     .radio-circle {
@@ -400,18 +361,15 @@
 </head>
 <body>
 
-  <div class="sticky-header">
+  <div class="header-bar">
     <div class="filter-row">
       <button class="state-picker-btn" onclick="openStateModal()">
         <span id="selectedStateLabel">Select State</span>
-        <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+        <span class="state-picker-arrow">▼</span>
       </button>
 
       <button id="favFilterBtn" class="fav-toggle-btn" onclick="toggleFavFilter()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
-        Favorites
+        <span style="font-size: 16px;">♥</span> Favorites
       </button>
     </div>
   </div>
@@ -443,7 +401,6 @@
       </div>
 
       <div class="modal-search-wrapper">
-        <svg class="modal-search-icon" viewBox="0 0 24 24"><path d="M10 2a8 8 0 105.293 14.293l4.707 4.707a1 1 0 001.414-1.414l-4.707-4.707A8 8 0 0010 2zm-6 8a6 6 0 1112 0 6 6 0 01-12 0z"/></svg>
         <input type="text" id="modalStateSearch" class="modal-search-input" placeholder="Search state..." oninput="filterModalStates()">
       </div>
 
@@ -455,6 +412,17 @@
   <script src="https://airappandroid.github.io/growify/stations.js"></script>
 
   <script>
+    const cardColors = [
+      "linear-gradient(145deg, #1e1b4b 0%, #0c0f1d 100%)",
+      "linear-gradient(145deg, #064e3b 0%, #0c151b 100%)",
+      "linear-gradient(145deg, #4c1d95 0%, #0e0d1f 100%)",
+      "linear-gradient(145deg, #0c4a6e 0%, #081622 100%)",
+      "linear-gradient(145deg, #701a75 0%, #170919 100%)",
+      "linear-gradient(145deg, #134e4a 0%, #09171b 100%)",
+      "linear-gradient(145deg, #831843 0%, #190a12 100%)",
+      "linear-gradient(145deg, #713f12 0%, #16100a 100%)"
+    ];
+
     function getSafeStorage(key, defaultVal) {
       try {
         const val = localStorage.getItem(key);
@@ -472,16 +440,15 @@
 
     let favorites = getSafeStorage("air_fav_stations", []);
     let showOnlyFavs = false;
-    const uniqueStates = [...new Set(stations.map(s => s.state))].sort();
     let selectedState = getSafeStorage("air_user_state", "");
-
-    const defaultIconSvg = `<svg class="station-fallback-svg" viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-.83-.51-1.57-1.24-1.85L12 2.65 3.24 6.15zM7 20c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm13-8h-8v-2h8v2zm0 4h-8v-2h8v2z"/></svg>`;
-
-    function handleImgError(imgElement) {
-      imgElement.outerHTML = defaultIconSvg;
-    }
+    let uniqueStates = [];
 
     function init() {
+      if (typeof stations === 'undefined' || !Array.isArray(stations)) {
+        return;
+      }
+
+      uniqueStates = [...new Set(stations.map(s => s.state))].sort();
       buildModalStatesOnce();
 
       if (!selectedState) {
@@ -567,7 +534,7 @@
         container.innerHTML = "";
         if (showOnlyFavs) {
           document.getElementById("emptyTitle").textContent = "No Favorites Found";
-          document.getElementById("emptySub").textContent = "Heart icon-ত টেপ কৰি ষ্টেচন ফেভাৰিট কৰক।";
+          document.getElementById("emptySub").textContent = "Tap the heart icon on any station to save it here.";
         } else {
           document.getElementById("emptyTitle").textContent = "No Stations Found";
           document.getElementById("emptySub").textContent = "Please pick another state.";
@@ -577,29 +544,29 @@
       }
       emptyMsg.style.display = "none";
 
-      const html = list.map(station => {
+      const html = list.map((station, index) => {
         const isFav = favorites.includes(station.id);
-        
-        const logoContent = station.logo 
-          ? `<img class="station-logo-img" src="${station.logo}" alt="${station.name}" loading="lazy" decoding="async" onerror="handleImgError(this)">` 
-          : defaultIconSvg;
+        const bgGradient = cardColors[index % cardColors.length];
 
         return `
-          <div class="station-card-grid" onclick="window.location.href='go:${station.id}'">
-            <div class="station-img-wrap">
-              ${logoContent}
-              <span class="status-dot-badge"></span>
-              <button class="fav-btn-badge ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${station.id}')" aria-label="Favorite">
-                <svg viewBox="0 0 24 24">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          <div class="station-card-text" style="background: ${bgGradient};" onclick="window.location.href='go:' + encodeURIComponent('${station.id}')">
+            <div class="card-top-row">
+              <div class="station-wave-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                  <path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 11v2"/>
                 </svg>
+              </div>
+              <button class="fav-text-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${station.id}')" aria-label="Favorite">
+                ♥
               </button>
             </div>
             
-            <div class="station-name-grid" title="${station.name}">${station.name}</div>
+            <div class="station-title" title="${station.name}">${station.name}</div>
             
-            <div class="play-circle-grid">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <div class="card-bottom-row">
+              <div class="play-circle-btn">
+                <span class="play-circle-symbol">▶</span>
+              </div>
             </div>
           </div>
         `;
@@ -629,13 +596,21 @@
 
     function toggleFavorite(event, id) {
       event.stopPropagation();
-      if (favorites.includes(id)) {
-        favorites = favorites.filter(favId => favId !== id);
+      const btn = event.currentTarget;
+      const index = favorites.indexOf(id);
+
+      if (index > -1) {
+        favorites.splice(index, 1);
+        btn.classList.remove("active");
       } else {
         favorites.push(id);
+        btn.classList.add("active");
       }
       setSafeStorage("air_fav_stations", favorites);
-      filterStations();
+
+      if (showOnlyFavs) {
+        filterStations();
+      }
     }
 
     function toggleFavFilter() {
@@ -644,7 +619,7 @@
       filterStations();
     }
 
-    init();
+    window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
