@@ -80,7 +80,7 @@ window.SCHEDULE_DATA = [
   { "time": "2:00 PM", "title": "त्रिवेणी (आलेख एवं स्वर - युनूस खान - Repeat)", "channel": "Vividh Bharati" },
   { "time": "2:15 PM", "title": "दोपहर समाचार (News in Hindi - Relay Delhi)", "channel": "Vividh Bharati" },
   { "time": "2:30 PM", "title": "सदाबहार नग्मे - फिल्मी गीत (Hits From 1955 - 1965)", "channel": "Vividh Bharati" },
-  { "time": "3:00 PM", "title": "सखी सहेली (सुरुचि वाघ, शिक्षा আৰু বিশেষ আলোচনা)", "channel": "Vividh Bharati" },
+  { "time": "3:00 PM", "title": "सखी सहेली (सुरुचि वाघ, शिक्षा & विशेष बातचीत)", "channel": "Vividh Bharati" },
   { "time": "4:00 PM", "title": "पिटारा : सेल्यूलॉइड के सितारे (अभिनेता विनीत रैना से बातचीत)", "channel": "Vividh Bharati" },
   { "time": "5:00 PM", "title": "छायागीत (Film Songs - Repeat)", "channel": "Vividh Bharati" },
   { "time": "5:30 PM", "title": "तराने नए पुराने (New & Old Film Songs)", "channel": "Vividh Bharati" },
