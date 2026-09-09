@@ -1,425 +1,1327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIR FM Gold Delhi - Live Stream</title>
-  
-  <!-- HLS.js for .m3u8 streaming support -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<title>FM Gold Delhi • Live Radio</title>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #070a12;
+    color: #fff;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.app {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% 12%,
+            rgba(255,193,7,.20),
+            transparent 32%
+        ),
+        linear-gradient(
+            180deg,
+            #131b32 0%,
+            #090d18 55%,
+            #060810 100%
+        );
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glow */
+
+.glow {
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: rgba(255,193,7,.08);
+
+    filter: blur(55px);
+
+    pointer-events: none;
+}
+
+/* Header */
+
+.header {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+
+    padding:
+        24px
+        20px
+        8px;
+}
+
+.live-pill {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        7px
+        13px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    color: #ffd45c;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.2px;
+}
+
+.live-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #ff3b30;
+
+    box-shadow:
+        0 0 10px
+        #ff3b30;
+
+    animation:
+        pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        opacity: 1;
+        transform: scale(1);
     }
 
-    body {
-      background: radial-gradient(circle at top, #1e1b18 0%, #0d0c0b 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      color: #ffffff;
+    50% {
+        opacity: .4;
+        transform: scale(.75);
+    }
+}
+
+.title {
+    margin-top: 14px;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    letter-spacing: -.7px;
+}
+
+.subtitle {
+    margin-top: 5px;
+
+    color: #aeb6ca;
+
+    font-size: 13px;
+}
+
+/* Radio logo */
+
+.radio-area {
+    display: flex;
+
+    justify-content: center;
+
+    padding:
+        30px
+        20px
+        18px;
+}
+
+.radio-logo {
+    width: 210px;
+    height: 210px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle,
+            #ffe477 0%,
+            #f8b928 37%,
+            #d98800 57%,
+            #3b2705 58%,
+            #151109 71%,
+            #0b0f18 72%
+        );
+
+    box-shadow:
+        0 0 0 7px
+        rgba(255,193,7,.08),
+
+        0 0 40px
+        rgba(255,193,7,.23),
+
+        inset 0 0 30px
+        rgba(0,0,0,.35);
+}
+
+.radio-logo::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.23);
+}
+
+.logo-content {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+.logo-fm {
+    font-size: 48px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    color: #151515;
+
+    letter-spacing: -3px;
+}
+
+.logo-gold {
+    margin-top: 4px;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    color: #fff;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 2px 4px
+        rgba(0,0,0,.5);
+}
+
+.logo-delhi {
+    margin-top: 8px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 4px;
+
+    color: #fff;
+}
+
+/* Station */
+
+.station {
+    text-align: center;
+
+    padding:
+        2px
+        20px
+        16px;
+}
+
+.station-name {
+    font-size: 23px;
+
+    font-weight: 800;
+}
+
+.station-location {
+    margin-top: 5px;
+
+    color: #aeb6ca;
+
+    font-size: 13px;
+}
+
+/* Player card */
+
+.player-card {
+
+    margin:
+        12px
+        18px
+        0;
+
+    padding: 18px;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255,255,255,.065);
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+}
+
+.now-playing {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.music-icon {
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd54f,
+            #f39c12
+        );
+
+    color: #17120a;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-title {
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+.track-status {
+    margin-top: 4px;
+
+    font-size: 11px;
+
+    color: #9da6bc;
+}
+
+/* Equalizer */
+
+.equalizer {
+    display: flex;
+
+    align-items: center;
+
+    gap: 3px;
+
+    height: 25px;
+}
+
+.bar {
+    width: 3px;
+
+    height: 8px;
+
+    border-radius: 5px;
+
+    background: #ffc107;
+}
+
+.playing .bar:nth-child(1) {
+    animation:
+        eq .7s infinite
+        ease-in-out;
+}
+
+.playing .bar:nth-child(2) {
+    animation:
+        eq .5s infinite
+        ease-in-out .1s;
+}
+
+.playing .bar:nth-child(3) {
+    animation:
+        eq .8s infinite
+        ease-in-out .2s;
+}
+
+.playing .bar:nth-child(4) {
+    animation:
+        eq .6s infinite
+        ease-in-out .15s;
+}
+
+@keyframes eq {
+
+    0%,100% {
+        height: 7px;
     }
 
-    .player-card {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(235, 180, 50, 0.25);
-      border-radius: 28px;
-      padding: 30px 22px;
-      width: 100%;
-      max-width: 380px;
-      text-align: center;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    50% {
+        height: 23px;
     }
+}
 
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(239, 68, 68, 0.15);
-      color: #ef4444;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      padding: 4px 12px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
+/* Main play button */
 
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      background-color: #ef4444;
-      border-radius: 50%;
-      animation: pulse 1.5s infinite;
-    }
+.play-button {
 
-    @keyframes pulse {
-      0% { transform: scale(0.9); opacity: 0.6; }
-      50% { transform: scale(1.3); opacity: 1; }
-      100% { transform: scale(0.9); opacity: 0.6; }
-    }
+    width: 100%;
 
-    .station-logo {
-      width: 110px;
-      height: 110px;
-      margin: 0 auto 16px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #d4af37, #8c6d1f);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35);
-    }
+    height: 58px;
 
-    .station-logo svg {
-      width: 55px;
-      height: 55px;
-      fill: #121212;
-    }
+    margin-top: 18px;
 
-    .station-title {
-      font-size: 22px;
-      font-weight: 700;
-      color: #f7d070;
-      margin-bottom: 4px;
-    }
+    border: none;
 
-    .station-subtitle {
-      font-size: 13px;
-      color: #a0a0a0;
-      margin-bottom: 18px;
-    }
+    border-radius: 18px;
 
-    /* Equalizer Waves */
-    .visualizer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      height: 30px;
-      margin-bottom: 22px;
-    }
+    background:
+        linear-gradient(
+            135deg,
+            #ffd54f,
+            #ffb300
+        );
 
-    .bar {
-      width: 4px;
-      height: 6px;
-      background: #f7d070;
-      border-radius: 4px;
-      transition: height 0.2s ease;
-    }
+    color: #16120a;
 
-    .visualizer.playing .bar {
-      animation: soundwave 1s infinite alternate ease-in-out;
-    }
+    font-size: 17px;
 
-    .visualizer.playing .bar:nth-child(1) { animation-delay: 0.1s; }
-    .visualizer.playing .bar:nth-child(2) { animation-delay: 0.3s; }
-    .visualizer.playing .bar:nth-child(3) { animation-delay: 0.5s; }
-    .visualizer.playing .bar:nth-child(4) { animation-delay: 0.2s; }
-    .visualizer.playing .bar:nth-child(5) { animation-delay: 0.4s; }
+    font-weight: 900;
 
-    @keyframes soundwave {
-      0% { height: 6px; }
-      100% { height: 26px; }
-    }
+    cursor: pointer;
 
-    .play-btn {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #f7d070, #c89d2d);
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 20px rgba(247, 208, 112, 0.35);
-      transition: transform 0.15s ease;
-    }
+    box-shadow:
+        0 8px 22px
+        rgba(255,179,0,.18);
 
-    .play-btn:active {
-      transform: scale(0.93);
-    }
+    transition:
+        transform .15s,
+        opacity .15s;
+}
 
-    .play-btn svg {
-      width: 30px;
-      height: 30px;
-      fill: #141414;
-    }
+.play-button:active {
+    transform: scale(.97);
+}
 
-    /* Volume Slider */
-    .volume-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
-      padding: 0 10px;
-    }
+.play-button.stop {
+    background:
+        linear-gradient(
+            135deg,
+            #ffca65,
+            #f08a00
+        );
+}
 
-    .volume-container svg {
-      width: 18px;
-      height: 18px;
-      fill: #888888;
-    }
+/* Volume */
 
-    .volume-slider {
-      flex: 1;
-      -webkit-appearance: none;
-      height: 4px;
-      border-radius: 4px;
-      background: #333333;
-      outline: none;
-    }
+.volume-area {
+    margin-top: 17px;
+}
 
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #f7d070;
-      cursor: pointer;
-    }
+.volume-label {
+    display: flex;
 
-    .status-text {
-      font-size: 13px;
-      color: #888;
-      margin-top: 14px;
-      min-height: 18px;
-    }
+    justify-content: space-between;
 
-    /* Background Play & Battery Optimization Card */
-    .battery-box {
-      margin-top: 22px;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(247, 208, 112, 0.3);
-      border-radius: 12px;
-      font-size: 12px;
-      color: #b5b5b5;
-      text-align: left;
-    }
+    margin-bottom: 8px;
 
-    .battery-box strong {
-      color: #f7d070;
-      display: block;
-      margin-bottom: 4px;
-    }
+    font-size: 11px;
 
-    .battery-box p {
-      line-height: 1.4;
-      margin-bottom: 8px;
-    }
+    color: #9da6bc;
+}
 
-    .battery-btn {
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      padding: 7px 0;
-      background: rgba(247, 208, 112, 0.15);
-      border: 1px solid #f7d070;
-      color: #f7d070;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 11px;
-      font-weight: 600;
-      transition: background 0.2s ease;
-    }
+input[type="range"] {
+    width: 100%;
 
-    .battery-btn:active {
-      background: rgba(247, 208, 112, 0.3);
-    }
-  </style>
+    height: 4px;
+
+    accent-color: #ffc107;
+}
+
+/* Battery button */
+
+.battery-button {
+
+    width: 100%;
+
+    height: 48px;
+
+    margin-top: 18px;
+
+    border-radius: 15px;
+
+    border:
+        1px solid
+        rgba(255,193,7,.25);
+
+    background:
+        rgba(255,193,7,.07);
+
+    color: #ffd45c;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.battery-button:active {
+    transform: scale(.98);
+}
+
+.battery-info {
+
+    margin-top: 9px;
+
+    text-align: center;
+
+    color: #737d94;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+/* Error */
+
+.error {
+
+    display: none;
+
+    margin-top: 12px;
+
+    padding: 10px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,59,48,.10);
+
+    color: #ff8179;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+/* Footer */
+
+.footer {
+
+    text-align: center;
+
+    padding:
+        25px
+        20px
+        30px;
+
+    color: #667087;
+
+    font-size: 10px;
+
+    line-height: 1.6;
+}
+
+.footer strong {
+    color: #929bb0;
+}
+
+</style>
 </head>
+
 <body>
 
-  <div class="player-card">
-    <div class="live-badge">
-      <div class="live-dot"></div>
-      LIVE ON AIR
+<div class="app">
+
+<div class="glow"></div>
+
+<header class="header">
+
+    <div class="live-pill">
+        <span class="live-dot"></span>
+        LIVE RADIO
     </div>
 
-    <div class="station-logo">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
-      </svg>
+    <div class="title">
+        FM Gold Delhi
     </div>
 
-    <h1 class="station-title">AIR FM Gold</h1>
-    <p class="station-subtitle">100.1 MHz &bull; Delhi</p>
-
-    <!-- Waveform Visualizer -->
-    <div class="visualizer" id="visualizer">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
+    <div class="subtitle">
+        All India Radio • New Delhi
     </div>
 
-    <!-- Play/Pause Button -->
-    <button class="play-btn" id="playBtn" aria-label="Play or Pause">
-      <svg id="playIcon" viewBox="0 0 24 24">
-        <path d="M8 5v14l11-7z"/>
-      </svg>
+</header>
+
+
+<section class="radio-area">
+
+    <div class="radio-logo">
+
+        <div class="logo-content">
+
+            <div class="logo-fm">
+                FM
+            </div>
+
+            <div class="logo-gold">
+                GOLD
+            </div>
+
+            <div class="logo-delhi">
+                DELHI
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="station">
+
+    <div class="station-name">
+        FM Gold Delhi
+    </div>
+
+    <div class="station-location">
+        📻 New Delhi • India
+    </div>
+
+</section>
+
+
+<section class="player-card">
+
+    <div class="now-playing">
+
+        <div class="music-icon">
+            ♪
+        </div>
+
+        <div class="track-info">
+
+            <div class="track-title">
+                FM Gold — Live Stream
+            </div>
+
+            <div
+                class="track-status"
+                id="status">
+
+                Ready to play
+
+            </div>
+
+        </div>
+
+        <div
+            class="equalizer"
+            id="equalizer">
+
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="play-button"
+        id="playButton">
+
+        ▶ &nbsp; LISTEN LIVE
+
     </button>
 
-    <!-- Volume Controller -->
-    <div class="volume-container">
-      <svg viewBox="0 0 24 24">
-        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
-      </svg>
-      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.8">
+
+    <div class="volume-area">
+
+        <div class="volume-label">
+
+            <span>
+                Volume
+            </span>
+
+            <span id="volumeValue">
+                100%
+            </span>
+
+        </div>
+
+        <input
+            type="range"
+            id="volume"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1">
+
     </div>
 
-    <div class="status-text" id="statusText">Tap play to start listening</div>
 
-    <!-- Background Optimization Info & Intent Trigger -->
-    <div class="battery-box">
-      <strong>Background Playback Setup</strong>
-      <p>To avoid playback stopping when minimized or screen locked, change battery setting to <b>Unrestricted</b>.</p>
-      <a href="intent:#Intent;action=android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS;end" class="battery-btn">
-        Open Battery Settings
-      </a>
+    <!-- Battery Optimization -->
+
+    <button
+        class="battery-button"
+        id="batteryButton">
+
+        🔋 &nbsp; ENABLE BACKGROUND PLAYBACK
+
+    </button>
+
+    <div class="battery-info">
+
+        For better background radio playback,
+        disable battery optimization for this app.
+
     </div>
-  </div>
 
-  <audio id="audioElement" preload="none"></audio>
 
-  <script>
-    const streamUrl = "https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio005/hlspbaudio00564kbps.m3u8";
-    const audio = document.getElementById("audioElement");
-    const playBtn = document.getElementById("playBtn");
-    const playIcon = document.getElementById("playIcon");
-    const visualizer = document.getElementById("visualizer");
-    const volumeSlider = document.getElementById("volumeSlider");
-    const statusText = document.getElementById("statusText");
+    <div
+        class="error"
+        id="error">
 
-    let isPlaying = false;
-    let hls = null;
+        Stream play नहीं हो पाया।
+        कृपया दोबारा कोशिश करें।
 
-    // Initialize HLS Stream
-    function initHls() {
-      if (Hls.isSupported()) {
-        hls = new Hls({
-          enableWorker: true,
-          lowLatencyMode: true
+    </div>
+
+</section>
+
+
+<footer class="footer">
+
+    <strong>
+        FM Gold Delhi
+    </strong>
+
+    <br>
+
+    Live audio streaming • All India Radio
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   RADIO STREAM
+========================================= */
+
+const streamURL =
+"https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio005/hlspbaudio00564kbps.m3u8";
+
+
+const audio = new Audio();
+
+audio.preload = "none";
+
+audio.volume = 1;
+
+
+const playButton =
+document.getElementById("playButton");
+
+const statusText =
+document.getElementById("status");
+
+const equalizer =
+document.getElementById("equalizer");
+
+const errorBox =
+document.getElementById("error");
+
+const volume =
+document.getElementById("volume");
+
+const volumeValue =
+document.getElementById("volumeValue");
+
+const batteryButton =
+document.getElementById("batteryButton");
+
+
+let hls = null;
+
+let isPlaying = false;
+
+
+/* =========================================
+   MEDIA SESSION
+========================================= */
+
+function setupMediaSession() {
+
+    if (!("mediaSession" in navigator)) {
+        return;
+    }
+
+    navigator.mediaSession.metadata =
+        new MediaMetadata({
+
+            title: "FM Gold Delhi",
+
+            artist: "All India Radio",
+
+            album: "Live Radio",
+
+            artwork: [
+
+                {
+                    src:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/All_India_Radio_logo.svg/512px-All_India_Radio_logo.svg.png",
+
+                    sizes: "512x512",
+
+                    type: "image/png"
+                }
+
+            ]
+
         });
-        hls.loadSource(streamUrl);
+
+
+    try {
+
+        navigator.mediaSession.setActionHandler(
+            "play",
+            function() {
+
+                if (!isPlaying) {
+                    startRadio();
+                }
+
+            }
+        );
+
+    } catch(e) {}
+
+
+    try {
+
+        navigator.mediaSession.setActionHandler(
+            "pause",
+            function() {
+
+                audio.pause();
+
+            }
+        );
+
+    } catch(e) {}
+
+
+    try {
+
+        navigator.mediaSession.setActionHandler(
+            "stop",
+            function() {
+
+                stopRadio();
+
+            }
+        );
+
+    } catch(e) {}
+
+}
+
+
+setupMediaSession();
+
+
+/* =========================================
+   START RADIO
+========================================= */
+
+function startRadio() {
+
+    errorBox.style.display = "none";
+
+    statusText.textContent =
+        "Connecting…";
+
+    playButton.disabled = true;
+
+
+    /*
+     Native HLS
+    */
+
+    if (
+        audio.canPlayType(
+            "application/vnd.apple.mpegurl"
+        )
+    ) {
+
+        audio.src = streamURL;
+
+        audio.play()
+            .then(function() {
+
+                radioStarted();
+
+            })
+            .catch(function() {
+
+                radioError();
+
+            });
+
+    }
+
+
+    /*
+     Android Chrome / WebView
+    */
+
+    else if (
+        typeof Hls !== "undefined" &&
+        Hls.isSupported()
+    ) {
+
+        if (hls) {
+
+            hls.destroy();
+
+        }
+
+
+        hls = new Hls({
+
+            enableWorker: true,
+
+            lowLatencyMode: true,
+
+            backBufferLength: 30
+
+        });
+
+
+        hls.loadSource(streamURL);
+
         hls.attachMedia(audio);
 
-        hls.on(Hls.Events.ERROR, function(event, data) {
-          if (data.fatal) {
-            switch(data.type) {
-              case Hls.ErrorTypes.NETWORK_ERROR:
-                statusText.innerText = "Network error. Reconnecting...";
-                hls.startLoad();
-                break;
-              case Hls.ErrorTypes.MEDIA_ERROR:
-                statusText.innerText = "Media error. Recovering...";
-                hls.recoverMediaError();
-                break;
-              default:
-                hls.destroy();
-                statusText.innerText = "Playback error occurred.";
-                break;
+
+        hls.on(
+            Hls.Events.MANIFEST_PARSED,
+            function() {
+
+                audio.play()
+                    .then(function() {
+
+                        radioStarted();
+
+                    })
+                    .catch(function() {
+
+                        radioError();
+
+                    });
+
             }
-          }
-        });
-      } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
-        audio.src = streamUrl;
-      } else {
-        statusText.innerText = "HLS streaming is not supported on this browser.";
-      }
+        );
+
+
+        hls.on(
+            Hls.Events.ERROR,
+            function(event, data) {
+
+                if (data.fatal) {
+
+                    radioError();
+
+                }
+
+            }
+        );
+
     }
 
-    // Media Session API Setup for Lock Screen & Notification Center
-    function setupMediaSession() {
-      if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: 'AIR FM Gold',
-          artist: 'All India Radio (Delhi)',
-          album: '100.1 MHz Live Stream',
-          artwork: [
-            { src: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/All_India_Radio_logo.svg', sizes: '512x512', type: 'image/svg+xml' }
-          ]
-        });
+    else {
 
-        navigator.mediaSession.setActionHandler('play', () => {
-          startPlayback();
-        });
+        radioError();
 
-        navigator.mediaSession.setActionHandler('pause', () => {
-          pausePlayback();
-        });
-
-        navigator.mediaSession.setActionHandler('stop', () => {
-          pausePlayback();
-        });
-      }
     }
 
-    function startPlayback() {
-      if (!hls && !audio.src) {
-        initHls();
-      }
-      statusText.innerText = "Connecting live stream...";
-      audio.play().then(() => {
-        updateUI(true);
-        setupMediaSession();
-        if ('mediaSession' in navigator) {
-          navigator.mediaSession.playbackState = "playing";
+}
+
+
+/* =========================================
+   RADIO STARTED
+========================================= */
+
+function radioStarted() {
+
+    isPlaying = true;
+
+    statusText.textContent =
+        "🔴 Live • Now Playing";
+
+
+    playButton.innerHTML =
+        "■ &nbsp; STOP RADIO";
+
+
+    playButton.classList.add("stop");
+
+
+    equalizer.classList.add("playing");
+
+
+    playButton.disabled = false;
+
+
+    if ("mediaSession" in navigator) {
+
+        navigator.mediaSession.playbackState =
+            "playing";
+
+    }
+
+}
+
+
+/* =========================================
+   STOP
+========================================= */
+
+function stopRadio() {
+
+    audio.pause();
+
+    audio.removeAttribute("src");
+
+    audio.load();
+
+
+    if (hls) {
+
+        hls.destroy();
+
+        hls = null;
+
+    }
+
+
+    isPlaying = false;
+
+
+    statusText.textContent =
+        "Radio stopped";
+
+
+    playButton.innerHTML =
+        "▶ &nbsp; LISTEN LIVE";
+
+
+    playButton.classList.remove("stop");
+
+
+    equalizer.classList.remove("playing");
+
+
+    playButton.disabled = false;
+
+
+    if ("mediaSession" in navigator) {
+
+        navigator.mediaSession.playbackState =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+function radioError() {
+
+    isPlaying = false;
+
+    statusText.textContent =
+        "Stream unavailable";
+
+
+    playButton.innerHTML =
+        "▶ &nbsp; TRY AGAIN";
+
+
+    playButton.classList.remove("stop");
+
+
+    equalizer.classList.remove("playing");
+
+
+    errorBox.style.display =
+        "block";
+
+
+    playButton.disabled = false;
+
+}
+
+
+/* =========================================
+   PLAY BUTTON
+========================================= */
+
+playButton.addEventListener(
+    "click",
+    function() {
+
+        if (isPlaying) {
+
+            stopRadio();
+
+        } else {
+
+            startRadio();
+
         }
-      }).catch(err => {
-        console.error(err);
-        statusText.innerText = "Tap play to allow audio playback.";
-        updateUI(false);
-      });
+
     }
+);
 
-    function pausePlayback() {
-      audio.pause();
-      updateUI(false);
-      if ('mediaSession' in navigator) {
-        navigator.mediaSession.playbackState = "paused";
-      }
+
+/* =========================================
+   VOLUME
+========================================= */
+
+volume.addEventListener(
+    "input",
+    function() {
+
+        audio.volume =
+            this.value;
+
+
+        volumeValue.textContent =
+            Math.round(
+                this.value * 100
+            ) + "%";
+
     }
+);
 
-    function togglePlay() {
-      if (isPlaying) {
-        pausePlayback();
-      } else {
-        startPlayback();
-      }
+
+/* =========================================
+   AUDIO EVENTS
+========================================= */
+
+audio.addEventListener(
+    "waiting",
+    function() {
+
+        if (isPlaying) {
+
+            statusText.textContent =
+                "Buffering…";
+
+        }
+
     }
+);
 
-    function updateUI(playing) {
-      isPlaying = playing;
-      if (playing) {
-        visualizer.classList.add("playing");
-        statusText.innerText = "Playing Live: AIR FM Gold";
-        playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Pause icon
-      } else {
-        visualizer.classList.remove("playing");
-        statusText.innerText = "Stream paused";
-        playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // Play icon
-      }
+
+audio.addEventListener(
+    "playing",
+    function() {
+
+        if (isPlaying) {
+
+            statusText.textContent =
+                "🔴 Live • Now Playing";
+
+        }
+
     }
+);
 
-    playBtn.addEventListener("click", togglePlay);
 
-    volumeSlider.addEventListener("input", (e) => {
-      audio.volume = e.target.value;
-    });
-  </script>
+audio.addEventListener(
+    "pause",
+    function() {
+
+        if (
+            isPlaying &&
+            !audio.ended
+        ) {
+
+            statusText.textContent =
+                "Paused";
+
+            equalizer.classList.remove(
+                "playing"
+            );
+
+            if ("mediaSession" in navigator) {
+
+                navigator.mediaSession.playbackState =
+                    "paused";
+
+            }
+
+        }
+
+    }
+);
+
+
+audio.addEventListener(
+    "error",
+    function() {
+
+        radioError();
+
+    }
+);
+
+
+/* =========================================
+   BATTERY OPTIMIZATION
+========================================= */
+
+batteryButton.addEventListener(
+    "click",
+    function() {
+
+        /*
+         AppCreator24 / Native JavaScript Bridge
+         */
+
+        if (
+            window.Android &&
+            typeof window.Android.openBatteryOptimization ===
+            "function"
+        ) {
+
+            window.Android.openBatteryOptimization();
+
+            return;
+
+        }
+
+
+        /*
+         Alternative bridge names
+         */
+
+        if (
+            window.AndroidInterface &&
+            typeof window.AndroidInterface.openBatteryOptimization ===
+            "function"
+        ) {
+
+            window.AndroidInterface.openBatteryOptimization();
+
+            return;
+
+        }
+
+
+        /*
+         If no native bridge is available
+         */
+
+        alert(
+            "Battery Optimization settings native Android code से खोलनी होंगी।\n\n" +
+            "AppCreator24 में यदि JavaScript Interface उपलब्ध है, " +
+            "तो उसे enable करके openBatteryOptimization method जोड़ें।"
+        );
+
+    }
+);
+
+</script>
+
 </body>
 </html>
