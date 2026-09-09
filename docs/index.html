@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Safe Area সমৰ্থনৰ বাবে viewport-fit=cover যোগ কৰা হৈছে -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIR Radio</title>
 
 <!-- Favicon 404 Error প্ৰতিৰোধৰ বাবে Inline SVG Favicon -->
@@ -27,12 +28,17 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== BASE: MODERN DEEP DARK THEME ===== */
+/* ===== BASE: MODERN DEEP DARK THEME & SAFE AREA ===== */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: #0c0e14;
   color: #f1f5f9;
+  /* নচ (Notch) আৰু তলৰ Gesture Bar-ৰ পৰা বাচিবলৈ Safe Area ইনছেট */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 /* ===== TOP MOBILE AD (320x100) ===== */
@@ -55,7 +61,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ===== LIVE CRICKET SCORE STRIP ===== */
+/* ===== LIVE CRICKET SCORE STRIP & CLS SKELETON ===== */
 .cricket-strip-container {
   padding: 8px 14px 2px;
 }
@@ -71,6 +77,24 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  min-height: 135px; /* CLS ৰোধ কৰিবলৈ স্থিৰ নূন্যতম উচ্চতা */
+}
+
+/* লোড হৈ থকা সময়ত জপিয়াই নপৰিবলৈ স্কেলিটন এনিমেশ্বন */
+.cricket-card.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.04), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .cricket-card::before {
@@ -275,7 +299,7 @@ body {
 }
 
 .qb-air .icon-box {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.06));
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(147, 197, 253, 0.06));
   border: 1px solid rgba(56, 189, 248, 0.3);
   box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
 }
@@ -451,9 +475,9 @@ body {
   </div>
 </a>
 
-<!-- LIVE CRICKET SCORE STRIP -->
-<div class="cricket-strip-container" id="cricketSection" style="display: none;">
-  <div class="cricket-card" id="cricketCard"></div>
+<!-- LIVE CRICKET SCORE STRIP (CLS প্ৰতিৰোধৰ বাবে display:none আঁতৰাই প্ৰাৰম্ভিক স্কেলিটন ৰখা হৈছে) -->
+<div class="cricket-strip-container" id="cricketSection">
+  <div class="cricket-card skeleton" id="cricketCard"></div>
 </div>
 
 <div class="container">
@@ -525,7 +549,6 @@ body {
 const matchId = "69bd420c1dbf177ca4e58e73";
 const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
 
-// দল অনুসৰি ল'গ' নিৰ্ধাৰণ ফাংশন
 function getTeamLogo(team) {
   if (!team) return "";
   const name = (team.shortName || team.name || "").toLowerCase();
@@ -544,7 +567,6 @@ function getTeamLogo(team) {
   return "";
 }
 
-// টেষ্ট মেচৰ স্ক'ৰ ফৰ্মেট কৰা ফাংশন
 function getFormattedScore(teamData, teamKey) {
   if (!teamData) return "";
   const s1 = teamData[`${teamKey}_1_score`];
@@ -559,7 +581,6 @@ function getFormattedScore(teamData, teamKey) {
   return "";
 }
 
-// মেচৰ বৰ্ণনা ফিল্টাৰ কৰা
 function extractMatchNote(result) {
   let note = "";
   if (result.lastCommentary && result.lastCommentary.secondaryText) {
@@ -594,7 +615,6 @@ async function fetchLiveScore() {
 function renderCricketStrip(matchData) {
   if (!matchData) return;
 
-  const section = document.getElementById("cricketSection");
   const card = document.getElementById("cricketCard");
 
   const tournament = "ENG VS PAK • 3RD TEST";
@@ -604,7 +624,6 @@ function renderCricketStrip(matchData) {
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
 
-  // NOTSTARTED শুদ্ধভাৱে পৰীক্ষা কৰা
   const rawStatus = (matchData.status || "").toLowerCase().replace(/\s+/g, "");
   const isCompleted = rawStatus.includes("complete") || rawStatus.includes("finish") || rawStatus.includes("ended");
   const isUpcoming = rawStatus.includes("notstarted") || rawStatus.includes("upcoming") || rawStatus.includes("scheduled");
@@ -625,6 +644,9 @@ function renderCricketStrip(matchData) {
     showDot = true;
     noteText = extractMatchNote(matchData) || "Match in progress";
   }
+
+  // ডাটা অহাৰ পাছত স্কেলিটন আঁতৰোৱা হৈছে
+  card.classList.remove("skeleton");
 
   card.innerHTML = `
     <div class="cs-meta">
@@ -660,11 +682,8 @@ function renderCricketStrip(matchData) {
       <a href="go:card1" class="cs-btn-card">Scorecard</a>
     </div>
   `;
-
-  section.style.display = "block";
 }
 
-// পেজ আৰু আন উপাদানসমূহ সম্পূৰ্ণ লোড হোৱাৰ পাছতহে API কল আৰম্ভ হ'ব
 window.addEventListener('load', () => {
   setTimeout(() => {
     fetchLiveScore();
