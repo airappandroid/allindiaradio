@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIR Radio</title>
 
+<!-- Favicon 404 Error প্ৰতিৰোধৰ বাবে Inline SVG Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📻</text></svg>">
+
 <style>
 * {
   -webkit-tap-highlight-color: transparent;
@@ -631,8 +634,13 @@ function renderCricketStrip(matchData) {
   section.style.display = "block";
 }
 
-fetchLiveScore();
-setInterval(fetchLiveScore, 30000);
+// পেজ আৰু আন উপাদানসমূহ সম্পূৰ্ণ লোড হোৱাৰ পাছতহে API কল আৰম্ভ হ'ব
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    fetchLiveScore();
+    setInterval(fetchLiveScore, 30000);
+  }, 600);
+});
 
 /* ===== RADIO & SCHEDULE LOGIC ===== */
 if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
@@ -752,6 +760,6 @@ renderStations();
 setInterval(updateProgramsOnly, 60000);
 </script>
 
-<script src="https://airappandroid.github.io/allindiaradio/schedule.js" onload="updateProgramsOnly()"></script>
+<script src="https://airappandroid.github.io/allindiaradio/schedule.js" defer onload="updateProgramsOnly()"></script>
 </body>
 </html>
