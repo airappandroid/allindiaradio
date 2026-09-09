@@ -2,710 +2,424 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>All India Radio Stations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIR FM Gold Delhi - Live Stream</title>
+  
+  <!-- HLS.js for .m3u8 streaming support -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  
   <style>
-    :root {
-      --bg: #070a12;
-      --surface: #111728;
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #ffffff;
-      --text-sub: #8292a7;
-      --accent-cyan: #00b4d8;
-      --fav-active: #ff3366;
-      --radius: 16px;
-    }
-
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-touch-callout: none;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      padding: 14px;
-      padding-bottom: calc(60px + env(safe-area-inset-bottom));
-    }
-
-    .header-bar {
-      padding-bottom: 12px;
-    }
-
-    .filter-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .state-picker-btn {
-      flex: 1;
-      padding: 13px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-main);
-      background: var(--surface);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      outline: none;
-    }
-
-    .state-picker-arrow {
-      font-size: 10px;
-      color: var(--text-sub);
-    }
-
-    .fav-toggle-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 18px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-sub);
-      background: var(--surface);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      cursor: pointer;
-      white-space: nowrap;
-      outline: none;
-    }
-
-    .fav-toggle-btn.active {
-      background: rgba(255, 51, 102, 0.12);
-      border-color: rgba(255, 51, 102, 0.4);
-      color: var(--fav-active);
-    }
-
-    .meta-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4px 6px 14px 6px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--text-sub);
-      letter-spacing: 0.3px;
-    }
-
-    /* Station Grid */
-    .station-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .station-card-text {
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 14px 12px 12px 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 125px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-
-    .card-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .station-wave-icon {
-      display: flex;
-      align-items: center;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .station-wave-icon svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .fav-text-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.6);
-      cursor: pointer;
+      background: radial-gradient(circle at top, #1e1b18 0%, #0d0c0b 100%);
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      outline: none;
+      padding: 16px;
+      color: #ffffff;
     }
 
-    .fav-text-btn.active {
-      color: var(--fav-active);
-      background: rgba(255, 51, 102, 0.2);
-      border-color: rgba(255, 51, 102, 0.4);
+    .player-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(235, 180, 50, 0.25);
+      border-radius: 28px;
+      padding: 30px 22px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.6; }
+    }
+
+    .station-logo {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d4af37, #8c6d1f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.35);
+    }
+
+    .station-logo svg {
+      width: 55px;
+      height: 55px;
+      fill: #121212;
     }
 
     .station-title {
-      font-size: 15px;
+      font-size: 22px;
       font-weight: 700;
-      line-height: 1.35;
-      color: #ffffff;
-      margin: 4px 0 10px 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      word-break: break-word;
+      color: #f7d070;
+      margin-bottom: 4px;
     }
 
-    .card-bottom-row {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
-
-    .play-circle-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.22);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .play-circle-symbol {
-      color: #ffffff;
-      font-size: 10px;
-      margin-left: 2px;
-    }
-
-    /* Status Boxes */
-    .status-box {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-sub);
-    }
-
-    .status-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-
-    .status-sub {
+    .station-subtitle {
       font-size: 13px;
-      line-height: 1.5;
+      color: #a0a0a0;
+      margin-bottom: 18px;
     }
 
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3.5px solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--accent-cyan);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px auto;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .retry-btn {
-      margin-top: 16px;
-      padding: 10px 22px;
-      background: var(--accent-cyan);
-      border: none;
-      border-radius: 10px;
-      color: #070a12;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    /* Fullscreen Modal Structure */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      background: var(--bg);
-      z-index: 9999;
-      display: none;
-      flex-direction: column;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-sheet {
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-
-    .modal-top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--card-border);
-      flex-shrink: 0;
-    }
-
-    .modal-nav-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .modal-close-btn {
-      background: none;
-      border: none;
-      color: var(--text-sub);
-      font-size: 24px;
-      cursor: pointer;
-      line-height: 1;
-      padding: 4px;
-    }
-
-    .modal-search-wrapper {
-      padding: 12px 16px;
-      flex-shrink: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .modal-search-input {
-      width: 100%;
-      padding: 12px 16px;
-      background: var(--surface);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      color: var(--text-main);
-      font-size: 15px;
-      outline: none;
-      user-select: text;
-      -webkit-user-select: text;
-    }
-
-    .modal-search-input:focus {
-      border-color: var(--accent-cyan);
-    }
-
-    .state-list-scroll {
-      flex: 1;
-      min-height: 0;
-      overflow-y: auto;
-      padding: 4px 16px 20px 16px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .state-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
-    .radio-circle {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 2px solid #475569;
+    /* Equalizer Waves */
+    .visualizer {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 5px;
+      height: 30px;
+      margin-bottom: 22px;
     }
 
-    .state-item.selected .radio-circle {
-      border-color: var(--accent-cyan);
+    .bar {
+      width: 4px;
+      height: 6px;
+      background: #f7d070;
+      border-radius: 4px;
+      transition: height 0.2s ease;
     }
 
-    .state-item.selected .radio-circle::after {
-      content: '';
-      width: 10px;
-      height: 10px;
+    .visualizer.playing .bar {
+      animation: soundwave 1s infinite alternate ease-in-out;
+    }
+
+    .visualizer.playing .bar:nth-child(1) { animation-delay: 0.1s; }
+    .visualizer.playing .bar:nth-child(2) { animation-delay: 0.3s; }
+    .visualizer.playing .bar:nth-child(3) { animation-delay: 0.5s; }
+    .visualizer.playing .bar:nth-child(4) { animation-delay: 0.2s; }
+    .visualizer.playing .bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes soundwave {
+      0% { height: 6px; }
+      100% { height: 26px; }
+    }
+
+    .play-btn {
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      background: var(--accent-cyan);
+      background: linear-gradient(145deg, #f7d070, #c89d2d);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 20px rgba(247, 208, 112, 0.35);
+      transition: transform 0.15s ease;
+    }
+
+    .play-btn:active {
+      transform: scale(0.93);
+    }
+
+    .play-btn svg {
+      width: 30px;
+      height: 30px;
+      fill: #141414;
+    }
+
+    /* Volume Slider */
+    .volume-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      padding: 0 10px;
+    }
+
+    .volume-container svg {
+      width: 18px;
+      height: 18px;
+      fill: #888888;
+    }
+
+    .volume-slider {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 4px;
+      border-radius: 4px;
+      background: #333333;
+      outline: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #f7d070;
+      cursor: pointer;
+    }
+
+    .status-text {
+      font-size: 13px;
+      color: #888;
+      margin-top: 14px;
+      min-height: 18px;
+    }
+
+    /* Background Play & Battery Optimization Card */
+    .battery-box {
+      margin-top: 22px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(247, 208, 112, 0.3);
+      border-radius: 12px;
+      font-size: 12px;
+      color: #b5b5b5;
+      text-align: left;
+    }
+
+    .battery-box strong {
+      color: #f7d070;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .battery-box p {
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .battery-btn {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      padding: 7px 0;
+      background: rgba(247, 208, 112, 0.15);
+      border: 1px solid #f7d070;
+      color: #f7d070;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 600;
+      transition: background 0.2s ease;
+    }
+
+    .battery-btn:active {
+      background: rgba(247, 208, 112, 0.3);
     }
   </style>
 </head>
 <body>
 
-  <div class="header-bar">
-    <div class="filter-row">
-      <button class="state-picker-btn" onclick="openStateModal()">
-        <span id="selectedStateLabel">Select State</span>
-        <span class="state-picker-arrow">▼</span>
-      </button>
+  <div class="player-card">
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      LIVE ON AIR
+    </div>
 
-      <button id="favFilterBtn" class="fav-toggle-btn" onclick="toggleFavFilter()">
-        <span style="font-size: 16px;">♥</span> Favorites
-      </button>
+    <div class="station-logo">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+      </svg>
+    </div>
+
+    <h1 class="station-title">AIR FM Gold</h1>
+    <p class="station-subtitle">100.1 MHz &bull; Delhi</p>
+
+    <!-- Waveform Visualizer -->
+    <div class="visualizer" id="visualizer">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <!-- Play/Pause Button -->
+    <button class="play-btn" id="playBtn" aria-label="Play or Pause">
+      <svg id="playIcon" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+
+    <!-- Volume Controller -->
+    <div class="volume-container">
+      <svg viewBox="0 0 24 24">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+      </svg>
+      <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.05" value="0.8">
+    </div>
+
+    <div class="status-text" id="statusText">Tap play to start listening</div>
+
+    <!-- Background Optimization Info & Intent Trigger -->
+    <div class="battery-box">
+      <strong>Background Playback Setup</strong>
+      <p>To avoid playback stopping when minimized or screen locked, change battery setting to <b>Unrestricted</b>.</p>
+      <a href="intent:#Intent;action=android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS;end" class="battery-btn">
+        Open Battery Settings
+      </a>
     </div>
   </div>
 
-  <div class="meta-bar">
-    <span id="stationCountText">Loading...</span>
-  </div>
-
-  <div id="loadingState" class="status-box">
-    <div class="spinner"></div>
-    <div class="status-title">Loading Stations...</div>
-    <div class="status-sub">Please wait a moment.</div>
-  </div>
-
-  <div id="errorState" class="status-box" style="display: none;">
-    <div style="font-size: 34px; margin-bottom: 8px;">⚠️</div>
-    <div class="status-title">Connection Failed</div>
-    <div class="status-sub">Unable to load stations list. Check your internet connection.</div>
-    <button class="retry-btn" onclick="initApp()">Retry</button>
-  </div>
-
-  <div id="stationContainer" class="station-grid" style="display: none;"></div>
-  
-  <div id="emptyMessage" class="status-box" style="display: none;">
-    <p id="emptyTitle" class="status-title">Please Select a State</p>
-    <p id="emptySub" class="status-sub">Choose your state to start listening to local stations.</p>
-  </div>
-
-  <!-- Fullscreen Modal -->
-  <div id="stateModal" class="modal-overlay">
-    <div class="modal-sheet">
-      <div class="modal-top-bar">
-        <span class="modal-nav-title">Select Region / State</span>
-        <button class="modal-close-btn" onclick="closeStateModal()">&times;</button>
-      </div>
-
-      <div class="modal-search-wrapper">
-        <input type="search" id="modalStateSearch" class="modal-search-input" placeholder="Search state..." oninput="filterModalStates()">
-      </div>
-
-      <div id="modalStateList" class="state-list-scroll"></div>
-    </div>
-  </div>
+  <audio id="audioElement" preload="none"></audio>
 
   <script>
-    const cardColors = [
-      "linear-gradient(145deg, #1e1b4b 0%, #0c0f1d 100%)",
-      "linear-gradient(145deg, #064e3b 0%, #0c151b 100%)",
-      "linear-gradient(145deg, #4c1d95 0%, #0e0d1f 100%)",
-      "linear-gradient(145deg, #0c4a6e 0%, #081622 100%)",
-      "linear-gradient(145deg, #701a75 0%, #170919 100%)",
-      "linear-gradient(145deg, #134e4a 0%, #09171b 100%)",
-      "linear-gradient(145deg, #831843 0%, #190a12 100%)",
-      "linear-gradient(145deg, #713f12 0%, #16100a 100%)"
-    ];
+    const streamUrl = "https://airhlspush.pc.cdn.bitgravity.com/httppush/hlspbaudio005/hlspbaudio00564kbps.m3u8";
+    const audio = document.getElementById("audioElement");
+    const playBtn = document.getElementById("playBtn");
+    const playIcon = document.getElementById("playIcon");
+    const visualizer = document.getElementById("visualizer");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const statusText = document.getElementById("statusText");
 
-    function getSafeStorage(key, defaultVal) {
-      try {
-        const val = localStorage.getItem(key);
-        return val ? JSON.parse(val) : defaultVal;
-      } catch (e) {
-        return defaultVal;
-      }
-    }
+    let isPlaying = false;
+    let hls = null;
 
-    function setSafeStorage(key, val) {
-      try {
-        localStorage.setItem(key, JSON.stringify(val));
-      } catch (e) {}
-    }
+    // Initialize HLS Stream
+    function initHls() {
+      if (Hls.isSupported()) {
+        hls = new Hls({
+          enableWorker: true,
+          lowLatencyMode: true
+        });
+        hls.loadSource(streamUrl);
+        hls.attachMedia(audio);
 
-    function escapeHtml(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    let favorites = getSafeStorage("air_fav_stations", []);
-    let showOnlyFavs = false;
-    let selectedState = getSafeStorage("air_user_state", "");
-    let uniqueStates = [];
-    let isModalOpen = false;
-    let isStateListBound = false;
-
-    function fetchStationsData() {
-      return new Promise((resolve, reject) => {
-        const existingScript = document.getElementById("stationsDataScript");
-        if (existingScript) existingScript.remove();
-
-        const script = document.createElement("script");
-        script.id = "stationsDataScript";
-        script.src = "https://airappandroid.github.io/growify/stations.js?v=" + Date.now();
-        script.onload = () => {
-          if (typeof stations !== 'undefined' && Array.isArray(stations)) {
-            resolve(stations);
-          } else {
-            reject(new Error("Invalid dataset"));
-          }
-        };
-        script.onerror = () => reject(new Error("Network timeout or connection error"));
-        document.body.appendChild(script);
-      });
-    }
-
-    async function initApp() {
-      const loader = document.getElementById("loadingState");
-      const errorBox = document.getElementById("errorState");
-      const grid = document.getElementById("stationContainer");
-
-      loader.style.display = "block";
-      errorBox.style.display = "none";
-      grid.style.display = "none";
-      document.getElementById("emptyMessage").style.display = "none";
-      document.getElementById("stationCountText").textContent = "Loading...";
-
-      try {
-        await fetchStationsData();
-        loader.style.display = "none";
-        grid.style.display = "grid";
-
-        uniqueStates = [...new Set(stations.map(s => s.state))].sort();
-        renderModalStateList();
-
-        if (!selectedState) {
-          document.getElementById("selectedStateLabel").textContent = "Select State";
-          document.getElementById("stationCountText").textContent = "No state selected";
-          document.getElementById("emptyMessage").style.display = "block";
-          openStateModal();
-        } else {
-          document.getElementById("selectedStateLabel").textContent = selectedState;
-          filterStations();
-        }
-      } catch (err) {
-        loader.style.display = "none";
-        errorBox.style.display = "block";
-        document.getElementById("stationCountText").textContent = "Error loading data";
-      }
-    }
-
-    function renderModalStateList() {
-      const listEl = document.getElementById("modalStateList");
-      listEl.innerHTML = uniqueStates.map(state => `
-        <div class="state-item" data-state="${escapeHtml(state)}">
-          <span>${escapeHtml(state)}</span>
-          <div class="radio-circle"></div>
-        </div>
-      `).join('');
-
-      if (!isStateListBound) {
-        listEl.addEventListener("click", (e) => {
-          const item = e.target.closest(".state-item");
-          if (item) {
-            selectState(item.getAttribute("data-state"));
+        hls.on(Hls.Events.ERROR, function(event, data) {
+          if (data.fatal) {
+            switch(data.type) {
+              case Hls.ErrorTypes.NETWORK_ERROR:
+                statusText.innerText = "Network error. Reconnecting...";
+                hls.startLoad();
+                break;
+              case Hls.ErrorTypes.MEDIA_ERROR:
+                statusText.innerText = "Media error. Recovering...";
+                hls.recoverMediaError();
+                break;
+              default:
+                hls.destroy();
+                statusText.innerText = "Playback error occurred.";
+                break;
+            }
           }
         });
-        isStateListBound = true;
-      }
-    }
-
-    function openStateModal() {
-      if (isModalOpen) return;
-      isModalOpen = true;
-
-      history.pushState({ modalOpen: true }, "");
-
-      const searchInput = document.getElementById("modalStateSearch");
-      searchInput.value = "";
-      
-      const items = document.querySelectorAll(".state-item");
-      items.forEach(item => {
-        item.style.display = "flex";
-        item.classList.toggle("selected", item.getAttribute("data-state") === selectedState);
-      });
-
-      document.getElementById("stateModal").classList.add("active");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeStateModal(fromHistory = false) {
-      if (!isModalOpen) return;
-      isModalOpen = false;
-
-      document.getElementById("stateModal").classList.remove("active");
-      document.body.style.overflow = "";
-
-      const searchInput = document.getElementById("modalStateSearch");
-      if (searchInput) searchInput.blur();
-
-      if (!fromHistory && history.state && history.state.modalOpen) {
-        history.back();
-      }
-    }
-
-    window.addEventListener("popstate", () => {
-      if (isModalOpen) {
-        closeStateModal(true);
-      }
-    });
-
-    function selectState(stateName) {
-      selectedState = stateName;
-      setSafeStorage("air_user_state", stateName);
-      document.getElementById("selectedStateLabel").textContent = stateName || "Select State";
-      closeStateModal();
-      filterStations();
-    }
-
-    function filterModalStates() {
-      const q = document.getElementById("modalStateSearch").value.toLowerCase().trim();
-      const items = document.querySelectorAll(".state-item");
-      items.forEach(item => {
-        const text = (item.getAttribute("data-state") || '').toLowerCase();
-        item.style.display = (!q || text.includes(q)) ? "flex" : "none";
-      });
-    }
-
-    function renderStations(list) {
-      const container = document.getElementById("stationContainer");
-      const emptyMsg = document.getElementById("emptyMessage");
-      const countLabel = document.getElementById("stationCountText");
-
-      countLabel.textContent = showOnlyFavs 
-        ? `Showing ${list.length} favorite station(s)` 
-        : `Showing ${list.length} station(s)`;
-
-      if (list.length === 0) {
-        container.innerHTML = "";
-        if (showOnlyFavs) {
-          document.getElementById("emptyTitle").textContent = "No Favorites Found";
-          document.getElementById("emptySub").textContent = "Tap the heart icon on any station to save it here.";
-        } else {
-          document.getElementById("emptyTitle").textContent = "No Stations Found";
-          document.getElementById("emptySub").textContent = "Please pick another state.";
-        }
-        emptyMsg.style.display = "block";
-        return;
-      }
-      emptyMsg.style.display = "none";
-
-      const html = list.map((station, index) => {
-        const isFav = favorites.includes(station.id);
-        const bgGradient = cardColors[index % cardColors.length];
-        const safeId = escapeHtml(station.id);
-        const safeName = escapeHtml(station.name);
-
-        return `
-          <div class="station-card-text" style="background: ${bgGradient};" data-section-id="${safeId}">
-            <div class="card-top-row">
-              <div class="station-wave-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                  <path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 11v2"/>
-                </svg>
-              </div>
-              <button class="fav-text-btn ${isFav ? 'active' : ''}" data-fav-id="${safeId}" aria-label="Favorite">
-                ♥
-              </button>
-            </div>
-            
-            <div class="station-title" title="${safeName}">${safeName}</div>
-            
-            <div class="card-bottom-row">
-              <div class="play-circle-btn">
-                <span class="play-circle-symbol">▶</span>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      container.innerHTML = html;
-    }
-
-    // Single click delegation for stations and favorites
-    document.getElementById("stationContainer").addEventListener("click", (e) => {
-      const favBtn = e.target.closest(".fav-text-btn");
-      if (favBtn) {
-        e.stopPropagation();
-        const id = favBtn.getAttribute("data-fav-id");
-        toggleFavorite(favBtn, id);
-        return;
-      }
-
-      const card = e.target.closest(".station-card-text");
-      if (card) {
-        const sectionId = card.getAttribute("data-section-id");
-        if (sectionId) {
-          window.location.href = "go:" + sectionId;
-        }
-      }
-    });
-
-    function filterStations() {
-      if (!showOnlyFavs && !selectedState) {
-        document.getElementById("stationContainer").innerHTML = "";
-        document.getElementById("stationCountText").textContent = "Please select a state";
-        document.getElementById("emptyTitle").textContent = "Please Select a State";
-        document.getElementById("emptySub").textContent = "Choose your state to start listening to local stations.";
-        document.getElementById("emptyMessage").style.display = "block";
-        return;
-      }
-
-      const filtered = stations.filter(s => {
-        const matchesState = showOnlyFavs ? true : (s.state === selectedState);
-        const matchesFav = !showOnlyFavs || favorites.includes(s.id);
-        return matchesState && matchesFav;
-      });
-
-      renderStations(filtered);
-    }
-
-    function toggleFavorite(btn, id) {
-      const index = favorites.indexOf(id);
-
-      if (index > -1) {
-        favorites.splice(index, 1);
-        btn.classList.remove("active");
+      } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+        audio.src = streamUrl;
       } else {
-        favorites.push(id);
-        btn.classList.add("active");
-      }
-      setSafeStorage("air_fav_stations", favorites);
-
-      if (showOnlyFavs) {
-        filterStations();
+        statusText.innerText = "HLS streaming is not supported on this browser.";
       }
     }
 
-    function toggleFavFilter() {
-      showOnlyFavs = !showOnlyFavs;
-      document.getElementById("favFilterBtn").classList.toggle("active", showOnlyFavs);
-      filterStations();
+    // Media Session API Setup for Lock Screen & Notification Center
+    function setupMediaSession() {
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: 'AIR FM Gold',
+          artist: 'All India Radio (Delhi)',
+          album: '100.1 MHz Live Stream',
+          artwork: [
+            { src: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/All_India_Radio_logo.svg', sizes: '512x512', type: 'image/svg+xml' }
+          ]
+        });
+
+        navigator.mediaSession.setActionHandler('play', () => {
+          startPlayback();
+        });
+
+        navigator.mediaSession.setActionHandler('pause', () => {
+          pausePlayback();
+        });
+
+        navigator.mediaSession.setActionHandler('stop', () => {
+          pausePlayback();
+        });
+      }
     }
 
-    window.addEventListener('DOMContentLoaded', initApp);
+    function startPlayback() {
+      if (!hls && !audio.src) {
+        initHls();
+      }
+      statusText.innerText = "Connecting live stream...";
+      audio.play().then(() => {
+        updateUI(true);
+        setupMediaSession();
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.playbackState = "playing";
+        }
+      }).catch(err => {
+        console.error(err);
+        statusText.innerText = "Tap play to allow audio playback.";
+        updateUI(false);
+      });
+    }
+
+    function pausePlayback() {
+      audio.pause();
+      updateUI(false);
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.playbackState = "paused";
+      }
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        pausePlayback();
+      } else {
+        startPlayback();
+      }
+    }
+
+    function updateUI(playing) {
+      isPlaying = playing;
+      if (playing) {
+        visualizer.classList.add("playing");
+        statusText.innerText = "Playing Live: AIR FM Gold";
+        playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Pause icon
+      } else {
+        visualizer.classList.remove("playing");
+        statusText.innerText = "Stream paused";
+        playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // Play icon
+      }
+    }
+
+    playBtn.addEventListener("click", togglePlay);
+
+    volumeSlider.addEventListener("input", (e) => {
+      audio.volume = e.target.value;
+    });
   </script>
 </body>
 </html>
