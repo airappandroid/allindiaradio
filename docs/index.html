@@ -184,7 +184,7 @@ body {
 .cs-team-score {
   font-size: 12px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #38bdf8;
 }
 
 .cs-vs {
@@ -474,8 +474,41 @@ body {
   </div>
 </a>
 
+<!-- LIVE CRICKET SCORE STRIP (JSON Data ৰে Pre-rendered) -->
 <div class="cricket-strip-container" id="cricketSection">
-  <div class="cricket-card skeleton" id="cricketCard"></div>
+  <div class="cricket-card" id="cricketCard">
+    <div class="cs-meta">
+      <span class="cs-tour">Ban W vs Ind W • T20</span>
+      <span class="cs-status-tag live">
+        <span class="live-dot red" style="margin-top: 0;"></span>
+        LIVE
+      </span>
+    </div>
+
+    <div class="cs-match-row">
+      <div class="cs-team">
+        <img class="cs-flag" src="https://static.cricbuzz.com/a/img/v1/0x0/i1/c776213/bangladesh-women.jpg" alt="Ban W">
+        <div class="cs-team-info">
+          <span class="cs-team-name">Ban W</span>
+        </div>
+      </div>
+
+      <div class="cs-vs">VS</div>
+
+      <div class="cs-team right">
+        <img class="cs-flag" src="https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg" alt="Ind W">
+        <div class="cs-team-info">
+          <span class="cs-team-name">Ind W</span>
+          <span class="cs-team-score">0/0 (0.0 ov)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-bottom-bar">
+      <div class="cs-note">Ban W opt to Bowl • MATCH STARTS AT 08:00 PM IST</div>
+      <a href="go:card1" class="cs-btn-card">Scorecard</a>
+    </div>
+  </div>
 </div>
 
 <div class="container">
@@ -547,11 +580,35 @@ body {
 const matchId = "6a7521f778dcf065703188ca";
 const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
 
+// প্ৰদান কৰা JSON তথ্য প্ৰাৰম্ভিক ডাটা হিচাপে ব্যৱহাৰ কৰা হৈছে
+const initialMatchData = {
+  "key": "Ban_W_vs_Ind_W_2026-09-10_1789050600",
+  "_id": "6a7521f778dcf065703188ca",
+  "status": "started",
+  "format": "t20",
+  "announcement1": "Ban W opt to Bowl",
+  "teams": {
+    "a": {
+      "name": "Bangladesh Women",
+      "shortName": "Ban W",
+      "logo": "/teams/299037.png"
+    },
+    "b": {
+      "name": "India Women",
+      "shortName": "Ind W",
+      "logo": "/teams/1812.png",
+      "b_1_score": { "runs": 0, "overs": "0.0", "wickets": 0 }
+    }
+  },
+  "lastCommentary": {
+    "secondaryText": "Ban W opt to Bowl\nMATCH STARTS AT 08:00 PM IST "
+  }
+};
+
 function getTeamLogo(team) {
   if (!team) return "";
   const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
-  // কেৱল Bangladesh Women আৰু India Women ৰ ল'গ'
   if (name.includes("ban")) {
     return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776213/bangladesh-women.jpg";
   }
@@ -559,7 +616,6 @@ function getTeamLogo(team) {
     return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg";
   }
 
-  // API ত থকা logo
   if (team.logo) {
     if (team.logo.startsWith("http")) return team.logo;
     return `https://api.cricradio.com.au${team.logo.startsWith("/") ? "" : "/"}${team.logo}`;
@@ -614,20 +670,6 @@ function extractMatchNote(result) {
     .join(" • ");
 }
 
-async function fetchLiveScore() {
-  try {
-    const response = await fetch(`${cricketApiUrl}&_t=${Date.now()}`);
-    if (!response.ok) return;
-
-    const data = await response.json();
-    if (data && data.responseData && data.responseData.result) {
-      renderCricketStrip(data.responseData.result);
-    }
-  } catch (error) {
-    console.error("Live Cricket Score Error:", error);
-  }
-}
-
 function renderCricketStrip(matchData) {
   if (!matchData) return;
 
@@ -640,20 +682,20 @@ function renderCricketStrip(matchData) {
   const nameB = teamB.shortName || teamB.name || 'Ind W';
 
   const format = (matchData.format || 't20').toUpperCase();
-  const tournament = matchData.seriesName || `${nameA} vs ${nameB}, Semi Final 1`;
+  const tournament = matchData.seriesName || `${nameA} vs ${nameB} • ${format}`;
 
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
 
   const rawStatus = (matchData.status || "").toLowerCase().replace(/\s+/g, "");
   const isCompleted = rawStatus.includes("complete") || rawStatus.includes("finish") || rawStatus.includes("ended");
-  const isUpcoming = rawStatus.includes("notstarted") || rawStatus.includes("upcoming") || rawStatus.includes("scheduled") || !rawStatus;
+  const isUpcoming = rawStatus.includes("notstarted") || rawStatus.includes("upcoming") || rawStatus.includes("scheduled");
   const isLive = !isUpcoming && !isCompleted && (rawStatus.includes("live") || rawStatus.includes("inprogress") || rawStatus === "started");
 
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let noteText = "Match starts at 10 Sep, 8:00 PM IST";
+  let noteText = "Match starts at 8:00 PM IST";
 
   if (isCompleted) {
     statusText = "COMPLETED";
@@ -667,7 +709,7 @@ function renderCricketStrip(matchData) {
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = extractMatchNote(matchData) || "Match starts at 10 Sep, 8:00 PM IST";
+    noteText = extractMatchNote(matchData) || "Match starts at 8:00 PM IST";
   }
 
   card.classList.remove("skeleton");
@@ -707,6 +749,23 @@ function renderCricketStrip(matchData) {
     </div>
   `;
 }
+
+async function fetchLiveScore() {
+  try {
+    const response = await fetch(`${cricketApiUrl}&_t=${Date.now()}`);
+    if (!response.ok) return;
+
+    const data = await response.json();
+    if (data && data.responseData && data.responseData.result) {
+      renderCricketStrip(data.responseData.result);
+    }
+  } catch (error) {
+    console.error("Live Cricket Score Error:", error);
+  }
+}
+
+// প্ৰাৰম্ভিক তথ্য প্ৰদৰ্শন আৰু স্বয়ংক্ৰিয় লাইভ ফেচ
+renderCricketStrip(initialMatchData);
 
 window.addEventListener('load', () => {
   setTimeout(() => {
