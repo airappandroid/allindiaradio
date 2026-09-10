@@ -34,7 +34,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: #0c0e14;
   color: #f1f5f9;
-  /* নচ (Notch) আৰু তলৰ Gesture Bar-ৰ পৰা বাচিবলৈ Safe Area ইনছেট */
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   padding-left: env(safe-area-inset-left, 0px);
@@ -77,10 +76,9 @@ body {
   position: relative;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-  min-height: 135px; /* CLS ৰোধ কৰিবলৈ স্থিৰ নূন্যতম উচ্চতা */
+  min-height: 135px;
 }
 
-/* লোড হৈ থকা সময়ত জপিয়াই নপৰিবলৈ স্কেলিটন এনিমেশ্বন */
 .cricket-card.skeleton::after {
   content: "";
   position: absolute;
@@ -169,6 +167,7 @@ body {
   background: #1a1d26;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  flex-shrink: 0;
 }
 
 .cs-team-info {
@@ -545,20 +544,22 @@ body {
 
 <script>
 /* ===== LIVE CRICKET SCORE FETCH & AUTO UPDATE (CRICRADIO API) ===== */
-const matchId = "69bd420c1dbf177ca4e58e73";
+const matchId = "6a7521f778dcf065703188ca";
 const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
 
 function getTeamLogo(team) {
   if (!team) return "";
-  const name = (team.shortName || team.name || "").toLowerCase();
+  const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
-  if (name.includes("eng")) {
-    return "https://ssl.gstatic.com/onebox/media/sports/logos/optimized/DTqIL8Ba3KIuxGkpXw5ayA_500x500.png";
+  // কেৱল Bangladesh Women আৰু India Women ৰ ল'গ'
+  if (name.includes("ban")) {
+    return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776213/bangladesh-women.jpg";
   }
-  if (name.includes("pak")) {
-    return "https://ssl.gstatic.com/onebox/media/sports/logos/optimized/-I9tpg9uetJjQNCh15jmKw_500x500.png";
+  if (name.includes("ind")) {
+    return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg";
   }
 
+  // API ত থকা logo
   if (team.logo) {
     if (team.logo.startsWith("http")) return team.logo;
     return `https://api.cricradio.com.au${team.logo.startsWith("/") ? "" : "/"}${team.logo}`;
@@ -566,18 +567,36 @@ function getTeamLogo(team) {
   return "";
 }
 
+function formatInningScore(scoreObj) {
+  if (!scoreObj) return "";
+  const runs = scoreObj.runs ?? scoreObj.r;
+  if (runs === undefined || runs === null) return "";
+
+  const wickets = scoreObj.wickets ?? scoreObj.w ?? 0;
+  let overs = scoreObj.overs ?? scoreObj.over ?? scoreObj.o;
+
+  if ((overs === undefined || overs === null) && scoreObj.balls !== undefined) {
+    const completedOvers = Math.floor(scoreObj.balls / 6);
+    const remBalls = scoreObj.balls % 6;
+    overs = `${completedOvers}.${remBalls}`;
+  }
+
+  const overText = (overs !== undefined && overs !== null && overs !== "") ? ` (${overs} ov)` : "";
+  return `${runs}/${wickets}${overText}`;
+}
+
 function getFormattedScore(teamData, teamKey) {
   if (!teamData) return "";
-  const s1 = teamData[`${teamKey}_1_score`];
+  const s1 = teamData[`${teamKey}_1_score`] || teamData.score;
   const s2 = teamData[`${teamKey}_2_score`];
 
-  if (s2 && typeof s2.runs !== "undefined") {
-    return `${s2.runs}/${s2.wickets ?? 0} & ${s1 ? s1.runs : 0}`;
+  const score1 = formatInningScore(s1);
+  const score2 = formatInningScore(s2);
+
+  if (score2 && score1) {
+    return `${score2} & ${score1}`;
   }
-  if (s1 && typeof s1.runs !== "undefined") {
-    return `${s1.runs}/${s1.wickets ?? 0}`;
-  }
-  return "";
+  return score2 || score1 || "";
 }
 
 function extractMatchNote(result) {
@@ -588,13 +607,11 @@ function extractMatchNote(result) {
     note = result.announcement1.trim();
   }
 
-  const cleaned = note
+  return note
     .split(/\r?\n/)
-    .filter(line => !line.toLowerCase().includes("match starts at"))
-    .join(" • ")
-    .trim();
-
-  return cleaned;
+    .map(line => line.trim())
+    .filter(Boolean)
+    .join(" • ");
 }
 
 async function fetchLiveScore() {
@@ -616,22 +633,27 @@ function renderCricketStrip(matchData) {
 
   const card = document.getElementById("cricketCard");
 
-  const tournament = "ENG VS PAK • 3RD TEST";
   const teamA = matchData.teams ? matchData.teams.a : {};
   const teamB = matchData.teams ? matchData.teams.b : {};
+
+  const nameA = teamA.shortName || teamA.name || 'Ban W';
+  const nameB = teamB.shortName || teamB.name || 'Ind W';
+
+  const format = (matchData.format || 't20').toUpperCase();
+  const tournament = matchData.seriesName || `${nameA} vs ${nameB}, Semi Final 1`;
 
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
 
   const rawStatus = (matchData.status || "").toLowerCase().replace(/\s+/g, "");
   const isCompleted = rawStatus.includes("complete") || rawStatus.includes("finish") || rawStatus.includes("ended");
-  const isUpcoming = rawStatus.includes("notstarted") || rawStatus.includes("upcoming") || rawStatus.includes("scheduled");
-  const isLive = !isUpcoming && (rawStatus.includes("live") || rawStatus.includes("inprogress") || rawStatus === "started");
+  const isUpcoming = rawStatus.includes("notstarted") || rawStatus.includes("upcoming") || rawStatus.includes("scheduled") || !rawStatus;
+  const isLive = !isUpcoming && !isCompleted && (rawStatus.includes("live") || rawStatus.includes("inprogress") || rawStatus === "started");
 
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let noteText = "Match starts at 3:30 PM IST";
+  let noteText = "Match starts at 10 Sep, 8:00 PM IST";
 
   if (isCompleted) {
     statusText = "COMPLETED";
@@ -642,9 +664,12 @@ function renderCricketStrip(matchData) {
     statusClass = "cs-status-tag live";
     showDot = true;
     noteText = extractMatchNote(matchData) || "Match in progress";
+  } else {
+    statusText = "UPCOMING";
+    statusClass = "cs-status-tag";
+    noteText = extractMatchNote(matchData) || "Match starts at 10 Sep, 8:00 PM IST";
   }
 
-  // ডাটা অহাৰ পাছত স্কেলিটন আঁতৰোৱা হৈছে
   card.classList.remove("skeleton");
 
   card.innerHTML = `
@@ -658,9 +683,9 @@ function renderCricketStrip(matchData) {
 
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="ENG" onerror="this.style.opacity='0'">
+        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://static.cricbuzz.com/a/img/v1/0x0/i1/c776213/bangladesh-women.jpg';">
         <div class="cs-team-info">
-          <span class="cs-team-name">${teamA.shortName || teamA.name || 'England'}</span>
+          <span class="cs-team-name">${nameA}</span>
           ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
         </div>
       </div>
@@ -668,9 +693,9 @@ function renderCricketStrip(matchData) {
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="PAK" onerror="this.style.opacity='0'">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg';">
         <div class="cs-team-info">
-          <span class="cs-team-name">${teamB.shortName || teamB.name || 'Pakistan'}</span>
+          <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
         </div>
       </div>
