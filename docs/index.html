@@ -474,7 +474,7 @@ body {
   </div>
 </a>
 
-<!-- LIVE CRICKET SCORE STRIP (JSON Data ৰে Pre-rendered) -->
+<!-- LIVE CRICKET SCORE STRIP -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-card" id="cricketCard">
     <div class="cs-meta">
@@ -505,7 +505,7 @@ body {
     </div>
 
     <div class="cs-bottom-bar">
-      <div class="cs-note">Ban W opt to Bowl • MATCH STARTS AT 08:00 PM IST</div>
+      <div class="cs-note">Ban W opt to Bowl</div>
       <a href="go:card1" class="cs-btn-card">Scorecard</a>
     </div>
   </div>
@@ -580,7 +580,6 @@ body {
 const matchId = "6a7521f778dcf065703188ca";
 const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
 
-// প্ৰদান কৰা JSON তথ্য প্ৰাৰম্ভিক ডাটা হিচাপে ব্যৱহাৰ কৰা হৈছে
 const initialMatchData = {
   "key": "Ban_W_vs_Ind_W_2026-09-10_1789050600",
   "_id": "6a7521f778dcf065703188ca",
@@ -601,7 +600,7 @@ const initialMatchData = {
     }
   },
   "lastCommentary": {
-    "secondaryText": "Ban W opt to Bowl\nMATCH STARTS AT 08:00 PM IST "
+    "secondaryText": "Ban W opt to Bowl"
   }
 };
 
@@ -666,7 +665,7 @@ function extractMatchNote(result) {
   return note
     .split(/\r?\n/)
     .map(line => line.trim())
-    .filter(Boolean)
+    .filter(line => line && !line.toLowerCase().includes("match starts at"))
     .join(" • ");
 }
 
@@ -695,7 +694,7 @@ function renderCricketStrip(matchData) {
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let noteText = "Match starts at 8:00 PM IST";
+  let noteText = "";
 
   if (isCompleted) {
     statusText = "COMPLETED";
@@ -709,7 +708,7 @@ function renderCricketStrip(matchData) {
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = extractMatchNote(matchData) || "Match starts at 8:00 PM IST";
+    noteText = extractMatchNote(matchData) || "";
   }
 
   card.classList.remove("skeleton");
@@ -764,7 +763,7 @@ async function fetchLiveScore() {
   }
 }
 
-// প্ৰাৰম্ভিক তথ্য প্ৰদৰ্শন আৰু স্বয়ংক্ৰিয় লাইভ ফেচ
+// প্ৰাৰম্ভিক তথ্য প্ৰদৰ্শন
 renderCricketStrip(initialMatchData);
 
 window.addEventListener('load', () => {
