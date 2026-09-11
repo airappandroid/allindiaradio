@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="as, en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIR Radio App - Live Akashvani & FM Streaming</title>
+    <meta name="description" content="Stream live All India Radio (Akashvani), Vividh Bharati, Regional FM and National News anytime, anywhere with crystal clear audio.">
+    <style>
+        :root {
+            --bg-main: #0a0f1d;
+            --bg-card: #131d31;
+            --bg-card-hover: #1c2a47;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-cyan: #38bdf8;
+            --accent-blue: #2563eb;
+            --accent-purple: #818cf8;
+            --border-color: #1e293b;
+            --gradient-accent: linear-gradient(135deg, #38bdf8 0%, #6366f1 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(10, 15, 29, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+        }
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+        .logo-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffffff;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+        .btn-nav {
+            background: var(--gradient-accent);
+            color: #ffffff !important;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600 !important;
+            transition: transform 0.2s, box-shadow 0.2s !important;
+        }
+        .btn-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+            position: relative;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 9999px;
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .hero-tag .pulse {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #22c55e;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            line-height: 1.15;
+            color: var(--text-primary);
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero h1 span {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            margin-bottom: 32px;
+            color: #94a3b8;
+            max-width: 540px;
+        }
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+        .btn-playstore {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+            color: #0b0f19;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .btn-playstore:hover {
+            transform: translateY(-2px);
+            background: #f1f5f9;
+        }
+        .btn-playstore svg {
+            width: 24px;
+            height: 24px;
+        }
+        .btn-playstore .btn-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            color: #475569;
+        }
+        .btn-playstore .btn-title {
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 22px;
+            border-radius: 12px;
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* App Player Card Mockup */
+        .player-mockup {
+            background: linear-gradient(180deg, #162035 0%, #0d1424 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.15);
+            position: relative;
+        }
+        .player-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .live-badge {
+            background: #ef4444;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .station-art {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #1e3a8a 0%, #312e81 100%);
+            border-radius: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .station-art svg {
+            width: 54px;
+            height: 54px;
+            fill: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+        .station-art h4 {
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        .station-art p {
+            color: #93c5fd;
+            font-size: 0.85rem;
+            margin-bottom: 0;
+        }
+
+        /* Sound Wave Animation */
+        .sound-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 36px;
+            margin-bottom: 20px;
+        }
+        .bar {
+            width: 4px;
+            background: var(--accent-cyan);
+            border-radius: 4px;
+            animation: bounce 1.2s ease-in-out infinite alternate;
+        }
+        .bar:nth-child(1) { height: 12px; animation-delay: 0.1s; }
+        .bar:nth-child(2) { height: 26px; animation-delay: 0.3s; }
+        .bar:nth-child(3) { height: 34px; animation-delay: 0.15s; }
+        .bar:nth-child(4) { height: 20px; animation-delay: 0.4s; }
+        .bar:nth-child(5) { height: 30px; animation-delay: 0.25s; }
+        .bar:nth-child(6) { height: 16px; animation-delay: 0.5s; }
+        .bar:nth-child(7) { height: 28px; animation-delay: 0.2s; }
+        .bar:nth-child(8) { height: 14px; animation-delay: 0.35s; }
+
+        @keyframes bounce {
+            0% { transform: scaleY(0.4); opacity: 0.5; }
+            100% { transform: scaleY(1); opacity: 1; }
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+        .control-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .control-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+        .play-pause-btn {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+        }
+        .play-pause-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #ffffff;
+        }
+
+        /* Features Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 28px;
+            border-radius: 18px;
+            transition: transform 0.25s, border-color 0.25s, background 0.25s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(56, 189, 248, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--accent-cyan);
+        }
+        .feature-icon svg {
+            width: 26px;
+            height: 26px;
+            fill: currentColor;
+        }
+        .feature-card h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        /* Channel List Highlights */
+        .stations-strip {
+            background: linear-gradient(180deg, #111a2d 0%, #0a0f1d 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 36px 30px;
+            margin-bottom: 80px;
+        }
+        .stations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .station-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .station-chip strong {
+            display: block;
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .station-chip span {
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 80px;
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 14px;
+        }
+        .faq-item h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .faq-item p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* CTA Banner */
+        .cta-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 24px;
+            padding: 50px 30px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .cta-box h2 {
+            color: var(--text-primary);
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .cta-box p {
+            max-width: 580px;
+            margin: 0 auto 28px;
+            font-size: 1.05rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            background: #070a14;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+        .footer-copy {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 860px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .hero {
+                padding: 40px 0;
+            }
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo-box">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13v6.59l4.5 2.7 1-1.63-3.5-2.1V7h-2z"/>
+                    </svg>
+                </div>
+                <span>AIR Radio App</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#stations">Stations</a>
+                <a href="#faq">FAQ</a>
+                <a href="https://airappandroid.github.io/allindiaradio/privacy.html" target="_blank">Privacy Policy</a>
+                <a href="#" class="btn-nav">Download APK</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <div class="hero-tag">
+                    <span class="pulse"></span> 24/7 Live Akashvani & Regional FM
+                </div>
+                <h1>Listen to India's Voice, <span>Anywhere in the World</span></h1>
+                <p>
+                    Enjoy high-definition live streaming of Vividh Bharati, AIR National, Gold, Rainbow, regional language broadcasts, and daily news with zero lag.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://play.google.com/store/apps/details?id=oc.t" target="_blank" class="btn-playstore">
+                        <svg viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M3.61 1.81L13.8 12 3.61 22.19c-.38-.41-.61-.98-.61-1.61V3.42c0-.63.23-1.2.61-1.61z"/>
+                            <path fill="#FBBC04" d="M17.2 8.6L4.85 1.54C4.43 1.3 3.99 1.4 3.61 1.81L13.8 12l3.4-3.4z"/>
+                            <path fill="#EA4335" d="M17.2 15.4L13.8 12 3.61 22.19c.38.41.82.51 1.24.27l12.35-7.06z"/>
+                            <path fill="#34A853" d="M20.67 10.63l-3.47 1.37-3.4-3.4 3.4-3.4 3.47 1.37c1.03.58 1.03 2.48 0 3.06z"/>
+                        </svg>
+                        <div>
+                            <span class="btn-sub">Get it on</span>
+                            <span class="btn-title">Google Play</span>
+                        </div>
+                    </a>
+                    <a href="#features" class="btn-secondary">
+                        Learn More &darr;
+                    </a>
+                </div>
+            </div>
+
+            <!-- Player Mockup UI -->
+            <div class="player-mockup">
+                <div class="player-header">
+                    <span style="font-size: 0.85rem; font-weight: 600; color: #94a3b8;">NOW STREAMING</span>
+                    <span class="live-badge"><span class="live-dot"></span> LIVE</span>
+                </div>
+                <div class="station-art">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                    </svg>
+                    <h4>Vividh Bharati</h4>
+                    <p>102.8 MHz &bull; National Music Service</p>
+                </div>
+                <div class="sound-wave">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <div class="controls">
+                    <button class="control-btn" aria-label="Previous Station">
+                        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                    </button>
+                    <button class="play-pause-btn" aria-label="Play or Pause">
+                        <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </button>
+                    <button class="control-btn" aria-label="Next Station">
+                        <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="container">
+        <div class="section-title">
+            <h2>Why Choose AIR Radio App?</h2>
+            <p>Engineered for lightweight performance, low battery consumption, and uninterrupted playback.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <h3>100% Free &amp; Clean</h3>
+                <p>No subscription fees, no account creation required. Just install the app, pick your station, and hit play.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
+                </div>
+                <h3>Background Playback</h3>
+                <p>Enjoy continuous radio streaming while using WhatsApp, browsing websites, or even when your screen is locked.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+                </div>
+                <h3>Data-Saver Audio Codec</h3>
+                <p>Optimized low-bandwidth streaming ensures seamless music and talk shows even on slower 2G/3G connections.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg>
+                </div>
+                <h3>Sleep Timer Function</h3>
+                <p>Love sleeping to soft music or late-night talk shows? Set the auto-off timer and sleep worry-free without battery drain.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </div>
+                <h3>Favorites &amp; Quick Search</h3>
+                <p>Bookmark your top Akashvani stations for 1-tap access right from the home screen.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                </div>
+                <h3>Notification Controls</h3>
+                <p>Convenient lock screen and notification bar audio controls to switch, play, or stop without opening the app.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Stations Section -->
+    <section id="stations" class="container">
+        <div class="stations-strip">
+            <div class="section-title" style="margin-bottom: 20px;">
+                <h2>Popular Stations Included</h2>
+                <p>Instant access to all premier All India Radio networks and regional language services.</p>
+            </div>
+            <div class="stations-grid">
+                <div class="station-chip">
+                    <strong>Vividh Bharati</strong>
+                    <span>Classic Hindi &amp; Retro</span>
+                </div>
+                <div class="station-chip">
+                    <strong>AIR Gold FM</strong>
+                    <span>Hits &amp; Current Affairs</span>
+                </div>
+                <div class="station-chip">
+                    <strong>AIR Rainbow</strong>
+                    <span>Youth &amp; Modern Music</span>
+                </div>
+                <div class="station-chip">
+                    <strong>AIR News 24x7</strong>
+                    <span>National Live Bulletins</span>
+                </div>
+                <div class="station-chip">
+                    <strong>AIR Guwahati</strong>
+                    <span>Assamese News &amp; Songs</span>
+                </div>
+                <div class="station-chip">
+                    <strong>Raagam Classical</strong>
+                    <span>Carnatic &amp; Hindustani</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="container faq-section">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about AIR Radio App</p>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>Is the app completely free?</h4>
+                <p>Yes, all radio stations and features are 100% free to access. The app is supported by unobtrusive Google AdMob ads.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Does the audio play when screen is locked?</h4>
+                <p>Yes, our app is built with Android foreground audio services so you can listen uninterrupted with your phone locked.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do I need high-speed internet?</h4>
+                <p>No, the audio streams are compressed with low-latency codecs, allowing smooth playback even on normal 3G or 4G data speeds.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Who owns the radio channels and music?</h4>
+                <p>All channels, audio content, and logos belong to their respective broadcasters (such as Prasar Bharati / All India Radio). Our app functions strictly as a stream player.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download CTA Banner -->
+    <section class="container">
+        <div class="cta-box">
+            <h2>Ready to tune into your favorite station?</h2>
+            <p>Download AIR Radio App today and enjoy uninterrupted Akashvani live broadcast on your Android phone.</p>
+            <a href="https://play.google.com/store/apps/details?id=oc.t" target="_blank" class="btn-playstore" style="display: inline-flex;">
+                <svg viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M3.61 1.81L13.8 12 3.61 22.19c-.38-.41-.61-.98-.61-1.61V3.42c0-.63.23-1.2.61-1.61z"/>
+                    <path fill="#FBBC04" d="M17.2 8.6L4.85 1.54C4.43 1.3 3.99 1.4 3.61 1.81L13.8 12l3.4-3.4z"/>
+                    <path fill="#EA4335" d="M17.2 15.4L13.8 12 3.61 22.19c.38.41.82.51 1.24.27l12.35-7.06z"/>
+                    <path fill="#34A853" d="M20.67 10.63l-3.47 1.37-3.4-3.4 3.4-3.4 3.47 1.37c1.03.58 1.03 2.48 0 3.06z"/>
+                </svg>
+                <div style="text-align: left;">
+                    <span class="btn-sub">Get it on</span>
+                    <span class="btn-title">Google Play</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-copy">
+                &copy; 2026 AIR Radio App. All rights reserved. Disclaimer: Audio content belongs to Prasar Bharati &amp; respective radio networks.
+            </div>
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#stations">Stations</a>
+                <a href="https://airappandroid.github.io/allindiaradio/privacy.html" target="_blank">Privacy Policy</a>
+                <a href="vividhbharati75@gmail.com">Contact Developer</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
