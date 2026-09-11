@@ -479,9 +479,8 @@ body {
   <div class="cricket-card" id="cricketCard">
     <div class="cs-meta">
       <span class="cs-tour">Ban W vs Ind W • T20</span>
-      <span class="cs-status-tag live">
-        <span class="live-dot red" style="margin-top: 0;"></span>
-        LIVE
+      <span class="cs-status-tag completed">
+        COMPLETED
       </span>
     </div>
 
@@ -499,13 +498,13 @@ body {
         <img class="cs-flag" src="https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg" alt="Ind W">
         <div class="cs-team-info">
           <span class="cs-team-name">Ind W</span>
-          <span class="cs-team-score">0/0 (0.0 ov)</span>
+          <span class="cs-team-score"></span>
         </div>
       </div>
     </div>
 
     <div class="cs-bottom-bar">
-      <div class="cs-note">Ban W opt to Bowl</div>
+      <div class="cs-note">India Women won by 40 runs</div>
       <a href="go:card1" class="cs-btn-card">Scorecard</a>
     </div>
   </div>
@@ -583,9 +582,9 @@ const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card
 const initialMatchData = {
   "key": "Ban_W_vs_Ind_W_2026-09-10_1789050600",
   "_id": "6a7521f778dcf065703188ca",
-  "status": "started",
+  "status": "completed",
   "format": "t20",
-  "announcement1": "Ban W opt to Bowl",
+  "announcement1": "India Women won by 40 runs",
   "teams": {
     "a": {
       "name": "Bangladesh Women",
@@ -595,12 +594,11 @@ const initialMatchData = {
     "b": {
       "name": "India Women",
       "shortName": "Ind W",
-      "logo": "/teams/1812.png",
-      "b_1_score": { "runs": 0, "overs": "0.0", "wickets": 0 }
+      "logo": "/teams/1812.png"
     }
   },
   "lastCommentary": {
-    "secondaryText": "Ban W opt to Bowl"
+    "secondaryText": "India Women won by 40 runs"
   }
 };
 
@@ -699,7 +697,7 @@ function renderCricketStrip(matchData) {
   if (isCompleted) {
     statusText = "COMPLETED";
     statusClass = "cs-status-tag completed";
-    noteText = extractMatchNote(matchData) || "Match Finished";
+    noteText = extractMatchNote(matchData) || "India Women won by 40 runs";
   } else if (isLive) {
     statusText = "LIVE";
     statusClass = "cs-status-tag live";
