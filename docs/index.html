@@ -13,11 +13,13 @@
 * {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
+  -webkit-touch-callout: none;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 a:active, a:focus {
   outline: none;
@@ -38,6 +40,8 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 /* ===== TOP MOBILE AD (320x100) ===== */
@@ -227,13 +231,8 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform .12s ease;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
-}
-
-.cs-btn-card:active {
-  transform: scale(0.94);
 }
 
 /* ===== LAYOUT ===== */
@@ -249,7 +248,7 @@ body {
   color: #ffffff;
 }
 
-/* ===== REDESIGNED MODERN QUICK BUTTONS ===== */
+/* ===== MODERN QUICK BUTTONS ===== */
 .quick-buttons {
   display: flex;
   gap: 10px;
@@ -272,13 +271,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.qbtn:active {
-  transform: scale(0.95);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .icon-box {
@@ -289,7 +281,6 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
-  transition: transform 0.15s ease;
 }
 
 .icon-box svg {
@@ -417,7 +408,6 @@ body {
   flex-shrink: 0;
   text-decoration: none;
   box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
-  transition: transform .12s ease;
 }
 
 .play svg {
@@ -425,10 +415,6 @@ body {
   height: 17px;
   fill: #041426;
   margin-left: 2px;
-}
-
-.play:active {
-  transform: scale(0.92);
 }
 
 /* ===== POPULAR STATES ===== */
@@ -449,10 +435,6 @@ body {
   font-weight: 600;
   color: #cbd5e1;
   letter-spacing: .2px;
-}
-
-.state-item:active {
-  background: rgba(255, 255, 255, 0.06);
 }
 
 .view-all-states {
@@ -778,22 +760,22 @@ const popularStations = [
   { 
     name: "FM Rainbow", 
     code: "FMR", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(2).jpg" 
+    logo: "https://cdn.jsdelivr.net/gh/airappandroid/mp3-files@refs/heads/main/images%20(2).jpg" 
   },
   { 
     name: "Vividh Bharati", 
     code: "N002", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images.jpg" 
+    logo: "https://cdn.jsdelivr.net/gh/airappandroid/mp3-files@refs/heads/main/images.jpg" 
   },
   { 
     name: "FM Gold", 
     code: "FMG", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(1).jpg" 
+    logo: "https://cdn.jsdelivr.net/gh/airappandroid/mp3-files@main/images.jpg?raw=true" 
   },
   { 
     name: "Indraprastha", 
     code: "INDRA", 
-    logo: "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/images%20(3).jpg" 
+    logo: "https://cdn.jsdelivr.net/gh/airappandroid/mp3-files@main/images%20(2).jpg?raw=true" 
   }
 ];
 
@@ -819,8 +801,10 @@ function getCurrentProgram(channel) {
     return lastProgram[channel] || "Live Broadcast";
   }
 
-  const now = new Date();
+  // Asia/Kolkata (ভাৰতীয় মান সময়) অনুসৰি সময় নিৰ্ণয়
+  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   const nowMin = now.getHours() * 60 + now.getMinutes();
+  
   const list = window.SCHEDULE_DATA
     .filter(p => p.channel && p.channel.toLowerCase().includes(channel.toLowerCase().trim()))
     .map(p => ({ ...p, min: timeToMinutes(p.time) }))
@@ -889,6 +873,6 @@ renderStations();
 setInterval(updateProgramsOnly, 60000);
 </script>
 
-<script src="https://airappandroid.github.io/allindiaradio/schedule.js" defer onload="updateProgramsOnly()"></script>
+<script src="https://allindiaradio.aminurmarch.workers.dev/docs/schedule.js" defer onload="updateProgramsOnly()"></script>
 </body>
 </html>
