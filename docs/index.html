@@ -460,7 +460,7 @@ body {
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-card" id="cricketCard">
     <div class="cs-meta">
-      <span class="cs-tour">Venue: Arun Jaitley Stadium, Delhi</span>
+      <span class="cs-tour">IND vs AFG • 1st T20</span>
       <span class="cs-status-tag">
         UPCOMING
       </span>
@@ -468,25 +468,25 @@ body {
 
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="https://static.cricbuzz.com/a/img/v1/0x0/i1/c776213/bangladesh-women.jpg" alt="Ban W">
+        <img class="cs-flag" src="https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg" alt="IND">
         <div class="cs-team-info">
-          <span class="cs-team-name">Ban W</span>
+          <span class="cs-team-name">IND</span>
         </div>
       </div>
 
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg" alt="Ind W">
+        <img class="cs-flag" src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg" alt="AFG">
         <div class="cs-team-info">
-          <span class="cs-team-name">Ind W</span>
+          <span class="cs-team-name">AFG</span>
           <span class="cs-team-score"></span>
         </div>
       </div>
     </div>
 
     <div class="cs-bottom-bar">
-      <div class="cs-note">Match starts today at 7:30pm IST</div>
+      <div class="cs-note">Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi</div>
       <a href="go:card1" class="cs-btn-card">Scorecard</a>
     </div>
   </div>
@@ -562,26 +562,26 @@ const matchId = "6a7c72f078dcf0657031d932";
 const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
 
 const initialMatchData = {
-  "key": "Ban_W_vs_Ind_W_2026-09-10_1789050600",
-  "_id": "6a7521f778dcf065703188ca",
+  "_id": "6a7c72f078dcf0657031d932",
   "status": "upcoming",
   "format": "t20",
+  "seriesName": "IND vs AFG • 1st T20",
   "venue": "Venue: Arun Jaitley Stadium, Delhi",
-  "announcement1": "Match starts today at 7:30pm IST",
+  "announcement1": "Starts Today at 7:30 PM IST • Delhi",
   "teams": {
     "a": {
-      "name": "Bangladesh Women",
-      "shortName": "Ban W",
-      "logo": "/teams/299037.png"
+      "name": "India",
+      "shortName": "IND",
+      "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
     },
     "b": {
-      "name": "India Women",
-      "shortName": "Ind W",
-      "logo": "/teams/1812.png"
+      "name": "Afghanistan",
+      "shortName": "AFG",
+      "logo": "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg"
     }
   },
   "lastCommentary": {
-    "secondaryText": "Match starts today at 7:30pm IST"
+    "secondaryText": "Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi"
   }
 };
 
@@ -590,7 +590,7 @@ function getTeamLogo(team) {
   const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
   if (name.includes("ind")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
+    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/";
   }
   if (name.includes("afg")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
@@ -646,7 +646,7 @@ function extractMatchNote(result) {
   return note
     .split(/\r?\n/)
     .map(line => line.trim())
-    .filter(line => line && !line.toLowerCase().includes("match starts at"))
+    .filter(Boolean)
     .join(" • ");
 }
 
@@ -658,11 +658,11 @@ function renderCricketStrip(matchData) {
   const teamA = matchData.teams ? matchData.teams.a : {};
   const teamB = matchData.teams ? matchData.teams.b : {};
 
-  const nameA = teamA.shortName || teamA.name || 'Ban W';
-  const nameB = teamB.shortName || teamB.name || 'Ind W';
+  const nameA = teamA.shortName || teamA.name || 'IND';
+  const nameB = teamB.shortName || teamB.name || 'AFG';
 
   const format = (matchData.format || 't20').toUpperCase();
-  const tournament = matchData.venue || "Venue: Arun Jaitley Stadium, Delhi";
+  const tournament = matchData.seriesName || matchData.venue || `${nameA} vs ${nameB} • ${format}`;
 
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
@@ -675,12 +675,12 @@ function renderCricketStrip(matchData) {
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let noteText = "Match starts today at 7:30pm IST";
+  let noteText = "";
 
   if (isCompleted) {
     statusText = "COMPLETED";
     statusClass = "cs-status-tag completed";
-    noteText = extractMatchNote(matchData) || "India Women won by 40 runs";
+    noteText = extractMatchNote(matchData) || "Match Finished";
   } else if (isLive) {
     statusText = "LIVE";
     statusClass = "cs-status-tag live";
@@ -689,7 +689,7 @@ function renderCricketStrip(matchData) {
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = matchData.announcement1 || extractMatchNote(matchData) || "Match starts today at 7:30pm IST";
+    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi";
   }
 
   card.classList.remove("skeleton");
@@ -705,7 +705,7 @@ function renderCricketStrip(matchData) {
 
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://static.cricbuzz.com/a/img/v1/0x0/i1/c776213/bangladesh-women.jpg';">
+        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameA}</span>
           ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
@@ -715,7 +715,7 @@ function renderCricketStrip(matchData) {
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg';">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
