@@ -460,9 +460,9 @@ body {
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-card" id="cricketCard">
     <div class="cs-meta">
-      <span class="cs-tour">Ban W vs Ind W • T20</span>
-      <span class="cs-status-tag completed">
-        COMPLETED
+      <span class="cs-tour">Venue: Arun Jaitley Stadium, Delhi</span>
+      <span class="cs-status-tag">
+        UPCOMING
       </span>
     </div>
 
@@ -486,7 +486,7 @@ body {
     </div>
 
     <div class="cs-bottom-bar">
-      <div class="cs-note">India Women won by 40 runs</div>
+      <div class="cs-note">Match starts today at 7:30pm IST</div>
       <a href="go:card1" class="cs-btn-card">Scorecard</a>
     </div>
   </div>
@@ -558,15 +558,16 @@ body {
 
 <script>
 /* ===== LIVE CRICKET SCORE FETCH & AUTO UPDATE (CRICRADIO API) ===== */
-const matchId = "6a7521f778dcf065703188ca";
+const matchId = "6a7c72f078dcf0657031d932";
 const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
 
 const initialMatchData = {
   "key": "Ban_W_vs_Ind_W_2026-09-10_1789050600",
   "_id": "6a7521f778dcf065703188ca",
-  "status": "completed",
+  "status": "upcoming",
   "format": "t20",
-  "announcement1": "India Women won by 40 runs",
+  "venue": "Venue: Arun Jaitley Stadium, Delhi",
+  "announcement1": "Match starts today at 7:30pm IST",
   "teams": {
     "a": {
       "name": "Bangladesh Women",
@@ -580,7 +581,7 @@ const initialMatchData = {
     }
   },
   "lastCommentary": {
-    "secondaryText": "India Women won by 40 runs"
+    "secondaryText": "Match starts today at 7:30pm IST"
   }
 };
 
@@ -588,11 +589,11 @@ function getTeamLogo(team) {
   if (!team) return "";
   const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
-  if (name.includes("ban")) {
-    return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776213/bangladesh-women.jpg";
-  }
   if (name.includes("ind")) {
-    return "https://static.cricbuzz.com/a/img/v1/0x0/i1/c776182/india-women.jpg";
+    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
+  }
+  if (name.includes("afg")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
   }
 
   if (team.logo) {
@@ -661,7 +662,7 @@ function renderCricketStrip(matchData) {
   const nameB = teamB.shortName || teamB.name || 'Ind W';
 
   const format = (matchData.format || 't20').toUpperCase();
-  const tournament = matchData.seriesName || `${nameA} vs ${nameB} • ${format}`;
+  const tournament = matchData.venue || "Venue: Arun Jaitley Stadium, Delhi";
 
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
@@ -674,7 +675,7 @@ function renderCricketStrip(matchData) {
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let noteText = "";
+  let noteText = "Match starts today at 7:30pm IST";
 
   if (isCompleted) {
     statusText = "COMPLETED";
@@ -688,7 +689,7 @@ function renderCricketStrip(matchData) {
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = extractMatchNote(matchData) || "";
+    noteText = matchData.announcement1 || extractMatchNote(matchData) || "Match starts today at 7:30pm IST";
   }
 
   card.classList.remove("skeleton");
