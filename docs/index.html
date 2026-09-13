@@ -64,11 +64,46 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ===== LIVE CRICKET SCORE STRIP & CLS SKELETON ===== */
+/* ===== CRICKET TOGGLE BUTTONS ===== */
 .cricket-strip-container {
   padding: 8px 14px 2px;
 }
 
+.cricket-toggle-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.cs-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.cs-tab-btn.active {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #031326;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+}
+
+/* ===== CRICKET CARD & CLS SKELETON ===== */
 .cricket-card {
   background: linear-gradient(145deg, #151821, #10121a);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -456,47 +491,21 @@ body {
   </div>
 </a>
 
-<!-- LIVE CRICKET SCORE STRIP -->
+<!-- LIVE CRICKET SCORE STRIP WITH TOGGLE BUTTONS -->
 <div class="cricket-strip-container" id="cricketSection">
-  <div class="cricket-card" id="cricketCard">
-    <div class="cs-meta">
-      <span class="cs-tour">IND vs AFG • 1st T20</span>
-      <span class="cs-status-tag">
-        UPCOMING
-      </span>
-    </div>
-
-    <div class="cs-match-row">
-      <div class="cs-team">
-        <img class="cs-flag" src="https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg" alt="IND">
-        <div class="cs-team-info">
-          <span class="cs-team-name">IND</span>
-        </div>
-      </div>
-
-      <div class="cs-vs">VS</div>
-
-      <div class="cs-team right">
-        <img class="cs-flag" src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg" alt="AFG">
-        <div class="cs-team-info">
-          <span class="cs-team-name">AFG</span>
-          <span class="cs-team-score"></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="cs-bottom-bar">
-      <div class="cs-note">Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi</div>
-      <a href="go:card1" class="cs-btn-card">Scorecard</a>
-    </div>
+  <div class="cricket-toggle-bar">
+    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND vs AFG</button>
+    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">IND W vs SL W</button>
   </div>
+
+  <div class="cricket-card" id="cricketCard1"></div>
+  <div class="cricket-card" id="cricketCard2" style="display: none;"></div>
 </div>
 
 <div class="container">
 
 <!-- MODERN QUICK BUTTONS -->
 <div class="quick-buttons">
-
   <a href="go:AIR" class="qb-air">
     <div class="qbtn">
       <div class="icon-box">
@@ -529,17 +538,14 @@ body {
       <div class="label">Live News</div>
     </div>
   </a>
-
 </div>
 
 <!-- Popular Stations & States -->
 <div id="homeContent">
-
   <h2 class="section-title">🔥 Popular Stations</h2>
   <div id="stations"></div>
 
   <h2 class="section-title">📍 Popular States</h2>
-
   <div class="card">
     <div class="state-grid">
       <a href="go:DELHI" class="state-item">Delhi</a>
@@ -549,7 +555,6 @@ body {
       <a href="go:WB" class="state-item">West Bengal</a>
       <a href="go:TN" class="state-item">Tamil Nadu</a>
     </div>
-
     <a href="go:A2" class="view-all-states">View All States →</a>
   </div>
 </div>
@@ -557,41 +562,102 @@ body {
 </div>
 
 <script>
-/* ===== LIVE CRICKET SCORE FETCH & AUTO UPDATE (CRICRADIO API) ===== */
-const matchId = "6a7c72f078dcf0657031d932";
-const cricketApiUrl = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${matchId}`;
-
-const initialMatchData = {
-  "_id": "6a7c72f078dcf0657031d932",
-  "status": "upcoming",
-  "format": "t20",
-  "seriesName": "IND vs AFG • 1st T20",
-  "venue": "Venue: Arun Jaitley Stadium, Delhi",
-  "announcement1": "Starts Today at 7:30 PM IST • Delhi",
-  "teams": {
-    "a": {
-      "name": "India",
-      "shortName": "IND",
-      "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
-    },
-    "b": {
-      "name": "Afghanistan",
-      "shortName": "AFG",
-      "logo": "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg"
+/* ===== LIVE CRICKET SCORE FETCH & DUAL MATCH LOGIC ===== */
+const cricketMatches = [
+  {
+    cardId: "cricketCard1",
+    tabId: "tabBtn0",
+    matchId: "6a7c72f078dcf0657031d932",
+    scorecardLink: "go:card1",
+    initialData: {
+      "_id": "6a7c72f078dcf0657031d932",
+      "status": "upcoming",
+      "format": "t20",
+      "seriesName": "IND vs AFG • 1st T20",
+      "venue": "Venue: Arun Jaitley Stadium, Delhi",
+      "announcement1": "Starts Today at 7:30 PM IST • Delhi",
+      "teams": {
+        "a": {
+          "name": "India",
+          "shortName": "IND",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
+        },
+        "b": {
+          "name": "Afghanistan",
+          "shortName": "AFG",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg"
+        }
+      },
+      "lastCommentary": {
+        "secondaryText": "Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi"
+      }
     }
   },
-  "lastCommentary": {
-    "secondaryText": "Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi"
+  {
+    cardId: "cricketCard2",
+    tabId: "tabBtn1",
+    matchId: "6a7521fb78dcf065703188cd",
+    scorecardLink: "go:card2",
+    initialData: {
+      "_id": "6a7521fb78dcf065703188cd",
+      "status": "upcoming",
+      "format": "t20",
+      "seriesName": "IND W vs SL W • T20",
+      "venue": "Match Starts Today at 8PM",
+      "announcement1": "Match Starts Today at 8PM",
+      "teams": {
+        "a": {
+          "name": "India Women",
+          "shortName": "IND W",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
+        },
+        "b": {
+          "name": "Sri Lanka Women",
+          "shortName": "SL W",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp"
+        }
+      },
+      "lastCommentary": {
+        "secondaryText": "Match Starts Today at 8PM"
+      }
+    }
   }
-};
+];
+
+let activeMatchIndex = 0;
+
+function switchCricketMatch(index) {
+  activeMatchIndex = index;
+  cricketMatches.forEach((match, idx) => {
+    const cardEl = document.getElementById(match.cardId);
+    const tabEl = document.getElementById(match.tabId);
+    
+    if (cardEl) {
+      cardEl.style.display = (idx === index) ? "flex" : "none";
+    }
+    if (tabEl) {
+      if (idx === index) {
+        tabEl.classList.add("active");
+      } else {
+        tabEl.classList.remove("active");
+      }
+    }
+  });
+}
 
 function getTeamLogo(team) {
-  if (!team) return "";
+  if (!team) return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
   const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
+  // শ্ৰীলংকা দলৰ ল'গ'
+  if (name.includes("sl") || name.includes("sri lanka")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp";
+  }
+  // ভাৰত দলৰ ল'গ'
   if (name.includes("ind")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/";
   }
+  // আফগানিস্তান দলৰ ল'গ'
   if (name.includes("afg")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
   }
@@ -600,7 +666,7 @@ function getTeamLogo(team) {
     if (team.logo.startsWith("http")) return team.logo;
     return `https://api.cricradio.com.au${team.logo.startsWith("/") ? "" : "/"}${team.logo}`;
   }
-  return "";
+  return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
 }
 
 function formatInningScore(scoreObj) {
@@ -650,16 +716,20 @@ function extractMatchNote(result) {
     .join(" • ");
 }
 
-function renderCricketStrip(matchData) {
-  if (!matchData) return;
-
-  const card = document.getElementById("cricketCard");
+function renderCricketStrip(cardElement, matchData, scorecardLink, tabId) {
+  if (!cardElement || !matchData) return;
 
   const teamA = matchData.teams ? matchData.teams.a : {};
   const teamB = matchData.teams ? matchData.teams.b : {};
 
-  const nameA = teamA.shortName || teamA.name || 'IND';
-  const nameB = teamB.shortName || teamB.name || 'AFG';
+  const nameA = teamA.shortName || teamA.name || 'Team A';
+  const nameB = teamB.shortName || teamB.name || 'Team B';
+
+  // টগল বুটামত দলৰ নাম আপডেট কৰা
+  const tabBtn = document.getElementById(tabId);
+  if (tabBtn && nameA && nameB) {
+    tabBtn.textContent = `${nameA} vs ${nameB}`;
+  }
 
   const format = (matchData.format || 't20').toUpperCase();
   const tournament = matchData.seriesName || matchData.venue || `${nameA} vs ${nameB} • ${format}`;
@@ -689,12 +759,12 @@ function renderCricketStrip(matchData) {
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi";
+    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today at 8PM";
   }
 
-  card.classList.remove("skeleton");
+  cardElement.classList.remove("skeleton");
 
-  card.innerHTML = `
+  cardElement.innerHTML = `
     <div class="cs-meta">
       <span class="cs-tour">${tournament}</span>
       <span class="${statusClass}">
@@ -715,7 +785,7 @@ function renderCricketStrip(matchData) {
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg';">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
@@ -725,32 +795,45 @@ function renderCricketStrip(matchData) {
 
     <div class="cs-bottom-bar">
       <div class="cs-note">${noteText}</div>
-      <a href="go:card1" class="cs-btn-card">Scorecard</a>
+      <a href="${scorecardLink}" class="cs-btn-card">Scorecard</a>
     </div>
   `;
 }
 
-async function fetchLiveScore() {
+async function fetchMatchScore(match) {
+  const cardElement = document.getElementById(match.cardId);
+  if (!cardElement) return;
+
   try {
-    const response = await fetch(`${cricketApiUrl}&_t=${Date.now()}`);
+    const url = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${match.matchId}&_t=${Date.now()}`;
+    const response = await fetch(url);
     if (!response.ok) return;
 
     const data = await response.json();
     if (data && data.responseData && data.responseData.result) {
-      renderCricketStrip(data.responseData.result);
+      renderCricketStrip(cardElement, data.responseData.result, match.scorecardLink, match.tabId);
     }
   } catch (error) {
-    console.error("Live Cricket Score Error:", error);
+    console.error(`Match Fetch Error (${match.matchId}):`, error);
   }
 }
 
-// প্ৰাৰম্ভিক তথ্য প্ৰদৰ্শন
-renderCricketStrip(initialMatchData);
+function fetchAllMatches() {
+  cricketMatches.forEach(match => fetchMatchScore(match));
+}
+
+// প্ৰাৰম্ভিক তথ্য প্ৰদৰ্শন (IND vs AFG আৰু IND W vs SL W)
+cricketMatches.forEach(match => {
+  if (match.initialData) {
+    const el = document.getElementById(match.cardId);
+    renderCricketStrip(el, match.initialData, match.scorecardLink, match.tabId);
+  }
+});
 
 window.addEventListener('load', () => {
   setTimeout(() => {
-    fetchLiveScore();
-    setInterval(fetchLiveScore, 30000);
+    fetchAllMatches();
+    setInterval(fetchAllMatches, 30000);
   }, 600);
 });
 
@@ -802,7 +885,6 @@ function getCurrentProgram(channel) {
     return lastProgram[channel] || "Live Broadcast";
   }
 
-  // Asia/Kolkata (ভাৰতীয় মান সময়) অনুসৰি সময় নিৰ্ণয়
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   const nowMin = now.getHours() * 60 + now.getMinutes();
   
