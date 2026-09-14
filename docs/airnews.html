@@ -2,552 +2,1123 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>AIR Regional News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIR Regional News Bulletins</title>
   <style>
-    :root {
-      --bg-color: #0b1120;
-      --card-bg: #1e293b;
-      --card-border: #334155;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --accent: #38bdf8;
-      --play-bg: #2563eb;
-      --play-active: #16a34a;
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      -webkit-tap-highlight-color: transparent;
     }
-
     body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      padding-bottom: 30px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      padding: 16px;
+      line-height: 1.5;
     }
-
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(11, 17, 32, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--card-border);
+    .header-wrap {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      gap: 10px;
     }
-
     .header-title {
-      font-size: 1.15rem;
+      font-size: 19px;
       font-weight: 700;
+      color: #ffffff;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-
-    .header-title svg {
-      fill: var(--accent);
-      width: 22px;
-      height: 22px;
-    }
-
-    .lang-btn {
-      background: #1e293b;
-      color: var(--text-main);
-      border: 1px solid var(--card-border);
+    .change-lang-btn {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      color: #4da3ff;
       padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.82rem;
+      font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .lang-btn:active {
-      background: #334155;
+    .change-lang-btn:active {
+      background-color: #2a2a2a;
     }
-
-    /* Status Bar */
-    .status-bar {
-      padding: 12px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--text-sub);
-    }
-
-    .current-lang-pill {
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent);
-      padding: 3px 10px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    /* Bulletins */
-    .bulletin-container {
-      padding: 0 16px;
+    .bulletin-list {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
-
     .bulletin-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background-color: #1e1e1e;
+      border: 1px solid #2d2d2d;
       border-radius: 14px;
-      padding: 14px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25);
+      text-decoration: none;
+      color: inherit;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .bulletin-details {
+    .bulletin-card:active {
+      background-color: #2a2a2a;
+      transform: scale(0.98);
+    }
+    .bulletin-info {
       flex: 1;
-      min-width: 0;
+      margin-right: 14px;
     }
-
-    .bulletin-city {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .bulletin-lang {
-      font-size: 0.82rem;
-      color: var(--accent);
+    .bulletin-heading {
+      font-size: 16px;
       font-weight: 600;
+      color: #ffffff;
       margin-bottom: 6px;
     }
-
     .bulletin-meta {
-      font-size: 0.76rem;
-      color: var(--text-sub);
+      font-size: 13px;
+      color: #9e9e9e;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 8px;
     }
-
-    .bulletin-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    /* Enlarged and prominent language badge */
+    .lang-badge {
+      background-color: #20354e;
+      color: #58a6ff;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      display: inline-block;
     }
-
-    /* <a href=".mp3"> Play Button */
-    .play-btn {
-      width: 48px;
-      height: 48px;
-      background: var(--play-bg);
+    .play-icon-wrap {
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
+      background: linear-gradient(135deg, #007bff, #0056b3);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
-      text-decoration: none;
       flex-shrink: 0;
-      transition: transform 0.1s ease, background-color 0.2s ease;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    }
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 13px solid #ffffff;
+      margin-left: 3px;
+    }
+    .empty-msg {
+      display: none;
+      text-align: center;
+      padding: 40px 16px;
+      color: #888;
+      font-size: 15px;
     }
 
-    .play-btn:active {
-      transform: scale(0.92);
-    }
-
-    .play-btn.playing {
-      background: var(--play-active);
-      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
-    }
-
-    .play-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    /* Modal */
+    /* Fullscreen Modal */
     .modal-overlay {
       position: fixed;
-      inset: 0;
-      background-color: var(--bg-color);
-      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #121212;
+      display: none;
+      flex-direction: column;
+      z-index: 99999;
+      padding: 16px;
+      overflow: hidden;
+    }
+    .modal-container {
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      padding: 20px 16px;
-      opacity: 1;
-      visibility: visible;
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      animation: fadeIn 0.2s ease-out;
     }
-
-    .modal-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
-
-    .modal-header {
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #242424;
+    }
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .close-btn {
+      background-color: #1e1e1e;
+      border: 1px solid #333;
+      color: #ffffff;
+      font-size: 20px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .close-btn:active {
+      background-color: #2a2a2a;
+    }
+    .search-input-box {
+      width: 100%;
+      background-color: #1e1e1e;
+      border: 1px solid #333333;
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
       margin-bottom: 16px;
     }
-
-    .modal-title {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
+    .search-input-box:focus {
+      border-color: #007bff;
     }
 
-    .modal-sub {
-      font-size: 0.85rem;
-      color: var(--text-sub);
-    }
-
-    .search-box-wrap {
-      position: relative;
-      margin-bottom: 14px;
-    }
-
-    .search-box-wrap input {
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 12px 14px 12px 42px;
-      color: var(--text-main);
-      font-size: 0.95rem;
-      outline: none;
-    }
-
-    .search-box-wrap input:focus {
-      border-color: var(--accent);
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 18px;
-      height: 18px;
-      fill: var(--text-sub);
-    }
-
-    .lang-list {
+    /* 2x2 Grid Layout */
+    .lang-chip-list {
       flex: 1;
-      overflow-y: auto;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      padding-bottom: 20px;
+      gap: 12px;
+      overflow-y: auto;
+      align-content: flex-start;
+      padding-bottom: 24px;
+      -webkit-overflow-scrolling: touch;
     }
-
-    .lang-item {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 14px 12px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: 600;
+    .lang-chip {
+      background-color: #1e1e1e;
+      border: 1px solid #2d2d2d;
+      color: #e0e0e0;
+      padding: 14px 10px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
-      color: var(--text-main);
-    }
-
-    .lang-item:active {
-      background: var(--card-border);
-    }
-
-    .lang-item.active {
-      border-color: var(--accent);
-      background: rgba(56, 189, 248, 0.12);
-      color: var(--accent);
-    }
-
-    .empty-state {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 60px 20px;
-      color: var(--text-sub);
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
     }
-
-    .empty-state button {
-      margin-top: 14px;
-      background: var(--play-bg);
-      color: #fff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
+    .lang-chip:active, .lang-chip.active {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #ffffff;
       font-weight: 600;
-      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <audio id="globalAudio"></audio>
-
   <!-- Header -->
-  <header>
+  <div class="header-wrap">
     <div class="header-title">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
-      <span>AIR Regional News</span>
+      📻 AIR Regional Bulletins
     </div>
-    <button class="lang-btn" id="openModalBtn" aria-label="Change language">
-      <span>Language</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+    <button class="change-lang-btn" id="openModalBtn">
+      🌐 <span id="currentLangText">Select Language</span>
     </button>
-  </header>
-
-  <!-- Status Bar -->
-  <div class="status-bar">
-    <span>Selected: <strong id="selectedLangDisplay" class="current-lang-pill">All Languages</strong></span>
-    <span id="bulletinCount">0 Bulletins</span>
   </div>
 
-  <!-- Bulletins Container -->
-  <main class="bulletin-container" id="bulletinList"></main>
+  <!-- Bulletin List -->
+  <div class="bulletin-list" id="bulletinList">
 
-  <div id="emptyView" class="empty-state" style="display: none;">
-    <p>No regional bulletins found for this language.</p>
-    <button onclick="openModal()">Select Another Language</button>
+    <!-- Bulletin 1 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/tleug-1310.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Hyderabad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Telugu</span>
+          <span>• 01:10 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 2 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/urdu-1310-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Lucknow</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Urdu</span>
+          <span>• 01:10 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 3 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/dehradun1305-2.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dehradun</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 01:05 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 4 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bengali-1250-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kolkata</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Bengali</span>
+          <span>• 12:50 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 5 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ksiri-1235.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Srinagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Kashmiri</span>
+          <span>• 12:35 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 6 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/mal1230.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Thiruvananthapuram</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Malayalam</span>
+          <span>• 12:30 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 7 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/calitu-1230.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Calicut</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Malayalam</span>
+          <span>• 12:30 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 8 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/rudu-1230.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Srinagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Urdu</span>
+          <span>• 12:30 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 9 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/dogir-1255.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jammu</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Dogri</span>
+          <span>• 12:25 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 10 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/assaes-1205.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Guwahati</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 12:05 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 11 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kadn-1200.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dharwad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Kannada</span>
+          <span>• 12:00 PM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 12 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/raiput-1155.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Raipur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 11:55 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 13 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-1100-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">C S Nagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Marathi</span>
+          <span>• 11:00 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 14 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahite11.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Guwahati</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 11:00 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 15 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/silam-1100.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Shimla</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 11:00 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 16 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/gojri-1015.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jammu</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Gojri</span>
+          <span>• 10:15 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 17 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ddgadg.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Raipur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 09:55 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 18 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-urdu-6.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Srinagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Urdu</span>
+          <span>• 09:25 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 19 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/simal-0920.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Shimla</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 09:20 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 20 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jammu-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jammu</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Dogri</span>
+          <span>• 09:20 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 21 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-kashmiri0920.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Srinagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Kashmiri</span>
+          <span>• 09:20 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 22 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/leh-6.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Leh</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Ladakhi</span>
+          <span>• 09:05 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 23 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/assams0900.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Guwahati</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 09:00 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 24 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jaipur0900-2.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jaipur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 09:00 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 25 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/doi-0900.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dogri</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Dogri</span>
+          <span>• 09:00 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 26 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0910.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">C S Nagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Urdu</span>
+          <span>• 09:00 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 27 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/patna-5.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Patna</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 08:48 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 28 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/shi-enf.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Shillong</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">English</span>
+          <span>• 08:30 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 29 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ranchi-12.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Ranchi</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 08:30 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 30 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/aassmes-0705.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Guwahati</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 07:55 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 31 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/shillong-2.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Shillong</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Khasi</span>
+          <span>• 07:45 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 32 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/agartalakok-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Agartala</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Kokborok</span>
+          <span>• 07:40 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 33 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bhuj-17.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Bhuj</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Gujarati</span>
+          <span>• 07:40 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 34 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/agartalaben-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Agartala</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Bengali</span>
+          <span>• 07:35 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 35 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bengl-07354.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kolkata</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Bengali</span>
+          <span>• 07:35 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 36 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0735.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Silchar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Bengali</span>
+          <span>• 07:35 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 37 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0730.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kohima</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">English</span>
+          <span>• 07:30 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 38 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/imphal.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Imphal</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Manipuri</span>
+          <span>• 07:30 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 39 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/aiz-2.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Aizawl</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Mizo</span>
+          <span>• 07:30 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 40 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/neplai-0725.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kurseong</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Nepali</span>
+          <span>• 07:25 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 41 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/paji-0725.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Panaji</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Konkani</span>
+          <span>• 07:25 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 42 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/negms-0725.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kohima</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Nagamese</span>
+          <span>• 07:25 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 43 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/gorak.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Gorakhpur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 07:20 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 44 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/deharadun.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dehradun</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 07:20 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 45 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/pune-0710.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Pune</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Marathi</span>
+          <span>• 07:10 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 46 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/adam-0710.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Ahmedabad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Gujarati</span>
+          <span>• 07:10 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 47 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/boapl-0710.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Bhopal</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 07:10 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 48 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0710-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">C S Nagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Marathi</span>
+          <span>• 07:10 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 49 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-vijay-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Sri Vijaya Puram</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 07:05 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 50 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cuttcak-2.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Cuttack</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Odia</span>
+          <span>• 07:05 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 51 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/dwd-5.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dharwad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Kannada</span>
+          <span>• 07:05 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 52 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sambal-0647-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Sambalpur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Sambalpuri</span>
+          <span>• 06:47 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 53 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/viajy-0645-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Vijayawada</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Telugu</span>
+          <span>• 06:45 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 54 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/chennai-2.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Chennai</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Tamil</span>
+          <span>• 06:45 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 55 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/calcit-00645.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Calicut</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Malayalam</span>
+          <span>• 06:45 AM</span>
+          <span>• 14 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 56 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahati-2125-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Guwahati</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 09:25 PM</span>
+          <span>• 13 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <!-- Bulletin 57 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/agar-ben-1955-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Agartala</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Bengali</span>
+          <span>• 07:55 PM</span>
+          <span>• 13 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
   </div>
 
-  <!-- Language Selection Modal -->
+  <div id="emptyMsg" class="empty-msg">
+    No bulletins found.
+  </div>
+
+  <!-- Fullscreen Modal -->
   <div class="modal-overlay" id="langModal">
-    <div class="modal-header">
-      <h2 class="modal-title">Select Language</h2>
-      <p class="modal-sub">Choose your regional language preference</p>
+    <div class="modal-container">
+      <div class="modal-top">
+        <div class="modal-title">Select Language</div>
+        <button class="close-btn" id="closeModalBtn" aria-label="Close">&times;</button>
+      </div>
+      <input type="text" id="langSearchInput" class="search-input-box" placeholder="Search language...">
+      <div class="lang-chip-list" id="langChipContainer">
+        <!-- Languages dynamically generated in 2x2 grid -->
+      </div>
     </div>
-
-    <div class="search-box-wrap">
-      <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <input type="text" id="langSearchInput" placeholder="Search language (e.g., English, Assamese)...">
-    </div>
-
-    <div class="lang-list" id="langListContainer"></div>
   </div>
 
   <script>
-    // Bulletins Data with Akamai Dash / Direct MP3 links
-    const bulletinsData = [
-      // Example featuring the Akamai VOD/DASH MP3 link format:
-      {
-        city: "Live Stream Audio",
-        lang: "English",
-        time: "14:00",
-        date: "14 September 2026",
-        audio: "https://aod-dash-ww-gcomm-live.akamaized.net/usp/auth/vod/piff_abr_full_audio/f33c75-w1msm0v7f3l6p67/vf_w1msm0v7f3l6p67_32726012-323f-484c-ae2b-354fb30966bd.ism/dash/vf_w1msm0v7f3l6p67_32726012-323f-484c-ae2b-354fb30966bd-audio_eng_1=96000-3.mp3"
-      },
-      { city: "Guwahati", lang: "Assamese", time: "12:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/assaes-1205.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "11:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahite11.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "09:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/assams0900.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "07:55", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/aassmes-0705.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "21:25", date: "13 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahati-2125-3.mp3" },
-      { city: "Hyderabad", lang: "Telugu", time: "13:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/tleug-1310.mp3" },
-      { city: "Lucknow", lang: "Urdu", time: "13:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/urdu-1310-1.mp3" },
-      { city: "Dehradun", lang: "Hindi", time: "13:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/dehradun1305-2.mp3" },
-      { city: "Kolkata", lang: "Bengali", time: "12:50", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/bengali-1250-1.mp3" },
-      { city: "Srinagar", lang: "Kashmiri", time: "12:35", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/ksiri-1235.mp3" },
-      { city: "Thiruvananthapuram", lang: "Malayalam", time: "12:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/mal1230.mp3" },
-      { city: "Calicut", lang: "Malayalam", time: "12:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/calitu-1230.mp3" },
-      { city: "Srinagar", lang: "Urdu", time: "12:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/rudu-1230.mp3" },
-      { city: "Jammu", lang: "Dogri", time: "12:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/dogir-1255.mp3" },
-      { city: "Dharwad", lang: "Kannada", time: "12:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/kadn-1200.mp3" },
-      { city: "Raipur", lang: "Hindi", time: "11:55", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/raiput-1155.mp3" },
-      { city: "C S Nagar", lang: "Marathi", time: "11:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/cs-1100-1.mp3" },
-      { city: "Shimla", lang: "Hindi", time: "11:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/silam-1100.mp3" },
-      { city: "Shillong", lang: "English", time: "08:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/shi-enf.mp3" },
-      { city: "Kohima", lang: "English", time: "07:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0730.mp3" },
-      { city: "Silchar", lang: "Bengali", time: "07:35", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0735.mp3" },
-      { city: "Agartala", lang: "Kokborok", time: "07:40", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/agartalakok-1.mp3" },
-      { city: "Bhuj", lang: "Gujarati", time: "07:40", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/bhuj-17.mp3" },
-      { city: "Imphal", lang: "Manipuri", time: "07:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/imphal.mp3" },
-      { city: "Aizawl", lang: "Mizo", time: "07:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/aiz-2.mp3" },
-      { city: "Kurseong", lang: "Nepali", time: "07:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/neplai-0725.mp3" }
-    ];
+    const STORAGE_KEY = 'air_selected_language';
+    const modal = document.getElementById('langModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const langSearchInput = document.getElementById('langSearchInput');
+    const langChipContainer = document.getElementById('langChipContainer');
+    const currentLangText = document.getElementById('currentLangText');
+    const bulletinCards = document.querySelectorAll('.bulletin-card');
+    const emptyMsg = document.getElementById('emptyMsg');
 
-    const allLanguages = [
-      "All Languages", "Assamese", "Balti", "Bengali", "Bhojpuri", "Bhuj", "Bhutia", 
-      "Bodo", "Dogri", "English", "Garhwali", "Garo", "Gojri", "Gujarati", 
-      "Hindi", "Jaintia", "Kannada", "Karbi", "Kashmiri", "Khasi", "Kokborok", 
-      "Konkani", "Kumauni", "Ladakhi", "Lepcha", "Maithili", "Malayalam", 
-      "Manipuri", "Marathi", "Mizo", "Nagamese", "Nepali", "Odia", "Pahari", 
-      "Punjabi", "Purgi", "Rajasthani", "Sambalpuri", "Sanskrit", "Sindhi", 
-      "Tamil", "Telugu", "Urdu"
-    ];
+    // Extract unique languages
+    const languages = new Set();
+    bulletinCards.forEach(card => {
+      const badge = card.querySelector('.lang-badge');
+      if (badge) languages.add(badge.textContent.trim());
+    });
 
-    const STORAGE_KEY = "air_saved_selected_lang";
-    const modal = document.getElementById("langModal");
-    const langListContainer = document.getElementById("langListContainer");
-    const searchInput = document.getElementById("langSearchInput");
-    const bulletinList = document.getElementById("bulletinList");
-    const emptyView = document.getElementById("emptyView");
-    const selectedLangDisplay = document.getElementById("selectedLangDisplay");
-    const bulletinCount = document.getElementById("bulletinCount");
-    const openModalBtn = document.getElementById("openModalBtn");
-    const globalAudio = document.getElementById("globalAudio");
+    // "All" বাদ দি কেৱল ভাষাবোৰ Alphabetical Order-ত সজোৱা হৈছে
+    const sortedLanguages = Array.from(languages).sort();
 
-    let currentPlayingBtn = null;
+    // Generate Language Buttons
+    function renderChips() {
+      langChipContainer.innerHTML = '';
+      sortedLanguages.forEach(lang => {
+        const chip = document.createElement('button');
+        chip.className = 'lang-chip';
+        chip.textContent = lang;
+        chip.dataset.lang = lang;
+
+        chip.addEventListener('click', () => {
+          selectLanguage(lang);
+        });
+
+        langChipContainer.appendChild(chip);
+      });
+    }
 
     function openModal() {
-      modal.classList.remove("hidden");
-      searchInput.value = "";
-      filterLanguages("");
-      searchInput.focus();
+      modal.style.display = 'flex';
+      langSearchInput.value = '';
+      filterChipList('');
+      highlightActiveChip();
+      langSearchInput.focus();
     }
 
     function closeModal() {
-      modal.classList.add("hidden");
+      modal.style.display = 'none';
     }
-
-    function renderLanguages(list) {
-      const savedLang = localStorage.getItem(STORAGE_KEY) || "All Languages";
-      langListContainer.innerHTML = "";
-      
-      list.forEach(lang => {
-        const item = document.createElement("div");
-        item.className = `lang-item ${lang.toLowerCase() === savedLang.toLowerCase() ? 'active' : ''}`;
-        item.textContent = lang;
-        item.onclick = () => selectLanguage(lang);
-        langListContainer.appendChild(item);
-      });
-    }
-
-    function filterLanguages(query) {
-      const q = query.toLowerCase().trim();
-      const filtered = allLanguages.filter(l => l.toLowerCase().includes(q));
-      renderLanguages(filtered);
-    }
-
-    searchInput.addEventListener("input", (e) => {
-      filterLanguages(e.target.value);
-    });
 
     function selectLanguage(lang) {
       localStorage.setItem(STORAGE_KEY, lang);
+      applyFilter(lang);
       closeModal();
-      loadBulletins(lang);
     }
 
-    function loadBulletins(lang) {
-      selectedLangDisplay.textContent = lang;
-      
-      let filtered = bulletinsData;
-      if (lang !== "All Languages") {
-        filtered = bulletinsData.filter(b => b.lang.toLowerCase() === lang.toLowerCase());
-      }
+    function applyFilter(lang) {
+      let visibleCount = 0;
+      currentLangText.textContent = lang || 'Select Language';
 
-      bulletinCount.textContent = `${filtered.length} Bulletins`;
-      bulletinList.innerHTML = "";
+      bulletinCards.forEach(card => {
+        const badge = card.querySelector('.lang-badge');
+        const cardLang = badge ? badge.textContent.trim() : '';
 
-      if (filtered.length === 0) {
-        emptyView.style.display = "block";
-        return;
-      } else {
-        emptyView.style.display = "none";
-      }
-
-      filtered.forEach((item) => {
-        const card = document.createElement("div");
-        card.className = "bulletin-card";
-        
-        // Exact <a href="....mp3"> format with play button
-        card.innerHTML = `
-          <div class="bulletin-details">
-            <div class="bulletin-city">${item.city}</div>
-            <div class="bulletin-lang">${item.lang} Bulletin</div>
-            <div class="bulletin-meta">
-              <span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                ${item.time}
-              </span>
-              <span>•</span>
-              <span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>
-                ${item.date}
-              </span>
-            </div>
-          </div>
-          <a href="${item.audio}" class="play-btn" data-audio="${item.audio}" aria-label="Play Audio">
-            <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-          </a>
-        `;
-        bulletinList.appendChild(card);
+        if (!lang || cardLang.toLowerCase() === lang.toLowerCase()) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
       });
 
-      attachPlayListeners();
+      emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+      highlightActiveChip();
     }
 
-    function attachPlayListeners() {
-      const playBtns = document.querySelectorAll(".play-btn");
-      
-      playBtns.forEach(btn => {
-        btn.addEventListener("click", function(e) {
-          e.preventDefault();
-          const src = this.getAttribute("href");
-
-          if (globalAudio.src === src && !globalAudio.paused) {
-            globalAudio.pause();
-            updatePlayIcon(this, false);
-            currentPlayingBtn = null;
-          } else {
-            if (currentPlayingBtn) {
-              updatePlayIcon(currentPlayingBtn, false);
-            }
-            globalAudio.src = src;
-            globalAudio.play();
-            updatePlayIcon(this, true);
-            currentPlayingBtn = this;
-          }
-        });
-      });
-    }
-
-    function updatePlayIcon(btn, isPlaying) {
-      const playIcon = btn.querySelector(".icon-play");
-      const pauseIcon = btn.querySelector(".icon-pause");
-      if (isPlaying) {
-        btn.classList.add("playing");
-        playIcon.style.display = "none";
-        pauseIcon.style.display = "block";
-      } else {
-        btn.classList.remove("playing");
-        playIcon.style.display = "block";
-        pauseIcon.style.display = "none";
-      }
-    }
-
-    globalAudio.addEventListener("ended", () => {
-      if (currentPlayingBtn) {
-        updatePlayIcon(currentPlayingBtn, false);
-        currentPlayingBtn = null;
-      }
+    langSearchInput.addEventListener('input', (e) => {
+      filterChipList(e.target.value.toLowerCase().trim());
     });
 
-    openModalBtn.addEventListener("click", openModal);
+    function filterChipList(query) {
+      const chips = langChipContainer.querySelectorAll('.lang-chip');
+      chips.forEach(chip => {
+        const text = chip.textContent.toLowerCase();
+        chip.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    }
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const savedLang = localStorage.getItem(STORAGE_KEY);
-      renderLanguages(allLanguages);
+    function highlightActiveChip() {
+      const current = localStorage.getItem(STORAGE_KEY) || '';
+      const chips = langChipContainer.querySelectorAll('.lang-chip');
+      chips.forEach(chip => {
+        if (chip.dataset.lang === current) {
+          chip.classList.add('active');
+        } else {
+          chip.classList.remove('active');
+        }
+      });
+    }
 
-      if (savedLang) {
-        closeModal();
-        loadBulletins(savedLang);
+    openModalBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+
+    // Initial load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderChips();
+      const savedLanguage = localStorage.getItem(STORAGE_KEY);
+
+      if (savedLanguage) {
+        applyFilter(savedLanguage);
       } else {
         openModal();
       }
