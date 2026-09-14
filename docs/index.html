@@ -603,28 +603,29 @@ const cricketMatches = [
     tabId: "tabBtn0",
     matchId: "6a7c72f078dcf0657031d932",
     scorecardLink: "go:card1",
-    audioLink: "go:COMM", // IND vs AFG ৰ বাবে অডিঅ' লিংক
+    audioLink: "",
+    overrideNote: "India won by 7 wkts", // IND vs AFG ৰ বাবে override ফলাফল
     initialData: {
       "_id": "6a7c72f078dcf0657031d932",
-      "status": "upcoming",
+      "status": "completed",
       "format": "t20",
-      "seriesName": "IND vs AFG • 1st T20",
-      "venue": "Venue: Arun Jaitley Stadium, Delhi",
-      "announcement1": "Starts Today at 7:30 PM IST • Delhi",
+      "seriesName": "IND vs AFG • T20",
+      "venue": "Arun Jaitley Stadium, Delhi",
+      "announcement1": "India won by 7 wkts",
       "teams": {
         "a": {
           "name": "India",
-          "shortName": "IND",
+          "shortName": "Ind",
           "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
         },
         "b": {
           "name": "Afghanistan",
-          "shortName": "AFG",
+          "shortName": "Afg",
           "logo": "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg"
         }
       },
       "lastCommentary": {
-        "secondaryText": "Starts Today at 7:30 PM IST • Arun Jaitley Stadium, Delhi"
+        "secondaryText": "India won by 7 wkts"
       }
     }
   },
@@ -634,17 +635,18 @@ const cricketMatches = [
     matchId: "6a7521fb78dcf065703188cd",
     scorecardLink: "go:card2",
     audioLink: null,
+    overrideNote: "India Women won by 72 runs", // IND W vs SL W ৰ বাবে override ফলাফল
     initialData: {
       "_id": "6a7521fb78dcf065703188cd",
-      "status": "upcoming",
+      "status": "completed",
       "format": "t20",
       "seriesName": "IND W vs SL W • T20",
-      "venue": "Match Starts Today at 8PM",
-      "announcement1": "Match Starts Today at 8PM",
+      "venue": "Match Completed",
+      "announcement1": "India Women won by 72 runs",
       "teams": {
         "a": {
           "name": "India Women",
-          "shortName": "IND W",
+          "shortName": "Ind W",
           "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
         },
         "b": {
@@ -654,7 +656,7 @@ const cricketMatches = [
         }
       },
       "lastCommentary": {
-        "secondaryText": "Match Starts Today at 8PM"
+        "secondaryText": "India Women won by 72 runs"
       }
     }
   }
@@ -749,7 +751,7 @@ function extractMatchNote(result) {
     .join(" • ");
 }
 
-function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioLink) {
+function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioLink, overrideNote) {
   if (!cardElement || !matchData) return;
 
   const teamA = matchData.teams ? matchData.teams.a : {};
@@ -792,6 +794,11 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
     noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today at 8PM";
+  }
+
+  // Override note প্ৰয়োগ
+  if (overrideNote) {
+    noteText = overrideNote;
   }
 
   cardElement.classList.remove("skeleton");
@@ -851,7 +858,7 @@ async function fetchMatchScore(match) {
 
     const data = await response.json();
     if (data && data.responseData && data.responseData.result) {
-      renderCricketStrip(cardElement, data.responseData.result, match.scorecardLink, match.tabId, match.audioLink);
+      renderCricketStrip(cardElement, data.responseData.result, match.scorecardLink, match.tabId, match.audioLink, match.overrideNote);
     }
   } catch (error) {
     console.error(`Match Fetch Error (${match.matchId}):`, error);
@@ -866,7 +873,7 @@ function fetchAllMatches() {
 cricketMatches.forEach(match => {
   if (match.initialData) {
     const el = document.getElementById(match.cardId);
-    renderCricketStrip(el, match.initialData, match.scorecardLink, match.tabId, match.audioLink);
+    renderCricketStrip(el, match.initialData, match.scorecardLink, match.tabId, match.audioLink, match.overrideNote);
   }
 });
 
