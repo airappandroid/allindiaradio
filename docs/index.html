@@ -274,14 +274,14 @@ body {
 }
 
 .top-ad img {
-  width: 100%;
-  max-width: 340px;
-  height: 100px;
-  object-fit: cover;
+  width: 320px;           /* সদায় 320px প্ৰস্থ */
+  height: 100px;          /* সদায় 100px উচ্চতা */
+  object-fit: cover;      /* ফটোখন বিকৃত (stretch) নহ'বলৈ */
   border-radius: 16px;
   display: block;
   box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;         /* ফ্লেক্সবক্সে যাতে আকাৰ সৰু নকৰে */
 }
 
 /* ===== CRICKET TOGGLE BUTTONS ===== */
