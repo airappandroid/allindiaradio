@@ -12,7 +12,6 @@
       --text-main: #f8fafc;
       --text-sub: #94a3b8;
       --accent: #38bdf8;
-      --accent-hover: #0284c7;
       --play-bg: #2563eb;
       --play-active: #16a34a;
     }
@@ -28,10 +27,10 @@
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding-bottom: 24px;
+      padding-bottom: 30px;
     }
 
-    /* Top App Bar Header */
+    /* Header */
     header {
       position: sticky;
       top: 0;
@@ -51,7 +50,6 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      color: #fff;
     }
 
     .header-title svg {
@@ -96,7 +94,7 @@
       font-weight: 600;
     }
 
-    /* Bulletin Cards Container */
+    /* Bulletins */
     .bulletin-container {
       padding: 0 16px;
       display: flex;
@@ -152,16 +150,16 @@
       gap: 4px;
     }
 
-    /* Play Button */
+    /* <a href=".mp3"> Play Button */
     .play-btn {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       background: var(--play-bg);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
       flex-shrink: 0;
       transition: transform 0.1s ease, background-color 0.2s ease;
@@ -183,25 +181,7 @@
       fill: currentColor;
     }
 
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-sub);
-    }
-
-    .empty-state button {
-      margin-top: 14px;
-      background: var(--play-bg);
-      color: #fff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Fullscreen Modal */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -237,7 +217,6 @@
       color: var(--text-sub);
     }
 
-    /* Search Box */
     .search-box-wrap {
       position: relative;
       margin-bottom: 14px;
@@ -268,7 +247,6 @@
       fill: var(--text-sub);
     }
 
-    /* Languages Grid */
     .lang-list {
       flex: 1;
       overflow-y: auto;
@@ -288,7 +266,6 @@
       font-weight: 600;
       cursor: pointer;
       color: var(--text-main);
-      transition: border-color 0.15s ease;
     }
 
     .lang-item:active {
@@ -300,11 +277,27 @@
       background: rgba(56, 189, 248, 0.12);
       color: var(--accent);
     }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-sub);
+    }
+
+    .empty-state button {
+      margin-top: 14px;
+      background: var(--play-bg);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hidden global audio controller for in-app play/pause -->
   <audio id="globalAudio"></audio>
 
   <!-- Header -->
@@ -325,39 +318,45 @@
     <span id="bulletinCount">0 Bulletins</span>
   </div>
 
-  <!-- Bulletins List -->
-  <main class="bulletin-container" id="bulletinList">
-    <!-- Dynamic Cards Rendered Here -->
-  </main>
+  <!-- Bulletins Container -->
+  <main class="bulletin-container" id="bulletinList"></main>
 
-  <!-- Empty State -->
   <div id="emptyView" class="empty-state" style="display: none;">
     <p>No regional bulletins found for this language.</p>
     <button onclick="openModal()">Select Another Language</button>
   </div>
 
-  <!-- Fullscreen Language Selection Modal -->
+  <!-- Language Selection Modal -->
   <div class="modal-overlay" id="langModal">
     <div class="modal-header">
       <h2 class="modal-title">Select Language</h2>
       <p class="modal-sub">Choose your regional language preference</p>
     </div>
 
-    <!-- Search Box -->
     <div class="search-box-wrap">
       <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-      <input type="text" id="langSearchInput" placeholder="Search language (e.g., Hindi, Bengali)...">
+      <input type="text" id="langSearchInput" placeholder="Search language (e.g., English, Assamese)...">
     </div>
 
-    <!-- Languages Grid -->
-    <div class="lang-list" id="langListContainer">
-      <!-- Generated Dynamically -->
-    </div>
+    <div class="lang-list" id="langListContainer"></div>
   </div>
 
   <script>
-    // Regional bulletins dataset extracted from the document
+    // Bulletins Data with Akamai Dash / Direct MP3 links
     const bulletinsData = [
+      // Example featuring the Akamai VOD/DASH MP3 link format:
+      {
+        city: "Live Stream Audio",
+        lang: "English",
+        time: "14:00",
+        date: "14 September 2026",
+        audio: "https://aod-dash-ww-gcomm-live.akamaized.net/usp/auth/vod/piff_abr_full_audio/f33c75-w1msm0v7f3l6p67/vf_w1msm0v7f3l6p67_32726012-323f-484c-ae2b-354fb30966bd.ism/dash/vf_w1msm0v7f3l6p67_32726012-323f-484c-ae2b-354fb30966bd-audio_eng_1=96000-3.mp3"
+      },
+      { city: "Guwahati", lang: "Assamese", time: "12:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/assaes-1205.mp3" },
+      { city: "Guwahati", lang: "Assamese", time: "11:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahite11.mp3" },
+      { city: "Guwahati", lang: "Assamese", time: "09:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/assams0900.mp3" },
+      { city: "Guwahati", lang: "Assamese", time: "07:55", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/aassmes-0705.mp3" },
+      { city: "Guwahati", lang: "Assamese", time: "21:25", date: "13 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahati-2125-3.mp3" },
       { city: "Hyderabad", lang: "Telugu", time: "13:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/tleug-1310.mp3" },
       { city: "Lucknow", lang: "Urdu", time: "13:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/urdu-1310-1.mp3" },
       { city: "Dehradun", lang: "Hindi", time: "13:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/dehradun1305-2.mp3" },
@@ -367,57 +366,20 @@
       { city: "Calicut", lang: "Malayalam", time: "12:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/calitu-1230.mp3" },
       { city: "Srinagar", lang: "Urdu", time: "12:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/rudu-1230.mp3" },
       { city: "Jammu", lang: "Dogri", time: "12:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/dogir-1255.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "12:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/assaes-1205.mp3" },
       { city: "Dharwad", lang: "Kannada", time: "12:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/kadn-1200.mp3" },
       { city: "Raipur", lang: "Hindi", time: "11:55", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/raiput-1155.mp3" },
       { city: "C S Nagar", lang: "Marathi", time: "11:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/cs-1100-1.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "11:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahite11.mp3" },
       { city: "Shimla", lang: "Hindi", time: "11:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/silam-1100.mp3" },
-      { city: "Jammu", lang: "Gojri", time: "10:15", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/gojri-1015.mp3" },
-      { city: "Raipur", lang: "Hindi", time: "09:55", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/ddgadg.mp3" },
-      { city: "Srinagar", lang: "Urdu", time: "09:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/sri-urdu-6.mp3" },
-      { city: "Shimla", lang: "Hindi", time: "09:20", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/simal-0920.mp3" },
-      { city: "Jammu", lang: "Dogri", time: "09:20", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/jammu-3.mp3" },
-      { city: "Srinagar", lang: "Kashmiri", time: "09:20", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/sri-kashmiri0920.mp3" },
-      { city: "Leh", lang: "Ladakhi", time: "09:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/leh-6.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "09:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/assams0900.mp3" },
-      { city: "Jaipur", lang: "Hindi", time: "09:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/jaipur0900-2.mp3" },
-      { city: "Dogri", lang: "Dogri", time: "09:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/doi-0900.mp3" },
-      { city: "C S Nagar", lang: "Urdu", time: "09:00", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0910.mp3" },
-      { city: "Patna", lang: "Hindi", time: "08:48", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/patna-5.mp3" },
       { city: "Shillong", lang: "English", time: "08:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/shi-enf.mp3" },
-      { city: "Ranchi", lang: "Hindi", time: "08:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/ranchi-12.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "07:55", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/aassmes-0705.mp3" },
-      { city: "Shillong", lang: "Khasi", time: "07:45", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/shillong-2.mp3" },
+      { city: "Kohima", lang: "English", time: "07:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0730.mp3" },
+      { city: "Silchar", lang: "Bengali", time: "07:35", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0735.mp3" },
       { city: "Agartala", lang: "Kokborok", time: "07:40", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/agartalakok-1.mp3" },
       { city: "Bhuj", lang: "Gujarati", time: "07:40", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/bhuj-17.mp3" },
-      { city: "Agartala", lang: "Bengali", time: "07:35", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/agartalaben-1.mp3" },
-      { city: "Kolkata", lang: "Bengali", time: "07:35", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/bengl-07354.mp3" },
-      { city: "Silchar", lang: "Bengali", time: "07:35", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0735.mp3" },
-      { city: "Kohima", lang: "English", time: "07:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/engli-0730.mp3" },
       { city: "Imphal", lang: "Manipuri", time: "07:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/imphal.mp3" },
       { city: "Aizawl", lang: "Mizo", time: "07:30", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/aiz-2.mp3" },
-      { city: "Kurseong", lang: "Nepali", time: "07:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/neplai-0725.mp3" },
-      { city: "Panaji", lang: "Konkani", time: "07:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/paji-0725.mp3" },
-      { city: "Kohima", lang: "Nagamese", time: "07:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/negms-0725.mp3" },
-      { city: "Gorakhpur", lang: "Hindi", time: "07:20", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/gorak.mp3" },
-      { city: "Dehradun", lang: "Hindi", time: "07:20", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/deharadun.mp3" },
-      { city: "Pune", lang: "Marathi", time: "07:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/pune-0710.mp3" },
-      { city: "Ahmedabad", lang: "Gujarati", time: "07:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/adam-0710.mp3" },
-      { city: "Bhopal", lang: "Hindi", time: "07:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/boapl-0710.mp3" },
-      { city: "C S Nagar", lang: "Marathi", time: "07:10", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0710-1.mp3" },
-      { city: "Sri Vijaya Puram", lang: "Hindi", time: "07:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/sri-vijay-1.mp3" },
-      { city: "Cuttack", lang: "Odia", time: "07:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/cuttcak-2.mp3" },
-      { city: "Dharwad", lang: "Kannada", time: "07:05", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/dwd-5.mp3" },
-      { city: "Sambalpur", lang: "Sambalpuri", time: "06:47", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/sambal-0647-1.mp3" },
-      { city: "Vijayawada", lang: "Telugu", time: "06:45", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/viajy-0645-1.mp3" },
-      { city: "Chennai", lang: "Tamil", time: "06:45", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/chennai-2.mp3" },
-      { city: "Calicut", lang: "Malayalam", time: "06:45", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/calcit-00645.mp3" },
-      { city: "Guwahati", lang: "Assamese", time: "21:25", date: "13 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahati-2125-3.mp3" },
-      { city: "Agartala", lang: "Bengali", time: "19:55", date: "13 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/agar-ben-1955-3.mp3" }
+      { city: "Kurseong", lang: "Nepali", time: "07:25", date: "14 September 2026", audio: "https://newsonair.gov.in/wp-content/uploads/2026/09/neplai-0725.mp3" }
     ];
 
-    // Languages list
     const allLanguages = [
       "All Languages", "Assamese", "Balti", "Bengali", "Bhojpuri", "Bhuj", "Bhutia", 
       "Bodo", "Dogri", "English", "Garhwali", "Garo", "Gojri", "Gujarati", 
@@ -441,7 +403,6 @@
 
     let currentPlayingBtn = null;
 
-    // Open Modal
     function openModal() {
       modal.classList.remove("hidden");
       searchInput.value = "";
@@ -449,12 +410,10 @@
       searchInput.focus();
     }
 
-    // Close Modal
     function closeModal() {
       modal.classList.add("hidden");
     }
 
-    // Render language buttons in modal
     function renderLanguages(list) {
       const savedLang = localStorage.getItem(STORAGE_KEY) || "All Languages";
       langListContainer.innerHTML = "";
@@ -468,7 +427,6 @@
       });
     }
 
-    // Filter languages with search box
     function filterLanguages(query) {
       const q = query.toLowerCase().trim();
       const filtered = allLanguages.filter(l => l.toLowerCase().includes(q));
@@ -479,14 +437,12 @@
       filterLanguages(e.target.value);
     });
 
-    // Select language & save to local storage
     function selectLanguage(lang) {
       localStorage.setItem(STORAGE_KEY, lang);
       closeModal();
       loadBulletins(lang);
     }
 
-    // Load bulletin cards based on language
     function loadBulletins(lang) {
       selectedLangDisplay.textContent = lang;
       
@@ -508,6 +464,8 @@
       filtered.forEach((item) => {
         const card = document.createElement("div");
         card.className = "bulletin-card";
+        
+        // Exact <a href="....mp3"> format with play button
         card.innerHTML = `
           <div class="bulletin-details">
             <div class="bulletin-city">${item.city}</div>
@@ -524,7 +482,7 @@
               </span>
             </div>
           </div>
-          <a href="${item.audio}" class="play-btn" data-audio="${item.audio}" aria-label="Play ${item.city} audio">
+          <a href="${item.audio}" class="play-btn" data-audio="${item.audio}" aria-label="Play Audio">
             <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             <svg class="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
           </a>
@@ -535,14 +493,13 @@
       attachPlayListeners();
     }
 
-    // Audio Play/Pause handling inside app
     function attachPlayListeners() {
       const playBtns = document.querySelectorAll(".play-btn");
       
       playBtns.forEach(btn => {
         btn.addEventListener("click", function(e) {
           e.preventDefault();
-          const src = this.getAttribute("data-audio");
+          const src = this.getAttribute("href");
 
           if (globalAudio.src === src && !globalAudio.paused) {
             globalAudio.pause();
@@ -584,7 +541,6 @@
 
     openModalBtn.addEventListener("click", openModal);
 
-    // Initial load handling
     window.addEventListener("DOMContentLoaded", () => {
       const savedLang = localStorage.getItem(STORAGE_KEY);
       renderLanguages(allLanguages);
