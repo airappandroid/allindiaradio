@@ -12,7 +12,7 @@
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #090e17; /* হোম পেজৰ দৰে মিডনাইট ডাৰ্ক ব্লু */
+      background-color: #090e17; /* মিডনাইট ডাৰ্ক ব্লু */
       color: #e2e8f0;
       padding: 16px;
       line-height: 1.5;
@@ -59,8 +59,8 @@
       gap: 12px;
     }
     .bulletin-card {
-      background-color: #131a28; /* হোম স্ক্ৰীন কাৰ্ডৰ ৰং */
-      border: 1px solid #1e293d; /* ফাইন নেভী বৰ্ডাৰ */
+      background-color: #131a28;
+      border: 1px solid #1e293d;
       border-radius: 18px;
       padding: 14px 16px;
       display: flex;
@@ -114,7 +114,7 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background-color: #0091ff; /* উজ্জ্বল স্কাই ব্লু প্লে বুটাম */
+      background-color: #0091ff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -137,12 +137,12 @@
       font-size: 15px;
     }
 
-    /* Modal Styling */
+    /* Modal Styling - No Backdrop Filter Used */
     .modal-overlay {
       position: fixed;
       inset: 0;
       height: 100dvh;
-      background-color: #090e17;
+      background-color: #090e17; /* Pure opaque background */
       z-index: 99999;
       padding: 16px;
       overflow: hidden;
@@ -151,7 +151,7 @@
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.15s;
+      transition: opacity 0.2s ease, visibility 0.2s;
       will-change: opacity, visibility;
     }
     .modal-overlay.active {
@@ -164,33 +164,43 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      transform: scale(0.97) translateY(8px);
-      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(12px) scale(0.98);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
     }
     .modal-overlay.active .modal-container {
-      transform: scale(1) translateY(0);
+      transform: translateY(0) scale(1);
     }
     .modal-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #1a2537;
     }
+    .modal-title-area {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
     .modal-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 700;
       color: #ffffff;
+    }
+    .modal-subtitle {
+      font-size: 12.5px;
+      color: #7c8ba1;
+      font-weight: 400;
     }
     .close-btn {
       background-color: #131a28;
       border: 1px solid #1e293d;
       color: #ffffff;
       font-size: 20px;
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
@@ -198,6 +208,7 @@
       justify-content: center;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
     }
     .close-btn:active {
       background-color: #1b2538;
@@ -207,11 +218,11 @@
       background-color: #131a28;
       border: 1px solid #1e293d;
       border-radius: 14px;
-      padding: 13px 16px;
+      padding: 12px 16px;
       color: #ffffff;
-      font-size: 15px;
+      font-size: 14px;
       outline: none;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       -webkit-appearance: none;
     }
     .search-input-box:focus {
@@ -222,7 +233,7 @@
       flex: 1;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 10px;
       overflow-y: auto;
       align-content: flex-start;
       padding-bottom: 24px;
@@ -1282,11 +1293,14 @@
     No bulletins found.
   </div>
 
-  <!-- Fast Fullscreen Modal -->
+  <!-- Fast Fullscreen Modal (Zero Backdrop Filter) -->
   <div class="modal-overlay" id="langModal">
     <div class="modal-container">
       <div class="modal-top">
-        <div class="modal-title">Select Language</div>
+        <div class="modal-title-area">
+          <div class="modal-title" id="modalTitle">Select Language</div>
+          <div class="modal-subtitle" id="modalSubtitle">Choose your regional bulletin</div>
+        </div>
         <button class="close-btn" id="closeModalBtn" aria-label="Close">&times;</button>
       </div>
       <input type="text" id="langSearchInput" class="search-input-box" placeholder="Search language..." autocomplete="off">
@@ -1297,6 +1311,8 @@
   <script>
     const STORAGE_KEY = 'air_selected_language';
     const modal = document.getElementById('langModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
     const openModalBtn = document.getElementById('openModalBtn');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const langSearchInput = document.getElementById('langSearchInput');
@@ -1304,7 +1320,9 @@
     const currentLangText = document.getElementById('currentLangText');
     const emptyMsg = document.getElementById('emptyMsg');
 
-    // কাৰ্ডসমূহ মেম'ৰিত Cache কৰি ৰখা হৈছে যাতে প্ৰতিবাৰ DOM কুৱেৰী কৰিবলগীয়া নহয়
+    let isModalActive = false;
+
+    // বুলেটিন কাৰ্ডসমূহ কেচ কৰা হ'ল
     const bulletinCards = Array.from(document.querySelectorAll('.bulletin-card')).map(card => {
       const badge = card.querySelector('.lang-badge');
       return {
@@ -1313,12 +1331,9 @@
       };
     });
 
-    // অনন্য ভাষাসমূহ সংগ্ৰহ
     const uniqueLanguages = Array.from(new Set(bulletinCards.map(c => c.lang).filter(Boolean))).sort();
-
     let chipElements = [];
 
-    // চিপসমূহ এবাৰতেই ৰেণ্ডাৰ কৰা হ'ল
     function renderChips() {
       const fragment = document.createDocumentFragment();
       chipElements = uniqueLanguages.map(lang => {
@@ -1336,7 +1351,6 @@
       langChipContainer.appendChild(fragment);
     }
 
-    // Event Delegation
     langChipContainer.addEventListener('click', (e) => {
       const chip = e.target.closest('.lang-chip');
       if (chip && chip.dataset.lang) {
@@ -1344,23 +1358,58 @@
       }
     });
 
-    function openModal() {
+    // ম'ডেল খোলাৰ কাৰ্য্য
+    function openModal(isFirstLaunch = false) {
+      if (isModalActive) return;
+
       if (langSearchInput.value !== '') {
         langSearchInput.value = '';
         filterChipList('');
       }
       highlightActiveChip();
+
+      // UX Texts
+      if (isFirstLaunch) {
+        modalTitle.textContent = "Select Language";
+        modalSubtitle.textContent = "👋 Welcome! Select your preferred language to listen.";
+      } else {
+        modalTitle.textContent = "Change Language";
+        modalSubtitle.textContent = "Choose your regional news bulletin";
+      }
+
       modal.classList.add('active');
+      isModalActive = true;
+
+      // Android Hardware Back button-ৰ বাবে history state যোগ
+      if (!history.state || !history.state.langModalOpen) {
+        history.pushState({ langModalOpen: true }, '');
+      }
     }
 
-    function closeModal() {
+    // ম'ডেল বন্ধ কৰাৰ কাৰ্য্য
+    function closeModal(isPopState = false) {
+      if (!isModalActive) return;
+
       modal.classList.remove('active');
+      isModalActive = false;
+
+      // ইউজাৰে UI-ৰ পৰা Close কৰিলে browser history সমন্বয় ৰক্ষা কৰা
+      if (!isPopState && history.state && history.state.langModalOpen) {
+        history.back();
+      }
     }
+
+    // Android Hardware Back button আৰু Browser Back handling
+    window.addEventListener('popstate', (e) => {
+      if (isModalActive) {
+        closeModal(true);
+      }
+    });
 
     function selectLanguage(lang) {
       localStorage.setItem(STORAGE_KEY, lang);
       applyFilter(lang);
-      closeModal();
+      closeModal(false);
     }
 
     function applyFilter(lang) {
@@ -1382,7 +1431,6 @@
       highlightActiveChip();
     }
 
-    // চিপ ছাৰ্চ ফিল্টাৰ
     langSearchInput.addEventListener('input', (e) => {
       filterChipList(e.target.value.toLowerCase().trim());
     });
@@ -1406,8 +1454,8 @@
       }
     }
 
-    openModalBtn.addEventListener('click', openModal);
-    closeModalBtn.addEventListener('click', closeModal);
+    openModalBtn.addEventListener('click', () => openModal(false));
+    closeModalBtn.addEventListener('click', () => closeModal(false));
 
     // Initial load
     renderChips();
@@ -1415,7 +1463,10 @@
     if (savedLanguage) {
       applyFilter(savedLanguage);
     } else {
-      openModal();
+      // First Launch: মসৃণভাৱে আৰম্ভ কৰিবলৈ 150ms বিলম্বিত কৰা হ'ল
+      setTimeout(() => {
+        openModal(true);
+      }, 150);
     }
   </script>
 </body>
