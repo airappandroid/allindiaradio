@@ -12,7 +12,7 @@
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #090e17; /* মিডনাইট ডাৰ্ক ব্লু */
+      background-color: #090e17;
       color: #e2e8f0;
       padding: 16px;
       line-height: 1.5;
@@ -48,7 +48,6 @@
       gap: 6px;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
     }
     .change-lang-btn:active {
       background-color: #1a273c;
@@ -58,10 +57,11 @@
       flex-direction: column;
       gap: 12px;
     }
+    /* লেগ প্ৰতিৰোধ কৰিবলৈ box-shadow আঁতৰাই ক্লীন বৰ্ডাৰ ব্যৱহাৰ কৰা হৈছে */
     .bulletin-card {
       background-color: #131a28;
       border: 1px solid #1e293d;
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 14px 16px;
       display: flex;
       align-items: center;
@@ -69,12 +69,10 @@
       text-decoration: none;
       color: inherit;
       touch-action: manipulation;
-      content-visibility: auto;
-      contain-intrinsic-size: auto 76px;
-      contain: layout paint;
       -webkit-tap-highlight-color: transparent;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transition: background-color 0.15s ease;
+    }
+    .bulletin-card.is-hidden {
+      display: none !important;
     }
     .bulletin-card:active {
       background-color: #192336;
@@ -96,7 +94,6 @@
       color: #7c8ba1;
       display: block;
     }
-
     .bulletin-meta .lang-badge {
       display: block;
       width: fit-content;
@@ -122,7 +119,6 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(0, 145, 255, 0.35);
     }
     .play-icon {
       width: 0;
@@ -140,12 +136,12 @@
       font-size: 15px;
     }
 
-    /* Modal Styling - No Backdrop Filter Used */
+    /* Modal Styling - will-change আঁতৰাই মেম'ৰী লীক আৰু GPU অপচয় বন্ধ কৰা হৈছে */
     .modal-overlay {
       position: fixed;
       inset: 0;
       height: 100dvh;
-      background-color: #090e17; /* Pure opaque background */
+      background-color: #090e17;
       z-index: 99999;
       padding: 16px;
       overflow: hidden;
@@ -155,7 +151,6 @@
       visibility: hidden;
       pointer-events: none;
       transition: opacity 0.2s ease, visibility 0.2s;
-      will-change: opacity, visibility;
     }
     .modal-overlay.active {
       opacity: 1;
@@ -167,12 +162,11 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      transform: translateY(12px) scale(0.98);
+      transform: translateY(12px);
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform;
     }
     .modal-overlay.active .modal-container {
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
     }
     .modal-top {
       display: flex;
@@ -230,7 +224,6 @@
     }
     .search-input-box:focus {
       border-color: #0091ff;
-      box-shadow: 0 0 0 2px rgba(0, 145, 255, 0.2);
     }
     .lang-chip-list {
       flex: 1;
@@ -256,16 +249,17 @@
       justify-content: center;
       text-align: center;
       touch-action: manipulation;
-      contain: content;
       -webkit-tap-highlight-color: transparent;
       width: 100%;
+    }
+    .lang-chip.is-hidden {
+      display: none !important;
     }
     .lang-chip:active, .lang-chip.active {
       background-color: #0091ff;
       border-color: #0091ff;
       color: #ffffff;
       font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0, 145, 255, 0.3);
     }
   </style>
 </head>
@@ -284,10 +278,559 @@
   <!-- Bulletin List -->
   <div class="bulletin-list" id="bulletinList">
 
-    <!-- 15 September 2026 -->
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kumauni-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dehradun</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Kumauni</span>
+          <span>• 07:30 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
 
-    <!-- 17:00 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jg-5.mp3" class="bulletin-card">
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Kohima-1920.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kohima</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">English</span>
+          <span>• 07:20 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Panaji-1920-5.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">panaji</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Konkani</span>
+          <span>• 07:20 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Nagamese-7.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kohima</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Nagamese</span>
+          <span>• 07:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ahem-aud-01910.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Ahmedabad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Gujarati</span>
+          <span>• 07:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/lehad0-1915.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Leh</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Ladakhi</span>
+          <span>• 07:05 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-aud-1905-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Sri Vijaya Puram</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 07:05 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Samblpuri.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Sambalpur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Sambalpuri</span>
+          <span>• 07:02 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/arnchi-ayd-1900.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Ranchi</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 07:00 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ku-ayd-1850.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Kurseong</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Nepali</span>
+          <span>• 06:50 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bhuti-ayd-1850.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Gangtok</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Bhutia</span>
+          <span>• 06:50 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/gar-ayd-10850.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dehradun</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Garhwali</span>
+          <span>• 06:50 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cutttack.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Cuttack</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Odia</span>
+          <span>• 06:45 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/chhh-aud-1845.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Raipur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 06:45 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/LEpcha.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Gangtok</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Lepcha</span>
+          <span>• 06:45 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/rajasthani.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jaipur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Rajasthani</span>
+          <span>• 06:45 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/guwahati-1845.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Guwahati</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 06:45 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bang-1840-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Bengaluru</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Kannada</span>
+          <span>• 06:40 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Jaintia.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Shillong</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Jaintia</span>
+          <span>• 06:40 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/nep-ud-1840.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Gangtok</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Nepali</span>
+          <span>• 06:40 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/deh-aude-1830.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dehradun</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 06:30 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/aizwal-10.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Aizawl</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Mizo</span>
+          <span>• 06:30 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Cheni-1830-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Chennai</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Tamil</span>
+          <span>• 06:30 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/thru-ayd-1830-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Thiruvananthapuram</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Malayalam</span>
+          <span>• 06:30 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jaipur-1830.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jaipur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 06:30 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/mait-haed-125.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Patna</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Maithili</span>
+          <span>• 06:25 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bhuj-18.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Bhuj</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Gujarati</span>
+          <span>• 06:25 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jal-ad-180.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jalandhar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Punjabi</span>
+          <span>• 06:20 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jammu-1815.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Jammu</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Dogri</span>
+          <span>• 06:15 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ahem-aud-15810.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Ahmedabad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Sindhi</span>
+          <span>• 06:15 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Sambhajinagar-6.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">C S Nagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Marathi</span>
+          <span>• 06:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Visakhapatnam-5.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Visakhapatnam</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Telugu</span>
+          <span>• 06:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/hyd-1810-4.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Hyderabad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Telugu</span>
+          <span>• 06:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/chh-ayd-1810.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Raipur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 06:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/pondi.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Pudducherry</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Tamil</span>
+          <span>• 06:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Chandigad.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Chandigarh</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 06:10 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/goraphuuurr.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Gorakhpur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 06:05 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Garo-2.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Shillong</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Garo</span>
+          <span>• 06:05 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/pune-9.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Pune</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Marathi</span>
+          <span>• 06:00 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Shimla-5.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Shimla</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Hindi</span>
+          <span>• 06:00 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/dibru-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Dibrugarh</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 06:00 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Gorakh-Bhoj-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Gorakhpur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Bhojpuri</span>
+          <span>• 06:00 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/nagpur-4.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Nagpur</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Marathi</span>
+          <span>• 06:00 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/yd-aud-17550-.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Hyderabad</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Urdu</span>
+          <span>• 05:50 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Gojri-3.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Srinagar</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Gojri</span>
+          <span>• 05:50 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/guwahati-1715-1.mp3" class="bulletin-card">
+      <div class="bulletin-info">
+        <div class="bulletin-heading">Guwahati</div>
+        <div class="bulletin-meta">
+          <span class="lang-badge">Assamese</span>
+          <span>• 05:15 PM</span>
+          <span>• 15 Sep 2026</span>
+        </div>
+      </div>
+      <div class="play-icon-wrap"><div class="play-icon"></div></div>
+    </a>
+
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/jg-5.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jammu</div>
         <div class="bulletin-meta">
@@ -299,9 +842,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 16:55 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ita-eng-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/ita-eng-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Itanagar</div>
         <div class="bulletin-meta">
@@ -313,9 +854,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 16:45 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ita-hindi-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/ita-hindi-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Itanagar</div>
         <div class="bulletin-meta">
@@ -327,9 +866,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 16:30 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bodo-4.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/bodo-4.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Guwahati</div>
         <div class="bulletin-meta">
@@ -341,9 +878,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 16:20 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/pahari-aud-1620.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/pahari-aud-1620.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Srinagar</div>
         <div class="bulletin-meta">
@@ -355,9 +890,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 15:45 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/karbi-5.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/karbi-5.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Guwahati</div>
         <div class="bulletin-meta">
@@ -369,9 +902,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 15:15 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Nepali-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Nepali-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Guwahati</div>
         <div class="bulletin-meta">
@@ -383,9 +914,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 15:00 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/shimla-15.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/shimla-15.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Shimla</div>
         <div class="bulletin-meta">
@@ -397,7 +926,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Mumbai-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Mumbai-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Mumbai</div>
         <div class="bulletin-meta">
@@ -409,9 +938,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 14:55 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ranchi-255-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/ranchi-255-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Ranchi</div>
         <div class="bulletin-meta">
@@ -423,9 +950,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 14:32 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/MIDDAY-cuttack.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/MIDDAY-cuttack.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Cuttack</div>
         <div class="bulletin-meta">
@@ -437,9 +962,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 14:30 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ahem-ad-14300.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/ahem-ad-14300.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Ahmedabad</div>
         <div class="bulletin-meta">
@@ -451,7 +974,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/aizwal-9.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/aizwal-9.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Aizawl</div>
         <div class="bulletin-meta">
@@ -463,7 +986,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/banguad-14300.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/banguad-14300.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Bengaluru</div>
         <div class="bulletin-meta">
@@ -475,9 +998,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 14:10 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Bhopal-8.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Bhopal-8.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Bhopal</div>
         <div class="bulletin-meta">
@@ -489,9 +1010,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 13:45 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/trichya-y-1345.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/trichya-y-1345.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Tiruchirapalli</div>
         <div class="bulletin-meta">
@@ -503,9 +1022,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 13:40 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kolkata-1340-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/kolkata-1340-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Kolkata</div>
         <div class="bulletin-meta">
@@ -517,9 +1034,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 13:20 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Vijayawada-6.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Vijayawada-6.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Vijayawada</div>
         <div class="bulletin-meta">
@@ -531,9 +1046,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 13:10 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jal-audio-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/jal-audio-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jalandhar</div>
         <div class="bulletin-meta">
@@ -545,7 +1058,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/telgu-1310-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/telgu-1310-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Hyderabad</div>
         <div class="bulletin-meta">
@@ -557,7 +1070,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/lko-audio.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/lko-audio.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Lucknow</div>
         <div class="bulletin-meta">
@@ -569,7 +1082,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/rachi-1310-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/rachi-1310-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Ranchi</div>
         <div class="bulletin-meta">
@@ -581,9 +1094,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 13:05 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/deh-audo.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/deh-audo.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Dehradun</div>
         <div class="bulletin-meta">
@@ -595,7 +1106,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/chandi1305.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/chandi1305.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Chandigarh</div>
         <div class="bulletin-meta">
@@ -607,9 +1118,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 13:00 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-audio-12.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-audio-12.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">C S Nagar</div>
         <div class="bulletin-meta">
@@ -621,7 +1130,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jaipur1300-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/jaipur1300-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jaipur</div>
         <div class="bulletin-meta">
@@ -633,9 +1142,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 12:50 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kolkatat-audio.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/kolkatat-audio.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Kolkata</div>
         <div class="bulletin-meta">
@@ -647,9 +1154,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 12:35 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kishmir-1235.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/kishmir-1235.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Srinagar</div>
         <div class="bulletin-meta">
@@ -661,9 +1166,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 12:30 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/malay-1230.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/malay-1230.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Thiruvananthapuram</div>
         <div class="bulletin-meta">
@@ -675,7 +1178,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/udu-1230-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/udu-1230-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Srinagar</div>
         <div class="bulletin-meta">
@@ -687,7 +1190,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ccccccccccc1230.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/ccccccccccc1230.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Calicut</div>
         <div class="bulletin-meta">
@@ -699,9 +1202,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 12:25 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jammu-1225.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/jammu-1225.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jammu</div>
         <div class="bulletin-meta">
@@ -713,9 +1214,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 12:05 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ssames-1205.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/ssames-1205.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Guwahati</div>
         <div class="bulletin-meta">
@@ -727,9 +1226,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 12:00 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kanda-1205.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/kanda-1205.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Dharwad</div>
         <div class="bulletin-meta">
@@ -741,9 +1238,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 11:55 -->
-    <a href="https://newsonair.gov.in/wp-content/uploads/2026/09/1155-audio-4.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/1155-audio-4.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Raipur</div>
         <div class="bulletin-meta">
@@ -755,10 +1250,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <!-- 15 Sep 2026 -->
-
-    <!-- 11:00 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/shima-udo.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/shima-udo.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Shimla</div>
         <div class="bulletin-meta">
@@ -770,7 +1262,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-nagar11.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-nagar11.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">C S Nagar</div>
         <div class="bulletin-meta">
@@ -782,7 +1274,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Assamese-Audio-1100-Hrs-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Assamese-Audio-1100-Hrs-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Guwahati</div>
         <div class="bulletin-meta">
@@ -794,9 +1286,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 10:15 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/gojri-audio.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/gojri-audio.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jammu</div>
         <div class="bulletin-meta">
@@ -808,9 +1298,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 09:55 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/0955-audio-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/0955-audio-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Raipur</div>
         <div class="bulletin-meta">
@@ -822,9 +1310,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 09:25 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-urdu-7.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-urdu-7.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Srinagar</div>
         <div class="bulletin-meta">
@@ -836,9 +1322,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 09:20 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/shimla-14.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/shimla-14.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Shimla</div>
         <div class="bulletin-meta">
@@ -850,7 +1334,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-kashmiri-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-kashmiri-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Srinagar</div>
         <div class="bulletin-meta">
@@ -862,7 +1346,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/dogir-0920.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/dogir-0920.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jammu</div>
         <div class="bulletin-meta">
@@ -874,9 +1358,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 09:05 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/leh-0905-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/leh-0905-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Leh</div>
         <div class="bulletin-meta">
@@ -888,9 +1370,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 09:00 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/jaipur0900-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/jaipur0900-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jaipur</div>
         <div class="bulletin-meta">
@@ -902,7 +1382,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0900.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0900.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">C S Nagar</div>
         <div class="bulletin-meta">
@@ -914,9 +1394,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 08:48 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/patna-0848.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/patna-0848.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Patna</div>
         <div class="bulletin-meta">
@@ -928,9 +1406,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 08:30 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/rachi-0830.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/rachi-0830.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Ranchi</div>
         <div class="bulletin-meta">
@@ -942,7 +1418,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sillong-0830-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/sillong-0830-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Shillong</div>
         <div class="bulletin-meta">
@@ -954,9 +1430,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:55 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/assae-0755.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/assae-0755.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Guwahati</div>
         <div class="bulletin-meta">
@@ -968,9 +1442,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:45 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/khasi-audio-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/khasi-audio-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Shillong</div>
         <div class="bulletin-meta">
@@ -982,9 +1454,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:40 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bhuj-0650-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/bhuj-0650-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Bhuj</div>
         <div class="bulletin-meta">
@@ -996,7 +1466,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/agartala-kok.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/agartala-kok.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Agartala</div>
         <div class="bulletin-meta">
@@ -1008,9 +1478,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:35 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/silchr-0735-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/silchr-0735-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Silchar</div>
         <div class="bulletin-meta">
@@ -1022,7 +1490,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/agartalaben-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/agartalaben-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Agartala</div>
         <div class="bulletin-meta">
@@ -1034,7 +1502,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bengi-0735.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/bengi-0735.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Kolkata</div>
         <div class="bulletin-meta">
@@ -1046,9 +1514,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:30 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/aiesla-0730.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/aiesla-0730.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Aizawl</div>
         <div class="bulletin-meta">
@@ -1060,7 +1526,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/imphal-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/imphal-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Imphal</div>
         <div class="bulletin-meta">
@@ -1072,7 +1538,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kohima-audio-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/kohima-audio-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Kohima</div>
         <div class="bulletin-meta">
@@ -1084,9 +1550,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:25 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/panaji-0725.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/panaji-0725.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Panaji</div>
         <div class="bulletin-meta">
@@ -1098,7 +1562,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/naag-audio-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/naag-audio-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Kohima</div>
         <div class="bulletin-meta">
@@ -1110,7 +1574,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kurseong-6.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/kurseong-6.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Kurseong</div>
         <div class="bulletin-meta">
@@ -1122,9 +1586,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:20 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/goa-udio.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/goa-udio.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Gorakhpur</div>
         <div class="bulletin-meta">
@@ -1136,7 +1598,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/deh-audio-9.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/deh-audio-9.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Dehradun</div>
         <div class="bulletin-meta">
@@ -1148,9 +1610,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:10 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0710-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/cs-0710-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">C S Nagar</div>
         <div class="bulletin-meta">
@@ -1162,7 +1622,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/bhopa-0710.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/bhopa-0710.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Bhopal</div>
         <div class="bulletin-meta">
@@ -1174,7 +1634,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/pune-audio-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/pune-audio-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Pune</div>
         <div class="bulletin-meta">
@@ -1186,7 +1646,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ahe710.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/ahe710.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Ahmedabad</div>
         <div class="bulletin-meta">
@@ -1198,9 +1658,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:05 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-0705-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/sri-0705-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Sri Vijaya Puram</div>
         <div class="bulletin-meta">
@@ -1212,7 +1670,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/odi-0705.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/odi-0705.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Cuttack</div>
         <div class="bulletin-meta">
@@ -1224,9 +1682,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 06:47 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sam-audio-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/sam-audio-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Sambalpur</div>
         <div class="bulletin-meta">
@@ -1238,9 +1694,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 06:45 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/cal-audio.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/cal-audio.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Calicut</div>
         <div class="bulletin-meta">
@@ -1252,7 +1706,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/viajy-0645-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/viajy-0645-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Vijayawada</div>
         <div class="bulletin-meta">
@@ -1264,7 +1718,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/chennai-4.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/chennai-4.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Chennai</div>
         <div class="bulletin-meta">
@@ -1276,128 +1730,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <!-- 14 Sep 2026 -->
-
-    <!-- 09:25 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahati-2125-4.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Guwahati</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Assamese</span>
-          <span>• 09:25 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:55 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/agar-beng-4.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Agartala</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Bengali</span>
-          <span>• 07:55 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:50 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/eng-ita-1.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Itanagar</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">English</span>
-          <span>• 07:50 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kol-1950-6.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Kolkata</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Bengali</span>
-          <span>• 07:50 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:45 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/shimla-1945-3.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Shimla</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 07:45 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/hindi-ita-1.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Itanagar</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 07:45 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/sila-id-1945.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Silchar</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Bengali</span>
-          <span>• 07:45 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Kokborok-5.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Agartala</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Kokborok</span>
-          <span>• 07:45 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:40 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/SI-AUD-1930.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Srinagar</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Urdu</span>
-          <span>• 07:40 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:30 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/kumauni-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/kumauni-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Dehradun</div>
         <div class="bulletin-meta">
@@ -1409,45 +1742,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/KAHSU-AD-1941.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Srinagar</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Kashmiri</span>
-          <span>• 07:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/patna-1930-1.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Patna</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 07:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/IMP-AID-.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Imphal</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Manipuri</span>
-          <span>• 07:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:20 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/LUCKHI-AUD0-1920.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/LUCKHI-AUD0-1920.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Lucknow</div>
         <div class="bulletin-meta">
@@ -1459,21 +1754,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Kohima-6.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Kohima</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">English</span>
-          <span>• 07:20 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:19 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Odiya-1915-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Odiya-1915-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Odia</div>
         <div class="bulletin-meta">
@@ -1485,115 +1766,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 07:15 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Leh-1915-2.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Leh</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Ladakhi</span>
-          <span>• 07:15 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:10 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/nagamese.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Kohima</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Nagamese</span>
-          <span>• 07:10 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Ahmdabd-1910-4.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Ahmedabad</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Gujarati</span>
-          <span>• 07:10 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:05 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Vijyapuram-4.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Sri Vijaya Puram</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 07:05 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:02 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/SAMBALPURI-3.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Sambalpur</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Sambalpuri</span>
-          <span>• 07:02 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:00 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/BHOPLAUD-19210.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Bhopal</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 07:00 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/ranchi-1900-2.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Ranchi</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 07:00 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/MUM-AD-19000.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Mumbai</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Marathi</span>
-          <span>• 07:00 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 06:50 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Ghrwali.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Ghrwali.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Dehradun</div>
         <div class="bulletin-meta">
@@ -1605,19 +1778,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Kursong-1850-1.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Kurseong</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Nepali</span>
-          <span>• 06:50 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Bhutia-7.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Bhutia-7.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Gangtok</div>
         <div class="bulletin-meta">
@@ -1629,9 +1790,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 06:45 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Lepcha-1845.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Lepcha-1845.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Gangtok</div>
         <div class="bulletin-meta">
@@ -1643,19 +1802,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Cuttack1845.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Cuttack</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Odia</span>
-          <span>• 06:45 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/JAI-RAJES-AUD-11845.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/JAI-RAJES-AUD-11845.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Jaipur</div>
         <div class="bulletin-meta">
@@ -1667,33 +1814,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Raipur-5.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Raipur</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 06:45 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/GUWA-YA-1845.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Guwahati</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Assamese</span>
-          <span>• 06:45 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 06:40 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/JAINTIA-5.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/JAINTIA-5.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Shillong</div>
         <div class="bulletin-meta">
@@ -1705,19 +1826,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/BANGUA-D-18040.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Bengaluru</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Kannada</span>
-          <span>• 06:40 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Gang-Nepali-4.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Gang-Nepali-4.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Gangtok</div>
         <div class="bulletin-meta">
@@ -1729,83 +1838,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 06:30 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/chennai-3.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Chennai</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Tamil</span>
-          <span>• 06:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/JAI-HIN-AUD-18030.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Jaipur</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 06:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Aizawl-1830.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Aizawl</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Mizo</span>
-          <span>• 06:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Dehardun-1830.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Dehradun</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 06:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Tipuram-1830-1.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Thiruvananthapuram</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Malayalam</span>
-          <span>• 06:30 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 06:25 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Bhuj1825-1.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Bhuj</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Gujarati</span>
-          <span>• 06:25 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Mathli-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Mathli-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Patna</div>
         <div class="bulletin-meta">
@@ -1817,9 +1850,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 06:15 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Shindi.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Shindi.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Ahmedabad</div>
         <div class="bulletin-meta">
@@ -1831,21 +1862,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/DOGRI-AUD-18105.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Jammu</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Dogri</span>
-          <span>• 06:15 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 06:10 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Visakhapatnam-1810.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Visakhapatnam-1810.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Visakhapatnam</div>
         <div class="bulletin-meta">
@@ -1857,31 +1874,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/C-S-Nagar-1810.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">C S Nagar</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Marathi</span>
-          <span>• 06:10 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Hyderabad1810.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Hyderabad</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Telugu</span>
-          <span>• 06:10 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/PUDU-AD-1810.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/PUDU-AD-1810.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Pudducherry</div>
         <div class="bulletin-meta">
@@ -1893,7 +1886,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Chhattisgari-1810-3.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Chhattisgari-1810-3.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Raipur</div>
         <div class="bulletin-meta">
@@ -1905,33 +1898,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/hindi-chandi.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Chandigarh</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 06:10 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 06:05 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Gorakhpur-1805.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Gorakhpur</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 06:05 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/GARO-5.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/GARO-5.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Shillong</div>
         <div class="bulletin-meta">
@@ -1943,9 +1910,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 06:00 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Bhoj-2.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Bhoj-2.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Gorakhpur</div>
         <div class="bulletin-meta">
@@ -1957,19 +1922,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/shimla-18-4.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Shimla</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Hindi</span>
-          <span>• 06:00 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Nagpur1800-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Nagpur1800-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Nagpur</div>
         <div class="bulletin-meta">
@@ -1981,19 +1934,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Pune-1800.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Pune</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Marathi</span>
-          <span>• 06:00 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/GUWA-1800.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/GUWA-1800.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Dibrugarh</div>
         <div class="bulletin-meta">
@@ -2005,9 +1946,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 05:50 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/GOJRI-sri-1.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/GOJRI-sri-1.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Srinagar</div>
         <div class="bulletin-meta">
@@ -2019,7 +1958,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Hyd-1750-5.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/Hyd-1750-5.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Hyderabad</div>
         <div class="bulletin-meta">
@@ -2031,49 +1970,7 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-
-    <!-- 05:15 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/1715-fuq-.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Guwahati</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Assamese</span>
-          <span>• 05:15 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 05:00 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/MUM-AUD4-1700.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Mumbai</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Marathi</span>
-          <span>• 05:00 PM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 09:00 AM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/assams0900.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Guwahati</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Assamese</span>
-          <span>• 09:00 AM</span>
-          <span>• 14 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/doi-0900.mp3" class="bulletin-card">
+    <a class="bulletin-card" href="https://newsonair.gov.in/wp-content/uploads/2026/09/doi-0900.mp3">
       <div class="bulletin-info">
         <div class="bulletin-heading">Dogri</div>
         <div class="bulletin-meta">
@@ -2085,42 +1982,13 @@
       <div class="play-icon-wrap"><div class="play-icon"></div></div>
     </a>
 
-    <!-- 13 Sep 2026 -->
-
-    <!-- 09:25 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/Guwahati-2125-3.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Guwahati</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Assamese</span>
-          <span>• 09:25 PM</span>
-          <span>• 13 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
-
-    <!-- 07:55 PM -->
-<a href="https://newsonair.gov.in/wp-content/uploads/2026/09/agar-ben-1955-3.mp3" class="bulletin-card">
-      <div class="bulletin-info">
-        <div class="bulletin-heading">Agartala</div>
-        <div class="bulletin-meta">
-          <span class="lang-badge">Bengali</span>
-          <span>• 07:55 PM</span>
-          <span>• 13 Sep 2026</span>
-        </div>
-      </div>
-      <div class="play-icon-wrap"><div class="play-icon"></div></div>
-    </a>
-
   </div>
 
   <div id="emptyMsg" class="empty-msg">
     No bulletins found.
   </div>
 
-  <!-- Fast Fullscreen Modal (Zero Backdrop Filter) -->
+  <!-- Fast Fullscreen Modal -->
   <div class="modal-overlay" id="langModal">
     <div class="modal-container">
       <div class="modal-top">
@@ -2149,16 +2017,18 @@
 
     let isModalActive = false;
 
-    // বুলেটিন কাৰ্ডসমূহ কেচ কৰা হ'ল
+    // বুলেটিন কাৰ্ডসমূহৰ ডাটা কেচিং
     const bulletinCards = Array.from(document.querySelectorAll('.bulletin-card')).map(card => {
       const badge = card.querySelector('.lang-badge');
+      const langText = badge ? badge.textContent.trim() : '';
       return {
         element: card,
-        lang: badge ? badge.textContent.trim() : ''
+        langLower: langText.toLowerCase(),
+        langOriginal: langText
       };
     });
 
-    const uniqueLanguages = Array.from(new Set(bulletinCards.map(c => c.lang).filter(Boolean))).sort();
+    const uniqueLanguages = Array.from(new Set(bulletinCards.map(c => c.langOriginal).filter(Boolean))).sort();
     let chipElements = [];
 
     function renderChips() {
@@ -2171,7 +2041,7 @@
         fragment.appendChild(chip);
         return {
           element: chip,
-          lang: lang.toLowerCase(),
+          langLower: lang.toLowerCase(),
           originalLang: lang
         };
       });
@@ -2185,7 +2055,6 @@
       }
     });
 
-    // ম'ডেল খোলাৰ কাৰ্য্য
     function openModal(isFirstLaunch = false) {
       if (isModalActive) return;
 
@@ -2195,7 +2064,6 @@
       }
       highlightActiveChip();
 
-      // UX Texts
       if (isFirstLaunch) {
         modalTitle.textContent = "Select Language";
         modalSubtitle.textContent = "👋 Welcome! Select your preferred language to listen.";
@@ -2207,30 +2075,24 @@
       modal.classList.add('active');
       isModalActive = true;
 
-      // Android Hardware Back button-ৰ বাবে history state যোগ
       if (!history.state || !history.state.langModalOpen) {
         history.pushState({ langModalOpen: true }, '');
       }
     }
 
-    // ম'ডেল বন্ধ কৰাৰ কাৰ্য্য
     function closeModal(isPopState = false) {
       if (!isModalActive) return;
 
       modal.classList.remove('active');
       isModalActive = false;
 
-      // ইউজাৰে UI-ৰ পৰা Close কৰিলে browser history সমন্বয় ৰক্ষা কৰা
       if (!isPopState && history.state && history.state.langModalOpen) {
         history.back();
       }
     }
 
-    // Android Hardware Back button আৰু Browser Back handling
-    window.addEventListener('popstate', (e) => {
-      if (isModalActive) {
-        closeModal(true);
-      }
+    window.addEventListener('popstate', () => {
+      if (isModalActive) closeModal(true);
     });
 
     function selectLanguage(lang) {
@@ -2239,6 +2101,7 @@
       closeModal(false);
     }
 
+    // ইনলাইন ষ্টাইল সলনি কৰাৰ সলনি CSS ক্লাছ টগল কৰি ৰিফ্লো কমোৱা হ'ল
     function applyFilter(lang) {
       currentLangText.textContent = lang || 'Select Language';
       const targetLang = (lang || '').toLowerCase();
@@ -2246,11 +2109,11 @@
 
       for (let i = 0; i < bulletinCards.length; i++) {
         const item = bulletinCards[i];
-        if (!targetLang || item.lang.toLowerCase() === targetLang) {
-          item.element.style.display = 'flex';
+        if (!targetLang || item.langLower === targetLang) {
+          item.element.classList.remove('is-hidden');
           visibleCount++;
         } else {
-          item.element.style.display = 'none';
+          item.element.classList.add('is-hidden');
         }
       }
 
@@ -2258,14 +2121,24 @@
       highlightActiveChip();
     }
 
+    // টাইপ কৰোঁতে বাৰে বাৰে লুপ নচলাবলৈ Debounce যোগ কৰা হ'ল
+    let searchDebounceTimer = null;
     langSearchInput.addEventListener('input', (e) => {
-      filterChipList(e.target.value.toLowerCase().trim());
+      clearTimeout(searchDebounceTimer);
+      const query = e.target.value.toLowerCase().trim();
+      searchDebounceTimer = setTimeout(() => {
+        filterChipList(query);
+      }, 50);
     });
 
     function filterChipList(query) {
       for (let i = 0; i < chipElements.length; i++) {
         const item = chipElements[i];
-        item.element.style.display = item.lang.includes(query) ? 'flex' : 'none';
+        if (item.langLower.includes(query)) {
+          item.element.classList.remove('is-hidden');
+        } else {
+          item.element.classList.add('is-hidden');
+        }
       }
     }
 
@@ -2284,16 +2157,15 @@
     openModalBtn.addEventListener('click', () => openModal(false));
     closeModalBtn.addEventListener('click', () => closeModal(false));
 
-    // Initial load
+    // Initial Execution
     renderChips();
     const savedLanguage = localStorage.getItem(STORAGE_KEY);
     if (savedLanguage) {
       applyFilter(savedLanguage);
     } else {
-      // First Launch: মসৃণভাৱে আৰম্ভ কৰিবলৈ 150ms বিলম্বিত কৰা হ'ল
       setTimeout(() => {
         openModal(true);
-      }, 150);
+      }, 100);
     }
   </script>
 </body>
