@@ -274,14 +274,14 @@ body {
 }
 
 .top-ad img {
-  width: 320px;           /* সদায় 320px প্ৰস্থ */
-  height: 100px;          /* সদায় 100px উচ্চতা */
-  object-fit: cover;      /* ফটোখন বিকৃত (stretch) নহ'বলৈ */
+  width: 320px;
+  height: 100px;
+  object-fit: cover;
   border-radius: 16px;
   display: block;
   box-shadow: 0 4px 16px rgba(0,0,0,0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  flex-shrink: 0;         /* ফ্লেক্সবক্সে যাতে আকাৰ সৰু নকৰে */
+  flex-shrink: 0;
 }
 
 /* ===== CRICKET TOGGLE BUTTONS ===== */
@@ -770,8 +770,8 @@ body {
 <!-- LIVE CRICKET SCORE STRIP WITH TOGGLE BUTTONS -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
-    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND vs AFG</button>
-    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">IND W vs SL W</button>
+    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND vs AFG 2nd T20</button>
+    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">AUS vs ZIM 1st ODI</button>
   </div>
 
   <div class="cricket-card" id="cricketCard1"></div>
@@ -902,7 +902,6 @@ function openModal(id) {
   if (modal) {
     modal.classList.add("active");
     activeModalId = id;
-    // Android Back বুটাম ধৰিবলৈ history state যোগ কৰা হৈছে
     history.pushState({ modalOpen: id }, "");
   }
 }
@@ -912,7 +911,6 @@ function closeModal(id) {
   if (modal && modal.classList.contains("active")) {
     modal.classList.remove("active");
     
-    // যদি স্ক্ৰীনৰ X বুটাম বা বাহিৰত চুই বন্ধ কৰা হয়, তেন্তে history state আতৰাওক
     if (history.state && history.state.modalOpen === id) {
       activeModalId = null;
       history.back();
@@ -944,62 +942,62 @@ const cricketMatches = [
   {
     cardId: "cricketCard1",
     tabId: "tabBtn0",
-    matchId: "6a7c72f078dcf0657031d932",
+    matchId: "6a7c72f178dcf0657031d933",
     scorecardLink: "go:card1",
     audioLink: "",
-    overrideNote: "India won by 7 wkts", // IND vs AFG ৰ বাবে override ফলাফল
+    overrideNote: "Match Starts Today at 8pm IST",
     initialData: {
-      "_id": "6a7c72f078dcf0657031d932",
-      "status": "completed",
+      "_id": "6a7c72f178dcf0657031d933",
+      "status": "upcoming",
       "format": "t20",
-      "seriesName": "IND vs AFG • T20",
-      "venue": "Arun Jaitley Stadium, Delhi",
-      "announcement1": "India won by 7 wkts",
+      "seriesName": "IND vs AFG • 2nd T20",
+      "venue": "2nd T20 Match",
+      "announcement1": "Match starts soon",
       "teams": {
         "a": {
           "name": "India",
-          "shortName": "Ind",
+          "shortName": "IND",
           "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
         },
         "b": {
           "name": "Afghanistan",
-          "shortName": "Afg",
+          "shortName": "AFG",
           "logo": "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg"
         }
       },
       "lastCommentary": {
-        "secondaryText": "India won by 7 wkts"
+        "secondaryText": "Match starts soon"
       }
     }
   },
   {
     cardId: "cricketCard2",
     tabId: "tabBtn1",
-    matchId: "6a7521fb78dcf065703188cd",
+    matchId: "6a2918947327c23debeeebc3",
     scorecardLink: "go:card2",
     audioLink: null,
-    overrideNote: "India Women won by 72 runs", // IND W vs SL W ৰ বাবে override ফলাফল
+    overrideNote: "",
     initialData: {
-      "_id": "6a7521fb78dcf065703188cd",
-      "status": "completed",
-      "format": "t20",
-      "seriesName": "IND W vs SL W • T20",
-      "venue": "Match Completed",
-      "announcement1": "India Women won by 72 runs",
+      "_id": "6a2918947327c23debeeebc3",
+      "status": "upcoming",
+      "format": "odi",
+      "seriesName": "AUS vs ZIM • 1st ODI",
+      "venue": "1st ODI Match",
+      "announcement1": "Match starts soon",
       "teams": {
         "a": {
-          "name": "India Women",
-          "shortName": "Ind W",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
+          "name": "Australia",
+          "shortName": "AUS",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/australia.webp"
         },
         "b": {
-          "name": "Sri Lanka Women",
-          "shortName": "SL W",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp"
+          "name": "Zimbabwe",
+          "shortName": "ZIM",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp"
         }
       },
       "lastCommentary": {
-        "secondaryText": "India Women won by 72 runs"
+        "secondaryText": "Match starts soon"
       }
     }
   }
@@ -1038,6 +1036,12 @@ function getTeamLogo(team) {
   }
   if (name.includes("afg")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
+  }
+  if (name.includes("aus") || name.includes("australia")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/australia.webp";
+  }
+  if (name.includes("zim") || name.includes("zimbabwe")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp";
   }
 
   if (team.logo) {
@@ -1103,11 +1107,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
   const nameA = teamA.shortName || teamA.name || 'Team A';
   const nameB = teamB.shortName || teamB.name || 'Team B';
 
-  const tabBtn = document.getElementById(tabId);
-  if (tabBtn && nameA && nameB) {
-    tabBtn.textContent = `${nameA} vs ${nameB}`;
-  }
-
   const format = (matchData.format || 't20').toUpperCase();
   const tournament = matchData.seriesName || matchData.venue || `${nameA} vs ${nameB} • ${format}`;
 
@@ -1136,10 +1135,9 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today at 8PM";
+    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today";
   }
 
-  // Override note প্ৰয়োগ
   if (overrideNote) {
     noteText = overrideNote;
   }
@@ -1167,7 +1165,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp';">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
