@@ -1334,6 +1334,9 @@ const defaultFallbackLogo = "https://raw.githubusercontent.com/airappandroid/mp3
 const workerSchedules = {};
 const lastProgram = {};
 
+// প্ৰথমবাৰ ডাটা ল'ড হৈ থকা বুজাবলৈ ফ্ল্যাগ
+let isInitialLoading = true;
+
 // জিংগল ফিল্টাৰ কৰি Title আৰু Description সুকীয়াকৈ লোৱা
 function getProgramDetails(item) {
   if (!item) return { title: "Live Broadcast", desc: "" };
@@ -1364,9 +1367,19 @@ function getProgramDetails(item) {
 }
 
 function toMinutes(t) {
-  if (!t) return 0;
-  const [h, m] = t.split(':').map(Number);
-  return (h || 0) * 60 + (m || 0);
+  if (!t || typeof t !== "string") return 0;
+  const parts = t.trim().split(":");
+  const h = parseInt(parts[0], 10) || 0;
+  const m = parseInt(parts[1], 10) || 0;
+  return h * 60 + m;
+}
+
+// ১০০% নিৰ্ভুল IST সময় গণনা (Android WebView-ৰ বাবে সম্পূৰ্ণ সুৰক্ষিত)
+function getISTMinutes() {
+  const now = new Date();
+  // UTC সময় মিনিটত উলিয়াই তাৰ লগত ৩৩০ মিনিট (৫ ঘণ্টা ৩০ মিনিট) যোগ
+  const utcMinutes = now.getUTCHours() * 60 + now.getUTCMinutes();
+  return (utcMinutes + 330) % 1440;
 }
 
 // IST সময় অনুসৰি লাইভ অনুষ্ঠান নিৰ্ণয়
@@ -1374,8 +1387,7 @@ function getCurrentLiveFromWorker(stationId) {
   const list = workerSchedules[stationId];
   if (!list || !list.length) return null;
 
-  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-  const nowMins = now.getHours() * 60 + now.getMinutes();
+  const nowMins = getISTMinutes();
 
   for (let i = 0; i < list.length; i++) {
     let startMin = toMinutes(list[i].start24);
@@ -1396,6 +1408,7 @@ function getCurrentLiveFromWorker(stationId) {
   return null;
 }
 
+// প্ৰগ্ৰাম নিৰ্বাচন: প্ৰথমবাৰ ডাটা নহালৈকে "Checking live show..." থাকিব
 function getCurrentProgram(st) {
   if (st.stationId && workerSchedules[st.stationId]) {
     const live = getCurrentLiveFromWorker(st.stationId);
@@ -1404,6 +1417,14 @@ function getCurrentProgram(st) {
       return live;
     }
   }
+
+  if (isInitialLoading) {
+    return { 
+      title: "Checking live show...", 
+      desc: "Fetching schedule..." 
+    };
+  }
+
   return lastProgram[st.name] || { title: "Live Broadcast", desc: "" };
 }
 
@@ -1453,23 +1474,47 @@ function updateProgramsOnly() {
   });
 }
 
-// ৱৰ্কাৰৰ পৰা লাইভ ডাটা অনা
+// সুৰক্ষিত ফেচিং: প্ৰথমে একেলগে চেষ্টা কৰিব, নহ'লে সুকীয়াকৈ ডাটা সংগ্ৰহ কৰিব
 async function fetchWorkerSchedules() {
   try {
     const stationIds = popularStations.filter(st => st.stationId).map(st => st.stationId).join(",");
     const res = await fetch(`${WORKER_BASE}?ids=${stationIds}`, { cache: "no-store" });
-    const json = await res.json();
-
-    if (json && json.success && json.schedules) {
-      Object.keys(json.schedules).forEach(id => {
-        workerSchedules[id] = json.schedules[id];
-      });
+    
+    if (res.ok) {
+      const json = await res.json();
+      if (json && json.success && json.schedules) {
+        Object.keys(json.schedules).forEach(id => {
+          if (Array.isArray(json.schedules[id]) && json.schedules[id].length > 0) {
+            workerSchedules[id] = json.schedules[id];
+          }
+        });
+      }
     }
   } catch (e) {
-    console.error("Worker fetch error:", e);
-  } finally {
-    updateProgramsOnly();
+    console.error("Combined worker fetch error:", e);
   }
+
+  // যদি কোনো ষ্টেচনৰ ডাটা পোৱা নগল, সুকীয়াকৈ (Individual) ফেচ কৰা হ'ব
+  const missingStations = popularStations.filter(st => st.stationId && (!workerSchedules[st.stationId] || !workerSchedules[st.stationId].length));
+  if (missingStations.length > 0) {
+    await Promise.allSettled(missingStations.map(async (st) => {
+      try {
+        const r = await fetch(`${WORKER_BASE}?ids=${st.stationId}`, { cache: "no-store" });
+        if (r.ok) {
+          const j = await r.json();
+          if (j && j.success && j.schedules && j.schedules[st.stationId]) {
+            workerSchedules[st.stationId] = j.schedules[st.stationId];
+          }
+        }
+      } catch (err) {
+        console.error(`Individual fetch error for ${st.stationId}:`, err);
+      }
+    }));
+  }
+
+  // ফেচ সম্পূৰ্ণ হোৱাৰ পিছত অনুষ্ঠানৰ প্ৰকৃত নাম প্ৰদৰ্শন হ'ব
+  isInitialLoading = false;
+  updateProgramsOnly();
 }
 
 // প্ৰাৰম্ভিক লোড
