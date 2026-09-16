@@ -44,14 +44,13 @@ body {
   -webkit-user-select: none;
 }
 
-/* ===== APP HEADER ===== */
+/* ===== APP HEADER (BACKDROP FILTER REMOVED) ===== */
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  background: rgba(17, 19, 26, 0.95);
-  backdrop-filter: blur(10px);
+  background: #11131a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: sticky;
   top: 0;
@@ -104,12 +103,11 @@ body {
   fill: currentColor;
 }
 
-/* ===== MODAL POPUPS ===== */
+/* ===== MODAL POPUPS (BACKDROP FILTER REMOVED) ===== */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.78);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.88);
   display: none;
   align-items: center;
   justify-content: center;
@@ -133,7 +131,7 @@ body {
   max-height: 85vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
   overflow: hidden;
   animation: modalPop 0.25s ease-out;
 }
@@ -249,6 +247,7 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
   margin-top: 4px;
+  transition: opacity 0.2s;
 }
 
 .form-submit-btn:disabled {
@@ -257,8 +256,8 @@ body {
 }
 
 .form-status {
-  margin-top: 10px;
-  font-size: 12px;
+  margin-top: 12px;
+  font-size: 12.5px;
   text-align: center;
   font-weight: 600;
   display: none;
@@ -944,6 +943,59 @@ window.addEventListener("popstate", function (event) {
     activeModalId = null;
   }
 });
+
+/* ===== SUPPORT FORM SUBMISSION (WEB3FORMS AJAX) ===== */
+const supportForm = document.getElementById("supportForm");
+if (supportForm) {
+  supportForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById("submitBtn");
+    const statusBox = document.getElementById("formStatus");
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+    statusBox.style.display = "none";
+    
+    const formData = new FormData(supportForm);
+    const jsonObject = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(jsonObject)
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        statusBox.style.display = "block";
+        statusBox.style.color = "#10b981";
+        statusBox.textContent = "✓ Message sent successfully!";
+        supportForm.reset();
+        setTimeout(() => {
+          closeModal("supportModal");
+          statusBox.style.display = "none";
+        }, 2000);
+      } else {
+        statusBox.style.display = "block";
+        statusBox.style.color = "#ef4444";
+        statusBox.textContent = result.message || "Failed to send message.";
+      }
+    } catch (err) {
+      statusBox.style.display = "block";
+      statusBox.style.color = "#ef4444";
+      statusBox.textContent = "Network error. Please try again.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Message";
+    }
+  });
+}
 
 /* ===== LIVE CRICKET SCORE FETCH & DUAL MATCH LOGIC ===== */
 const cricketMatches = [
