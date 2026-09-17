@@ -36,7 +36,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background: #0c0e14;
   color: #f1f5f9;
-  padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
@@ -44,12 +43,15 @@ body {
   -webkit-user-select: none;
 }
 
-/* ===== APP HEADER (BACKDROP FILTER REMOVED) ===== */
+/* ===== APP HEADER ===== */
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding-top: calc(12px + env(safe-area-inset-top, 0px));
+  padding-bottom: 12px;
+  padding-left: calc(16px + env(safe-area-inset-left, 0px));
+  padding-right: calc(16px + env(safe-area-inset-right, 0px));
   background: #11131a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: sticky;
@@ -103,7 +105,7 @@ body {
   fill: currentColor;
 }
 
-/* ===== MODAL POPUPS (BACKDROP FILTER REMOVED) ===== */
+/* ===== MODAL POPUPS ===== */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -263,24 +265,26 @@ body {
   display: none;
 }
 
-/* ===== TOP MOBILE AD (320x100) ===== */
+/* ===== TOP MOBILE AD ===== */
 .top-ad {
   width: 100%;
   padding: 10px 14px 2px;
   display: flex;
   justify-content: center;
   background: #0c0e14;
+  box-sizing: border-box;
 }
 
 .top-ad img {
-  width: 320px;
-  height: 100px;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  aspect-ratio: 320 / 100;
   object-fit: cover;
   border-radius: 16px;
   display: block;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  flex-shrink: 0;
 }
 
 /* ===== CRICKET TOGGLE BUTTONS ===== */
@@ -303,9 +307,9 @@ body {
   background: transparent;
   border: none;
   color: #94a3b8;
-  font-size: 11.5px;
+  font-size: 12px; /* 11.5px ৰ পৰা 12px লৈ বৃদ্ধি কৰা হ'ল */
   font-weight: 700;
-  padding: 6px 12px;
+  padding: 7px 12px;
   border-radius: 10px;
   cursor: pointer;
   outline: none;
@@ -322,7 +326,7 @@ body {
   box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
 }
 
-/* ===== CRICKET CARD & CLS SKELETON ===== */
+/* ===== CRICKET CARD & SKELETON ===== */
 .cricket-card {
   background: linear-gradient(145deg, #151821, #10121a);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -363,13 +367,13 @@ body {
   background: linear-gradient(90deg, #38bdf8, #818cf8);
 }
 
-/* OPORAR SHAARI (META & BUTTONS) */
+/* OPORAR SHAARI (META & AUDIO) */
 .cs-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  font-size: 11.5px;
+  font-size: 12px; /* 11.5px ৰ পৰা 12px লৈ বৃদ্ধি কৰা হ'ল */
   font-weight: 700;
   letter-spacing: 0.3px;
 }
@@ -387,7 +391,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 11.5px;
+  font-size: 12px; /* 11.5px ৰ পৰা 12px লৈ বৃদ্ধি কৰা হ'ল */
 }
 
 .cs-status-tag {
@@ -396,7 +400,7 @@ body {
   gap: 5px;
   color: #38bdf8;
   text-transform: uppercase;
-  font-size: 10.5px;
+  font-size: 11.5px; /* 10.5px ৰ পৰা 11.5px লৈ বৃদ্ধি কৰা হ'ল */
   letter-spacing: 0.5px;
   font-weight: 800;
   flex-shrink: 0;
@@ -410,6 +414,51 @@ body {
   color: #10b981;
 }
 
+/* ===== BUTTONS ===== */
+.cs-btn-audio, .cs-btn-card {
+  min-width: 82px;
+  width: auto;
+  padding: 0 10px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+/* Audio বুটামৰ পৰা ফিক্সড margin-right: 13px আঁতৰাই স্বাভাৱিক Flexbox এলাইনমেণ্ট কৰা হ'ল */
+.cs-btn-audio {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  animation: pulse-audio 2.2s infinite ease-in-out;
+}
+
+.cs-btn-audio svg {
+  width: 11px;
+  height: 11px;
+  fill: currentColor;
+}
+
+@keyframes pulse-audio {
+  0%, 100% { box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35); }
+  50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.7); }
+}
+
+.cs-btn-card {
+  color: #031326;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+}
+
+/* MATCH ROW */
 .cs-match-row {
   display: flex;
   align-items: center;
@@ -457,16 +506,18 @@ body {
 }
 
 .cs-vs {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   color: #475569;
   padding: 0 10px;
 }
 
-/* TOLOR SHAARI: STATUS BOX 100% WIDTH */
+/* TOLOR SHAARI: STATUS BOX & SCORECARD */
 .cs-bottom-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.03);
   padding: 8px 12px;
   border-radius: 12px;
@@ -474,61 +525,14 @@ body {
 }
 
 .cs-note {
-  font-size: 11.5px;
+  font-size: 12px;
+  font-weight: 500;
   color: #94a3b8;
   text-align: left;
   line-height: 1.4;
-  width: 100%;
+  flex: 1;
   white-space: normal;
   word-break: break-word;
-}
-
-/* BUTTON GROUP IN META */
-.cs-btn-group {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
-
-.cs-btn-card {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: #031326;
-  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-  padding: 4px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
-}
-
-.cs-btn-audio {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: #ffffff;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  padding: 4px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
-  animation: pulse-audio 2.2s infinite ease-in-out;
-}
-
-.cs-btn-audio svg {
-  width: 11px;
-  height: 11px;
-  fill: currentColor;
-}
-
-@keyframes pulse-audio {
-  0%, 100% { box-shadow: 0 2px 8px rgba(239, 68, 68, 0.35); }
-  50% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.7); }
 }
 
 /* ===== LAYOUT ===== */
@@ -752,15 +756,12 @@ body {
     <span class="header-title">AIR Radio</span>
   </div>
   <div class="header-actions">
-    <!-- Support / Suggestion Button -->
     <button class="hdr-btn" onclick="openModal('supportModal')" title="Support & Suggestion">
       <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12zM7 9h10v2H7zm0-3h10v2H7z"/></svg>
     </button>
-    <!-- Privacy Policy Button -->
     <button class="hdr-btn" onclick="openModal('privacyModal')" title="Privacy Policy">
       <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
     </button>
-    <!-- Share Button -->
     <a href="http://action_share" class="hdr-btn" title="Share App">
       <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
     </a>
@@ -777,8 +778,8 @@ body {
 <!-- LIVE CRICKET SCORE STRIP WITH TOGGLE BUTTONS -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
-    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND vs AFG 2nd T20</button>
-    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">AUS vs ZIM 1st ODI</button>
+    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND vs AFG 3rd T20</button>
+    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">ENG vs SL 2nd T20</button>
   </div>
 
   <div class="cricket-card" id="cricketCard1"></div>
@@ -871,7 +872,7 @@ body {
   </div>
 </div>
 
-<!-- SUPPORT & SUGGESTION MODAL (WEB3FORMS) -->
+<!-- SUPPORT & SUGGESTION MODAL -->
 <div class="modal-overlay" id="supportModal" onclick="closeModalOnOverlay(event, 'supportModal')">
   <div class="modal-card">
     <div class="modal-header">
@@ -933,7 +934,6 @@ function closeModalOnOverlay(e, id) {
   }
 }
 
-// Android Hardware/System Back Button ইভেণ্ট
 window.addEventListener("popstate", function (event) {
   if (activeModalId) {
     const modal = document.getElementById(activeModalId);
@@ -944,7 +944,7 @@ window.addEventListener("popstate", function (event) {
   }
 });
 
-/* ===== SUPPORT FORM SUBMISSION (WEB3FORMS AJAX) ===== */
+/* ===== SUPPORT FORM SUBMISSION ===== */
 const supportForm = document.getElementById("supportForm");
 if (supportForm) {
   supportForm.addEventListener("submit", async function(e) {
@@ -1002,22 +1002,22 @@ const cricketMatches = [
   {
     cardId: "cricketCard1",
     tabId: "tabBtn0",
-    matchId: "6a7c72f178dcf0657031d933",
+    matchId: "6a7c72ee78dcf0657031d931",
     scorecardLink: "go:card1",
     audioLink: "go:COMM",
-    overrideNote: "",
+    overrideNote: "Match Starts Today at 7:30pm",
     initialData: {
       "_id": "6a7c72f178dcf0657031d933",
       "status": "upcoming",
       "format": "t20",
-      "seriesName": "IND vs AFG • 2nd T20",
+      "seriesName": "IND vs AFG • 3rd T20",
       "venue": "2nd T20 Match",
       "announcement1": "Match starts soon",
       "teams": {
         "a": {
           "name": "India",
           "shortName": "IND",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/"
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg"
         },
         "b": {
           "name": "Afghanistan",
@@ -1033,27 +1033,27 @@ const cricketMatches = [
   {
     cardId: "cricketCard2",
     tabId: "tabBtn1",
-    matchId: "6a2918947327c23debeeebc3",
+    matchId: "69bd420b1dbf177ca4e58e71",
     scorecardLink: "go:card2",
     audioLink: null,
-    overrideNote: "Australia won by 59 runs",
+    overrideNote: "Match Starts Today at 11pm",
     initialData: {
       "_id": "6a2918947327c23debeeebc3",
       "status": "upcoming",
-      "format": "odi",
-      "seriesName": "AUS vs ZIM • 1st ODI",
-      "venue": "1st ODI Match",
+      "format": "t20",
+      "seriesName": "ENG vs SL • 2nd T20",
+      "venue": "2nd T20 Match",
       "announcement1": "Match starts soon",
       "teams": {
         "a": {
-          "name": "Australia",
-          "shortName": "AUS",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/australia.webp"
+          "name": "England",
+          "shortName": "ENG",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/england.webp"
         },
         "b": {
-          "name": "Zimbabwe",
-          "shortName": "ZIM",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp"
+          "name": "Sri Lanka",
+          "shortName": "SL",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp"
         }
       },
       "lastCommentary": {
@@ -1088,11 +1088,14 @@ function getTeamLogo(team) {
   if (!team) return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
   const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
+  if (name.includes("eng") || name.includes("england")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/england.webp";
+  }
   if (name.includes("sl") || name.includes("sri lanka")) {
     return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp";
   }
   if (name.includes("ind")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg/";
+    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
   }
   if (name.includes("afg")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
@@ -1158,7 +1161,7 @@ function extractMatchNote(result) {
     .join(" • ");
 }
 
-/* AUDIO & SCORECARD BUTTONS MOVED TO TOP META BAR */
+/* AUDIO & SCORECARD ALIGNMENT */
 function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioLink, overrideNote) {
   if (!cardElement || !matchData) return;
 
@@ -1199,13 +1202,14 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
     noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today";
   }
 
-  if (overrideNote) {
+  if (overrideNote && (isUpcoming || !noteText)) {
     noteText = overrideNote;
   }
 
   cardElement.classList.remove("skeleton");
 
   cardElement.innerHTML = `
+    <!-- ওপৰৰ শাৰী: টুৰ্ণামেণ্ট আৰু সোঁফালে AUDIO বুটাম -->
     <div class="cs-meta">
       <div class="cs-meta-left">
         <span class="cs-tour">${tournament}</span>
@@ -1214,17 +1218,15 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
           ${statusText}
         </span>
       </div>
-      <div class="cs-btn-group">
-        ${audioLink ? `
-          <a href="${audioLink}" class="cs-btn-audio">
-            <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
-            <span>Audio</span>
-          </a>
-        ` : ''}
-        <a href="${scorecardLink}" class="cs-btn-card">Scorecard</a>
-      </div>
+      ${audioLink ? `
+        <a href="${audioLink}" class="cs-btn-audio">
+          <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
+          <span>Audio</span>
+        </a>
+      ` : ''}
     </div>
 
+    <!-- মাজৰ শাৰী: দলৰ নাম, ল’গ’ আৰু স্ক’ৰ -->
     <div class="cs-match-row">
       <div class="cs-team">
         <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg';">
@@ -1245,8 +1247,10 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
       </div>
     </div>
 
+    <!-- তলৰ শাৰী: টোকা আৰু সোঁফালে SCORECARD বুটাম -->
     <div class="cs-bottom-bar">
       <div class="cs-note">${noteText}</div>
+      <a href="${scorecardLink}" class="cs-btn-card">Scorecard</a>
     </div>
   `;
 }
