@@ -783,7 +783,7 @@ body {
 <!-- LIVE CRICKET SCORE STRIP WITH TOGGLE BUTTONS -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
-    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND vs AFG 3rd T20</button>
+    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND W vs Japan W</button>
     <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">ENG vs SL 2nd T20</button>
   </div>
 
@@ -1007,31 +1007,31 @@ const cricketMatches = [
   {
     cardId: "cricketCard1",
     tabId: "tabBtn0",
-    matchId: "6a7c72ee78dcf0657031d931",
+    matchId: "6a83ae6178dcf06570323ab1",
     scorecardLink: "go:card1",
     audioLink: "go:COMM",
-    overrideNote: "India won by 127 runs",
+    overrideNote: null,
     initialData: {
-      "_id": "6a7c72f178dcf0657031d933",
-      "status": "completed",
+      "_id": "6a83ae6178dcf06570323ab1",
+      "status": "upcoming",
       "format": "t20",
-      "seriesName": "IND vs AFG • 3rd T20",
-      "venue": "2nd T20 Match",
-      "announcement1": "India won by 127 runs",
+      "seriesName": "IND W vs Japan W",
+      "venue": "T20 Match",
+      "announcement1": "Match starts soon",
       "teams": {
         "a": {
-          "name": "India",
-          "shortName": "IND",
+          "name": "India Women",
+          "shortName": "IND W",
           "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg"
         },
         "b": {
-          "name": "Afghanistan",
-          "shortName": "AFG",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg"
+          "name": "Japan Women",
+          "shortName": "Japan W",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp"
         }
       },
       "lastCommentary": {
-        "secondaryText": "India won by 127 runs"
+        "secondaryText": "Match starts soon"
       }
     }
   },
@@ -1101,6 +1101,9 @@ function getTeamLogo(team) {
   }
   if (name.includes("ind")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
+  }
+  if (name.includes("jpn") || name.includes("japan")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp";
   }
   if (name.includes("afg")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
