@@ -1010,14 +1010,14 @@ const cricketMatches = [
     matchId: "6a7c72ee78dcf0657031d931",
     scorecardLink: "go:card1",
     audioLink: "go:COMM",
-    overrideNote: "Match Starts Today at 7:30pm",
+    overrideNote: "India won by 127 runs",
     initialData: {
       "_id": "6a7c72f178dcf0657031d933",
-      "status": "upcoming",
+      "status": "completed",
       "format": "t20",
       "seriesName": "IND vs AFG • 3rd T20",
       "venue": "2nd T20 Match",
-      "announcement1": "Match starts soon",
+      "announcement1": "India won by 127 runs",
       "teams": {
         "a": {
           "name": "India",
@@ -1031,7 +1031,7 @@ const cricketMatches = [
         }
       },
       "lastCommentary": {
-        "secondaryText": "Match starts soon"
+        "secondaryText": "India won by 127 runs"
       }
     }
   },
@@ -1041,7 +1041,7 @@ const cricketMatches = [
     matchId: "69bd420b1dbf177ca4e58e71",
     scorecardLink: "go:card2",
     audioLink: null,
-    overrideNote: "Match Starts Today at 11pm",
+    overrideNote: "England won by 6 wkts",
     initialData: {
       "_id": "6a2918947327c23debeeebc3",
       "status": "upcoming",
@@ -1207,8 +1207,14 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
     noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today";
   }
 
-  if (overrideNote && (isUpcoming || !noteText)) {
+  // কাষ্টম অভাৰৰাইড ন’ট প্ৰয়োগ
+  if (overrideNote) {
     noteText = overrideNote;
+    if (overrideNote.toLowerCase().includes("won")) {
+      statusText = "COMPLETED";
+      statusClass = "cs-status-tag completed";
+      showDot = false;
+    }
   }
 
   cardElement.classList.remove("skeleton");
