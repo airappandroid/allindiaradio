@@ -414,6 +414,9 @@
   </div>
 
   <script>
+    // যেতিয়া stations.js ত কিবা সলনি কৰিব, তেতিয়া এই ভাৰ্চন সলনি কৰিব (যেনে: 1.0.1)
+    const DATA_VERSION = "1.0.0";
+
     const cardColors = [
       "linear-gradient(145deg, #1e1b4b 0%, #0c0f1d 100%)",
       "linear-gradient(145deg, #064e3b 0%, #0c151b 100%)",
@@ -463,10 +466,13 @@
 
         const script = document.createElement("script");
         script.id = "stationsDataScript";
-        script.src = "https://airappandroid.github.io/growify/stations.js?v=" + Date.now();
+        // Date.now() ৰ সলনি স্থিৰ ভাৰ্চন ব্যৱহাৰ কৰা হৈছে যাৰ ফলত কেচিং সক্ৰিয় থাকিব
+        script.src = "https://vividh.pages.dev/stations.js?v=" + DATA_VERSION;
+        
         script.onload = () => {
-          if (typeof stations !== 'undefined' && Array.isArray(stations)) {
-            resolve(stations);
+          const list = window.stations || (typeof stations !== 'undefined' ? stations : null);
+          if (list && Array.isArray(list)) {
+            resolve(list);
           } else {
             reject(new Error("Invalid dataset"));
           }
@@ -488,11 +494,11 @@
       document.getElementById("stationCountText").textContent = "Loading...";
 
       try {
-        await fetchStationsData();
+        const stationList = await fetchStationsData();
         loader.style.display = "none";
         grid.style.display = "grid";
 
-        uniqueStates = [...new Set(stations.map(s => s.state))].sort();
+        uniqueStates = [...new Set(stationList.map(s => s.state))].sort();
         renderModalStateList();
 
         if (!selectedState) {
@@ -664,6 +670,8 @@
     });
 
     function filterStations() {
+      const currentStations = window.stations || (typeof stations !== 'undefined' ? stations : []);
+
       if (!showOnlyFavs && !selectedState) {
         document.getElementById("stationContainer").innerHTML = "";
         document.getElementById("stationCountText").textContent = "Please select a state";
@@ -673,7 +681,7 @@
         return;
       }
 
-      const filtered = stations.filter(s => {
+      const filtered = currentStations.filter(s => {
         const matchesState = showOnlyFavs ? true : (s.state === selectedState);
         const matchesFav = !showOnlyFavs || favorites.includes(s.id);
         return matchesState && matchesFav;
