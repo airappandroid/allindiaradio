@@ -776,7 +776,7 @@ body {
 <!-- TOP AD BANNER -->
 <a href="go:COMM"> 
   <div class="top-ad">
-    <img src="https://ik.imagekit.io/sqt8ptw1k/file_0000000059288211b156aa787d8df500.jpg" alt="AIR Banner">
+    <img src="https://ik.imagekit.io/sqt8ptw1k/file_00000000271c8211ab5ae3918007a9e0.jpg" alt="AIR Banner">
   </div>
 </a>
 
@@ -784,7 +784,7 @@ body {
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
     <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND W vs Japan W</button>
-    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">ENG vs SL 2nd T20</button>
+    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">AUS vs ZIM 2nd ODI</button>
   </div>
 
   <div class="cricket-card" id="cricketCard1"></div>
@@ -1009,7 +1009,7 @@ const cricketMatches = [
     tabId: "tabBtn0",
     matchId: "6a83ae6178dcf06570323ab1",
     scorecardLink: "go:card1",
-    audioLink: "go:COMM",
+    audioLink: "",
     overrideNote: "India Women won by 8 wkts",
     initialData: {
       "_id": "6a83ae6178dcf06570323ab1",
@@ -1038,27 +1038,27 @@ const cricketMatches = [
   {
     cardId: "cricketCard2",
     tabId: "tabBtn1",
-    matchId: "69bd420b1dbf177ca4e58e71",
+    matchId: "6a2918927327c23debeeebc1",
     scorecardLink: "go:card2",
-    audioLink: null,
-    overrideNote: "England won by 6 wkts",
+    audioLink: "go:COMM",
+    overrideNote: null,
     initialData: {
-      "_id": "6a2918947327c23debeeebc3",
+      "_id": "6a2918927327c23debeeebc1",
       "status": "upcoming",
-      "format": "t20",
-      "seriesName": "ENG vs SL • 2nd T20",
-      "venue": "2nd T20 Match",
+      "format": "odi",
+      "seriesName": "AUS vs ZIM • 2nd ODI",
+      "venue": "2nd ODI Match",
       "announcement1": "Match starts soon",
       "teams": {
         "a": {
-          "name": "England",
-          "shortName": "ENG",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/england.webp"
+          "name": "Australia",
+          "shortName": "AUS",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/australia.webp"
         },
         "b": {
-          "name": "Sri Lanka",
-          "shortName": "SL",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp"
+          "name": "Zimbabwe",
+          "shortName": "ZIM",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp"
         }
       },
       "lastCommentary": {
@@ -1210,7 +1210,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
     noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today";
   }
 
-  // কাষ্টম অভাৰৰাইড ন’ট প্ৰয়োগ
   if (overrideNote) {
     noteText = overrideNote;
     if (overrideNote.toLowerCase().includes("won")) {
