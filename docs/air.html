@@ -22,10 +22,13 @@
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    *:not(input):not(textarea) {
       -webkit-touch-callout: none;
       user-select: none;
       -webkit-user-select: none;
-      touch-action: manipulation;
     }
 
     body {
@@ -307,8 +310,6 @@
       color: var(--text-main);
       font-size: 15px;
       outline: none;
-      user-select: text;
-      -webkit-user-select: text;
     }
 
     .modal-search-input:focus {
@@ -414,7 +415,6 @@
   </div>
 
   <script>
-    // যেতিয়া stations.js ত কিবা সলনি কৰিব, তেতিয়া এই ভাৰ্চন সলনি কৰিব (যেনে: 1.0.1)
     const DATA_VERSION = "1.0.0";
 
     const cardColors = [
@@ -452,7 +452,7 @@
         .replace(/'/g, '&#039;');
     }
 
-    let favorites = getSafeStorage("air_fav_stations", []);
+    let favorites = getSafeStorage("air_fav_stations", []).map(String);
     let showOnlyFavs = false;
     let selectedState = getSafeStorage("air_user_state", "");
     let uniqueStates = [];
@@ -466,7 +466,6 @@
 
         const script = document.createElement("script");
         script.id = "stationsDataScript";
-        // Date.now() ৰ সলনি স্থিৰ ভাৰ্চন ব্যৱহাৰ কৰা হৈছে যাৰ ফলত কেচিং সক্ৰিয় থাকিব
         script.src = "https://vividh.pages.dev/stations.js?v=" + DATA_VERSION;
         
         script.onload = () => {
@@ -580,6 +579,13 @@
     function selectState(stateName) {
       selectedState = stateName;
       setSafeStorage("air_user_state", stateName);
+      
+      // নতুন ৰাজ্য বাছিলে Favorites অফ হ'ব আৰু ৰাজ্যখনৰ নাম ওলাব
+      if (showOnlyFavs) {
+        showOnlyFavs = false;
+        document.getElementById("favFilterBtn").classList.remove("active");
+      }
+
       document.getElementById("selectedStateLabel").textContent = stateName || "Select State";
       closeStateModal();
       filterStations();
@@ -618,7 +624,7 @@
       emptyMsg.style.display = "none";
 
       const html = list.map((station, index) => {
-        const isFav = favorites.includes(station.id);
+        const isFav = favorites.includes(String(station.id));
         const bgGradient = cardColors[index % cardColors.length];
         const safeId = escapeHtml(station.id);
         const safeName = escapeHtml(station.name);
@@ -683,7 +689,7 @@
 
       const filtered = currentStations.filter(s => {
         const matchesState = showOnlyFavs ? true : (s.state === selectedState);
-        const matchesFav = !showOnlyFavs || favorites.includes(s.id);
+        const matchesFav = !showOnlyFavs || favorites.includes(String(s.id));
         return matchesState && matchesFav;
       });
 
@@ -691,13 +697,14 @@
     }
 
     function toggleFavorite(btn, id) {
-      const index = favorites.indexOf(id);
+      const strId = String(id);
+      const index = favorites.indexOf(strId);
 
       if (index > -1) {
         favorites.splice(index, 1);
         btn.classList.remove("active");
       } else {
-        favorites.push(id);
+        favorites.push(strId);
         btn.classList.add("active");
       }
       setSafeStorage("air_fav_stations", favorites);
@@ -710,6 +717,15 @@
     function toggleFavFilter() {
       showOnlyFavs = !showOnlyFavs;
       document.getElementById("favFilterBtn").classList.toggle("active", showOnlyFavs);
+
+      // Favorites ছেকশ্বনত থাকিলে বুটামত "Favorites" ওলাব
+      const stateLabel = document.getElementById("selectedStateLabel");
+      if (showOnlyFavs) {
+        stateLabel.textContent = "Favorites";
+      } else {
+        stateLabel.textContent = selectedState || "Select State";
+      }
+
       filterStations();
     }
 
