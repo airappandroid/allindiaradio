@@ -180,6 +180,21 @@
       align-items: center;
     }
 
+    .schedule-btn {
+      background: rgba(0, 180, 216, 0.16);
+      border: 1px solid var(--accent-cyan);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-right: auto;
+      outline: none;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+  
     .play-circle-btn {
       width: 28px;
       height: 28px;
@@ -580,7 +595,6 @@
       selectedState = stateName;
       setSafeStorage("air_user_state", stateName);
       
-      // নতুন ৰাজ্য বাছিলে Favorites অফ হ'ব আৰু ৰাজ্যখনৰ নাম ওলাব
       if (showOnlyFavs) {
         showOnlyFavs = false;
         document.getElementById("favFilterBtn").classList.remove("active");
@@ -628,6 +642,7 @@
         const bgGradient = cardColors[index % cardColors.length];
         const safeId = escapeHtml(station.id);
         const safeName = escapeHtml(station.name);
+        const isMahabahu = safeName.toLowerCase().includes("mahabahu");
 
         return `
           <div class="station-card-text" style="background: ${bgGradient};" data-section-id="${safeId}">
@@ -645,6 +660,7 @@
             <div class="station-title" title="${safeName}">${safeName}</div>
             
             <div class="card-bottom-row">
+              ${isMahabahu ? `<button type="button" class="schedule-btn">View Schedule</button>` : ''}
               <div class="play-circle-btn">
                 <span class="play-circle-symbol">▶</span>
               </div>
@@ -656,13 +672,20 @@
       container.innerHTML = html;
     }
 
-    // Single click delegation for stations and favorites
+    // Single click delegation for stations, schedule, and favorites
     document.getElementById("stationContainer").addEventListener("click", (e) => {
       const favBtn = e.target.closest(".fav-text-btn");
       if (favBtn) {
         e.stopPropagation();
         const id = favBtn.getAttribute("data-fav-id");
         toggleFavorite(favBtn, id);
+        return;
+      }
+
+      const scheduleBtn = e.target.closest(".schedule-btn");
+      if (scheduleBtn) {
+        e.stopPropagation();
+        window.location.href = "go:mahasc";
         return;
       }
 
@@ -718,7 +741,6 @@
       showOnlyFavs = !showOnlyFavs;
       document.getElementById("favFilterBtn").classList.toggle("active", showOnlyFavs);
 
-      // Favorites ছেকশ্বনত থাকিলে বুটামত "Favorites" ওলাব
       const stateLabel = document.getElementById("selectedStateLabel");
       if (showOnlyFavs) {
         stateLabel.textContent = "Favorites";
