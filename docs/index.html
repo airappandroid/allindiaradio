@@ -754,7 +754,7 @@ body {
 <!-- LIVE CRICKET SCORE STRIP WITH TOGGLE BUTTONS -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
-    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND W vs Japan W</button>
+    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">ENG vs SL 3rd T20</button>
     <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">AUS vs ZIM 2nd ODI</button>
   </div>
 
@@ -965,31 +965,31 @@ const cricketMatches = [
   {
     cardId: "cricketCard1",
     tabId: "tabBtn0",
-    matchId: "6a83ae6178dcf06570323ab1",
+    matchId: "69bd420e1dbf177ca4e58e77",
     scorecardLink: "go:card1",
     audioLink: "",
-    overrideNote: "India Women won by 8 wkts",
+    overrideNote: "",
     initialData: {
-      "_id": "6a83ae6178dcf06570323ab1",
+      "_id": "69bd420e1dbf177ca4e58e77",
       "status": "upcoming",
       "format": "t20",
-      "seriesName": "IND W vs Japan W",
-      "venue": "T20 Match",
-      "announcement1": "Match starts soon",
+      "seriesName": "ENG vs SL • 3rd T20",
+      "venue": "3rd T20 Match",
+      "announcement1": "Match Starts Today at 7pm",
       "teams": {
         "a": {
-          "name": "India Women",
-          "shortName": "IND W",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg"
+          "name": "England",
+          "shortName": "ENG",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/england.webp"
         },
         "b": {
-          "name": "Japan Women",
-          "shortName": "Japan W",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp"
+          "name": "Sri Lanka",
+          "shortName": "SL",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp"
         }
       },
       "lastCommentary": {
-        "secondaryText": "Match starts soon"
+        "secondaryText": "Match Starts Today at 7pm"
       }
     }
   },
@@ -1165,7 +1165,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today";
+    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today at 7pm";
   }
 
   if (overrideNote) {
@@ -1200,7 +1200,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
     <!-- মাজৰ শাৰী: দলৰ নাম, ল’গ’ আৰু স্ক’ৰ -->
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg';">
+        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/england.webp';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameA}</span>
           ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
@@ -1210,7 +1210,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/japan-women.webp';">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
