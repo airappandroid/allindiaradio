@@ -721,35 +721,6 @@ body {
   fill: #041426;
   margin-left: 2px;
 }
-
-/* ===== POPULAR STATES ===== */
-.state-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 9px;
-  margin-bottom: 12px;
-}
-
-.state-item {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 12px 8px;
-  text-align: center;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: #cbd5e1;
-  letter-spacing: .2px;
-}
-
-.view-all-states {
-  display: block;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 700;
-  color: #38bdf8;
-  padding: 8px 0 4px;
-}
 </style>
 </head>
 
@@ -829,23 +800,10 @@ body {
   </a>
 </div>
 
-<!-- Popular Stations & States -->
+<!-- Popular Stations -->
 <div id="homeContent">
   <h2 class="section-title">🔥 Popular Stations</h2>
   <div id="stations"></div>
-
-  <h2 class="section-title">📍 Popular States</h2>
-  <div class="card">
-    <div class="state-grid">
-      <a href="go:DELHI" class="state-item">Delhi</a>
-      <a href="go:UP" class="state-item">Uttar Pradesh</a>
-      <a href="go:MH" class="state-item">Maharashtra</a>
-      <a href="go:BIHAR" class="state-item">Bihar</a>
-      <a href="go:WB" class="state-item">West Bengal</a>
-      <a href="go:TN" class="state-item">Tamil Nadu</a>
-    </div>
-    <a href="go:A2" class="view-all-states">View All States →</a>
-  </div>
 </div>
 
 </div>
