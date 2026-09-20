@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Safe Area समर्थन के लिए viewport-fit=cover -->
+<!-- Safe Area समर्थन -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIR Radio</title>
 
-<!-- Favicon 404 Error से बचाव के लिए Inline SVG Favicon -->
+<!-- Favicon 404 Error ৰ পৰা সুৰক্ষাৰ বাবে Inline SVG Favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📻</text></svg>">
 
 <style>
@@ -43,7 +43,7 @@ body {
   -webkit-user-select: none;
 }
 
-/* ===== APP HEADER (Safe-area double padding resolved) ===== */
+/* ===== APP HEADER ===== */
 .app-header {
   display: flex;
   align-items: center;
@@ -814,7 +814,7 @@ body {
   flex-shrink: 0;
 }
 
-/* Play Button Styling & Disabled State */
+/* Play Button Styling */
 .play-btn {
   width: 44px;
   height: 44px;
@@ -845,7 +845,6 @@ body {
   display: block;
 }
 
-/* JSON आने तक बटन अक्षम (Disabled) रहेगा */
 .play-btn.disabled {
   opacity: 0.35;
   pointer-events: none;
@@ -885,7 +884,7 @@ body {
 <!-- LIVE CRICKET SCORE STRIP -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
-    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">ENG vs SL 3rd T20</button>
+    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND W vs BAN W T20</button>
     <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">AUS vs ZIM 2nd ODI</button>
   </div>
 
@@ -940,14 +939,12 @@ body {
   <div class="bulletin-section">
     <h2 class="section-title">🎙️ Latest Updates</h2>
     
-    <!-- Tab Switcher -->
     <div class="bulletin-toggle-bar" id="bulletinTabs">
       <button class="bulletin-tab-btn active" id="bulletinTab0" onclick="switchBulletin(0)">Hindi</button>
       <button class="bulletin-tab-btn" id="bulletinTab1" onclick="switchBulletin(1)">English</button>
       <button class="bulletin-tab-btn" id="bulletinTab2" onclick="switchBulletin(2)">BBC</button>
     </div>
 
-    <!-- Detailed Player Card (प्रारंभ में प्ले बटन डिसेबल रहेगा) -->
     <div class="bulletin-card" id="bulletinCard">
       <img id="bulletinLogo" src="https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg" class="bulletin-thumb" alt="News Bulletin">
       <div class="bulletin-info">
@@ -1123,31 +1120,31 @@ const cricketMatches = [
   {
     cardId: "cricketCard1",
     tabId: "tabBtn0",
-    matchId: "69bd420e1dbf177ca4e58e77",
+    matchId: "6a83ae5f78dcf06570323aaf",
     scorecardLink: "go:card1",
-    audioLink: "",
+    audioLink: "go:COMM",
     overrideNote: "",
     initialData: {
-      "_id": "69bd420e1dbf177ca4e58e77",
+      "_id": "6a83ae5f78dcf06570323aaf",
       "status": "upcoming",
       "format": "t20",
-      "seriesName": "ENG vs SL • 3rd T20",
-      "venue": "3rd T20 Match",
-      "announcement1": "Match Starts Today at 7pm",
+      "seriesName": "IND W vs BAN W • T20",
+      "venue": "T20 Match",
+      "announcement1": "Match Starts Soon",
       "teams": {
         "a": {
-          "name": "England",
-          "shortName": "ENG",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/england.webp"
+          "name": "India Women",
+          "shortName": "IND W",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg"
         },
         "b": {
-          "name": "Sri Lanka",
-          "shortName": "SL",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp"
+          "name": "Bangladesh Women",
+          "shortName": "BAN W",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/299037.webp"
         }
       },
       "lastCommentary": {
-        "secondaryText": "Match Starts Today at 7pm"
+        "secondaryText": "Match Starts Soon"
       }
     }
   },
@@ -1209,14 +1206,17 @@ function getTeamLogo(team) {
   if (!team) return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
   const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
+  if (name.includes("ind")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
+  }
+  if (name.includes("ban") || name.includes("bangladesh")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/299037.webp";
+  }
   if (name.includes("eng") || name.includes("england")) {
     return "https://ik.imagekit.io/sqt8ptw1k/england.webp";
   }
   if (name.includes("sl") || name.includes("sri lanka")) {
     return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp";
-  }
-  if (name.includes("ind")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
   }
   if (name.includes("jpn") || name.includes("japan")) {
     return "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp";
@@ -1323,7 +1323,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Today at 7pm";
+    noteText = extractMatchNote(matchData) || matchData.announcement1 || "Match Starts Soon";
   }
 
   if (overrideNote) {
@@ -1356,7 +1356,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
 
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/england.webp';">
+        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameA}</span>
           ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
@@ -1366,7 +1366,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp';">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/299037.webp';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
@@ -1461,7 +1461,6 @@ function timeToMinutes(t) {
 }
 
 function getCurrentProgram(channel) {
-  // schedule.js लोड होने तक "Loading..." दिखाएगा
   if (!window.SCHEDULE_DATA || !window.SCHEDULE_DATA.length) {
     return lastProgram[channel] || "Loading...";
   }
@@ -1533,7 +1532,6 @@ function updateProgramsOnly() {
   });
 }
 
-// यदि schedule.js नेटवर्क से लोड न हो पाए तो फ़ॉलबैक
 function handleScheduleError() {
   document.querySelectorAll(".program").forEach(el => {
     if (el.textContent === "Loading...") {
@@ -1588,7 +1586,6 @@ function switchBulletin(idx) {
     logoEl.alt = item.name || "News Bulletin";
   }
   
-  // JSON से वैध लिंक मिलने पर बटन सक्रिय (Enable) होगा
   if (playBtn && item.streamUrl) {
     playBtn.href = item.streamUrl;
     playBtn.classList.remove("disabled");
@@ -1599,7 +1596,7 @@ function switchBulletin(idx) {
 window.addEventListener("DOMContentLoaded", loadBulletins);
 </script>
 
-<!-- Schedule Script: लोड होते ही updateProgramsOnly() चलेगा, एरर आने पर फ़ॉलबैक कार्य करेगा -->
+<!-- Schedule Script -->
 <script src="https://allindiaradio.pages.dev/docs/schedule.js" defer onload="updateProgramsOnly()" onerror="handleScheduleError()"></script>
 </body>
 </html>
