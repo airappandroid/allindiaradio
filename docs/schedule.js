@@ -76,7 +76,7 @@ window.SCHEDULE_DATA = [
   { "time": "10:00 AM", "title": "पिटारा : बॉम्बे टॉकीज (गायिका पूर्णिमा / सुषमा श्रेष्ठ से मंदाकिनी जोशी की बातचीत - भाग 1)", "channel": "Vividh Bharati" },
   { "time": "11:00 AM", "title": "विविधा (सत्येन कप्पू, दुर्गा खोटे - चित्रभारती)", "channel": "Vividh Bharati" },
   { "time": "12:00 PM", "title": "हिन्दी समाचार (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "12:05 PM", "title": "यादों की महफ़িল (Film Songs)", "channel": "Vividh Bharati" },
+  { "time": "12:05 PM", "title": "यादों की महफिल (Film Songs)", "channel": "Vividh Bharati" },
   { "time": "1:00 PM", "title": "सुरीला सफर (Progm Based on FB Comments)", "channel": "Vividh Bharati" },
   { "time": "2:00 PM", "title": "त्रिवेणी (Repeat of Morning)", "channel": "Vividh Bharati" },
   { "time": "2:15 PM", "title": "दोपहर समाचार (Relay Delhi)", "channel": "Vividh Bharati" },
