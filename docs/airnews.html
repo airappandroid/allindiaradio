@@ -45,11 +45,11 @@
       text-decoration: none;
       color: inherit;
       touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
       content-visibility: auto;
       contain-intrinsic-size: 82px;
       contain: content;
     }
-    .bulletin-card:active { background-color: #192336; }
     .bulletin-info { flex: 1; margin-right: 14px; }
     .bulletin-heading { font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
     .bulletin-meta { font-size: 13px; color: #7c8ba1; }
@@ -65,13 +65,23 @@
       margin-bottom: 4px;
     }
     .play-icon-wrap {
-      width: 42px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background-color: #0091ff;
       display: grid;
       place-items: center;
       flex-shrink: 0;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: 0;
+      cursor: pointer;
+    }
+    .play-icon-wrap:active, .play-icon-wrap:focus, .play-icon-wrap:hover {
+      background-color: #0091ff;
+      transform: none;
+      outline: none;
     }
     .play-icon {
       width: 0; height: 0;
@@ -269,7 +279,7 @@
       let html = '';
       for (let i = 0; i < filtered.length; i++) {
         const [city, lName, time, date, file] = filtered[i];
-        html += `<a href="${baseUrl}${file}" class="bulletin-card">
+        html += `<div class="bulletin-card">
           <div class="bulletin-info">
             <div class="bulletin-heading">${city}</div>
             <div class="bulletin-meta">
@@ -277,8 +287,8 @@
               <div>• ${time} • ${date}</div>
             </div>
           </div>
-          <div class="play-icon-wrap"><div class="play-icon"></div></div>
-        </a>`;
+          <a href="${baseUrl}${file}" class="play-icon-wrap" aria-label="Play ${city} ${lName}"><div class="play-icon"></div></a>
+        </div>`;
       }
       bulletinList.innerHTML = html;
     }
