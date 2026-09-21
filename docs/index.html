@@ -884,7 +884,7 @@ body {
 <!-- LIVE CRICKET SCORE STRIP -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
-    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND W vs BAN W T20</button>
+    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">IND vs Japan T20</button>
     <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">AUS vs ZIM 3rd ODI</button>
   </div>
 
@@ -1120,31 +1120,31 @@ const cricketMatches = [
   {
     cardId: "cricketCard1",
     tabId: "tabBtn0",
-    matchId: "6a83ae5f78dcf06570323aaf",
+    matchId: "6a9d59f81f0f3936e9029873",
     scorecardLink: "go:card1",
     audioLink: "",
-    overrideNote: "India Women won by 114 runs",
+    overrideNote: "Match Starts 22 SEP, 9:30 AM",
     initialData: {
-      "_id": "6a83ae5f78dcf06570323aaf",
+      "_id": "6a9d59f81f0f3936e9029873",
       "status": "upcoming",
       "format": "t20",
-      "seriesName": "IND W vs BAN W • T20",
+      "seriesName": "IND vs Japan • T20",
       "venue": "T20 Match",
-      "announcement1": "Match Starts Soon",
+      "announcement1": "Match Starts 22 SEP, 9:30 AM",
       "teams": {
         "a": {
-          "name": "India Women",
-          "shortName": "IND W",
+          "name": "India",
+          "shortName": "IND",
           "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg"
         },
         "b": {
-          "name": "Bangladesh Women",
-          "shortName": "BAN W",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/299037.webp"
+          "name": "Japan",
+          "shortName": "JPN",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp?updatedAt=1789707848535"
         }
       },
       "lastCommentary": {
-        "secondaryText": "Match Starts Soon"
+        "secondaryText": "Match Starts 22 SEP, 9:30 AM"
       }
     }
   },
@@ -1219,7 +1219,7 @@ function getTeamLogo(team) {
     return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp";
   }
   if (name.includes("jpn") || name.includes("japan")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp";
+    return "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp?updatedAt=1789707848535";
   }
   if (name.includes("afg")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
@@ -1366,7 +1366,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/299037.webp';">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/japan-women.webp?updatedAt=1789707848535';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
