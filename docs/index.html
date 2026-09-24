@@ -885,7 +885,7 @@ body {
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-toggle-bar">
     <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">AUS vs SA ODI</button>
-    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">IND W vs SL W</button>
+    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">ENG vs SL ODI</button>
   </div>
 
   <div class="cricket-card" id="cricketCard1"></div>
@@ -1151,27 +1151,27 @@ const cricketMatches = [
   {
     cardId: "cricketCard2",
     tabId: "tabBtn1",
-    matchId: "6a83ae5c78dcf06570323aad",
+    matchId: "69bd420f1dbf177ca4e58e78",
     scorecardLink: "go:card2",
     audioLink: "",
-    overrideNote: "India Women won by 147 runs",
+    overrideNote: "",
     initialData: {
-      "_id": "6a83ae5c78dcf06570323aad",
+      "_id": "69bd420f1dbf177ca4e58e78",
       "status": "upcoming",
-      "format": "t20",
-      "seriesName": "IND W vs SL W",
-      "venue": "IND W vs SL W",
+      "format": "odi",
+      "seriesName": "ENG vs SL • ODI",
+      "venue": "ENG vs SL ODI",
       "announcement1": "Match starts soon",
       "teams": {
         "a": {
-          "name": "India Women",
-          "shortName": "IND W",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/1812.webp?updatedAt=1789880446996"
+          "name": "England",
+          "shortName": "ENG",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/england_e8XoBdHML.webp"
         },
         "b": {
-          "name": "Sri Lanka Women",
-          "shortName": "SL W",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp?updatedAt=1789308085405"
+          "name": "Sri Lanka",
+          "shortName": "SL",
+          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp"
         }
       },
       "lastCommentary": {
@@ -1209,17 +1209,20 @@ function getTeamLogo(team) {
   if (name.includes("ind w") || name.includes("india w") || name.includes("ind-w") || name.includes("indw")) {
     return "https://ik.imagekit.io/sqt8ptw1k/1812.webp?updatedAt=1789880446996";
   }
-  if (name.includes("sl") || name.includes("sri lanka")) {
+  if (name.includes("sl w") || name.includes("sri lanka w")) {
     return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp?updatedAt=1789308085405";
+  }
+  if (name.includes("sl") || name.includes("sri lanka")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp";
+  }
+  if (name.includes("eng") || name.includes("england")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/england_e8XoBdHML.webp";
   }
   if (name.includes("ind")) {
     return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
   }
   if (name.includes("ban") || name.includes("bangladesh")) {
     return "https://ik.imagekit.io/sqt8ptw1k/299037.webp";
-  }
-  if (name.includes("eng") || name.includes("england")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/england.webp";
   }
   if (name.includes("jpn") || name.includes("japan")) {
     return "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp?updatedAt=1789707848535";
@@ -1362,7 +1365,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
 
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/australia_Cbn3rWRbD.webp';">
+        <img class="cs-flag" src="${getTeamLogo(teamA)}" alt="${nameA}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/england_e8XoBdHML.webp';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameA}</span>
           ${teamAScore ? `<span class="cs-team-score">${teamAScore}</span>` : ''}
@@ -1372,7 +1375,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
       <div class="cs-vs">VS</div>
 
       <div class="cs-team right">
-        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/south-africa.webp';">
+        <img class="cs-flag" src="${getTeamLogo(teamB)}" alt="${nameB}" onerror="this.onerror=null; this.src='https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp';">
         <div class="cs-team-info">
           <span class="cs-team-name">${nameB}</span>
           ${teamBScore ? `<span class="cs-team-score">${teamBScore}</span>` : ''}
