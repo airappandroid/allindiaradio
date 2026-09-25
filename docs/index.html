@@ -277,9 +277,10 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ===== CRICKET STRIP ===== */
+/* ===== CRICKET STRIP (HIDE BY DEFAULT) ===== */
 .cricket-strip-container {
   padding: 8px 14px 2px;
+  display: none; /* ডিফল্টভাৱে বন্ধ */
 }
 
 .cricket-card {
@@ -1120,7 +1121,12 @@ if (supportForm) {
   });
 }
 
-/* ===== LIVE CRICKET SCORE FETCH (SINGLE MATCH) ===== */
+/* ============================================================
+   ===== CRICKET MASTER SWITCH (SHOW / HIDE) =====
+   দেখুৱাবলৈ: true  |  লুকুৱাই ৰাখিবলৈ: false
+   ============================================================ */
+const SHOW_CRICKET = false; // <-- বৰ্তমান Hide কৰা আছে। যেতিয়া প্ৰয়োজন হ'ব ইয়াক true কৰি ল'ব।
+
 const cricketMatch = {
   cardId: "cricketCard1",
   matchId: "6a2919c97327c23debeeebc8",
@@ -1238,7 +1244,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   const noteText = extractMatchNote(matchData);
   const noteLower = (noteText || "").toLowerCase();
 
-  // ষ্টেটাছ ক্লীন কৰা (আণ্ডাৰস্ক'ৰ আৰু হাইফেন আঁতৰাই)
   const rawStatus = (
     matchData.status ||
     matchData.state ||
@@ -1246,7 +1251,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
     ""
   ).toLowerCase().replace(/[\s_\-]+/g, "");
 
-  // স্ক'ৰ আৰম্ভ হৈছে নে নাই নিৰীক্ষণ
   const hasScores = Boolean(
     teamAScore ||
     teamBScore ||
@@ -1254,7 +1258,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
     (teamB && (teamB.score || teamB.b_1_score || teamB.b_2_score))
   );
 
-  // ১. সম্পূৰ্ণ হোৱা মেচ
   const isCompleted =
     rawStatus.includes("complete") ||
     rawStatus.includes("finish") ||
@@ -1267,7 +1270,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
     noteLower.includes("tied") ||
     noteLower.includes("abandoned");
 
-  // ২. লাইভ / চলিত মেচ
   const isLive =
     !isCompleted &&
     (
@@ -1280,7 +1282,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
       rawStatus.includes("tea") ||
       rawStatus.includes("lunch") ||
       rawStatus.includes("delay") ||
-      hasScores // মেচত স্ক'ৰ থাকিলে আৰু শেষ নহ'লে স্বয়ংক্ৰিয়ভাৱে LIVE
+      hasScores
     );
 
   let statusText = "UPCOMING";
@@ -1384,6 +1386,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
 }
 
 async function fetchMatchScore() {
+  if (!SHOW_CRICKET) return;
   const cardElement = document.getElementById(cricketMatch.cardId);
   if (!cardElement || cricketMatch.loading) return;
 
@@ -1411,10 +1414,21 @@ async function fetchMatchScore() {
   }
 }
 
-// Initial Data ৰেণ্ডাৰিং
-if (cricketMatch.initialData) {
-  const el = document.getElementById(cricketMatch.cardId);
-  renderCricketStrip(el, cricketMatch.initialData, cricketMatch.scorecardLink, cricketMatch.audioLink);
+/* Master Switch Check & Initialization */
+function checkAndInitCricket() {
+  const cricketSec = document.getElementById("cricketSection");
+  if (!cricketSec) return;
+
+  if (SHOW_CRICKET) {
+    cricketSec.style.display = "block";
+    if (cricketMatch.initialData) {
+      const el = document.getElementById(cricketMatch.cardId);
+      renderCricketStrip(el, cricketMatch.initialData, cricketMatch.scorecardLink, cricketMatch.audioLink);
+    }
+    fetchMatchScore();
+  } else {
+    cricketSec.style.display = "none";
+  }
 }
 
 /* ===== OPTIMIZED BACKGROUND POLLING (VISIBILITY API) ===== */
@@ -1432,10 +1446,12 @@ function startSchedulePolling() {
 function startPolling() {
   stopPolling();
 
-  // প্ৰতি ১ মিনিটত (৬০ ছেকেণ্ড) স্ক'ৰ অটো-আপডেট
-  cricketPollTimer = setInterval(() => {
-    if (!document.hidden) fetchMatchScore();
-  }, 60000);
+  // SHOW_CRICKET = true থাকিলেহে প্ৰতি ১ মিনিটত স্ক'ৰ আনিব
+  if (SHOW_CRICKET) {
+    cricketPollTimer = setInterval(() => {
+      if (!document.hidden) fetchMatchScore();
+    }, 60000);
+  }
 
   startSchedulePolling();
 }
@@ -1455,7 +1471,7 @@ document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     stopPolling();
   } else {
-    fetchMatchScore();
+    if (SHOW_CRICKET) fetchMatchScore();
     if (scheduleLoaded) updateProgramsOnly();
     startPolling();
   }
@@ -1675,7 +1691,7 @@ renderStations();
 /* ===== PAGE INITIALIZATION TIMERS ===== */
 window.addEventListener("load", () => {
   setTimeout(() => {
-    fetchMatchScore();
+    checkAndInitCricket(); // ক্ৰিকেট চুইচ পৰীক্ষা কৰিব
     startPolling();
   }, 300);
 
