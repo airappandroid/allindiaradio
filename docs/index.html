@@ -254,9 +254,10 @@ body {
   display: none;
 }
 
-/* ===== TOP MOBILE AD ===== */
+/* ===== TOP MOBILE AD (CLS PROOF) ===== */
 .top-ad {
   width: 100%;
+  min-height: 100px;
   padding: 10px 14px 2px;
   display: flex;
   justify-content: center;
@@ -456,6 +457,7 @@ body {
 .cs-flag {
   width: 30px;
   height: 30px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
   background: #1a1d26;
@@ -619,6 +621,7 @@ body {
 .station-thumb {
   width: 48px;
   height: 48px;
+  aspect-ratio: 1 / 1;
   border-radius: 14px;
   object-fit: cover;
   background: #1a1d26;
@@ -876,10 +879,10 @@ a {
   </div>
 </header>
 
-<!-- TOP AD BANNER -->
+<!-- TOP AD BANNER (ZERO CLS) -->
 <a href="go:COMM"> 
   <div class="top-ad">
-    <img src="https://ik.imagekit.io/sqt8ptw1k/ChatGPT%20Image%20Sep%2022,%202026,%2010_58_06%20PM.webp" alt="AIR Banner" width="320" height="100" loading="eager" decoding="async">
+    <img src="https://ik.imagekit.io/sqt8ptw1k/ChatGPT%20Image%20Sep%2022,%202026,%2010_58_06%20PM.webp" alt="AIR Banner" width="320" height="100" decoding="async">
   </div>
 </a>
 
@@ -903,7 +906,7 @@ a {
     </div>
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" data-field="logoA" src="" alt="">
+        <img class="cs-flag" data-field="logoA" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
         <div class="cs-team-info">
           <span class="cs-team-name" data-field="nameA"></span>
           <span class="cs-team-score" data-field="scoreA"></span>
@@ -911,7 +914,7 @@ a {
       </div>
       <div class="cs-vs">VS</div>
       <div class="cs-team right">
-        <img class="cs-flag" data-field="logoB" src="" alt="">
+        <img class="cs-flag" data-field="logoB" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
         <div class="cs-team-info">
           <span class="cs-team-name" data-field="nameB"></span>
           <span class="cs-team-score" data-field="scoreB"></span>
@@ -937,7 +940,7 @@ a {
     </div>
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" data-field="logoA" src="" alt="">
+        <img class="cs-flag" data-field="logoA" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
         <div class="cs-team-info">
           <span class="cs-team-name" data-field="nameA"></span>
           <span class="cs-team-score" data-field="scoreA"></span>
@@ -945,7 +948,7 @@ a {
       </div>
       <div class="cs-vs">VS</div>
       <div class="cs-team right">
-        <img class="cs-flag" data-field="logoB" src="" alt="">
+        <img class="cs-flag" data-field="logoB" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
         <div class="cs-team-info">
           <span class="cs-team-name" data-field="nameB"></span>
           <span class="cs-team-score" data-field="scoreB"></span>
@@ -1665,25 +1668,22 @@ const defaultFallbackLogo = "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO
 const lastProgram = {};
 let scheduleCache = {};
 
-// লোকাল ষ্ট'ৰেজৰ পৰা লগে লগে পুৰণি কেচ ডাটা লোড কৰক (০ ছেকেণ্ড বিলম্ব)
+// লোকাল ষ্ট'ৰেজৰ পৰা লগে লগে পুৰণি কেচ ডাটা লোড (০ ছেকেণ্ড বিলম্ব)
 try {
-  const savedData = localStorage.getItem("air_schedule_cache");
-  if (savedData) {
-    window.SCHEDULE_DATA = JSON.parse(savedData);
+  const savedCache = localStorage.getItem("air_schedule_cache");
+  if (savedCache) {
+    scheduleCache = JSON.parse(savedCache);
     scheduleLoaded = true;
-    rebuildScheduleCache();
-  } else {
-    window.SCHEDULE_DATA = [];
   }
 } catch (e) {
-  window.SCHEDULE_DATA = [];
+  scheduleCache = {};
 }
 
 function rebuildScheduleCache() {
-  scheduleCache = {};
-
   const data = Array.isArray(window.SCHEDULE_DATA) ? window.SCHEDULE_DATA : [];
   if (!data.length) return;
+
+  scheduleCache = {};
 
   popularStations.forEach(station => {
     const channelKey = station.name.toLowerCase().trim();
@@ -1708,7 +1708,7 @@ function getCurrentProgram(channel, nowMin) {
   const list = scheduleCache[channelKey];
 
   if (!list || !list.length) {
-    return lastProgram[channel] || (window.SCHEDULE_DATA && window.SCHEDULE_DATA.length ? "Live Broadcast" : "Loading...");
+    return lastProgram[channel] || (scheduleLoaded ? "Live Broadcast" : "Loading...");
   }
 
   const currentMinute = Number.isFinite(nowMin) ? nowMin : getISTMinutes();
@@ -1744,7 +1744,14 @@ function renderStations() {
     div.className = "station";
 
     div.innerHTML = `
-      <img src="${st.logo}" class="station-thumb" alt="${st.name}" onerror="this.onerror=null;this.src='${defaultFallbackLogo}';">
+      <img src="${st.logo}" 
+           class="station-thumb" 
+           alt="${st.name}" 
+           width="48" 
+           height="48" 
+           decoding="async" 
+           loading="lazy" 
+           onerror="this.onerror=null;this.src='${defaultFallbackLogo}';">
       <div class="station-info">
         <div class="station-name">${st.name}</div>
         <div class="program-row">
@@ -1776,15 +1783,13 @@ function updateProgramsOnly() {
 
 function handleScheduleLoaded() {
   scheduleLoaded = true;
-  
-  // সতেজ ডাটা পৰৱৰ্তী ব্যৱহাৰৰ বাবে কেচত ছেভ কৰক
-  if (window.SCHEDULE_DATA && window.SCHEDULE_DATA.length > 0) {
-    try {
-      localStorage.setItem("air_schedule_cache", JSON.stringify(window.SCHEDULE_DATA));
-    } catch (e) {}
-  }
-
   rebuildScheduleCache();
+
+  // গোটেই হেভি ডাটা সংৰক্ষণ নকৰি কেৱল প্ৰয়োজনীয় scheduleCache টো ছেভ কৰা হৈছে (মেইন থ্ৰেড লেগ শূন্য হ'ব)
+  try {
+    localStorage.setItem("air_schedule_cache", JSON.stringify(scheduleCache));
+  } catch (e) {}
+
   updateProgramsOnly();
   startSchedulePolling();
 }
