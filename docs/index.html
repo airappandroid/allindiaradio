@@ -862,7 +862,7 @@ a {
     <div class="cs-meta">
       <div class="cs-meta-left">
         <span class="cs-tour" data-field="tour">IND-A vs AUS-A • Test</span>
-        <span class="cs-status-tag" data-field="status">UPCOMING</span>
+        <span class="cs-status-tag live" data-field="status"><span class="live-dot red" style="margin-top:0;"></span>LIVE</span>
       </div>
       <a href="" class="cs-btn-audio" data-field="audio" style="display:none;">
         <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
@@ -887,7 +887,7 @@ a {
       </div>
     </div>
     <div class="cs-bottom-bar">
-      <div class="cs-note" data-field="note">IND-A vs AUS-A Test Match</div>
+      <div class="cs-note" data-field="note">Day 3 - Match in progress</div>
       <a href="go:card1" class="cs-btn-card" data-field="scorecard">Scorecard</a>
     </div>
   </div>
@@ -1128,7 +1128,7 @@ const cricketMatch = {
   audioLink: "",
   initialData: {
     "_id": "6a2919c97327c23debeeebc8",
-    "status": "upcoming",
+    "status": "live",
     "format": "test",
     "seriesName": "IND-A vs AUS-A • Test",
     "venue": "Test Match",
@@ -1146,7 +1146,7 @@ const cricketMatch = {
       }
     },
     "lastCommentary": {
-      "secondaryText": "IND-A vs AUS-A Test Match"
+      "secondaryText": "Day 3 - Match in progress"
     }
   }
 };
@@ -1216,6 +1216,7 @@ function extractMatchNote(result) {
     .join(" • ");
 }
 
+/* SMART LIVE / COMPLETED / UPCOMING DETECTION */
 function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   if (!cardElement || !matchData) return;
 
@@ -1234,47 +1235,74 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
 
-  const rawStatus = (matchData.status || "").toLowerCase().replace(/\s+/g, "");
+  const noteText = extractMatchNote(matchData);
+  const noteLower = (noteText || "").toLowerCase();
+
+  // ষ্টেটাছ ক্লীন কৰা (আণ্ডাৰস্ক'ৰ আৰু হাইফেন আঁতৰাই)
+  const rawStatus = (
+    matchData.status ||
+    matchData.state ||
+    matchData.matchStatus ||
+    ""
+  ).toLowerCase().replace(/[\s_\-]+/g, "");
+
+  // স্ক'ৰ আৰম্ভ হৈছে নে নাই নিৰীক্ষণ
+  const hasScores = Boolean(
+    teamAScore ||
+    teamBScore ||
+    (teamA && (teamA.score || teamA.a_1_score || teamA.a_2_score)) ||
+    (teamB && (teamB.score || teamB.b_1_score || teamB.b_2_score))
+  );
+
+  // ১. সম্পূৰ্ণ হোৱা মেচ
   const isCompleted =
     rawStatus.includes("complete") ||
     rawStatus.includes("finish") ||
-    rawStatus.includes("ended");
+    rawStatus.includes("ended") ||
+    rawStatus.includes("result") ||
+    noteLower.includes("won by") ||
+    noteLower.includes("won") ||
+    noteLower.includes("match drawn") ||
+    noteLower.includes("draw") ||
+    noteLower.includes("tied") ||
+    noteLower.includes("abandoned");
 
-  const isUpcoming =
-    rawStatus.includes("notstarted") ||
-    rawStatus.includes("upcoming") ||
-    rawStatus.includes("scheduled");
-
+  // ২. লাইভ / চলিত মেচ
   const isLive =
-    !isUpcoming &&
     !isCompleted &&
     (
       rawStatus.includes("live") ||
       rawStatus.includes("inprogress") ||
-      rawStatus === "started"
+      rawStatus.includes("started") ||
+      rawStatus.includes("ongoing") ||
+      rawStatus.includes("stump") ||
+      rawStatus.includes("break") ||
+      rawStatus.includes("tea") ||
+      rawStatus.includes("lunch") ||
+      rawStatus.includes("delay") ||
+      hasScores // মেচত স্ক'ৰ থাকিলে আৰু শেষ নহ'লে স্বয়ংক্ৰিয়ভাৱে LIVE
     );
 
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let noteText = "";
+  let finalNote = noteText || matchData.announcement1 || "Match in progress";
 
   if (isCompleted) {
     statusText = "COMPLETED";
     statusClass = "cs-status-tag completed";
-    noteText = extractMatchNote(matchData) || "Match Finished";
+    showDot = false;
+    finalNote = noteText || "Match Finished";
   } else if (isLive) {
     statusText = "LIVE";
     statusClass = "cs-status-tag live";
     showDot = true;
-    noteText = extractMatchNote(matchData) || "Match in progress";
+    finalNote = noteText || "Match in progress";
   } else {
     statusText = "UPCOMING";
     statusClass = "cs-status-tag";
-    noteText =
-      extractMatchNote(matchData) ||
-      matchData.announcement1 ||
-      "Match Starts Soon";
+    showDot = false;
+    finalNote = noteText || matchData.announcement1 || "Match Starts Soon";
   }
 
   cardElement.classList.remove("skeleton");
@@ -1340,7 +1368,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
     };
   }
 
-  if (noteEl) noteEl.textContent = noteText;
+  if (noteEl) noteEl.textContent = finalNote;
 
   if (scorecardEl) scorecardEl.href = scorecardLink || "#";
 
