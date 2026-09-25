@@ -277,46 +277,11 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ===== CRICKET TOGGLE BUTTONS ===== */
+/* ===== CRICKET STRIP ===== */
 .cricket-strip-container {
   padding: 8px 14px 2px;
 }
 
-.cricket-toggle-bar {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 4px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.cs-tab-btn {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #94a3b8;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 7px 12px;
-  border-radius: 10px;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.cs-tab-btn.active {
-  background: #169fe6;
-  color: #031326;
-  box-shadow: none;
-}
-
-/* ===== CRICKET CARD & SKELETON ===== */
 .cricket-card {
   background: #151821;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -659,6 +624,11 @@ body {
   margin-top: 5px;
 }
 
+.live-dot.red {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
 .program {
   font-size: 12.5px;
   font-weight: 500;
@@ -886,18 +856,13 @@ a {
   </div>
 </a>
 
-<!-- LIVE CRICKET SCORE STRIP -->
+<!-- LIVE CRICKET SCORE STRIP (SINGLE MATCH) -->
 <div class="cricket-strip-container" id="cricketSection">
-  <div class="cricket-toggle-bar">
-    <button class="cs-tab-btn active" id="tabBtn0" onclick="switchCricketMatch(0)">AUS vs SA ODI</button>
-    <button class="cs-tab-btn" id="tabBtn1" onclick="switchCricketMatch(1)">ENG vs SL ODI</button>
-  </div>
-
   <div class="cricket-card" id="cricketCard1">
     <div class="cs-meta">
       <div class="cs-meta-left">
-        <span class="cs-tour" data-field="tour"></span>
-        <span class="cs-status-tag" data-field="status"></span>
+        <span class="cs-tour" data-field="tour">IND-A vs AUS-A • Test</span>
+        <span class="cs-status-tag" data-field="status">UPCOMING</span>
       </div>
       <a href="" class="cs-btn-audio" data-field="audio" style="display:none;">
         <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
@@ -906,58 +871,24 @@ a {
     </div>
     <div class="cs-match-row">
       <div class="cs-team">
-        <img class="cs-flag" data-field="logoA" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
+        <img class="cs-flag" data-field="logoA" src="https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg?updatedAt=1789284753096" alt="IND-A" width="30" height="30" decoding="async">
         <div class="cs-team-info">
-          <span class="cs-team-name" data-field="nameA"></span>
+          <span class="cs-team-name" data-field="nameA">IND-A</span>
           <span class="cs-team-score" data-field="scoreA"></span>
         </div>
       </div>
       <div class="cs-vs">VS</div>
       <div class="cs-team right">
-        <img class="cs-flag" data-field="logoB" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
+        <img class="cs-flag" data-field="logoB" src="https://ik.imagekit.io/sqt8ptw1k/australia_Cbn3rWRbD.webp?updatedAt=1790235265640" alt="AUS-A" width="30" height="30" decoding="async">
         <div class="cs-team-info">
-          <span class="cs-team-name" data-field="nameB"></span>
+          <span class="cs-team-name" data-field="nameB">AUS-A</span>
           <span class="cs-team-score" data-field="scoreB"></span>
         </div>
       </div>
     </div>
     <div class="cs-bottom-bar">
-      <div class="cs-note" data-field="note"></div>
-      <a href="" class="cs-btn-card" data-field="scorecard">Scorecard</a>
-    </div>
-  </div>
-
-  <div class="cricket-card" id="cricketCard2" style="display: none;">
-    <div class="cs-meta">
-      <div class="cs-meta-left">
-        <span class="cs-tour" data-field="tour"></span>
-        <span class="cs-status-tag" data-field="status"></span>
-      </div>
-      <a href="" class="cs-btn-audio" data-field="audio" style="display:none;">
-        <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
-        <span>Audio</span>
-      </a>
-    </div>
-    <div class="cs-match-row">
-      <div class="cs-team">
-        <img class="cs-flag" data-field="logoA" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
-        <div class="cs-team-info">
-          <span class="cs-team-name" data-field="nameA"></span>
-          <span class="cs-team-score" data-field="scoreA"></span>
-        </div>
-      </div>
-      <div class="cs-vs">VS</div>
-      <div class="cs-team right">
-        <img class="cs-flag" data-field="logoB" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3C/svg%3E" alt="" width="30" height="30" decoding="async">
-        <div class="cs-team-info">
-          <span class="cs-team-name" data-field="nameB"></span>
-          <span class="cs-team-score" data-field="scoreB"></span>
-        </div>
-      </div>
-    </div>
-    <div class="cs-bottom-bar">
-      <div class="cs-note" data-field="note"></div>
-      <a href="" class="cs-btn-card" data-field="scorecard">Scorecard</a>
+      <div class="cs-note" data-field="note">IND-A vs AUS-A Test Match</div>
+      <a href="go:card1" class="cs-btn-card" data-field="scorecard">Scorecard</a>
     </div>
   </div>
 </div>
@@ -1189,136 +1120,53 @@ if (supportForm) {
   });
 }
 
-/* ===== LIVE CRICKET SCORE FETCH & DUAL MATCH LOGIC ===== */
-const cricketMatches = [
-  {
-    cardId: "cricketCard1",
-    tabId: "tabBtn0",
-    matchId: "6a2bb7b87327c23debeefbe6",
-    scorecardLink: "go:card1",
-    audioLink: "",
-    overrideNote: "South Africa won by 67 runs",
-    initialData: {
-      "_id": "6a2bb7b87327c23debeefbe6",
-      "status": "upcoming",
-      "format": "odi",
-      "seriesName": "AUS vs SA • ODI",
-      "venue": "ODI Match",
-      "announcement1": "Match Starts Today at 1:30 pm",
-      "teams": {
-        "a": {
-          "name": "Australia",
-          "shortName": "AUS",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/australia_Cbn3rWRbD.webp"
-        },
-        "b": {
-          "name": "South Africa",
-          "shortName": "SA",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/south-africa.webp"
-        }
+/* ===== LIVE CRICKET SCORE FETCH (SINGLE MATCH) ===== */
+const cricketMatch = {
+  cardId: "cricketCard1",
+  matchId: "6a2919c97327c23debeeebc8",
+  scorecardLink: "go:card1",
+  audioLink: "",
+  initialData: {
+    "_id": "6a2919c97327c23debeeebc8",
+    "status": "upcoming",
+    "format": "test",
+    "seriesName": "IND-A vs AUS-A • Test",
+    "venue": "Test Match",
+    "announcement1": "IND-A vs AUS-A Test",
+    "teams": {
+      "a": {
+        "name": "India A",
+        "shortName": "IND-A",
+        "logo": "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg?updatedAt=1789284753096"
       },
-      "lastCommentary": {
-        "secondaryText": "Match Starts Today at 1:30 pm"
+      "b": {
+        "name": "Australia A",
+        "shortName": "AUS-A",
+        "logo": "https://ik.imagekit.io/sqt8ptw1k/australia_Cbn3rWRbD.webp?updatedAt=1790235265640"
       }
-    }
-  },
-  {
-    cardId: "cricketCard2",
-    tabId: "tabBtn1",
-    matchId: "69bd420f1dbf177ca4e58e78",
-    scorecardLink: "go:card2",
-    audioLink: "",
-    overrideNote: "Sri Lanka won by 16 runs",
-    initialData: {
-      "_id": "69bd420f1dbf177ca4e58e78",
-      "status": "upcoming",
-      "format": "odi",
-      "seriesName": "ENG vs SL • ODI",
-      "venue": "ENG vs SL ODI",
-      "announcement1": "Match starts soon",
-      "teams": {
-        "a": {
-          "name": "England",
-          "shortName": "ENG",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/england_e8XoBdHML.webp"
-        },
-        "b": {
-          "name": "Sri Lanka",
-          "shortName": "SL",
-          "logo": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp"
-        }
-      },
-      "lastCommentary": {
-        "secondaryText": "Match starts soon"
-      }
+    },
+    "lastCommentary": {
+      "secondaryText": "IND-A vs AUS-A Test Match"
     }
   }
-];
-
-let activeMatchIndex = 0;
-
-function switchCricketMatch(index) {
-  activeMatchIndex = index;
-  cricketMatches.forEach((match, idx) => {
-    const cardEl = document.getElementById(match.cardId);
-    const tabEl = document.getElementById(match.tabId);
-    
-    if (cardEl) {
-      cardEl.style.display = (idx === index) ? "flex" : "none";
-    }
-    if (tabEl) {
-      if (idx === index) {
-        tabEl.classList.add("active");
-      } else {
-        tabEl.classList.remove("active");
-      }
-    }
-  });
-}
+};
 
 function getTeamLogo(team) {
-  if (!team) return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
+  if (!team) return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg?updatedAt=1789284753096";
   const name = ((team.shortName || team.name || "") + "").toLowerCase();
 
-  if (name.includes("ind w") || name.includes("india w") || name.includes("ind-w") || name.includes("indw")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/1812.webp?updatedAt=1789880446996";
-  }
-  if (name.includes("sl w") || name.includes("sri lanka w")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka-women.webp?updatedAt=1789308085405";
-  }
-  if (name.includes("sl") || name.includes("sri lanka")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp";
-  }
-  if (name.includes("eng") || name.includes("england")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/england_e8XoBdHML.webp";
+  if (name.includes("aus")) {
+    return "https://ik.imagekit.io/sqt8ptw1k/australia_Cbn3rWRbD.webp?updatedAt=1790235265640";
   }
   if (name.includes("ind")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
-  }
-  if (name.includes("ban") || name.includes("bangladesh")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/299037.webp";
-  }
-  if (name.includes("jpn") || name.includes("japan")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/japan-women.webp?updatedAt=1789707848535";
-  }
-  if (name.includes("afg")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_8_VfAHVo8.jpg";
-  }
-  if (name.includes("aus") || name.includes("australia")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/australia_Cbn3rWRbD.webp";
-  }
-  if (name.includes("south africa") || name === "sa" || name.includes("sa ")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/south-africa.webp";
-  }
-  if (name.includes("zim") || name.includes("zimbabwe")) {
-    return "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp";
+    return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg?updatedAt=1789284753096";
   }
 
   if (team.logo) {
     if (team.logo.startsWith("http")) return team.logo;
     return `https://api.cricradio.com.au${team.logo.startsWith("/") ? "" : "/"}${team.logo}`;
   }
-  return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg";
+  return "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg?updatedAt=1789284753096";
 }
 
 function formatInningScore(scoreObj) {
@@ -1368,17 +1216,16 @@ function extractMatchNote(result) {
     .join(" • ");
 }
 
-/* AUDIO & SCORECARD ALIGNMENT */
-function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioLink, overrideNote) {
+function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   if (!cardElement || !matchData) return;
 
   const teamA = matchData.teams ? matchData.teams.a : {};
   const teamB = matchData.teams ? matchData.teams.b : {};
 
-  const nameA = teamA.shortName || teamA.name || "Team A";
-  const nameB = teamB.shortName || teamB.name || "Team B";
+  const nameA = teamA.shortName || teamA.name || "IND-A";
+  const nameB = teamB.shortName || teamB.name || "AUS-A";
 
-  const format = (matchData.format || "odi").toUpperCase();
+  const format = (matchData.format || "test").toUpperCase();
   const tournament =
     matchData.seriesName ||
     matchData.venue ||
@@ -1430,16 +1277,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
       "Match Starts Soon";
   }
 
-  if (overrideNote) {
-    noteText = overrideNote;
-
-    if (overrideNote.toLowerCase().includes("won")) {
-      statusText = "COMPLETED";
-      statusClass = "cs-status-tag completed";
-      showDot = false;
-    }
-  }
-
   cardElement.classList.remove("skeleton");
 
   const tourEl = cardElement.querySelector('[data-field="tour"]');
@@ -1489,7 +1326,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
     logoAEl.alt = nameA;
     logoAEl.onerror = function () {
       this.onerror = null;
-      this.src = "https://ik.imagekit.io/sqt8ptw1k/england_e8XoBdHML.webp";
+      this.src = "https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg?updatedAt=1789284753096";
     };
   }
 
@@ -1499,7 +1336,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
     logoBEl.alt = nameB;
     logoBEl.onerror = function () {
       this.onerror = null;
-      this.src = "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp";
+      this.src = "https://ik.imagekit.io/sqt8ptw1k/australia_Cbn3rWRbD.webp?updatedAt=1790235265640";
     };
   }
 
@@ -1518,14 +1355,14 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, tabId, audioL
   }
 }
 
-async function fetchMatchScore(match) {
-  const cardElement = document.getElementById(match.cardId);
-  if (!cardElement || match.loading) return;
+async function fetchMatchScore() {
+  const cardElement = document.getElementById(cricketMatch.cardId);
+  if (!cardElement || cricketMatch.loading) return;
 
-  match.loading = true;
+  cricketMatch.loading = true;
 
   try {
-    const url = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${match.matchId}&_t=${Date.now()}`;
+    const url = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${cricketMatch.matchId}&_t=${Date.now()}`;
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) return;
 
@@ -1535,29 +1372,22 @@ async function fetchMatchScore(match) {
       renderCricketStrip(
         cardElement,
         data.responseData.result,
-        match.scorecardLink,
-        match.tabId,
-        match.audioLink,
-        match.overrideNote
+        cricketMatch.scorecardLink,
+        cricketMatch.audioLink
       );
     }
   } catch (error) {
-    console.error(`Match Fetch Error (${match.matchId}):`, error);
+    console.error(`Match Fetch Error (${cricketMatch.matchId}):`, error);
   } finally {
-    match.loading = false;
+    cricketMatch.loading = false;
   }
 }
 
-function fetchAllMatches() {
-  cricketMatches.forEach(match => fetchMatchScore(match));
+// Initial Data ৰেণ্ডাৰিং
+if (cricketMatch.initialData) {
+  const el = document.getElementById(cricketMatch.cardId);
+  renderCricketStrip(el, cricketMatch.initialData, cricketMatch.scorecardLink, cricketMatch.audioLink);
 }
-
-cricketMatches.forEach(match => {
-  if (match.initialData) {
-    const el = document.getElementById(match.cardId);
-    renderCricketStrip(el, match.initialData, match.scorecardLink, match.tabId, match.audioLink, match.overrideNote);
-  }
-});
 
 /* ===== OPTIMIZED BACKGROUND POLLING (VISIBILITY API) ===== */
 let cricketPollTimer = null;
@@ -1574,9 +1404,10 @@ function startSchedulePolling() {
 function startPolling() {
   stopPolling();
 
+  // প্ৰতি ১ মিনিটত (৬০ ছেকেণ্ড) স্ক'ৰ অটো-আপডেট
   cricketPollTimer = setInterval(() => {
-    if (!document.hidden) fetchAllMatches();
-  }, 30000);
+    if (!document.hidden) fetchMatchScore();
+  }, 60000);
 
   startSchedulePolling();
 }
@@ -1596,7 +1427,7 @@ document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
     stopPolling();
   } else {
-    fetchAllMatches();
+    fetchMatchScore();
     if (scheduleLoaded) updateProgramsOnly();
     startPolling();
   }
@@ -1668,7 +1499,6 @@ const defaultFallbackLogo = "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO
 const lastProgram = {};
 let scheduleCache = {};
 
-// লোকাল ষ্ট'ৰেজৰ পৰা লগে লগে পুৰণি কেচ ডাটা লোড (০ ছেকেণ্ড বিলম্ব)
 try {
   const savedCache = localStorage.getItem("air_schedule_cache");
   if (savedCache) {
@@ -1785,7 +1615,6 @@ function handleScheduleLoaded() {
   scheduleLoaded = true;
   rebuildScheduleCache();
 
-  // গোটেই হেভি ডাটা সংৰক্ষণ নকৰি কেৱল প্ৰয়োজনীয় scheduleCache টো ছেভ কৰা হৈছে (মেইন থ্ৰেড লেগ শূন্য হ'ব)
   try {
     localStorage.setItem("air_schedule_cache", JSON.stringify(scheduleCache));
   } catch (e) {}
@@ -1813,17 +1642,15 @@ function loadScheduleScript() {
   document.head.appendChild(script);
 }
 
-// পেজ খুলিয়েই ষ্টেচন ৰেণ্ডাৰ কৰক (কেচ ডাটা থাকিলে তৎক্ষণাৎ নাম ওলাব)
 renderStations();
 
 /* ===== PAGE INITIALIZATION TIMERS ===== */
 window.addEventListener("load", () => {
   setTimeout(() => {
-    fetchAllMatches();
+    fetchMatchScore();
     startPolling();
   }, 300);
 
-  // ৬ ছেকেণ্ড বিলম্বৰ সলনি ৮০০ মিল্লিছেকেণ্ডতে বেকগ্ৰাউণ্ডত স্ক্ৰিপ্ট লোড হ'ব
   setTimeout(loadScheduleScript, 800);
 });
 
