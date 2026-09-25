@@ -6,8 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIR Radio</title>
 
-<!-- Favicon 404 Error ৰ পৰা সুৰক্ষাৰ বাবে Inline SVG Favicon -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📻</text></svg>">
 
 <style>
 * {
@@ -752,15 +750,23 @@ body {
   background: #38bdf8;
 }
 
-.bulletin-thumb {
+.bulletin-icon-box {
   width: 48px;
   height: 48px;
+  min-width: 48px;
   border-radius: 14px;
-  object-fit: cover;
-  background: #1a1d26;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(56, 189, 248, 0.10);
+  border: 1px solid rgba(56, 189, 248, 0.25);
   flex-shrink: 0;
+}
+
+.bulletin-icon-box svg {
+  width: 24px;
+  height: 24px;
+  fill: #38bdf8;
 }
 
 .bulletin-info {
@@ -1010,7 +1016,11 @@ a {
     </div>
 
     <div class="bulletin-card" id="bulletinCard">
-      <img id="bulletinLogo" src="https://ik.imagekit.io/sqt8ptw1k/images_Re-FPn8G9.jpg" class="bulletin-thumb" alt="News Bulletin">
+      <div class="bulletin-icon-box" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.94V22h2v-2.06A8 8 0 0 0 20 12h-2z"/>
+        </svg>
+      </div>
       <div class="bulletin-info">
         <div class="bulletin-name" id="bulletinName">AIR Hindi Samachar</div>
         <div class="bulletin-time-row">
@@ -1549,11 +1559,61 @@ cricketMatches.forEach(match => {
   }
 });
 
-window.addEventListener('load', () => {
+/* ===== OPTIMIZED BACKGROUND POLLING (VISIBILITY API) =====
+   Schedule loads once, 15 seconds after the HTML page finishes loading.
+   After that, only programme names are recalculated every 60 seconds.
+*/
+let cricketPollTimer = null;
+let schedulePollTimer = null;
+let scheduleLoaded = false;
+
+function startSchedulePolling() {
+  if (!scheduleLoaded || schedulePollTimer || document.hidden) return;
+  schedulePollTimer = setInterval(() => {
+    updateProgramsOnly();
+  }, 60000);
+}
+
+function startPolling() {
+  stopPolling();
+
+  cricketPollTimer = setInterval(() => {
+    if (!document.hidden) fetchAllMatches();
+  }, 30000);
+
+  startSchedulePolling();
+}
+
+function stopPolling() {
+  if (cricketPollTimer) {
+    clearInterval(cricketPollTimer);
+    cricketPollTimer = null;
+  }
+  if (schedulePollTimer) {
+    clearInterval(schedulePollTimer);
+    schedulePollTimer = null;
+  }
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopPolling();
+  } else {
+    fetchAllMatches();
+    if (scheduleLoaded) updateProgramsOnly();
+    startPolling();
+  }
+});
+
+window.addEventListener("load", () => {
   setTimeout(() => {
     fetchAllMatches();
-    setInterval(fetchAllMatches, 30000);
+    startPolling();
   }, 600);
+
+  // IMPORTANT: schedule.js is not requested during the initial page load.
+  // It is loaded exactly once after 6 seconds.
+  setTimeout(loadScheduleScript, 6000);
 });
 
 /* ===== RADIO & SCHEDULE LOGIC ===== */
@@ -1582,12 +1642,11 @@ const popularStations = [
   }
 ];
 
-const defaultFallbackLogo = "https://raw.githubusercontent.com/airappandroid/mp3-files/refs/heads/main/file_0000000021e08211b4960dad0c90dbff.jpg";
+const defaultFallbackLogo = "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg";
 const lastProgram = {};
 
 /* ===== FAST IST CLOCK =====
-   Avoid Date -> locale string -> Date parsing on every station update.
-   Intl formatter is created once and reused. */
+    */
 const istClock = new Intl.DateTimeFormat("en-IN", {
   timeZone: "Asia/Kolkata",
   hour: "2-digit",
@@ -1626,8 +1685,7 @@ function timeToMinutes(t) {
 }
 
 /* ===== PREPARE SCHEDULE ONCE =====
-   Previously filter + map + sort ran for every station on every update.
-   Now it runs only when schedule.js has loaded. */
+   */
 let scheduleCache = {};
 
 function rebuildScheduleCache() {
@@ -1726,27 +1784,31 @@ function updateProgramsOnly() {
 }
 
 function handleScheduleLoaded() {
+  scheduleLoaded = true;
   rebuildScheduleCache();
   updateProgramsOnly();
-
-  // Some schedule files populate data one tick after the script loads.
-  // Recheck once without creating a repeating timer.
-  setTimeout(() => {
-    rebuildScheduleCache();
-    updateProgramsOnly();
-  }, 100);
+  startSchedulePolling();
 }
 
 function handleScheduleError() {
+  scheduleLoaded = false;
   document.querySelectorAll(".program").forEach(el => {
-    if (el.textContent === "Loading...") {
-      el.textContent = "Live Broadcast";
-    }
+    if (el.textContent === "Loading...") el.textContent = "Live Broadcast";
   });
 }
 
+function loadScheduleScript() {
+  if (scheduleLoaded || document.getElementById("airScheduleScript")) return;
+
+  const script = document.createElement("script");
+  script.id = "airScheduleScript";
+  script.src = "https://allindiaradio.pages.dev/docs/schedule.js";
+  script.onload = handleScheduleLoaded;
+  script.onerror = handleScheduleError;
+  document.head.appendChild(script);
+}
+
 renderStations();
-setInterval(updateProgramsOnly, 60000);
 
 /* ===== NEWS BULLETIN FETCH (JSON) & DYNAMIC SWITCH LOGIC ===== */
 let bulletinData = [];
@@ -1781,16 +1843,10 @@ function switchBulletin(idx) {
 
   const nameEl = document.getElementById("bulletinName");
   const timeEl = document.getElementById("bulletinTime");
-  const logoEl = document.getElementById("bulletinLogo");
   const playBtn = document.getElementById("bulletinPlayBtn");
 
   if (nameEl) nameEl.textContent = item.name || "News Bulletin";
   if (timeEl) timeEl.textContent = item.time || "";
-  if (logoEl && item.logo) {
-    logoEl.src = item.logo;
-    logoEl.alt = item.name || "News Bulletin";
-  }
-  
   if (playBtn && item.streamUrl) {
     playBtn.href = item.streamUrl;
     playBtn.classList.remove("disabled");
@@ -1801,7 +1857,5 @@ function switchBulletin(idx) {
 window.addEventListener("DOMContentLoaded", loadBulletins);
 </script>
 
-<!-- Schedule Script -->
-<script src="https://allindiaradio.pages.dev/docs/schedule.js" defer onload="handleScheduleLoaded()" onerror="handleScheduleError()"></script>
 </body>
 </html>
