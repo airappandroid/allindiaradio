@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Safe Area সমর্থন -->
+<!-- Safe Area সমৰ্থন -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIR Radio</title>
-
 
 <style>
 * {
@@ -132,7 +131,6 @@ body {
   box-shadow: none;
   overflow: hidden;
 }
-
 
 .modal-header {
   display: flex;
@@ -342,7 +340,6 @@ body {
   background: rgba(255, 255, 255, 0.03);
 }
 
-
 .cricket-card::before {
   content: '';
   position: absolute;
@@ -430,7 +427,6 @@ body {
   height: 11px;
   fill: currentColor;
 }
-
 
 .cs-btn-card {
   color: #031326;
@@ -840,6 +836,7 @@ body {
   cursor: not-allowed;
   box-shadow: none;
 }
+
 /* ===== ANDROID WEBVIEW PERFORMANCE ===== */
 img {
   content-visibility: auto;
@@ -1559,10 +1556,7 @@ cricketMatches.forEach(match => {
   }
 });
 
-/* ===== OPTIMIZED BACKGROUND POLLING (VISIBILITY API) =====
-   Schedule loads once, 15 seconds after the HTML page finishes loading.
-   After that, only programme names are recalculated every 60 seconds.
-*/
+/* ===== OPTIMIZED BACKGROUND POLLING (VISIBILITY API) ===== */
 let cricketPollTimer = null;
 let schedulePollTimer = null;
 let scheduleLoaded = false;
@@ -1605,48 +1599,7 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    fetchAllMatches();
-    startPolling();
-  }, 600);
-
-  // IMPORTANT: schedule.js is not requested during the initial page load.
-  // It is loaded exactly once after 6 seconds.
-  setTimeout(loadScheduleScript, 6000);
-});
-
-/* ===== RADIO & SCHEDULE LOGIC ===== */
-if (!window.SCHEDULE_DATA) window.SCHEDULE_DATA = [];
-
-const popularStations = [
-  { 
-    name: "FM Rainbow", 
-    code: "FMR", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" 
-  },
-  { 
-    name: "Vividh Bharati", 
-    code: "N002", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" 
-  },
-  { 
-    name: "FM Gold", 
-    code: "FMG", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" 
-  },
-  { 
-    name: "Indraprastha", 
-    code: "INDRA", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" 
-  }
-];
-
-const defaultFallbackLogo = "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg";
-const lastProgram = {};
-
-/* ===== FAST IST CLOCK =====
-    */
+/* ===== FAST IST CLOCK ===== */
 const istClock = new Intl.DateTimeFormat("en-IN", {
   timeZone: "Asia/Kolkata",
   hour: "2-digit",
@@ -1684,9 +1637,47 @@ function timeToMinutes(t) {
   return h * 60 + m;
 }
 
-/* ===== PREPARE SCHEDULE ONCE =====
-   */
+/* ===== RADIO & SCHEDULE LOGIC WITH LOCALSTORAGE CACHE ===== */
+const popularStations = [
+  { 
+    name: "FM Rainbow", 
+    code: "FMR", 
+    logo: "https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" 
+  },
+  { 
+    name: "Vividh Bharati", 
+    code: "N002", 
+    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" 
+  },
+  { 
+    name: "FM Gold", 
+    code: "FMG", 
+    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" 
+  },
+  { 
+    name: "Indraprastha", 
+    code: "INDRA", 
+    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" 
+  }
+];
+
+const defaultFallbackLogo = "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg";
+const lastProgram = {};
 let scheduleCache = {};
+
+// লোকাল ষ্ট'ৰেজৰ পৰা লগে লগে পুৰণি কেচ ডাটা লোড কৰক (০ ছেকেণ্ড বিলম্ব)
+try {
+  const savedData = localStorage.getItem("air_schedule_cache");
+  if (savedData) {
+    window.SCHEDULE_DATA = JSON.parse(savedData);
+    scheduleLoaded = true;
+    rebuildScheduleCache();
+  } else {
+    window.SCHEDULE_DATA = [];
+  }
+} catch (e) {
+  window.SCHEDULE_DATA = [];
+}
 
 function rebuildScheduleCache() {
   scheduleCache = {};
@@ -1785,20 +1776,29 @@ function updateProgramsOnly() {
 
 function handleScheduleLoaded() {
   scheduleLoaded = true;
+  
+  // সতেজ ডাটা পৰৱৰ্তী ব্যৱহাৰৰ বাবে কেচত ছেভ কৰক
+  if (window.SCHEDULE_DATA && window.SCHEDULE_DATA.length > 0) {
+    try {
+      localStorage.setItem("air_schedule_cache", JSON.stringify(window.SCHEDULE_DATA));
+    } catch (e) {}
+  }
+
   rebuildScheduleCache();
   updateProgramsOnly();
   startSchedulePolling();
 }
 
 function handleScheduleError() {
-  scheduleLoaded = false;
-  document.querySelectorAll(".program").forEach(el => {
-    if (el.textContent === "Loading...") el.textContent = "Live Broadcast";
-  });
+  if (!scheduleLoaded) {
+    document.querySelectorAll(".program").forEach(el => {
+      if (el.textContent === "Loading...") el.textContent = "Live Broadcast";
+    });
+  }
 }
 
 function loadScheduleScript() {
-  if (scheduleLoaded || document.getElementById("airScheduleScript")) return;
+  if (document.getElementById("airScheduleScript")) return;
 
   const script = document.createElement("script");
   script.id = "airScheduleScript";
@@ -1808,7 +1808,19 @@ function loadScheduleScript() {
   document.head.appendChild(script);
 }
 
+// পেজ খুলিয়েই ষ্টেচন ৰেণ্ডাৰ কৰক (কেচ ডাটা থাকিলে তৎক্ষণাৎ নাম ওলাব)
 renderStations();
+
+/* ===== PAGE INITIALIZATION TIMERS ===== */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    fetchAllMatches();
+    startPolling();
+  }, 300);
+
+  // ৬ ছেকেণ্ড বিলম্বৰ সলনি ৮০০ মিল্লিছেকেণ্ডতে বেকগ্ৰাউণ্ডত স্ক্ৰিপ্ট লোড হ'ব
+  setTimeout(loadScheduleScript, 800);
+});
 
 /* ===== NEWS BULLETIN FETCH (JSON) & DYNAMIC SWITCH LOGIC ===== */
 let bulletinData = [];
