@@ -11,6 +11,8 @@
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
   -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 a {
@@ -36,11 +38,9 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
-  user-select: none;
-  -webkit-user-select: none;
 }
 
-/* ===== APP HEADER (CLEAN STICKY HEADER) ===== */
+/* ===== APP HEADER ===== */
 .app-header {
   display: flex;
   align-items: center;
@@ -210,8 +210,6 @@ body {
   font-family: inherit;
   outline: none;
   transition: border-color 0.2s;
-  user-select: text;
-  -webkit-user-select: text;
 }
 
 .form-input:focus, .form-textarea:focus {
@@ -274,9 +272,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ============================================================
-   ===== CRICKET SCORE STRIP (ZERO JUMP / FIXED DISPLAY) =====
-   ============================================================ */
+/* ===== CRICKET SCORE STRIP ===== */
 .cricket-strip-container {
   padding: 8px 14px 2px;
   display: flex; 
@@ -301,7 +297,6 @@ body {
   margin: 0 auto;
 }
 
-/* TOP ROW */
 .cs-top-row {
   display: flex;
   align-items: center;
@@ -347,7 +342,6 @@ body {
   flex-shrink: 0;
 }
 
-/* TOP RIGHT ACTIONS */
 .cs-top-actions {
   display: flex;
   align-items: center;
@@ -402,7 +396,6 @@ body {
   fill: currentColor;
 }
 
-/* NOTE / RESULT SUBTITLE */
 .cs-note {
   font-size: 12px;
   font-weight: 600;
@@ -415,7 +408,6 @@ body {
   margin-bottom: 2px;
 }
 
-/* MATCH TEAMS ROWS (STACKED) */
 .cs-teams-wrapper {
   display: flex;
   flex-direction: column;
@@ -428,24 +420,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.cs-team-info-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.cs-flag-emoji {
-  font-size: 17px;
-  line-height: 1;
-  width: 20px;
-  height: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  overflow: hidden;
 }
 
 .cs-team-name {
@@ -595,7 +569,6 @@ body {
   gap: 8px;
 }
 
-/* STATION STATIC GREEN DOT */
 .station .live-dot {
   width: 7px;
   height: 7px;
@@ -787,13 +760,6 @@ body {
 button, a {
   touch-action: manipulation;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-}
 </style>
 </head>
 
@@ -824,22 +790,19 @@ button, a {
   </div>
 </a>
 
-<!-- LIVE CRICKET SCORE STRIP -->
+<!-- LIVE CRICKET SCORE STRIP (WITHOUT EMOJI) -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-card" id="cricketCard1">
     
-    <!-- Row 1: Status & Action Buttons -->
     <div class="cs-top-row">
       <span class="cs-status-tag" data-field="status">UPCOMING</span>
       
       <div class="cs-top-actions">
-        <!-- Audio Button -->
         <a href="" class="cs-btn-audio" data-field="audio" style="display:none;">
           <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
           <span>Audio</span>
         </a>
 
-        <!-- Scorecard Button -->
         <a href="go:card1" class="cs-btn-card" data-field="scorecard">
           <span>Scorecard</span>
           <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
@@ -847,34 +810,20 @@ button, a {
       </div>
     </div>
 
-    <!-- Row 2: Match Result / Note -->
     <div class="cs-note" data-field="note">Match Starts Soon</div>
 
-    <!-- Row 3 & 4: Teams Vertical Stack -->
     <div class="cs-teams-wrapper">
-      
-      <!-- Team A Line (Japan) -->
+      <!-- Team A Line -->
       <div class="cs-team-line">
-        <div class="cs-team-info-left">
-          <span class="cs-flag-emoji" data-field="flagA">🇯🇵</span>
-          <span class="cs-team-name" data-field="nameA">Jpn</span>
-        </div>
-        <div class="cs-team-score-right" data-field="scoreA">
-          Yet to bat
-        </div>
+        <span class="cs-team-name" data-field="nameA">Japan</span>
+        <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
 
-      <!-- Team B Line (Nepal) -->
+      <!-- Team B Line -->
       <div class="cs-team-line">
-        <div class="cs-team-info-left">
-          <span class="cs-flag-emoji" data-field="flagB">🇳🇵</span>
-          <span class="cs-team-name" data-field="nameB">Nep</span>
-        </div>
-        <div class="cs-team-score-right" data-field="scoreB">
-          Yet to bat
-        </div>
+        <span class="cs-team-name" data-field="nameB">Nepal</span>
+        <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
-
     </div>
 
   </div>
@@ -918,10 +867,67 @@ button, a {
   </a>
 </div>
 
-<!-- Popular Stations -->
+<!-- POPULAR STATIONS (STATIC HTML FOR INSTANT RENDERING) -->
 <div id="homeContent">
   <h2 class="section-title">🔥 Popular Stations</h2>
-  <div id="stations"></div>
+  
+  <div id="stations">
+    <div class="station">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" class="station-thumb" alt="FM Rainbow" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+      <div class="station-info">
+        <div class="station-name">FM Rainbow</div>
+        <div class="program-row">
+          <span class="live-dot"></span>
+          <div class="program" data-channel="FM Rainbow">Live Broadcast</div>
+        </div>
+      </div>
+      <a href="go:FMR" class="play" aria-label="Play FM Rainbow">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </a>
+    </div>
+
+    <div class="station">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" class="station-thumb" alt="Vividh Bharati" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+      <div class="station-info">
+        <div class="station-name">Vividh Bharati</div>
+        <div class="program-row">
+          <span class="live-dot"></span>
+          <div class="program" data-channel="Vividh Bharati">Live Broadcast</div>
+        </div>
+      </div>
+      <a href="go:N002" class="play" aria-label="Play Vividh Bharati">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </a>
+    </div>
+
+    <div class="station">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" class="station-thumb" alt="FM Gold" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+      <div class="station-info">
+        <div class="station-name">FM Gold</div>
+        <div class="program-row">
+          <span class="live-dot"></span>
+          <div class="program" data-channel="FM Gold">Live Broadcast</div>
+        </div>
+      </div>
+      <a href="go:FMG" class="play" aria-label="Play FM Gold">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </a>
+    </div>
+
+    <div class="station">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" class="station-thumb" alt="Indraprastha" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+      <div class="station-info">
+        <div class="station-name">Indraprastha</div>
+        <div class="program-row">
+          <span class="live-dot"></span>
+          <div class="program" data-channel="Indraprastha">Live Broadcast</div>
+        </div>
+      </div>
+      <a href="go:INDRA" class="play" aria-label="Play Indraprastha">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </a>
+    </div>
+  </div>
 
   <!-- NEWS BULLETIN SECTION -->
   <div class="bulletin-section">
@@ -1012,7 +1018,7 @@ button, a {
 </div>
 
 <script>
-/* ===== MODAL FUNCTIONS WITH BACK BUTTON SUPPORT ===== */
+/* ===== MODAL FUNCTIONS ===== */
 let activeModalId = null;
 
 function openModal(id) {
@@ -1043,12 +1049,10 @@ function closeModalOnOverlay(e, id) {
   }
 }
 
-window.addEventListener("popstate", function (event) {
+window.addEventListener("popstate", function () {
   if (activeModalId) {
     const modal = document.getElementById(activeModalId);
-    if (modal) {
-      modal.classList.remove("active");
-    }
+    if (modal) modal.classList.remove("active");
     activeModalId = null;
   }
 });
@@ -1123,8 +1127,8 @@ const cricketMatch = {
     "announcement1": null,
     "powerplay": "",
     "teams": {
-      "a": { "name": "Japan", "shortName": "Jpn", "logo": "/teams/Japan.png" },
-      "b": { "name": "Nepal", "shortName": "Nep", "logo": "/teams/33.png" }
+      "a": { "name": "Japan", "shortName": "Jpn" },
+      "b": { "name": "Nepal", "shortName": "Nep" }
     },
     "now": { "req_run_rate": "", "run_rate": "" },
     "currentBattingOrder": 0,
@@ -1138,27 +1142,6 @@ const cricketMatch = {
     }
   }
 };
-
-/* দেশৰ নাম অনুসৰি সঠিক FLAG EMOJI */
-function getTeamFlagEmoji(team) {
-  if (!team) return "🏏";
-  const name = ((team.shortName || team.name || "") + "").toLowerCase();
-
-  if (name.includes("ind") || name.includes("india")) return "🇮🇳";
-  if (name.includes("aus") || name.includes("australia")) return "🇦🇺";
-  if (name.includes("eng") || name.includes("england")) return "🏴󠁧󠁢󠁥󠁮󠁧󠁿";
-  if (name.includes("pak") || name.includes("pakistan")) return "🇵🇰";
-  if (name.includes("sa") || name.includes("south africa")) return "🇿🇦";
-  if (name.includes("nz") || name.includes("new zealand")) return "🇳🇿";
-  if (name.includes("sl") || name.includes("sri lanka")) return "🇱🇰";
-  if (name.includes("ban") || name.includes("bangladesh")) return "🇧🇩";
-  if (name.includes("wi") || name.includes("west indies")) return "🌴";
-  if (name.includes("afg") || name.includes("afghanistan")) return "🇦🇫";
-  if (name.includes("jpn") || name.includes("japan")) return "🇯🇵";
-  if (name.includes("nep") || name.includes("nepal")) return "🇳🇵";
-
-  return "🏏";
-}
 
 function formatInningScore(scoreObj) {
   if (!scoreObj) return "";
@@ -1186,9 +1169,7 @@ function getFormattedScore(teamData, teamKey) {
   const score1 = formatInningScore(s1);
   const score2 = formatInningScore(s2);
 
-  if (score2 && score1) {
-    return `${score2} & ${score1}`;
-  }
+  if (score2 && score1) return `${score2} & ${score1}`;
   return score2 || score1 || "";
 }
 
@@ -1200,22 +1181,18 @@ function extractMatchNote(result) {
     note = result.announcement1.trim();
   }
 
-  return note
-    .split(/\r?\n/)
-    .map(line => line.trim())
-    .filter(Boolean)
-    .join(" • ");
+  return note.split(/\r?\n/).map(line => line.trim()).filter(Boolean).join(" • ");
 }
 
-/* SMART LIVE / COMPLETED / UPCOMING DETECTION & RENDER */
+/* SMART CRICKET RENDER (NO EMOJI LOGIC) */
 function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   if (!cardElement || !matchData) return;
 
   const teamA = matchData.teams ? matchData.teams.a : {};
   const teamB = matchData.teams ? matchData.teams.b : {};
 
-  const nameA = teamA.shortName || teamA.name || "Jpn";
-  const nameB = teamB.shortName || teamB.name || "Nep";
+  const nameA = teamA.shortName || teamA.name || "Japan";
+  const nameB = teamB.shortName || teamB.name || "Nepal";
 
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
@@ -1285,16 +1262,9 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
     statusClass = "cs-status-tag live";
     showDot = true;
     finalNote = noteText || "Match in progress";
-  } else {
-    statusText = "UPCOMING";
-    statusClass = "cs-status-tag";
-    showDot = false;
-    finalNote = noteText || matchData.announcement1 || "Match Starts Soon";
   }
 
   const statusEl = cardElement.querySelector('[data-field="status"]');
-  const flagAEl = cardElement.querySelector('[data-field="flagA"]');
-  const flagBEl = cardElement.querySelector('[data-field="flagB"]');
   const nameAEl = cardElement.querySelector('[data-field="nameA"]');
   const nameBEl = cardElement.querySelector('[data-field="nameB"]');
   const scoreAEl = cardElement.querySelector('[data-field="scoreA"]');
@@ -1314,9 +1284,6 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
     }
     statusEl.appendChild(document.createTextNode(statusText));
   }
-
-  if (flagAEl) flagAEl.textContent = getTeamFlagEmoji(teamA);
-  if (flagBEl) flagBEl.textContent = getTeamFlagEmoji(teamB);
 
   if (nameAEl) nameAEl.textContent = nameA;
   if (nameBEl) nameBEl.textContent = nameB;
@@ -1435,25 +1402,10 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-/* ===== FAST IST CLOCK ===== */
-const istClock = new Intl.DateTimeFormat("en-IN", {
-  timeZone: "Asia/Kolkata",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: false
-});
-
+/* ===== FAST PURE MATH IST CLOCK (NO INTL OVERHEAD) ===== */
 function getISTMinutes() {
-  const parts = istClock.formatToParts(new Date());
-  let hour = 0;
-  let minute = 0;
-
-  for (const part of parts) {
-    if (part.type === "hour") hour = Number(part.value);
-    else if (part.type === "minute") minute = Number(part.value);
-  }
-
-  return hour * 60 + minute;
+  const istDate = new Date(Date.now() + 19800000); // UTC + 5:30
+  return istDate.getUTCHours() * 60 + istDate.getUTCMinutes();
 }
 
 function timeToMinutes(t) {
@@ -1474,30 +1426,7 @@ function timeToMinutes(t) {
 }
 
 /* ===== RADIO & SCHEDULE LOGIC ===== */
-const popularStations = [
-  { 
-    name: "FM Rainbow", 
-    code: "FMR", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" 
-  },
-  { 
-    name: "Vividh Bharati", 
-    code: "N002", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" 
-  },
-  { 
-    name: "FM Gold", 
-    code: "FMG", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" 
-  },
-  { 
-    name: "Indraprastha", 
-    code: "INDRA", 
-    logo: "https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" 
-  }
-];
-
-const defaultFallbackLogo = "https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg";
+const popularStationNames = ["FM Rainbow", "Vividh Bharati", "FM Gold", "Indraprastha"];
 const lastProgram = {};
 let scheduleCache = {};
 
@@ -1517,16 +1446,11 @@ function rebuildScheduleCache() {
 
   scheduleCache = {};
 
-  popularStations.forEach(station => {
-    const channelKey = station.name.toLowerCase().trim();
+  popularStationNames.forEach(name => {
+    const channelKey = name.toLowerCase().trim();
 
     scheduleCache[channelKey] = data
-      .filter(item =>
-        item &&
-        item.channel &&
-        item.time &&
-        item.channel.toLowerCase().includes(channelKey)
-      )
+      .filter(item => item && item.channel && item.time && item.channel.toLowerCase().includes(channelKey))
       .map(item => ({
         title: item.title || "Live Broadcast",
         min: timeToMinutes(item.time)
@@ -1562,44 +1486,6 @@ function getCurrentProgram(channel, nowMin) {
 
   lastProgram[channel] = currentTitle;
   return currentTitle;
-}
-
-function renderStations() {
-  const box = document.getElementById("stations");
-  if (!box) return;
-  box.innerHTML = "";
-
-  const nowMin = getISTMinutes();
-
-  popularStations.forEach(st => {
-    const div = document.createElement("div");
-    div.className = "station";
-
-    div.innerHTML = `
-      <img src="${st.logo}" 
-           class="station-thumb" 
-           alt="${st.name}" 
-           width="48" 
-           height="48" 
-           decoding="async" 
-           loading="lazy" 
-           onerror="this.onerror=null;this.src='${defaultFallbackLogo}';">
-      <div class="station-info">
-        <div class="station-name">${st.name}</div>
-        <div class="program-row">
-          <span class="live-dot"></span>
-          <div class="program" data-channel="${st.name}">
-            ${getCurrentProgram(st.name, nowMin)}
-          </div>
-        </div>
-      </div>
-      <a href="go:${st.code}" class="play" aria-label="Play ${st.name}">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </a>
-    `;
-
-    box.appendChild(div);
-  });
 }
 
 function updateProgramsOnly() {
@@ -1644,11 +1530,8 @@ function loadScheduleScript() {
   document.head.appendChild(script);
 }
 
-renderStations();
-
 /* ===== NEWS BULLETIN FETCH & LOGIC ===== */
 let bulletinData = [];
-let activeBulletinIdx = 0;
 
 async function loadBulletins() {
   try {
@@ -1667,14 +1550,11 @@ async function loadBulletins() {
 
 function switchBulletin(idx) {
   if (!bulletinData || !bulletinData[idx]) return;
-  activeBulletinIdx = idx;
   const item = bulletinData[idx];
 
   for (let i = 0; i < 3; i++) {
     const tabEl = document.getElementById(`bulletinTab${i}`);
-    if (tabEl) {
-      tabEl.classList.toggle("active", i === idx);
-    }
+    if (tabEl) tabEl.classList.toggle("active", i === idx);
   }
 
   const nameEl = document.getElementById("bulletinName");
@@ -1690,13 +1570,13 @@ function switchBulletin(idx) {
   }
 }
 
-/* ===== ZERO-DELAY INITIALIZATION (NO SCREEN JUMP) ===== */
+/* ===== INITIALIZATION ===== */
 checkAndInitCricket();
 loadBulletins();
 
 window.addEventListener("DOMContentLoaded", () => {
   startPolling();
-  loadScheduleScript();
+  setTimeout(loadScheduleScript, 1000); // UI প্ৰথমে মসৃণভাৱে মুকলি হ’বলৈ ১ ছেকেণ্ডৰ বিৰতি
 });
 </script>
 
