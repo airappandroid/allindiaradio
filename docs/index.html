@@ -422,6 +422,22 @@ body {
   justify-content: space-between;
 }
 
+.cs-team-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs-flag {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #111a2e;
+  flex-shrink: 0;
+}
+
 .cs-team-name {
   font-size: 13.5px;
   font-weight: 700;
@@ -790,7 +806,7 @@ button, a {
   </div>
 </a>
 
-<!-- LIVE CRICKET SCORE STRIP (WITHOUT EMOJI) -->
+<!-- LIVE CRICKET SCORE STRIP -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-card" id="cricketCard1">
     
@@ -810,18 +826,24 @@ button, a {
       </div>
     </div>
 
-    <div class="cs-note" data-field="note">Match Starts Soon</div>
+    <div class="cs-note" data-field="note">IND vs WI 1st ODI • Match starts at 27 SEP, 2:00 PM</div>
 
     <div class="cs-teams-wrapper">
-      <!-- Team A Line -->
+      <!-- Team A Line (India) -->
       <div class="cs-team-line">
-        <span class="cs-team-name" data-field="nameA">Japan</span>
+        <div class="cs-team-left">
+          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp" class="cs-flag" alt="IND" width="20" height="20">
+          <span class="cs-team-name" data-field="nameA">IND</span>
+        </div>
         <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
 
-      <!-- Team B Line -->
+      <!-- Team B Line (West Indies) -->
       <div class="cs-team-line">
-        <span class="cs-team-name" data-field="nameB">Nepal</span>
+        <div class="cs-team-left">
+          <img src="https://ik.imagekit.io/sqt8ptw1k/west-indies.webp" class="cs-flag" alt="WI" width="20" height="20">
+          <span class="cs-team-name" data-field="nameB">WI</span>
+        </div>
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
     </div>
@@ -1117,18 +1139,18 @@ const SHOW_CRICKET = true;
 
 const cricketMatch = {
   cardId: "cricketCard1",
-  matchId: "6a9a9df11f0f3936e9027d6e",
+  matchId: "6a3103797327c23debef2675",
   scorecardLink: "go:card1",
   audioLink: "",
   initialData: {
-    "_id": "6a9a9df11f0f3936e9027d6e",
+    "_id": "6a3103797327c23debef2675",
     "status": "notstarted",
-    "format": "t20",
-    "announcement1": null,
+    "format": "odi",
+    "announcement1": "IND vs WI 1st ODI • Match starts at 27 SEP, 2:00 PM",
     "powerplay": "",
     "teams": {
-      "a": { "name": "Japan", "shortName": "Jpn" },
-      "b": { "name": "Nepal", "shortName": "Nep" }
+      "a": { "name": "India", "shortName": "IND" },
+      "b": { "name": "West Indies", "shortName": "WI" }
     },
     "now": { "req_run_rate": "", "run_rate": "" },
     "currentBattingOrder": 0,
@@ -1184,15 +1206,15 @@ function extractMatchNote(result) {
   return note.split(/\r?\n/).map(line => line.trim()).filter(Boolean).join(" • ");
 }
 
-/* SMART CRICKET RENDER (NO EMOJI LOGIC) */
+/* SMART CRICKET RENDER */
 function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   if (!cardElement || !matchData) return;
 
   const teamA = matchData.teams ? matchData.teams.a : {};
   const teamB = matchData.teams ? matchData.teams.b : {};
 
-  const nameA = teamA.shortName || teamA.name || "Japan";
-  const nameB = teamB.shortName || teamB.name || "Nepal";
+  const nameA = teamA.shortName || teamA.name || "IND";
+  const nameB = teamB.shortName || teamB.name || "WI";
 
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
@@ -1250,7 +1272,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let finalNote = noteText || matchData.announcement1 || "Match Starts Soon";
+  let finalNote = noteText || matchData.announcement1 || "IND vs WI 1st ODI • Match starts at 27 SEP, 2:00 PM";
 
   if (isCompleted) {
     statusText = "COMPLETED";
@@ -1576,7 +1598,7 @@ loadBulletins();
 
 window.addEventListener("DOMContentLoaded", () => {
   startPolling();
-  setTimeout(loadScheduleScript, 1000); // UI প্ৰথমে মসৃণভাৱে মুকলি হ’বলৈ ১ ছেকেণ্ডৰ বিৰতি
+  setTimeout(loadScheduleScript, 1000);
 });
 </script>
 
