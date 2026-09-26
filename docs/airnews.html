@@ -2,271 +2,602 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AIR Regional News Bulletins</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>All India Radio Stations</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #070a12;
+      --surface: #111728;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #ffffff;
+      --text-sub: #8292a7;
+      --accent-cyan: #00b4d8;
+      --fav-active: #ff3366;
+      --radius: 14px;
+    }
+
     body {
+      margin: 0;
+      padding: 14px 14px calc(60px + env(safe-area-inset-bottom)) 14px;
+      background-color: var(--bg);
+      color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #090e17;
-      color: #e2e8f0;
-      padding: 16px;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-    .header-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-    .header-title { font-size: 20px; font-weight: 700; color: #fff; }
-    .change-lang-btn {
-      background: #131c2b;
-      border: 1px solid #1f2d45;
-      color: #38bdf8;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-    .change-lang-btn:active { background: #1a273c; }
-    .bulletin-list { display: flex; flex-direction: column; gap: 12px; }
-    .bulletin-card {
-      background-color: #131a28;
-      border: 1px solid #1e293d;
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-decoration: none;
-      color: inherit;
-      touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
-      content-visibility: auto;
-      contain-intrinsic-size: 82px;
+      user-select: none;
+      -webkit-user-select: none;
+      box-sizing: border-box;
+    }
+
+    button, input {
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+
+    .header-bar { padding-bottom: 12px; }
+    .filter-row { display: flex; gap: 10px; }
+
+    .state-picker-btn {
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .fav-toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-sub);
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .fav-toggle-btn.active {
+      background: rgba(255, 51, 102, 0.12);
+      border-color: rgba(255, 51, 102, 0.4);
+      color: var(--fav-active);
+    }
+
+    .meta-bar {
+      padding: 4px 6px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    /* Grid layout */
+    .station-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .station-card {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 96px;
+      cursor: pointer;
       contain: content;
     }
-    .bulletin-info { flex: 1; margin-right: 14px; }
-    .bulletin-heading { font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
-    .bulletin-meta { font-size: 13px; color: #7c8ba1; }
-    .lang-badge {
-      background-color: #10263f;
-      border: 1px solid #1a3c61;
-      color: #38bdf8;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 4px;
+
+    /* Light gradients */
+    .bg-0 { background: linear-gradient(145deg, #1e1b4b, #0c0f1d); }
+    .bg-1 { background: linear-gradient(145deg, #064e3b, #0c151b); }
+    .bg-2 { background: linear-gradient(145deg, #4c1d95, #0e0d1f); }
+    .bg-3 { background: linear-gradient(145deg, #0c4a6e, #081622); }
+    .bg-4 { background: linear-gradient(145deg, #701a75, #170919); }
+    .bg-5 { background: linear-gradient(145deg, #134e4a, #09171b); }
+    .bg-6 { background: linear-gradient(145deg, #831843, #190a12); }
+    .bg-7 { background: linear-gradient(145deg, #713f12, #16100a); }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
     }
-    .play-icon-wrap {
-      width: 48px;
-      height: 48px;
+
+    .wave-icon {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.7);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+    }
+
+    .fav-btn {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background-color: #0091ff;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-      border: 0;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fav-btn.active {
+      color: var(--fav-active);
+      background: rgba(255, 51, 102, 0.2);
+      border-color: rgba(255, 51, 102, 0.4);
+    }
+
+    .station-title {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 4px 0 8px 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+    }
+
+    .card-bottom-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .schedule-btn {
+      background: rgba(0, 180, 216, 0.16);
+      border: 1px solid var(--accent-cyan);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-right: auto;
+    }
+
+    .play-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #fff;
+    }
+
+    .status-box {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-sub);
+    }
+
+    .status-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #fff;
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--accent-cyan);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 14px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .retry-btn {
+      margin-top: 14px;
+      padding: 10px 20px;
+      background: var(--accent-cyan);
+      border: none;
+      border-radius: 8px;
+      color: #070a12;
+      font-weight: 700;
       cursor: pointer;
     }
-    .play-icon-wrap:active, .play-icon-wrap:focus, .play-icon-wrap:hover {
-      background-color: #0091ff;
-      transform: none;
-      outline: none;
-    }
-    .play-icon {
-      width: 0; height: 0;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      border-left: 11px solid #ffffff;
-      margin-left: 2px;
-    }
-    .empty-msg { display: none; text-align: center; padding: 40px 16px; color: #7c8ba1; font-size: 15px; }
 
     /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background-color: #090e17;
-      z-index: 9999;
-      padding: 16px;
-      display: flex;
+      background: var(--bg);
+      z-index: 999;
+      display: none;
       flex-direction: column;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.15s ease, visibility 0.15s;
     }
-    .modal-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
-    .modal-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-    .modal-title { font-size: 18px; font-weight: 700; color: #fff; }
-    .close-btn {
-      background: #131a28;
-      border: 1px solid #1e293d;
-      color: #fff;
-      font-size: 20px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-size: 24px;
       cursor: pointer;
+      line-height: 1;
     }
-    .search-input-box {
-      width: 100%;
-      background: #131a28;
-      border: 1px solid #1e293d;
-      border-radius: 12px;
+
+    .modal-search-input {
+      width: calc(100% - 32px);
+      margin: 10px 16px;
       padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
       color: #fff;
       font-size: 14px;
       outline: none;
-      margin-bottom: 12px;
     }
-    .lang-chip-list {
+
+    .state-list-scroll {
       flex: 1;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
       overflow-y: auto;
-      align-content: flex-start;
-      -webkit-overflow-scrolling: touch;
+      padding: 0 16px;
     }
-    .lang-chip {
-      background: #131a28;
-      border: 1px solid #1e293d;
-      color: #cbd5e1;
-      padding: 12px 8px;
-      border-radius: 12px;
-      font-size: 14px;
+
+    .state-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       cursor: pointer;
-      text-align: center;
+      font-size: 15px;
     }
-    .lang-chip.is-hidden { display: none !important; }
-    .lang-chip.active { background: #0091ff; border-color: #0091ff; color: #fff; font-weight: 600; }
+
+    .radio-circle {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid #475569;
+    }
+
+    .state-item.selected .radio-circle {
+      border-color: var(--accent-cyan);
+      background: var(--accent-cyan);
+    }
   </style>
 </head>
 <body>
 
-  <div class="header-wrap">
-    <div class="header-title">📻 AIR News</div>
-    <button class="change-lang-btn" id="openModalBtn">🌐 <span id="currentLangText">Select Language</span></button>
+  <!-- Reusable Wave Icon -->
+  <svg style="display: none;">
+    <symbol id="icon-wave" viewBox="0 0 24 24">
+      <path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 11v2"/>
+    </symbol>
+  </svg>
+
+  <div class="header-bar">
+    <div class="filter-row">
+      <button class="state-picker-btn" onclick="openStateModal()">
+        <span id="selectedStateLabel">Select State</span>
+        <span style="font-size: 10px; color: var(--text-sub);">▼</span>
+      </button>
+
+      <button id="favFilterBtn" class="fav-toggle-btn" onclick="toggleFavFilter()">
+        ♥ Favorites
+      </button>
+    </div>
   </div>
 
-  <div class="bulletin-list" id="bulletinList"></div>
-  <div id="emptyMsg" class="empty-msg">No bulletins found.</div>
+  <div class="meta-bar">
+    <span id="stationCountText">Loading...</span>
+  </div>
 
-  <div class="modal-overlay" id="langModal">
-    <div class="modal-top">
-      <div class="modal-title">Select Language</div>
-      <button class="close-btn" id="closeModalBtn">&times;</button>
+  <div id="loadingState" class="status-box">
+    <div class="spinner"></div>
+    <div class="status-title">Loading Stations...</div>
+  </div>
+
+  <div id="errorState" class="status-box" style="display: none;">
+    <div style="font-size: 32px; margin-bottom: 8px;">⚠️</div>
+    <div class="status-title">Connection Failed</div>
+    <button class="retry-btn" onclick="initApp()">Retry</button>
+  </div>
+
+  <div id="stationContainer" class="station-grid" style="display: none;"></div>
+  
+  <div id="emptyMessage" class="status-box" style="display: none;">
+    <p id="emptyTitle" class="status-title">Please Select a State</p>
+    <p id="emptySub" style="font-size: 13px;">Choose your state to start listening to local stations.</p>
+  </div>
+
+  <!-- State Modal -->
+  <div id="stateModal" class="modal-overlay">
+    <div class="modal-top-bar">
+      <span style="font-weight: 700;">Select Region / State</span>
+      <button class="modal-close-btn" onclick="closeStateModal()">&times;</button>
     </div>
-    <input type="text" id="langSearchInput" class="search-input-box" placeholder="Search language..." autocomplete="off">
-    <div class="lang-chip-list" id="langChipContainer"></div>
+    <input type="search" id="modalStateSearch" class="modal-search-input" placeholder="Search state..." oninput="filterModalStates()">
+    <div id="modalStateList" class="state-list-scroll"></div>
   </div>
 
   <script>
-    // লাইটৱেট ডাটা এৰে (কেৱল প্ৰয়োজনীয় ডাটা ৰখা হৈছে)
-    const bulletins = [['Itanagar', 'English', '4:55 PM', '26 September 2026', 'ita-eng-7.mp3'], ['Itanagar', 'Hindi', '4:45 PM', '26 September 2026', 'ita-hindi-5.mp3'], ['Guwahati', 'Bodo', '4:30 PM', '26 September 2026', 'bodoo.mp3'], ['Srinagar', 'Pahari', '4:20 PM', '26 September 2026', 'Pahari-1620-4.mp3'], ['Guwahati', 'Karbi', '3:45 PM', '26 September 2026', 'karbi-12.mp3'], ['Guwahati', 'Nepali', '3:15 PM', '26 September 2026', 'Nepali-6.mp3'], ['Shimla', 'Hindi', '3:00 PM', '26 September 2026', 'Shimla-7.mp3'], ['Mumbai', 'Marathi', '3:00 PM', '26 September 2026', 'mum-1500-6.mp3'], ['Ranchi', 'Hindi', '2:55 PM', '26 September 2026', 'Rachi-1455.mp3'], ['Cuttack', 'Odia', '2:32 PM', '26 September 2026', 'cutt-1430.mp3'], ['Aizawl', 'Mizo', '2:30 PM', '26 September 2026', 'Aizwal-3.mp3'], ['Ahmedabad', 'Gujarati', '2:30 PM', '26 September 2026', 'Ahmdabd-9.mp3'], ['Bengaluru', 'Kannada', '2:30 PM', '26 September 2026', 'Baglor-1430-4.mp3'], ['Bhopal', 'Hindi', '2:10 PM', '26 September 2026', 'bho-1410-6.mp3'], ['Tiruchirapalli', 'Tamil', '1:45 PM', '26 September 2026', 'Trichy-8.mp3'], ['Kolkata', 'Bengali', '1:40 PM', '26 September 2026', 'kolakta-1340-3.mp3'], ['Vijayawada', 'Telugu', '1:20 PM', '26 September 2026', 'viajy-1320-2.mp3'], ['Jalandhar', 'Punjabi', '1:10 PM', '26 September 2026', 'jal-audio-5.mp3'], ['Hyderabad', 'Telugu', '1:10 PM', '26 September 2026', 'telgu-1310-2.mp3'], ['Lucknow', 'Urdu', '1:10 PM', '26 September 2026', 'luck-audio-1.mp3'], ['Chandigarh', 'Hindi', '1:05 PM', '26 September 2026', 'chandigarh.mp3'], ['C S Nagar', 'Marathi', '1:00 PM', '26 September 2026', '13-audio.mp3'], ['Jaipur', 'Hindi', '1:00 PM', '26 September 2026', 'jaipur-1300-2.mp3'], ['Calicut', 'Malayalam', '12:30 PM', '26 September 2026', 'caliut-1230.mp3'], ['Thiruvananthapuram', 'Malayalam', '12:30 PM', '26 September 2026', 'mal1230-1.mp3'], ['Srinagar', 'Urdu', '12:30 PM', '26 September 2026', 'ummrdu.mp3'], ['Jammu', 'Dogri', '12:25 PM', '26 September 2026', 'dogri-1225-1.mp3'], ['Srinagar', 'Kashmiri', '12:25 PM', '26 September 2026', 'kashmirir.mp3'], ['Guwahati', 'Assamese', '12:05 PM', '26 September 2026', 'Assamese-News1205-pm.mp3'], ['Dharwad', 'Kannada', '12:00 PM', '26 September 2026', 'knad-1200.mp3'], ['Raipur', 'Hindi', '11:55 AM', '26 September 2026', 'raipur1155-3.mp3'], ['Jammu', 'Gojri', '10:15 AM', '26 September 2026', 'gojri105.mp3'], ['Leh', 'Ladakhi', '9:05 AM', '26 September 2026', 'leh-0905-9.mp3'], ['C S Nagar', 'Urdu', '9:00 AM', '26 September 2026', 'cs-0900-1.mp3'], ['Shillong', 'English', '8:30 AM', '26 September 2026', 'sillog-0830.mp3'], ['Shillong', 'Khasi', '7:45 AM', '26 September 2026', 'shillong-7.mp3'], ['Agartala', 'Kokborok', '7:40 AM', '26 September 2026', 'koko-0740-3.mp3'], ['Bhuj', 'Gujarati', '7:40 AM', '26 September 2026', 'bhuj-24.mp3'], ['Agartala', 'Bengali', '7:35 AM', '26 September 2026', 'bengali-0735-2.mp3'], ['Silchar', 'Bengali', '7:35 AM', '26 September 2026', 'sil-4.mp3'], ['Kohima', 'English', '7:30 AM', '26 September 2026', 'kohima-en-0730.mp3'], ['Imphal', 'Manipuri', '7:30 AM', '26 September 2026', 'impal-0730-2.mp3'], ['panaji', 'Konkani', '7:25 AM', '26 September 2026', 'Panajai.mp3'], ['Kohima', 'Nagamese', '7:25 AM', '26 September 2026', 'negamds-0725.mp3'], ['Kurseong', 'Nepali', '7:25 AM', '26 September 2026', 'neplai-0725-1.mp3'], ['Dehradun', 'Hindi', '7:20 AM', '26 September 2026', 'deh-audo-1.mp3'], ['Gorakhpur', 'Hindi', '7:20 AM', '26 September 2026', 'go-audio-7.mp3'], ['Pune', 'Marathi', '7:10 AM', '26 September 2026', 'pune-audio-5.mp3'], ['Sri Vijaya Puram', 'Hindi', '7:05 AM', '26 September 2026', 'sri-vijay-2.mp3'], ['Sambalpur', 'Sambalpuri', '6:47 AM', '26 September 2026', 'sam.mp3'], ['Chennai', 'Tamil', '6:45 AM', '26 September 2026', 'chennai-audio-2.mp3'], ['Dehradun', 'Kumauni', '7:30 PM', '25 September 2026', 'kumauni-5.mp3'], ['Gangtok', 'Bhutia', '6:50 PM', '25 September 2026', 'Bhutia-10.mp3'], ['Gangtok', 'Lepcha', '6:45 PM', '25 September 2026', 'Lepcha1845.mp3'], ['Jaipur', 'Rajasthani', '6:45 PM', '25 September 2026', 'raje-aud-1845.mp3'], ['Gangtok', 'Nepali', '6:40 PM', '25 September 2026', 'Nepali-gang-3.mp3'], ['Shillong', 'Jaintia', '6:40 PM', '25 September 2026', 'jait-aid-1840.mp3'], ['Patna', 'Maithili', '6:25 PM', '25 September 2026', 'MAITHILI-3.mp3'], ['Ahmedabad', 'Sindhi', '6:15 PM', '25 September 2026', 'sindhi-9.mp3'], ['Pudducherry', 'Tamil', '6:10 PM', '25 September 2026', 'pudu-ayd-1810-2.mp3'], ['Raipur', 'Chhattisgarh', '6:10 PM', '25 September 2026', 'Chhattisgari-2.mp3'], ['Visakhapatnam', 'Telugu', '6:10 PM', '25 September 2026', 'VISAKHAPATNAM1810f.mp3'], ['Shillong', 'Garo', '6:05 PM', '25 September 2026', 'GARO-1805-1.mp3'], ['Nagpur', 'Marathi', '6:00 PM', '25 September 2026', 'Nagpur1800-2.mp3'], ['Dibrugarh', 'Assamese', '6:00 PM', '25 September 2026', 'guwat-d180.mp3'], ['Gorakhpur', 'Bhojpuri', '6:00 PM', '25 September 2026', 'bhoj-aud-1800.mp3'], ['Hyderabad', 'Urdu', '5:50 PM', '25 September 2026', 'hyd-ad-1500.mp3'], ['Srinagar', 'Gojri', '5:50 PM', '25 September 2026', 'gojriayd-170.mp3'], ['Patna', 'Hindi', '8:48 AM', '25 September 2026', 'Patna-3.mp3'], ['Lucknow', 'Hindi', '7:20 PM', '24 September 2026', 'luck-aud-1920.mp3'], ['Dehradun', 'Garhwali', '6:50 PM', '24 September 2026', 'garh-aud-1830.mp3'], ['Tamil', 'Tamil', '7:15 PM', '21 September 2026', 'Tamil-1915-5.mp3'], ['Mumbai', 'Lepcha', '5:00 PM', '18 September 2026', 'muuuuu.mp3'], ['Jammu', 'English', '4:55 PM', '17 September 2026', 'ita-eng-2.mp3']];
+    const DATA_VERSION = "1.0.1";
 
-    const STORAGE_KEY = 'air_selected_lang';
-    const baseUrl = 'https://newsonair.gov.in/wp-content/uploads/2026/09/';
+    // Quotes আঁতৰোৱাৰ সহায়ক ফাংচন
+    function cleanString(val) {
+      if (!val) return "";
+      let str = String(val).trim();
+      try {
+        if (str.startsWith('"') && str.endsWith('"')) {
+          str = JSON.parse(str);
+        }
+      } catch(e) {}
+      return String(str || "").replace(/^["']|["']$/g, '').trim();
+    }
 
-    const modal = document.getElementById('langModal');
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const currentLangText = document.getElementById('currentLangText');
-    const bulletinList = document.getElementById('bulletinList');
-    const emptyMsg = document.getElementById('emptyMsg');
-    const langSearchInput = document.getElementById('langSearchInput');
-    const langChipContainer = document.getElementById('langChipContainer');
+    // Favorites ব্যৱস্থাপনা
+    let favorites = new Set();
+    try {
+      const savedFavs = localStorage.getItem("air_fav_stations");
+      if (savedFavs) {
+        const parsed = JSON.parse(savedFavs);
+        if (Array.isArray(parsed)) {
+          favorites = new Set(parsed.map(String));
+        }
+      }
+    } catch(e) {}
 
-    const uniqueLanguages = [...new Set(bulletins.map(b => b[1]))].sort();
+    let showOnlyFavs = false;
+    let selectedState = cleanString(localStorage.getItem("air_user_state"));
+    let uniqueStates = [];
+    let isModalOpen = false;
 
-    // কেৱল প্ৰয়োজনীয় কাৰ্ডবোৰ নিমিষতে DOM-ত ইনচাৰ্ট কৰা
-    function renderBulletins(lang) {
-      currentLangText.textContent = lang || 'Select Language';
-      const filtered = lang ? bulletins.filter(b => b[1].toLowerCase() === lang.toLowerCase()) : bulletins;
+    function saveFavs() {
+      try {
+        localStorage.setItem("air_fav_stations", JSON.stringify([...favorites]));
+      } catch(e) {}
+    }
 
-      if (!filtered.length) {
-        bulletinList.innerHTML = '';
-        emptyMsg.style.display = 'block';
+    function fetchStationsData() {
+      return new Promise((resolve, reject) => {
+        const oldScript = document.getElementById("stationsDataScript");
+        if (oldScript) oldScript.remove();
+
+        const script = document.createElement("script");
+        script.id = "stationsDataScript";
+        script.src = "https://allindiaradio.pages.dev/docs/stations.js?v=" + DATA_VERSION;
+        script.onload = () => {
+          const list = window.stations || (typeof stations !== 'undefined' ? stations : null);
+          list ? resolve(list) : reject(new Error("Empty stations data"));
+        };
+        script.onerror = () => reject(new Error("Network error"));
+        document.body.appendChild(script);
+      });
+    }
+
+    async function initApp() {
+      const loader = document.getElementById("loadingState");
+      const err = document.getElementById("errorState");
+      const grid = document.getElementById("stationContainer");
+
+      loader.style.display = "block";
+      err.style.display = "none";
+      grid.style.display = "none";
+      document.getElementById("emptyMessage").style.display = "none";
+
+      try {
+        const stationList = await fetchStationsData();
+        loader.style.display = "none";
+        grid.style.display = "grid";
+
+        uniqueStates = [...new Set(stationList.map(s => cleanString(s.state)).filter(Boolean))].sort();
+        renderModalStateList();
+
+        if (!selectedState) {
+          document.getElementById("emptyMessage").style.display = "block";
+          document.getElementById("stationCountText").textContent = "No state selected";
+          openStateModal();
+        } else {
+          document.getElementById("selectedStateLabel").textContent = selectedState;
+          filterStations();
+        }
+      } catch(e) {
+        loader.style.display = "none";
+        err.style.display = "block";
+        document.getElementById("stationCountText").textContent = "Error loading stations";
+      }
+    }
+
+    function renderModalStateList() {
+      const listEl = document.getElementById("modalStateList");
+      let html = "";
+      for (let i = 0; i < uniqueStates.length; i++) {
+        const state = uniqueStates[i];
+        html += `
+          <div class="state-item" data-state="${state}">
+            <span>${state}</span>
+            <div class="radio-circle"></div>
+          </div>`;
+      }
+      listEl.innerHTML = html;
+
+      listEl.onclick = (e) => {
+        const item = e.target.closest(".state-item");
+        if (item) selectState(item.dataset.state);
+      };
+    }
+
+    function openStateModal() {
+      if (isModalOpen) return;
+      isModalOpen = true;
+      history.pushState({ modalOpen: true }, "");
+
+      document.getElementById("modalStateSearch").value = "";
+      const items = document.getElementById("modalStateList").children;
+      for (let item of items) {
+        item.style.display = "flex";
+        item.classList.toggle("selected", item.dataset.state === selectedState);
+      }
+      document.getElementById("stateModal").classList.add("active");
+    }
+
+    function closeStateModal(fromPopState = false) {
+      if (!isModalOpen) return;
+      isModalOpen = false;
+      document.getElementById("stateModal").classList.remove("active");
+      if (!fromPopState && history.state?.modalOpen) history.back();
+    }
+
+    window.addEventListener("popstate", () => {
+      if (isModalOpen) closeStateModal(true);
+    });
+
+    function selectState(stateName) {
+      selectedState = cleanString(stateName);
+      try { 
+        localStorage.setItem("air_user_state", selectedState); 
+      } catch(e) {}
+      
+      if (showOnlyFavs) {
+        showOnlyFavs = false;
+        document.getElementById("favFilterBtn").classList.remove("active");
+      }
+      document.getElementById("selectedStateLabel").textContent = selectedState || "Select State";
+      closeStateModal();
+      filterStations();
+    }
+
+    function filterModalStates() {
+      const q = document.getElementById("modalStateSearch").value.toLowerCase().trim();
+      const items = document.getElementById("modalStateList").children;
+      for (let item of items) {
+        item.style.display = !q || item.dataset.state.toLowerCase().includes(q) ? "flex" : "none";
+      }
+    }
+
+    function renderStations(list) {
+      const container = document.getElementById("stationContainer");
+      const countLabel = document.getElementById("stationCountText");
+      const emptyMsg = document.getElementById("emptyMessage");
+
+      countLabel.textContent = `Showing ${list.length} station(s)`;
+
+      if (list.length === 0) {
+        container.innerHTML = "";
+        emptyMsg.style.display = "block";
+        document.getElementById("emptyTitle").textContent = showOnlyFavs ? "No Favorites Found" : "No Stations Found";
+        return;
+      }
+      emptyMsg.style.display = "none";
+
+      let html = "";
+      for (let i = 0; i < list.length; i++) {
+        const s = list[i];
+        const isFav = favorites.has(String(s.id));
+        const isMaha = String(s.name || '').toLowerCase().includes("mahabahu");
+
+        html += `
+          <div class="station-card bg-${i % 8}" data-id="${s.id}">
+            <div class="card-top-row">
+              <svg class="wave-icon"><use href="#icon-wave"/></svg>
+              <button class="fav-btn ${isFav ? 'active' : ''}" data-fav="${s.id}">♥</button>
+            </div>
+            <div class="station-title">${s.name}</div>
+            <div class="card-bottom-row">
+              ${isMaha ? `<button class="schedule-btn">Schedule</button>` : ''}
+              <div class="play-btn">▶</div>
+            </div>
+          </div>`;
+      }
+      container.innerHTML = html;
+    }
+
+    // Card Event Delegation
+    document.getElementById("stationContainer").addEventListener("click", (e) => {
+      const favBtn = e.target.closest(".fav-btn");
+      if (favBtn) {
+        e.stopPropagation();
+        const id = String(favBtn.dataset.fav);
+        if (favorites.has(id)) {
+          favorites.delete(id);
+          favBtn.classList.remove("active");
+        } else {
+          favorites.add(id);
+          favBtn.classList.add("active");
+        }
+        saveFavs();
+        if (showOnlyFavs) filterStations();
         return;
       }
 
-      emptyMsg.style.display = 'none';
-      let html = '';
-      for (let i = 0; i < filtered.length; i++) {
-        const [city, lName, time, date, file] = filtered[i];
-        html += `<div class="bulletin-card">
-          <div class="bulletin-info">
-            <div class="bulletin-heading">${city}</div>
-            <div class="bulletin-meta">
-              <span class="lang-badge">${lName}</span>
-              <div>• ${time} • ${date}</div>
-            </div>
-          </div>
-          <a href="${baseUrl}${file}" class="play-icon-wrap" aria-label="Play ${city} ${lName}"><div class="play-icon"></div></a>
-        </div>`;
+      if (e.target.closest(".schedule-btn")) {
+        e.stopPropagation();
+        window.location.href = "go:mahasc";
+        return;
       }
-      bulletinList.innerHTML = html;
-    }
 
-    function renderChips() {
-      let html = '';
-      for (const lang of uniqueLanguages) {
-        html += `<button class="lang-chip" data-lang="${lang}">${lang}</button>`;
-      }
-      langChipContainer.innerHTML = html;
-    }
-
-    function setModal(show) {
-      modal.classList.toggle('active', show);
-      if (show) {
-        langSearchInput.value = '';
-        filterChips('');
-      }
-    }
-
-    function filterChips(query) {
-      const chips = langChipContainer.children;
-      for (let i = 0; i < chips.length; i++) {
-        const match = chips[i].dataset.lang.toLowerCase().includes(query);
-        chips[i].classList.toggle('is-hidden', !match);
-      }
-    }
-
-    langChipContainer.addEventListener('click', (e) => {
-      const lang = e.target.dataset.lang;
-      if (lang) {
-        localStorage.setItem(STORAGE_KEY, lang);
-        renderBulletins(lang);
-        setModal(false);
+      const card = e.target.closest(".station-card");
+      if (card && card.dataset.id) {
+        window.location.href = "go:" + card.dataset.id;
       }
     });
 
-    langSearchInput.addEventListener('input', (e) => {
-      filterChips(e.target.value.toLowerCase().trim());
-    });
+    function filterStations() {
+      const all = window.stations || (typeof stations !== 'undefined' ? stations : []);
+      
+      if (!showOnlyFavs && !selectedState) {
+        document.getElementById("stationContainer").innerHTML = "";
+        document.getElementById("emptyMessage").style.display = "block";
+        document.getElementById("stationCountText").textContent = "Please select a state";
+        return;
+      }
 
-    openModalBtn.addEventListener('click', () => setModal(true));
-    closeModalBtn.addEventListener('click', () => setModal(false));
+      const res = all.filter(s => {
+        const stationState = cleanString(s.state);
+        const matchesState = showOnlyFavs ? true : (stationState === selectedState);
+        const matchesFav = !showOnlyFavs || favorites.has(String(s.id));
+        return matchesState && matchesFav;
+      });
 
-    renderChips();
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      renderBulletins(saved);
-    } else {
-      renderBulletins('Assamese');
-      setModal(true);
+      renderStations(res);
     }
+
+    function toggleFavFilter() {
+      showOnlyFavs = !showOnlyFavs;
+      document.getElementById("favFilterBtn").classList.toggle("active", showOnlyFavs);
+      document.getElementById("selectedStateLabel").textContent = showOnlyFavs ? "Favorites" : (selectedState || "Select State");
+      filterStations();
+    }
+
+    document.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
 </html>
