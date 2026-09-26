@@ -280,11 +280,11 @@ body {
 }
 
 /* ============================================================
-   ===== CRICKET SCORE STRIP (LIGHTWEIGHT & OPTIMIZED) =====
+   ===== CRICKET SCORE STRIP (ZERO JUMP / FIXED DISPLAY) =====
    ============================================================ */
 .cricket-strip-container {
   padding: 8px 14px 2px;
-  display: none;
+  display: flex; /* আৰম্ভণিৰ পৰাই flex হৈ থাকিব যাতে স্ক্ৰীন নোলমে */
   justify-content: center;
 }
 
@@ -1664,16 +1664,6 @@ function loadScheduleScript() {
 
 renderStations();
 
-/* ===== PAGE INITIALIZATION ===== */
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    checkAndInitCricket();
-    startPolling();
-  }, 300);
-
-  setTimeout(loadScheduleScript, 800);
-});
-
 /* ===== NEWS BULLETIN FETCH & LOGIC ===== */
 let bulletinData = [];
 let activeBulletinIdx = 0;
@@ -1718,7 +1708,15 @@ function switchBulletin(idx) {
   }
 }
 
-window.addEventListener("DOMContentLoaded", loadBulletins);
+/* ===== ZERO-DELAY INITIALIZATION (NO SCREEN JUMP) ===== */
+// পেজ লোড হোৱাৰ লগে লগে কোনো পলম নকৰাকৈ ক্ৰিকেটৰ প্ৰাথমিক দৃশ্য দেখুৱাওক
+checkAndInitCricket();
+loadBulletins();
+
+window.addEventListener("DOMContentLoaded", () => {
+  startPolling();
+  loadScheduleScript();
+});
 </script>
 
 </body>
