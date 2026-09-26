@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- Safe Area সমৰ্থন -->
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIR Radio</title>
 
@@ -40,7 +40,7 @@ body {
   -webkit-user-select: none;
 }
 
-/* ===== APP HEADER (GPU ACCELERATED) ===== */
+/* ===== APP HEADER (CLEAN STICKY HEADER) ===== */
 .app-header {
   display: flex;
   align-items: center;
@@ -54,8 +54,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .header-title-box {
@@ -89,11 +87,6 @@ body {
   color: #e2e8f0;
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.hdr-btn:active {
-  background: rgba(56, 189, 248, 0.2);
-  transform: scale(0.94);
 }
 
 .hdr-btn svg {
@@ -217,6 +210,8 @@ body {
   font-family: inherit;
   outline: none;
   transition: border-color 0.2s;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .form-input:focus, .form-textarea:focus {
@@ -284,7 +279,7 @@ body {
    ============================================================ */
 .cricket-strip-container {
   padding: 8px 14px 2px;
-  display: flex; /* আৰম্ভণিৰ পৰাই flex হৈ থাকিব যাতে স্ক্ৰীন নোলমে */
+  display: flex; 
   justify-content: center;
 }
 
@@ -350,13 +345,6 @@ body {
   background: #ef4444;
   display: inline-block;
   flex-shrink: 0;
-  animation: liveBlink 1s infinite alternate;
-  will-change: opacity;
-}
-
-@keyframes liveBlink {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
 }
 
 /* TOP RIGHT ACTIONS */
@@ -406,10 +394,6 @@ body {
   gap: 3px;
   text-decoration: none;
   transition: background 0.15s ease;
-}
-
-.cs-btn-card:active {
-  background: #132a4d;
 }
 
 .cs-btn-card svg {
@@ -611,7 +595,7 @@ body {
   gap: 8px;
 }
 
-/* STATION LIVE DOT FIXED */
+/* STATION STATIC GREEN DOT */
 .station .live-dot {
   width: 7px;
   height: 7px;
@@ -623,8 +607,6 @@ body {
   flex-shrink: 0;
   margin-top: 5px;
   box-shadow: none;
-  animation: liveBlink 1.2s infinite alternate;
-  will-change: opacity;
 }
 
 .program {
@@ -1709,7 +1691,6 @@ function switchBulletin(idx) {
 }
 
 /* ===== ZERO-DELAY INITIALIZATION (NO SCREEN JUMP) ===== */
-// পেজ লোড হোৱাৰ লগে লগে কোনো পলম নকৰাকৈ ক্ৰিকেটৰ প্ৰাথমিক দৃশ্য দেখুৱাওক
 checkAndInitCricket();
 loadBulletins();
 
