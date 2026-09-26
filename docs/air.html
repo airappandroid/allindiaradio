@@ -13,75 +13,58 @@
       --text-sub: #8292a7;
       --accent-cyan: #00b4d8;
       --fav-active: #ff3366;
-      --radius: 16px;
+      --radius: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-
-    *:not(input):not(textarea) {
-      -webkit-touch-callout: none;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
+    /* লঘু আৰু দ্ৰুত CSS ৰুল */
     body {
+      margin: 0;
+      padding: 14px 14px calc(60px + env(safe-area-inset-bottom)) 14px;
       background-color: var(--bg);
       color: var(--text-main);
-      padding: 14px;
-      padding-bottom: calc(60px + env(safe-area-inset-bottom));
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      box-sizing: border-box;
     }
 
-    .header-bar {
-      padding-bottom: 12px;
+    button, input {
+      font-family: inherit;
+      box-sizing: border-box;
     }
 
-    .filter-row {
-      display: flex;
-      gap: 10px;
-    }
+    .header-bar { padding-bottom: 12px; }
+    .filter-row { display: flex; gap: 10px; }
 
     .state-picker-btn {
       flex: 1;
-      padding: 13px 16px;
+      padding: 12px 14px;
       font-size: 14px;
       font-weight: 600;
       color: var(--text-main);
       background: var(--surface);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
+      border-radius: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      outline: none;
-    }
-
-    .state-picker-arrow {
-      font-size: 10px;
-      color: var(--text-sub);
     }
 
     .fav-toggle-btn {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 13px 18px;
+      gap: 6px;
+      padding: 12px 16px;
       font-size: 14px;
       font-weight: 600;
       color: var(--text-sub);
       background: var(--surface);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
+      border-radius: 12px;
       cursor: pointer;
       white-space: nowrap;
-      outline: none;
     }
 
     .fav-toggle-btn.active {
@@ -91,82 +74,82 @@
     }
 
     .meta-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 4px 6px 14px 6px;
-      font-size: 12.5px;
+      padding: 4px 6px 12px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-sub);
-      letter-spacing: 0.3px;
     }
 
-    /* Station Grid */
+    /* Grid আৰু কাৰ্ড অপ্টিমাইজেশ্যন */
     .station-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      gap: 10px;
     }
 
-    .station-card-text {
+    .station-card {
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 14px 12px 12px 14px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 100px;
+      min-height: 96px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      contain: content; /* Rendering Performance বৃদ্ধি কৰে */
     }
+
+    /* CSS ভিত্তিক পাতল গ্ৰেডিয়েন্ট */
+    .bg-0 { background: linear-gradient(145deg, #1e1b4b, #0c0f1d); }
+    .bg-1 { background: linear-gradient(145deg, #064e3b, #0c151b); }
+    .bg-2 { background: linear-gradient(145deg, #4c1d95, #0e0d1f); }
+    .bg-3 { background: linear-gradient(145deg, #0c4a6e, #081622); }
+    .bg-4 { background: linear-gradient(145deg, #701a75, #170919); }
+    .bg-5 { background: linear-gradient(145deg, #134e4a, #09171b); }
+    .bg-6 { background: linear-gradient(145deg, #831843, #190a12); }
+    .bg-7 { background: linear-gradient(145deg, #713f12, #16100a); }
 
     .card-top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    .station-wave-icon {
-      display: flex;
-      align-items: center;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
-    .station-wave-icon svg {
+    .wave-icon {
       width: 18px;
       height: 18px;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.7);
+      stroke-width: 2.5;
+      stroke-linecap: round;
     }
 
-    .fav-text-btn {
-      width: 32px;
-      height: 32px;
+    .fav-btn {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 18px;
+      font-size: 16px;
       color: rgba(255, 255, 255, 0.6);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      outline: none;
     }
 
-    .fav-text-btn.active {
+    .fav-btn.active {
       color: var(--fav-active);
       background: rgba(255, 51, 102, 0.2);
       border-color: rgba(255, 51, 102, 0.4);
     }
 
     .station-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      line-height: 1.35;
-      color: #ffffff;
-      margin: 4px 0 10px 0;
+      line-height: 1.3;
+      margin: 4px 0 8px 0;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
@@ -178,41 +161,34 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      gap: 6px;
     }
 
     .schedule-btn {
       background: rgba(0, 180, 216, 0.16);
       border: 1px solid var(--accent-cyan);
-      color: #ffffff;
+      color: #fff;
       font-size: 11px;
       font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 8px;
+      padding: 4px 8px;
+      border-radius: 6px;
       cursor: pointer;
       margin-right: auto;
-      outline: none;
-      transition: background 0.2s ease, transform 0.1s ease;
     }
 
-  
-    .play-circle-btn {
-      width: 28px;
-      height: 28px;
+    .play-btn {
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    .play-circle-symbol {
-      color: #ffffff;
       font-size: 10px;
-      margin-left: 2px;
+      color: #fff;
     }
 
-    /* Status Boxes */
     .status-box {
       text-align: center;
       padding: 60px 20px;
@@ -222,82 +198,50 @@
     .status-title {
       font-size: 16px;
       font-weight: 700;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       color: #fff;
     }
 
-    .status-sub {
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
     .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3.5px solid rgba(255, 255, 255, 0.1);
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
       border-top-color: var(--accent-cyan);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px auto;
+      margin: 0 auto 14px;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .retry-btn {
-      margin-top: 16px;
-      padding: 10px 22px;
+      margin-top: 14px;
+      padding: 10px 20px;
       background: var(--accent-cyan);
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       color: #070a12;
       font-weight: 700;
-      font-size: 14px;
       cursor: pointer;
     }
 
-    /* Fullscreen Modal Structure */
+    /* Modal */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
+      inset: 0;
       background: var(--bg);
-      z-index: 9999;
+      z-index: 999;
       display: none;
       flex-direction: column;
     }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-sheet {
-      width: 100%;
-      height: 100%;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-    }
+    .modal-overlay.active { display: flex; }
 
     .modal-top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 16px;
+      padding: 12px 16px;
       border-bottom: 1px solid var(--card-border);
-      flex-shrink: 0;
-    }
-
-    .modal-nav-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-main);
     }
 
     .modal-close-btn {
@@ -306,85 +250,66 @@
       color: var(--text-sub);
       font-size: 24px;
       cursor: pointer;
-      line-height: 1;
-      padding: 4px;
-    }
-
-    .modal-search-wrapper {
-      padding: 12px 16px;
-      flex-shrink: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     }
 
     .modal-search-input {
-      width: 100%;
-      padding: 12px 16px;
+      width: calc(100% - 32px);
+      margin: 10px 16px;
+      padding: 10px 14px;
       background: var(--surface);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      color: var(--text-main);
-      font-size: 15px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 14px;
       outline: none;
-    }
-
-    .modal-search-input:focus {
-      border-color: var(--accent-cyan);
     }
 
     .state-list-scroll {
       flex: 1;
-      min-height: 0;
       overflow-y: auto;
-      padding: 4px 16px 20px 16px;
-      -webkit-overflow-scrolling: touch;
+      padding: 0 16px;
     }
 
     .state-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 8px;
+      padding: 14px 4px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       cursor: pointer;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-main);
     }
 
     .radio-circle {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       border: 2px solid #475569;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .state-item.selected .radio-circle {
       border-color: var(--accent-cyan);
-    }
-
-    .state-item.selected .radio-circle::after {
-      content: '';
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
       background: var(--accent-cyan);
     }
   </style>
 </head>
 <body>
 
+  <!-- পুনৰ্ব্যৱহাৰযোগ্য Wave Icon Symbol -->
+  <svg style="display: none;">
+    <symbol id="icon-wave" viewBox="0 0 24 24">
+      <path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 11v2"/>
+    </symbol>
+  </svg>
+
   <div class="header-bar">
     <div class="filter-row">
       <button class="state-picker-btn" onclick="openStateModal()">
         <span id="selectedStateLabel">Select State</span>
-        <span class="state-picker-arrow">▼</span>
+        <span style="font-size: 10px; color: var(--text-sub);">▼</span>
       </button>
 
       <button id="favFilterBtn" class="fav-toggle-btn" onclick="toggleFavFilter()">
-        <span style="font-size: 16px;">♥</span> Favorites
+        ♥ Favorites
       </button>
     </div>
   </div>
@@ -396,13 +321,11 @@
   <div id="loadingState" class="status-box">
     <div class="spinner"></div>
     <div class="status-title">Loading Stations...</div>
-    <div class="status-sub">Please wait a moment.</div>
   </div>
 
   <div id="errorState" class="status-box" style="display: none;">
-    <div style="font-size: 34px; margin-bottom: 8px;">⚠️</div>
+    <div style="font-size: 32px; margin-bottom: 8px;">⚠️</div>
     <div class="status-title">Connection Failed</div>
-    <div class="status-sub">Unable to load stations list. Check your internet connection.</div>
     <button class="retry-btn" onclick="initApp()">Retry</button>
   </div>
 
@@ -410,102 +333,65 @@
   
   <div id="emptyMessage" class="status-box" style="display: none;">
     <p id="emptyTitle" class="status-title">Please Select a State</p>
-    <p id="emptySub" class="status-sub">Choose your state to start listening to local stations.</p>
+    <p id="emptySub" style="font-size: 13px;">Choose your state to start listening to local stations.</p>
   </div>
 
-  <!-- Fullscreen Modal -->
+  <!-- Modal -->
   <div id="stateModal" class="modal-overlay">
-    <div class="modal-sheet">
-      <div class="modal-top-bar">
-        <span class="modal-nav-title">Select Region / State</span>
-        <button class="modal-close-btn" onclick="closeStateModal()">&times;</button>
-      </div>
-
-      <div class="modal-search-wrapper">
-        <input type="search" id="modalStateSearch" class="modal-search-input" placeholder="Search state..." oninput="filterModalStates()">
-      </div>
-
-      <div id="modalStateList" class="state-list-scroll"></div>
+    <div class="modal-top-bar">
+      <span style="font-weight: 700;">Select Region / State</span>
+      <button class="modal-close-btn" onclick="closeStateModal()">&times;</button>
     </div>
+    <input type="search" id="modalStateSearch" class="modal-search-input" placeholder="Search state..." oninput="filterModalStates()">
+    <div id="modalStateList" class="state-list-scroll"></div>
   </div>
 
   <script>
     const DATA_VERSION = "1.0.1";
 
-    const cardColors = [
-      "linear-gradient(145deg, #1e1b4b 0%, #0c0f1d 100%)",
-      "linear-gradient(145deg, #064e3b 0%, #0c151b 100%)",
-      "linear-gradient(145deg, #4c1d95 0%, #0e0d1f 100%)",
-      "linear-gradient(145deg, #0c4a6e 0%, #081622 100%)",
-      "linear-gradient(145deg, #701a75 0%, #170919 100%)",
-      "linear-gradient(145deg, #134e4a 0%, #09171b 100%)",
-      "linear-gradient(145deg, #831843 0%, #190a12 100%)",
-      "linear-gradient(145deg, #713f12 0%, #16100a 100%)"
-    ];
+    // খৰতকীয়া সন্ধানৰ বাবে Set ব্যৱহাৰ
+    let favorites = new Set();
+    try {
+      const saved = localStorage.getItem("air_fav_stations");
+      if (saved) favorites = new Set(JSON.parse(saved));
+    } catch(e) {}
 
-    function getSafeStorage(key, defaultVal) {
-      try {
-        const val = localStorage.getItem(key);
-        return val ? JSON.parse(val) : defaultVal;
-      } catch (e) {
-        return defaultVal;
-      }
-    }
-
-    function setSafeStorage(key, val) {
-      try {
-        localStorage.setItem(key, JSON.stringify(val));
-      } catch (e) {}
-    }
-
-    function escapeHtml(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    let favorites = getSafeStorage("air_fav_stations", []).map(String);
     let showOnlyFavs = false;
-    let selectedState = getSafeStorage("air_user_state", "");
+    let selectedState = localStorage.getItem("air_user_state") || "";
     let uniqueStates = [];
     let isModalOpen = false;
-    let isStateListBound = false;
+
+    function saveFavs() {
+      try {
+        localStorage.setItem("air_fav_stations", JSON.stringify([...favorites]));
+      } catch(e) {}
+    }
 
     function fetchStationsData() {
       return new Promise((resolve, reject) => {
-        const existingScript = document.getElementById("stationsDataScript");
-        if (existingScript) existingScript.remove();
+        const old = document.getElementById("stationsDataScript");
+        if (old) old.remove();
 
-        const script = document.createElement("script");
-        script.id = "stationsDataScript";
-        script.src = "https://allindiaradio.pages.dev/docs/stations.js?v=" + DATA_VERSION;
-        
-        script.onload = () => {
+        const s = document.createElement("script");
+        s.id = "stationsDataScript";
+        s.src = "https://allindiaradio.pages.dev/docs/stations.js?v=" + DATA_VERSION;
+        s.onload = () => {
           const list = window.stations || (typeof stations !== 'undefined' ? stations : null);
-          if (list && Array.isArray(list)) {
-            resolve(list);
-          } else {
-            reject(new Error("Invalid dataset"));
-          }
+          list ? resolve(list) : reject();
         };
-        script.onerror = () => reject(new Error("Network timeout or connection error"));
-        document.body.appendChild(script);
+        s.onerror = reject;
+        document.body.appendChild(s);
       });
     }
 
     async function initApp() {
       const loader = document.getElementById("loadingState");
-      const errorBox = document.getElementById("errorState");
+      const err = document.getElementById("errorState");
       const grid = document.getElementById("stationContainer");
 
       loader.style.display = "block";
-      errorBox.style.display = "none";
+      err.style.display = "none";
       grid.style.display = "none";
-      document.getElementById("emptyMessage").style.display = "none";
-      document.getElementById("stationCountText").textContent = "Loading...";
 
       try {
         const stationList = await fetchStationsData();
@@ -516,242 +402,173 @@
         renderModalStateList();
 
         if (!selectedState) {
-          document.getElementById("selectedStateLabel").textContent = "Select State";
-          document.getElementById("stationCountText").textContent = "No state selected";
           document.getElementById("emptyMessage").style.display = "block";
+          document.getElementById("stationCountText").textContent = "No state selected";
           openStateModal();
         } else {
           document.getElementById("selectedStateLabel").textContent = selectedState;
           filterStations();
         }
-      } catch (err) {
+      } catch(e) {
         loader.style.display = "none";
-        errorBox.style.display = "block";
-        document.getElementById("stationCountText").textContent = "Error loading data";
+        err.style.display = "block";
       }
     }
 
     function renderModalStateList() {
       const listEl = document.getElementById("modalStateList");
-      listEl.innerHTML = uniqueStates.map(state => `
-        <div class="state-item" data-state="${escapeHtml(state)}">
-          <span>${escapeHtml(state)}</span>
-          <div class="radio-circle"></div>
-        </div>
-      `).join('');
-
-      if (!isStateListBound) {
-        listEl.addEventListener("click", (e) => {
-          const item = e.target.closest(".state-item");
-          if (item) {
-            selectState(item.getAttribute("data-state"));
-          }
-        });
-        isStateListBound = true;
+      let html = "";
+      for (let i = 0; i < uniqueStates.length; i++) {
+        const state = uniqueStates[i];
+        html += `
+          <div class="state-item" data-state="${state}">
+            <span>${state}</span>
+            <div class="radio-circle"></div>
+          </div>`;
       }
+      listEl.innerHTML = html;
+
+      listEl.onclick = (e) => {
+        const item = e.target.closest(".state-item");
+        if (item) selectState(item.dataset.state);
+      };
     }
 
     function openStateModal() {
       if (isModalOpen) return;
       isModalOpen = true;
-
       history.pushState({ modalOpen: true }, "");
 
-      const searchInput = document.getElementById("modalStateSearch");
-      searchInput.value = "";
-      
-      const items = document.querySelectorAll(".state-item");
-      items.forEach(item => {
+      document.getElementById("modalStateSearch").value = "";
+      const items = document.getElementById("modalStateList").children;
+      for (let item of items) {
         item.style.display = "flex";
-        item.classList.toggle("selected", item.getAttribute("data-state") === selectedState);
-      });
-
+        item.classList.toggle("selected", item.dataset.state === selectedState);
+      }
       document.getElementById("stateModal").classList.add("active");
-      document.body.style.overflow = "hidden";
     }
 
-    function closeStateModal(fromHistory = false) {
+    function closeStateModal(fromPopState = false) {
       if (!isModalOpen) return;
       isModalOpen = false;
-
       document.getElementById("stateModal").classList.remove("active");
-      document.body.style.overflow = "";
-
-      const searchInput = document.getElementById("modalStateSearch");
-      if (searchInput) searchInput.blur();
-
-      if (!fromHistory && history.state && history.state.modalOpen) {
-        history.back();
-      }
+      if (!fromPopState && history.state?.modalOpen) history.back();
     }
 
     window.addEventListener("popstate", () => {
-      if (isModalOpen) {
-        closeStateModal(true);
-      }
+      if (isModalOpen) closeStateModal(true);
     });
 
     function selectState(stateName) {
       selectedState = stateName;
-      setSafeStorage("air_user_state", stateName);
+      try { localStorage.setItem("air_user_state", stateName); } catch(e) {}
       
       if (showOnlyFavs) {
         showOnlyFavs = false;
         document.getElementById("favFilterBtn").classList.remove("active");
       }
-
-      document.getElementById("selectedStateLabel").textContent = stateName || "Select State";
+      document.getElementById("selectedStateLabel").textContent = stateName;
       closeStateModal();
       filterStations();
     }
 
     function filterModalStates() {
       const q = document.getElementById("modalStateSearch").value.toLowerCase().trim();
-      const items = document.querySelectorAll(".state-item");
-      items.forEach(item => {
-        const text = (item.getAttribute("data-state") || '').toLowerCase();
-        item.style.display = (!q || text.includes(q)) ? "flex" : "none";
-      });
+      const items = document.getElementById("modalStateList").children;
+      for (let item of items) {
+        item.style.display = !q || item.dataset.state.toLowerCase().includes(q) ? "flex" : "none";
+      }
     }
 
     function renderStations(list) {
       const container = document.getElementById("stationContainer");
-      const emptyMsg = document.getElementById("emptyMessage");
       const countLabel = document.getElementById("stationCountText");
+      const emptyMsg = document.getElementById("emptyMessage");
 
-      countLabel.textContent = showOnlyFavs 
-        ? `Showing ${list.length} favorite station(s)` 
-        : `Showing ${list.length} station(s)`;
+      countLabel.textContent = `Showing ${list.length} station(s)`;
 
       if (list.length === 0) {
         container.innerHTML = "";
-        if (showOnlyFavs) {
-          document.getElementById("emptyTitle").textContent = "No Favorites Found";
-          document.getElementById("emptySub").textContent = "Tap the heart icon on any station to save it here.";
-        } else {
-          document.getElementById("emptyTitle").textContent = "No Stations Found";
-          document.getElementById("emptySub").textContent = "Please pick another state.";
-        }
         emptyMsg.style.display = "block";
+        document.getElementById("emptyTitle").textContent = showOnlyFavs ? "No Favorites Found" : "No Stations Found";
         return;
       }
       emptyMsg.style.display = "none";
 
-      const html = list.map((station, index) => {
-        const isFav = favorites.includes(String(station.id));
-        const bgGradient = cardColors[index % cardColors.length];
-        const safeId = escapeHtml(station.id);
-        const safeName = escapeHtml(station.name);
-        const isMahabahu = safeName.toLowerCase().includes("mahabahu");
+      let html = "";
+      for (let i = 0; i < list.length; i++) {
+        const s = list[i];
+        const isFav = favorites.has(String(s.id));
+        const isMaha = s.name.toLowerCase().includes("mahabahu");
 
-        return `
-          <div class="station-card-text" style="background: ${bgGradient};" data-section-id="${safeId}">
+        html += `
+          <div class="station-card bg-${i % 8}" data-id="${s.id}">
             <div class="card-top-row">
-              <div class="station-wave-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                  <path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 11v2"/>
-                </svg>
-              </div>
-              <button class="fav-text-btn ${isFav ? 'active' : ''}" data-fav-id="${safeId}" aria-label="Favorite">
-                ♥
-              </button>
+              <svg class="wave-icon"><use href="#icon-wave"/></svg>
+              <button class="fav-btn ${isFav ? 'active' : ''}" data-fav="${s.id}">♥</button>
             </div>
-            
-            <div class="station-title" title="${safeName}">${safeName}</div>
-            
+            <div class="station-title">${s.name}</div>
             <div class="card-bottom-row">
-              ${isMahabahu ? `<button type="button" class="schedule-btn">View Schedule</button>` : ''}
-              <div class="play-circle-btn">
-                <span class="play-circle-symbol">▶</span>
-              </div>
+              ${isMaha ? `<button class="schedule-btn">Schedule</button>` : ''}
+              <div class="play-btn">▶</div>
             </div>
-          </div>
-        `;
-      }).join('');
-
+          </div>`;
+      }
       container.innerHTML = html;
     }
 
-    // Single click delegation for stations, schedule, and favorites
+    // Event Delegation
     document.getElementById("stationContainer").addEventListener("click", (e) => {
-      const favBtn = e.target.closest(".fav-text-btn");
+      const favBtn = e.target.closest(".fav-btn");
       if (favBtn) {
         e.stopPropagation();
-        const id = favBtn.getAttribute("data-fav-id");
-        toggleFavorite(favBtn, id);
+        const id = String(favBtn.dataset.fav);
+        if (favorites.has(id)) {
+          favorites.delete(id);
+          favBtn.classList.remove("active");
+        } else {
+          favorites.add(id);
+          favBtn.classList.add("active");
+        }
+        saveFavs();
+        if (showOnlyFavs) filterStations(); // কেৱল Fav ভিউত থাকিলেহে ফিল্টাৰ হ'ব
         return;
       }
 
-      const scheduleBtn = e.target.closest(".schedule-btn");
-      if (scheduleBtn) {
+      if (e.target.closest(".schedule-btn")) {
         e.stopPropagation();
         window.location.href = "go:mahasc";
         return;
       }
 
-      const card = e.target.closest(".station-card-text");
-      if (card) {
-        const sectionId = card.getAttribute("data-section-id");
-        if (sectionId) {
-          window.location.href = "go:" + sectionId;
-        }
+      const card = e.target.closest(".station-card");
+      if (card?.dataset.id) {
+        window.location.href = "go:" + card.dataset.id;
       }
     });
 
     function filterStations() {
-      const currentStations = window.stations || (typeof stations !== 'undefined' ? stations : []);
-
+      const all = window.stations || [];
       if (!showOnlyFavs && !selectedState) {
         document.getElementById("stationContainer").innerHTML = "";
-        document.getElementById("stationCountText").textContent = "Please select a state";
-        document.getElementById("emptyTitle").textContent = "Please Select a State";
-        document.getElementById("emptySub").textContent = "Choose your state to start listening to local stations.";
         document.getElementById("emptyMessage").style.display = "block";
         return;
       }
 
-      const filtered = currentStations.filter(s => {
-        const matchesState = showOnlyFavs ? true : (s.state === selectedState);
-        const matchesFav = !showOnlyFavs || favorites.includes(String(s.id));
-        return matchesState && matchesFav;
+      const res = all.filter(s => {
+        return showOnlyFavs ? favorites.has(String(s.id)) : s.state === selectedState;
       });
-
-      renderStations(filtered);
-    }
-
-    function toggleFavorite(btn, id) {
-      const strId = String(id);
-      const index = favorites.indexOf(strId);
-
-      if (index > -1) {
-        favorites.splice(index, 1);
-        btn.classList.remove("active");
-      } else {
-        favorites.push(strId);
-        btn.classList.add("active");
-      }
-      setSafeStorage("air_fav_stations", favorites);
-
-      if (showOnlyFavs) {
-        filterStations();
-      }
+      renderStations(res);
     }
 
     function toggleFavFilter() {
       showOnlyFavs = !showOnlyFavs;
       document.getElementById("favFilterBtn").classList.toggle("active", showOnlyFavs);
-
-      const stateLabel = document.getElementById("selectedStateLabel");
-      if (showOnlyFavs) {
-        stateLabel.textContent = "Favorites";
-      } else {
-        stateLabel.textContent = selectedState || "Select State";
-      }
-
+      document.getElementById("selectedStateLabel").textContent = showOnlyFavs ? "Favorites" : (selectedState || "Select State");
       filterStations();
     }
 
-    window.addEventListener('DOMContentLoaded', initApp);
+    document.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
 </html>
