@@ -1,280 +1,347 @@
-window.SCHEDULE_DATA = [
-  // ================= FM RAINBOW DELHI (102.6 MHz) - 27/09/2026 =================
-  { "time": "12:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "12:02 AM", "title": "ZERO HOUR SHOW (Songs suitable for the Late Night Mood.)", "channel": "FM Rainbow Delhi" },
-  { "time": "1:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "1:02 AM", "title": "SUHANI RAAT (Soft Romantic Songs. mix basket of (90s) and new songs-non stop)", "channel": "FM Rainbow Delhi" },
-  { "time": "2:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "2:02 AM", "title": "BHULAYE NA BANE (Soft melodious songs-non stop)", "channel": "FM Rainbow Delhi" },
-  { "time": "3:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "3:02 AM", "title": "MID NIGHT MELODIES (Non stop bollywood music.)", "channel": "FM Rainbow Delhi" },
-  { "time": "4:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "4:02 AM", "title": "SA RE GA MA. (Morning Mood Songs non stop)", "channel": "FM Rainbow Delhi" },
-  { "time": "5:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "5:02 AM", "title": "ARADHANA (Devotional songs non stop / वंदे मातरम एवं मंगल ध्वनि)", "channel": "FM Rainbow Delhi" },
-  { "time": "6:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "6:02 AM", "title": "SUPRABHAT (A compered programme to start the day on a positive note / SPONSORED PROGRAMME - 'SAMARPAN')", "channel": "FM Rainbow Delhi" },
-  { "time": "7:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "7:02 AM", "title": "GOOD MORNING DELHI/NCR (World Tourism Day / World Deaf Day / World River Day / Birth Anniversary of Vithalbhai Patel)", "channel": "FM Rainbow Delhi" },
-  { "time": "8:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "8:02 AM", "title": "GOOD MORNING DELHI/NCR (Latest city happenings & Newspaper News / सेवा संकल्प अभियान - Pradhan Mantri Mudra Yojana)", "channel": "FM Rainbow Delhi" },
-  { "time": "9:00 AM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "9:02 AM", "title": "DIL KE TARANE GAANE NAYE PURANE (Nonstop latest bollywood numbers & Asian Games 2026 Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "10:00 AM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },
-  { "time": "10:02 AM", "title": "WESTERN MUSIC: (MATCHLESS MUSIC HOUR & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "10:55 AM", "title": "मन की बात - (Episode-138) \"माननीय प्रधानमंत्री श्री नरेंद्र मोदी के मन की बात\" (हिंदी संस्करण)", "channel": "FM Rainbow Delhi" },
-  { "time": "12:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },
-  { "time": "12:02 PM", "title": "WESTERN MUSIC: (PLAY IT COOL & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "1:00 PM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "1:02 PM", "title": "MERAWALA SONG (Song requests by the listeners & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "2:00 PM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "2:02 PM", "title": "AASHIYANA (Chhote Ustad - Children based programme & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "3:00 PM", "title": "RADIO DOCTOR (Special on World Deaf Day: Hearing care for all - Dr Rakesh Kumar, AIIMS & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "4:00 PM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "4:02 PM", "title": "ALPHA GEN (Rainbow Genius Quiz Program / SPONSORED PROGRAMME - 'LAMHE' & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "5:00 PM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "5:02 PM", "title": "CITYLIGHTS (Round up of events, Traffic updates / स्वच्छता से समृद्धि की ओर)", "channel": "FM Rainbow Delhi" },
-  { "time": "5:30 PM", "title": "Farm 2 City (प्राकृतिक एवं ताजा खाद्य पदार्थों से स्वस्थ जीवन / पराली प्रबंधन की वैज्ञानिक तकनीकियाँ)", "channel": "FM Rainbow Delhi" },
-  { "time": "6:00 PM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "6:02 PM", "title": "MESSAGE MASALA MIX (Audience engagement through Whatsapp & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "7:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },
-  { "time": "7:02 PM", "title": "WESTERN MUSIC (LIVE WIRE & Asian Games Updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "8:00 PM", "title": "MANN KI BAAT (ENGLISH VERSION) - Prime Minister Narendra Modi's Mann Ki Baat", "channel": "FM Rainbow Delhi" },
-  { "time": "9:00 PM", "title": "The Akashvani Podcast", "channel": "FM Rainbow Delhi" },
-  { "time": "10:00 PM", "title": "Daily Highlights Capsule 20th Edition of Asian Games - 2026", "channel": "FM Rainbow Delhi" },
-  { "time": "10:20 PM", "title": "WESTERN MUSIC (Sunday Requests)", "channel": "FM Rainbow Delhi" },
-  { "time": "11:00 PM", "title": "हिन्दी मे मुख्य समाचार (News headline to be read live by AOD)", "channel": "FM Rainbow Delhi" },
-  { "time": "11:02 PM", "title": "RANGE MEHFIL (Ghazal based program)", "channel": "FM Rainbow Delhi" },
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIR Regional News Bulletins</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #090e17;
+      color: #e2e8f0;
+      padding: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    .header-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .header-title { font-size: 20px; font-weight: 700; color: #fff; }
+    .change-lang-btn {
+      background: #131c2b;
+      border: 1px solid #1f2d45;
+      color: #38bdf8;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .change-lang-btn:active { background: #1a273c; }
+    .bulletin-list { display: flex; flex-direction: column; gap: 12px; }
+    .bulletin-card {
+      background-color: #131a28;
+      border: 1px solid #1e293d;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: inherit;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      content-visibility: auto;
+      contain-intrinsic-size: 82px;
+      contain: content;
+    }
+    .bulletin-info { flex: 1; margin-right: 14px; }
+    .bulletin-heading { font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
+    .bulletin-meta { font-size: 13px; color: #7c8ba1; }
+    .lang-badge {
+      background-color: #10263f;
+      border: 1px solid #1a3c61;
+      color: #38bdf8;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+    .play-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #0091ff;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      border: 0;
+      cursor: pointer;
+    }
+    .play-icon-wrap:active, .play-icon-wrap:focus, .play-icon-wrap:hover {
+      background-color: #0091ff;
+      transform: none;
+      outline: none;
+    }
+    .play-icon {
+      width: 0; height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 11px solid #ffffff;
+      margin-left: 2px;
+    }
+    .empty-msg { display: none; text-align: center; padding: 40px 16px; color: #7c8ba1; font-size: 15px; }
 
-  // ================= VIVIDH BHARATI (VBS Mumbai) - 27/09/2026 =================
-  { "time": "12:00 AM", "title": "विविध भारती प्रोमो / वाद्यसंगीत", "channel": "Vividh Bharati" },
-  { "time": "12:05 AM", "title": "यादों की महफिल (Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "1:00 AM", "title": "सुरीला सफर (Hit Film Songs Selected by Announcers on Duty - Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "2:00 AM", "title": "सदाबहार नग्मे - फिल्मी गीत (Golden Hits from 1955-1965 - Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "3:00 AM", "title": "मन चाहे गीत (Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "3:30 AM", "title": "नाट्यतरंग (नाटक - बांदी, लेखक - इस्मत चुगतई - Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "4:00 AM", "title": "तराने नए पुराने (Nonstop Hindi Film Songs - Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "5:00 AM", "title": "जागो सुबह हो गई", "channel": "Vividh Bharati" },
-  { "time": "5:45 AM", "title": "फिलर", "channel": "Vividh Bharati" },
-  { "time": "5:50 AM", "title": "संकेत धुन", "channel": "Vividh Bharati" },
-  { "time": "5:52 AM", "title": "वंदे मातरम", "channel": "Vividh Bharati" },
-  { "time": "5:56 AM", "title": "प्रारंभिक उद्घोषणा", "channel": "Vividh Bharati" },
-  { "time": "5:57 AM", "title": "मंगलध्वनी", "channel": "Vividh Bharati" },
-  { "time": "6:00 AM", "title": "हिंदी समाचार (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "6:05 AM", "title": "वंदनवार / चिंतन", "channel": "Vividh Bharati" },
-  { "time": "6:30 AM", "title": "झरोखा (रूपरेखा)", "channel": "Vividh Bharati" },
-  { "time": "6:35 AM", "title": "श्रीराम चरित मानस (भाग - 324)", "channel": "Vividh Bharati" },
-  { "time": "6:45 AM", "title": "संगीत सरिता (श्रृंखला - खयाल और तरानों की विशेषताएँ, भाग - 12, गायक: डॉ. पंडित गोकुलोत्सव महाराज)", "channel": "Vividh Bharati" },
-  { "time": "7:00 AM", "title": "भूले बिसरे गीत (Old & Vintage songs of 1940-1960)", "channel": "Vividh Bharati" },
-  { "time": "7:30 AM", "title": "हम है राही प्यार के (Golden duets songs 1955-1980)", "channel": "Vividh Bharati" },
-  { "time": "8:00 AM", "title": "समाचार प्रभात (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "8:15 AM", "title": "त्रिवेणी (आलेख एवं स्वर - मंदाकिनी जोशी, प्रस्तुतकर्ता - अनुश्री पाठक)", "channel": "Vividh Bharati" },
-  { "time": "8:30 AM", "title": "चित्रलोक (Hit film songs: 2011- Till date)", "channel": "Vividh Bharati" },
-  { "time": "9:30 AM", "title": "आज के फ़नकार (पार्श्वगायक - महेंद्र कपुर)", "channel": "Vividh Bharati" },
-  { "time": "10:00 AM", "title": "पिटारा : बॉम्बे टॉकीज (गायिका पूर्णिमा (सुषमा श्रेष्ठ) से मंदाकिनी जोशी की बातचीत - भाग 2 - Repeat)", "channel": "Vividh Bharati" },
-  { "time": "10:54 AM", "title": "आरंभिक उदघोषणा / Spots before Mann Ki Baat (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "11:00 AM", "title": "माननीय प्रधानमंत्री श्री नरेन्द्र मोदी - मन की बात (एपिसोड - 138) (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "12:00 PM", "title": "हिंदी समाचार (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "12:05 PM", "title": "यादों की महफ़िल (Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "1:00 PM", "title": "सुरीला सफर (Progm based on FB coments)", "channel": "Vividh Bharati" },
-  { "time": "2:00 PM", "title": "त्रिवेणी (आलेख एवं स्वर - मंदाकिनी जोशी, प्रस्तुतकर्ता - अनुश्री पाठक - Repeat of Morning)", "channel": "Vividh Bharati" },
-  { "time": "2:15 PM", "title": "दोपहर समाचार (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "2:30 PM", "title": "सदाबहार नग्मे - फिल्मी गीत (Hits From 1955-1965)", "channel": "Vividh Bharati" },
-  { "time": "3:00 PM", "title": "मन चाहे गीत (Listeners' choice through letters - संवादक: ममता सिंह)", "channel": "Vividh Bharati" },
-  { "time": "3:30 PM", "title": "नाट्यतरंग (मुक्ती एक चिड़िया की - लेखक: अजित पुष्कल, निर्देशक: मधुर श्रीवास्तव)", "channel": "Vividh Bharati" },
-  { "time": "4:00 PM", "title": "पिटारा : उजाले उनकी यादों के (संगीतकार उत्तमसिंह से यूनुस खान की बातचीत - भाग 2)", "channel": "Vividh Bharati" },
-  { "time": "5:00 PM", "title": "छायागीत (Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "5:30 PM", "title": "तराने नए पुराने (New & Old Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "6:00 PM", "title": "हिन्दी समाचार (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "6:05 PM", "title": "तराने नए पुराने (Contd...) (New & Old Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "6:30 PM", "title": "झरोखा (रूपरेखा)", "channel": "Vividh Bharati" },
-  { "time": "6:35 PM", "title": "संध्या रंजन (चित्रपट संगीत)", "channel": "Vividh Bharati" },
-  { "time": "6:45 PM", "title": "संगीत सरिता (Repeat of Morning - भाग 12)", "channel": "Vividh Bharati" },
-  { "time": "7:00 PM", "title": "विशेष जयमाला (सैनिकों की शौर्यगाथा - महावीरचक्र हवालदार दयाराम)", "channel": "Vividh Bharati" },
-  { "time": "7:45 PM", "title": "इंद्रधनुष : साज और आवाज (बांसुरी - श्रीधर केंकरे)", "channel": "Vividh Bharati" },
-  { "time": "8:00 PM", "title": "हवामहल (नाटिका - तुम बड़े वो हो जी, लेखन, निर्देशन - गंगाप्रसाद माथुर)", "channel": "Vividh Bharati" },
-  { "time": "8:15 PM", "title": "चित्रलोक (New film songs)", "channel": "Vividh Bharati" },
-  { "time": "8:45 PM", "title": "समाचार संध्या (Relay Delhi)", "channel": "Vividh Bharati" },
-  { "time": "9:00 PM", "title": "आप के लिए (Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "9:30 PM", "title": "आज के फनकार (फिल्मकार - यश चोपड़ा)", "channel": "Vividh Bharati" },
-  { "time": "10:00 PM", "title": "छायागीत (आलेख एवं स्वर - युनूस खान, प्रस्तुतकर्ता - राघवेंद्र नेगी)", "channel": "Vividh Bharati" },
-  { "time": "10:30 PM", "title": "ढलती जाए रात (Soft romantic songs of films)", "channel": "Vividh Bharati" },
-  { "time": "11:00 PM", "title": "विविधा (देव आनंद / हेमंत कुमार / महेंद्र कपूर)", "channel": "Vividh Bharati" },
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: #090e17;
+      z-index: 9999;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.15s ease, visibility 0.15s;
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+    .modal-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .modal-title { font-size: 18px; font-weight: 700; color: #fff; }
+    .close-btn {
+      background: #131a28;
+      border: 1px solid #1e293d;
+      color: #fff;
+      font-size: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .search-input-box {
+      width: 100%;
+      background: #131a28;
+      border: 1px solid #1e293d;
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .lang-chip-list {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      overflow-y: auto;
+      align-content: flex-start;
+      -webkit-overflow-scrolling: touch;
+    }
+    .lang-chip {
+      background: #131a28;
+      border: 1px solid #1e293d;
+      color: #cbd5e1;
+      padding: 12px 8px;
+      border-radius: 12px;
+      font-size: 14px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .lang-chip.is-hidden { display: none !important; }
+    .lang-chip.active { background: #0091ff; border-color: #0091ff; color: #fff; font-weight: 600; }
+  </style>
+</head>
+<body>
 
-  // ================= FM GOLD (100.1 MHz) - 27/09/2026 =================
-  { "time": "12:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "12:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "12:10 AM", "title": "पानी पर लिखी कहानी केदार का तिलक (Story Rendition - RPT)", "channel": "FM Gold" },
-  { "time": "1:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "1:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "1:10 AM", "title": "GEET SUHANE - (OLD CLASSICS)", "channel": "FM Gold" },
-  { "time": "2:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "2:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "2:10 AM", "title": "RAAT SURMAYI (VARIETY OF SONGS THAT EXPRESS DIFFERENT EMOTIONS)", "channel": "FM Gold" },
-  { "time": "3:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "3:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "3:10 AM", "title": "HUMRAHI - HIT FILMI DUETS (OLD CLASSICS)", "channel": "FM Gold" },
-  { "time": "4:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "4:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "4:10 AM", "title": "ARUNIMA (FILMI & NON-FILMI SOOTHING SONGS WITH POSITIVE REINFORCEMENT)", "channel": "FM Gold" },
-  { "time": "5:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "5:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "5:10 AM", "title": "BHOR SUHANI - (SOOTHING FILM SONGS / वंदे मातरम एवं मंगल ध्वनि)", "channel": "FM Gold" },
-  { "time": "6:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "6:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "6:10 AM", "title": "ARPAN - (DEVOTIONAL SONGS WITH POSITIVE INSPIRATIONAL THOUGHTS)", "channel": "FM Gold" },
-  { "time": "6:44 AM", "title": "Shri Ram Charit Manas Gaan (अयोध्या कांड - भाग 66)", "channel": "FM Gold" },
-  { "time": "6:55 AM", "title": "NEWS IN SANSKRIT", "channel": "FM Gold" },
-  { "time": "7:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "7:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "7:10 AM", "title": "गोल्ड सुप्रभात - (Morning Information with Emphasis on Yog & Exercises)", "channel": "FM Gold" },
-  { "time": "7:30 AM", "title": "AAJ SAVERE (NSD - Billingual)", "channel": "FM Gold" },
-  { "time": "8:00 AM", "title": "HINDI NEWS समाचार प्रभात", "channel": "FM Gold" },
-  { "time": "8:15 AM", "title": "NEWS IN ENGLISH MORNING NEWS", "channel": "FM Gold" },
-  { "time": "8:30 AM", "title": "NEWS BULLETIN URDU", "channel": "FM Gold" },
-  { "time": "8:45 AM", "title": "MUSICAL DILLAGI - (SPECIAL SHOW ON A PARTICULAR ISSUE OR CAMPAIGN)", "channel": "FM Gold" },
-  { "time": "9:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "9:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "9:10 AM", "title": "MUSICAL DILLAGI (CONTINUED) (सेवा संकल्प अभियान: मृदा स्वास्थ्य कार्ड योजना / World Tourism Day / World Deaf Day / World Rivers Day)", "channel": "FM Gold" },
-  { "time": "9:30 AM", "title": "SPONSORED PROG. \"WATAN KA RAAG\"", "channel": "FM Gold" },
-  { "time": "10:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "10:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "10:10 AM", "title": "VISHWA DARPAN", "channel": "FM Gold" },
-  { "time": "10:20 AM", "title": "WORLD NEWS", "channel": "FM Gold" },
-  { "time": "10:30 AM", "title": "FILM SONGS", "channel": "FM Gold" },
-  { "time": "10:40 AM", "title": "SPONSORED PROG. \"MERA WAZOOD\"", "channel": "FM Gold" },
-  { "time": "10:55 AM", "title": "PROMOS & JINGLES (BEFORE MANN KI BAAT)", "channel": "FM Gold" },
-  { "time": "11:00 AM", "title": "मन की बात - माननीय प्रधानमंत्री श्री नरेंद्र मोदी जी के मन की बात (एपिसोड - 138 / संस्कृत संस्करण)", "channel": "FM Gold" },
-  { "time": "12:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "12:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "12:10 PM", "title": "WO JO EK FILM THI (फिल्म - चांदनी 1989)", "channel": "FM Gold" },
-  { "time": "1:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "1:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "1:10 PM", "title": "DIL DHOONDHTA HAI - (OLD EVERGREEN FILM SONGS)", "channel": "FM Gold" },
-  { "time": "1:30 PM", "title": "Sanskrit Saptahiki - (RECORDED)", "channel": "FM Gold" },
-  { "time": "1:50 PM", "title": "Urdu Samachar", "channel": "FM Gold" },
-  { "time": "2:00 PM", "title": "MID DAY NEWS (English)", "channel": "FM Gold" },
-  { "time": "2:15 PM", "title": "DOPAHAR SAMACHAAR (Hindi)", "channel": "FM Gold" },
-  { "time": "2:30 PM", "title": "नाटक रामानुजन (RPT - लेखक: डॉ. प्रताप सहगल, निर्देशन और प्रस्तुति: काजल सूरी)", "channel": "FM Gold" },
-  { "time": "3:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "3:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "3:10 PM", "title": "\"NORTH EAST DIARY\" (RECORDED PROG. - REPEAT BROADCAST)", "channel": "FM Gold" },
-  { "time": "3:25 PM", "title": "FILM MUSIC", "channel": "FM Gold" },
-  { "time": "3:30 PM", "title": "रेडियो किड्स (हर दिन सीखे कुछ नया / मेरा पसंदीदा विषय / प्रेरक व्यक्तित्व - महात्मा गांधी / लाल बहादुर शास्त्री)", "channel": "FM Gold" },
-  { "time": "4:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "4:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "4:10 PM", "title": "Film Songs with Promos / Jingles / Traffic Updates / Spots etc.", "channel": "FM Gold" },
-  { "time": "4:20 PM", "title": "EMPLOYMENT NEWS (ENGLISH) AND ROZGAR SAMACHAR (HINDI)", "channel": "FM Gold" },
-  { "time": "4:30 PM", "title": "PARIKRAMA (NSD - Billingual)", "channel": "FM Gold" },
-  { "time": "5:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "5:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "5:10 PM", "title": "हौसले (पर्वतारोही श्री उदय कुमार जी से रश्मि कुकरेती की बातचीत)", "channel": "FM Gold" },
-  { "time": "5:30 PM", "title": "पूर्वोत्तर डायरी (SUNDAY)", "channel": "FM Gold" },
-  { "time": "6:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "6:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "6:10 PM", "title": "VISHLESHAN (RECORDED PROG.)", "channel": "FM Gold" },
-  { "time": "6:20 PM", "title": "NEWS IN SANSKRIT", "channel": "FM Gold" },
-  { "time": "6:30 PM", "title": "MARKET MANTRA", "channel": "FM Gold" },
-  { "time": "7:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "7:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "7:10 PM", "title": "SPECIAL SERIES: JAN SEVA SE DESH SEVA (EPISODE: 11)", "channel": "FM Gold" },
-  { "time": "7:45 PM", "title": "PRADESHIK SAMACHAAR", "channel": "FM Gold" },
-  { "time": "8:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "8:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "8:10 PM", "title": "FILM SONGS", "channel": "FM Gold" },
-  { "time": "8:15 PM", "title": "SWAR DHAROHAR (EMINENT SINGER BEGUM AKHTAR - REPEAT)", "channel": "FM Gold" },
-  { "time": "8:30 PM", "title": "SPORTS SCAN - (Live)", "channel": "FM Gold" },
-  { "time": "8:45 PM", "title": "SAMACHAR SANDHYA (Hindi)", "channel": "FM Gold" },
-  { "time": "9:00 PM", "title": "NEWS AT NINE (English)", "channel": "FM Gold" },
-  { "time": "9:15 PM", "title": "SPOT LIGHT (RECORDED)", "channel": "FM Gold" },
-  { "time": "9:30 PM", "title": "RADIOSCOPE: NATIONAL SCIENCE MAGAZINE (Ozone Day / World Rabies Day / World Heart Day / International Translation Day)", "channel": "FM Gold" },
-  { "time": "10:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "10:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "10:10 PM", "title": "VISHWA DARPAN", "channel": "FM Gold" },
-  { "time": "10:20 PM", "title": "WORLD NEWS", "channel": "FM Gold" },
-  { "time": "10:30 PM", "title": "हरसिंगार - (COMPERED PROGRAMME WITH ROMANTIC FILM SONGS)", "channel": "FM Gold" },
-  { "time": "11:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "11:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "11:10 PM", "title": "MARKET MANTRA (REPEAT BROADCAST)", "channel": "FM Gold" },
-  { "time": "11:40 PM", "title": "GEET MERE MANMEET - (NONSTOP EVERGREEN OLD FILM HITS FROM GOLDENERA)", "channel": "FM Gold" },
+  <div class="header-wrap">
+    <div class="header-title">📻 AIR News</div>
+    <button class="change-lang-btn" id="openModalBtn">🌐 <span id="currentLangText">Select Language</span></button>
+  </div>
 
-  // ================= INDRAPRASTHA (819 kHz) - 27/09/2026 =================
-  { "time": "12:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "12:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "12:10 AM", "title": "सुरों का सफ़रनामा -- KAVITA KRISHNAMURTHY", "channel": "Indraprastha" },
-  { "time": "1:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "1:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "1:10 AM", "title": "गीत सुनहरे Golden Era (फिल्म संगीत)", "channel": "Indraprastha" },
-  { "time": "2:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "2:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "2:10 AM", "title": "गीत बहार FILM MUSIC (NON-STOP)", "channel": "Indraprastha" },
-  { "time": "3:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "3:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "3:10 AM", "title": "गीत / ग़ज़ल", "channel": "Indraprastha" },
-  { "time": "4:00 AM", "title": "ARCHANA (DEVOTIONAL MUSIC BY M. L. VASANTA KUMARI, NARASUMHAN, M. S. SHEELA, K. KUNJIRAMAN)", "channel": "Indraprastha" },
-  { "time": "4:20 AM", "title": "नाद ब्रह्म - Carnatic Music (FLUTE RECITAL BY SIKKIL MALACHANDRA SEKHAR)", "channel": "Indraprastha" },
-  { "time": "4:50 AM", "title": "वन्देमातरम एवं प्रारम्भिक कार्यक्रम विवरण / मंगल ध्वनि", "channel": "Indraprastha" },
-  { "time": "5:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "5:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "5:10 AM", "title": "आओ योग करें (Yoga for Wellness - योग: भद्रासन और अश्वथासन)", "channel": "Indraprastha" },
-  { "time": "5:20 AM", "title": "देश भक्ति संगीत- हिंदी फिल्मों से", "channel": "Indraprastha" },
-  { "time": "5:30 AM", "title": "स्वर रंजनी (HINDUSANI CLASSICAL MUSIC: VOCAL - REHANA CHAKRABORTY - RAAG SHIVMAT BHAIRAV)", "channel": "Indraprastha" },
-  { "time": "6:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "6:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "6:10 AM", "title": "वंदना (PROG. BASED ON MANTRA VANDANA DEVOTIONAL SONGS PATRIOTIC, BHAJAN, SHABAD, NAAT)", "channel": "Indraprastha" },
-  { "time": "6:40 AM", "title": "चिंतन - गीता में योग का बहु आयामी अर्थ", "channel": "Indraprastha" },
-  { "time": "6:45 AM", "title": "राम चरित मानस (अयोध्या कांड भाग 61)", "channel": "Indraprastha" },
-  { "time": "6:55 AM", "title": "NEWS IN SANSKRIT", "channel": "Indraprastha" },
-  { "time": "7:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "7:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "7:10 AM", "title": "SANGEETIKA (PARVEEN DUBEY - BHAJAN)", "channel": "Indraprastha" },
-  { "time": "7:30 AM", "title": "गीतों भरी Good Morning (Based on Film Music)", "channel": "Indraprastha" },
-  { "time": "8:00 AM", "title": "News in Hindi (Samachaar Prabhaat)", "channel": "Indraprastha" },
-  { "time": "8:15 AM", "title": "News in English (Morning News)", "channel": "Indraprastha" },
-  { "time": "8:30 AM", "title": "NEWS IN URDU", "channel": "Indraprastha" },
-  { "time": "8:45 AM", "title": "साहित्यकी - FB (परिचर्चा - हिन्दी ग़ज़ल : नयी जमीन - दुष्यंत कुमार जयंती पर विशेष)", "channel": "Indraprastha" },
-  { "time": "9:15 AM", "title": "हमारे अतिथि (फोटोग्राफर सुश्री सर्वेश से भेंटवार्ता - FB)", "channel": "Indraprastha" },
-  { "time": "9:30 AM", "title": "Mitti Di Mehak (Bharat Vich Sair Sapata / Ik Awaz - Asa Singh Mastana / World Tourism Day & World Deaf Day)", "channel": "Indraprastha" },
-  { "time": "10:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "10:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "10:10 AM", "title": "आप की पसंद", "channel": "Indraprastha" },
-  { "time": "10:55 AM", "title": "मन की बात - माननीय प्रधानमंत्री श्री नरेंद्र मोदी जी के मन की बात (एपिसोड - 138)", "channel": "Indraprastha" },
-  { "time": "12:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "12:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "12:10 PM", "title": "महिला कार्यक्रम (विठ्ठल भाई पटेल जयंती / ग्रामीण महिलाओं की खेलों में भागीदारी / एनी बेसेंट / बेटी बचाओ- बेटी पढ़ाओ)", "channel": "Indraprastha" },
-  { "time": "1:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "1:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "1:10 PM", "title": "एक ही फिल्म से - SAGAAI", "channel": "Indraprastha" },
-  { "time": "1:40 PM", "title": "NEWS IN PUNJABI", "channel": "Indraprastha" },
-  { "time": "1:50 PM", "title": "NEWS IN URDU", "channel": "Indraprastha" },
-  { "time": "2:00 PM", "title": "MID DAY NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "2:15 PM", "title": "MID DAY NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "2:30 PM", "title": "एक ही कलाकार - YASH CHOPRA", "channel": "Indraprastha" },
-  { "time": "3:00 PM", "title": "ब्रज माधुरी (ब्रज क्षेत्र की फल और सब्जियां / स्वच्छता का महत्व / ब्रज साहित्य में रहीम और रसखान का स्थान)", "channel": "Indraprastha" },
-  { "time": "3:30 PM", "title": "रेडियो किड्स (हर दिन सीखे कुछ नया / मेरा पसंदीदा विषय / प्रेरक व्यक्तित्व - महात्मा गांधी / लाल बहादुर शास्त्री)", "channel": "Indraprastha" },
-  { "time": "4:00 PM", "title": "स्वांग स्वरांजलि (गणेश वंदना, भजन और रागिनी - कलाकार: चन्द्रपाल और साथी)", "channel": "Indraprastha" },
-  { "time": "5:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "5:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "5:10 PM", "title": "लोक संगीत का कार्यक्रम लोक रंजनी", "channel": "Indraprastha" },
-  { "time": "5:30 PM", "title": "दैनिक कार्यक्रम \"खेल खिलाड़ी\" (प्रस्तुतकर्ता - विदुषी वत्स और वसीम अहमद)", "channel": "Indraprastha" },
-  { "time": "6:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "6:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "6:10 PM", "title": "चहल पहल", "channel": "Indraprastha" },
-  { "time": "6:20 PM", "title": "NEWS IN SANSKRIT", "channel": "Indraprastha" },
-  { "time": "6:30 PM", "title": "कार्यक्रम - ग्राम संसार (चर्चा - विश्व पर्यटन दिवस, विश्व बधिर दिवस, विश्व नदी दिवस / योजना - प्रधानमंत्री मत्स्य संपदा योजना)", "channel": "Indraprastha" },
-  { "time": "7:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "7:05 PM", "title": "कार्यक्रम - कृषि जगत (चर्चा- बीज उपचार का महत्त्व / योजना - पशु धन क्रेडिट कार्ड)", "channel": "Indraprastha" },
-  { "time": "7:35 PM", "title": "राज़ल / क़व्वाली", "channel": "Indraprastha" },
-  { "time": "7:45 PM", "title": "PRADESHIK SAMACHAR (Regional News)", "channel": "Indraprastha" },
-  { "time": "8:00 PM", "title": "कवि गोष्ठी :- ग़ज़ल गोष्ठी (श्री विज्ञान व्रत, श्री अरुण सागर, श्री नयन नीरज)", "channel": "Indraprastha" },
-  { "time": "8:30 PM", "title": "FILM SANGEET", "channel": "Indraprastha" },
-  { "time": "8:45 PM", "title": "Hindi News SAMACHAAR SANDHYAA", "channel": "Indraprastha" },
-  { "time": "9:00 PM", "title": "English News EVENING NEWS", "channel": "Indraprastha" },
-  { "time": "9:15 PM", "title": "NEWS IN URDU", "channel": "Indraprastha" },
-  { "time": "9:30 PM", "title": "RADIOSCOPE: NATIONAL SCIENCE MAGAZINE (Ozone Day / World Rabies Day / World Heart Day / International Translation Day)", "channel": "Indraprastha" },
-  { "time": "10:00 PM", "title": "अखिल भारतीय रविवासरीय संगीत सभा (S.SUPRADEEP - CARNATIC - FLUTE)", "channel": "Indraprastha" },
-  { "time": "11:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "11:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "11:10 PM", "title": "फिल्म संगीत आप की फरमाइश", "channel": "Indraprastha" },
-  { "time": "11:59 PM", "title": "समापन घोषणा (Closing Transmission Announcement)", "channel": "Indraprastha" }
+  <div class="bulletin-list" id="bulletinList"></div>
+  <div id="emptyMsg" class="empty-msg">No bulletins found.</div>
+
+  <div class="modal-overlay" id="langModal">
+    <div class="modal-top">
+      <div class="modal-title">Select Language</div>
+      <button class="close-btn" id="closeModalBtn">&times;</button>
+    </div>
+    <input type="text" id="langSearchInput" class="search-input-box" placeholder="Search language..." autocomplete="off">
+    <div class="lang-chip-list" id="langChipContainer"></div>
+  </div>
+
+  <script>
+    // লাইটৱেট ডাটা এৰে (কেৱল প্ৰয়োজনীয় ডাটা ৰখা হৈছে)
+    const bulletins = [
+  ['Shimla', 'Hindi', '11:00 AM', '27 September 2026', 'shimla-11-4.mp3'],
+  ['Jammu', 'Gojri', '10:15 AM', '27 September 2026', 'goooj-1015.mp3'],
+  ['Srinagar', 'Urdu', '9:25 AM', '27 September 2026', 'urdu-925-1.mp3'],
+  ['Srinagar', 'Kashmiri', '9:20 AM', '27 September 2026', 'kash-920-1.mp3'],
+  ['Jammu', 'Dogri', '9:20 AM', '27 September 2026', 'jamu-920-3.mp3'],
+  ['Leh', 'Ladakhi', '9:15 AM', '27 September 2026', 'LEH.mp3'],
+  ['Guwahati', 'Assamese', '9:00 AM', '27 September 2026', 'asam-9.mp3'],
+  ['Jaipur', 'Hindi', '9:00 AM', '27 September 2026', 'jpr-9-4.mp3'],
+  ['C S Nagar', 'Urdu', '9:00 AM', '27 September 2026', 'urdu-aa-9-1.mp3'],
+  ['Patna', 'Hindi', '8:48 AM', '27 September 2026', 'ptna-848-4.mp3'],
+  ['Ranchi', 'Hindi', '8:30 AM', '27 September 2026', 'rac-830-2.mp3'],
+  ['Shillong', 'English', '8:30 AM', '27 September 2026', 'NORTH-EAST-8.mp3'],
+  ['Shillong', 'Khasi', '7:45 AM', '27 September 2026', 'khasi-2.mp3'],
+  ['Agartala', 'Kokborok', '7:40 AM', '27 September 2026', 'Audio-News-Kokborok-Mo-1.mp3'],
+  ['Agartala', 'Bengali', '7:35 AM', '27 September 2026', 'AGARTALA-6.mp3'],
+  ['Kolkata', 'Bengali', '7:35 AM', '27 September 2026', 'bngali-735-3.mp3'],
+  ['Silchar', 'Bengali', '7:35 AM', '27 September 2026', 'Silchar-5.mp3'],
+  ['Kohima', 'English', '7:30 AM', '27 September 2026', 'eng.mp3'],
+  ['Aizawl', 'Mizo', '7:30 AM', '27 September 2026', 'azwl-730-6.mp3'],
+  ['Imphal', 'Manipuri', '7:30 AM', '27 September 2026', 'imp-730-3.mp3'],
+  ['panaji', 'Konkani', '7:25 AM', '27 September 2026', 'pa-725-3.mp3'],
+  ['Kohima', 'Nagamese', '7:25 AM', '27 September 2026', 'RNU-Kohima-Bulletin-Morninig-Audio-Nagamese-News-0725-1.mp3'],
+  ['Kurseong', 'Nepali', '7:25 AM', '27 September 2026', 'kur-725-5.mp3'],
+  ['Dehradun', 'Hindi', '7:20 AM', '27 September 2026', 'Dehradun-4.mp3'],
+  ['Gorakhpur', 'Hindi', '7:20 AM', '27 September 2026', 'gor77720.mp3'],
+  ['Ahmedabad', 'Gujarati', '7:10 AM', '27 September 2026', 'AHMEDABAD-710.mp3'],
+  ['Bhopal', 'Hindi', '7:10 AM', '27 September 2026', 'bhopl-710-5.mp3'],
+  ['C S Nagar', 'Marathi', '7:10 AM', '27 September 2026', 'Chhatrapati-Sambhajinagar-7-5.mp3'],
+  ['Pune', 'Marathi', '7:10 AM', '27 September 2026', 'Pune-8.mp3'],
+  ['Sri Vijaya Puram', 'Hindi', '7:05 AM', '27 September 2026', 'Sri-Vijaya-Puram-5.mp3'],
+  ['Cuttack', 'Odia', '7:05 AM', '27 September 2026', 'odia-0705-6.mp3'],
+  ['Dharwad', 'Kannada', '7:05 AM', '27 September 2026', 'DWD-re.mp3'],
+  ['Bhuj', 'Gujarati', '6:50 AM', '27 September 2026', 'bhuj-650-5.mp3'],
+  ['Sambalpur', 'Sambalpuri', '6:47 AM', '27 September 2026', 'sambhal-647.mp3'],
+  ['Chennai', 'Tamil', '6:45 AM', '27 September 2026', 'chennai-645-7.mp3'],
+  ['Vijayawada', 'Telugu', '6:45 AM', '27 September 2026', 'Vijayawada-11.mp3'],
+  ['Calicut', 'Malayalam', '6:45 AM', '27 September 2026', 'calicut-1.mp3'],
+  ['Itanagar', 'English', '7:50 PM', '26 September 2026', 'Ita-1950.mp3'],
+  ['Itanagar', 'Hindi', '7:45 PM', '26 September 2026', 'Ita-1945.mp3'],
+  ['Dehradun', 'Kumauni', '7:30 PM', '26 September 2026', 'Kumauni.mp3'],
+  ['Lucknow', 'Hindi', '7:20 PM', '26 September 2026', 'Luck-1920-2.mp3'],
+  ['Mumbai', 'Marathi', '7:00 PM', '26 September 2026', 'Mumbao.mp3'],
+  ['Gangtok', 'Bhutia', '6:50 PM', '26 September 2026', 'Bhutia-11.mp3'],
+  ['Raipur', 'Hindi', '6:45 PM', '26 September 2026', 'Raipur-1845-4.mp3'],
+  ['Gangtok', 'Lepcha', '6:45 PM', '26 September 2026', 'LEpcha-4.mp3'],
+  ['Jaipur', 'Rajasthani', '6:45 PM', '26 September 2026', 'jai-1845.mp3'],
+  ['Bengaluru', 'Kannada', '6:40 PM', '26 September 2026', 'Baglor-1840-1.mp3'],
+  ['Gangtok', 'Nepali', '6:40 PM', '26 September 2026', 'Gng-Nepali.mp3'],
+  ['Shillong', 'Jaintia', '6:40 PM', '26 September 2026', 'shi-jain-1840-5.mp3'],
+  ['Thiruvananthapuram', 'Malayalam', '6:30 PM', '26 September 2026', 'Tipuarm-1830.mp3'],
+  ['Patna', 'Maithili', '6:25 PM', '26 September 2026', 'Mathli-5.mp3'],
+  ['Jalandhar', 'Punjabi', '6:20 PM', '26 September 2026', 'Jalandhar-5.mp3'],
+  ['Ahmedabad', 'Sindhi', '6:15 PM', '26 September 2026', 'Sindhi-1815.mp3'],
+  ['Hyderabad', 'Telugu', '6:10 PM', '26 September 2026', 'hyd-1810-11.mp3'],
+  ['Chandigarh', 'Hindi', '6:10 PM', '26 September 2026', 'chandi-1810-5.mp3'],
+  ['Pudducherry', 'Tamil', '6:10 PM', '26 September 2026', 'Pondu-1810-2.mp3'],
+  ['Raipur', 'Chhattisgarh', '6:10 PM', '26 September 2026', 'Chhattisgari-1810-5.mp3'],
+  ['Visakhapatnam', 'Telugu', '6:10 PM', '26 September 2026', 'vishkhaatna.mp3'],
+  ['Shillong', 'Garo', '6:05 PM', '26 September 2026', 'shi-garo-1805-5.mp3'],
+  ['Nagpur', 'Marathi', '6:00 PM', '26 September 2026', 'nagpur-11.mp3'],
+  ['Gorakhpur', 'Bhojpuri', '6:00 PM', '26 September 2026', 'gorakh-bhoj-1800-6.mp3'],
+  ['Hyderabad', 'Urdu', '5:50 PM', '26 September 2026', 'Hyd-1750-9.mp3'],
+  ['Srinagar', 'Gojri', '5:50 PM', '26 September 2026', 'sri-gojri-1750-5.mp3'],
+  ['Guwahati', 'Bodo', '4:30 PM', '26 September 2026', 'bodoo.mp3'],
+  ['Srinagar', 'Pahari', '4:20 PM', '26 September 2026', 'Pahari-1620-4.mp3'],
+  ['Guwahati', 'Karbi', '3:45 PM', '26 September 2026', 'karbi-12.mp3'],
+  ['Guwahati', 'Nepali', '3:15 PM', '26 September 2026', 'Nepali-6.mp3'],
+  ['Tiruchirapalli', 'Tamil', '1:45 PM', '26 September 2026', 'Trichy-8.mp3'],
+  ['Lucknow', 'Urdu', '1:10 PM', '26 September 2026', 'luck-audio-1.mp3'],
+  ['Dibrugarh', 'Assamese', '6:00 PM', '25 September 2026', 'guwat-d180.mp3'],
+  ['Dehradun', 'Garhwali', '6:50 PM', '24 September 2026', 'garh-aud-1830.mp3'],
+  ['Tamil', 'Tamil', '7:15 PM', '21 September 2026', 'Tamil-1915-5.mp3'],
+  ['Mumbai', 'Lepcha', '5:00 PM', '18 September 2026', 'muuuuu.mp3'],
+  ['Jammu', 'English', '4:55 PM', '17 September 2026', 'ita-eng-2.mp3']
 ];
+
+    const STORAGE_KEY = 'air_selected_lang';
+    const baseUrl = 'https://newsonair.gov.in/wp-content/uploads/2026/09/';
+
+    const modal = document.getElementById('langModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const currentLangText = document.getElementById('currentLangText');
+    const bulletinList = document.getElementById('bulletinList');
+    const emptyMsg = document.getElementById('emptyMsg');
+    const langSearchInput = document.getElementById('langSearchInput');
+    const langChipContainer = document.getElementById('langChipContainer');
+
+    const uniqueLanguages = [...new Set(bulletins.map(b => b[1]))].sort();
+
+    // কেৱল প্ৰয়োজনীয় কাৰ্ডবোৰ নিমিষতে DOM-ত ইনচাৰ্ট কৰা
+    function renderBulletins(lang) {
+      currentLangText.textContent = lang || 'Select Language';
+      const filtered = lang ? bulletins.filter(b => b[1].toLowerCase() === lang.toLowerCase()) : bulletins;
+
+      if (!filtered.length) {
+        bulletinList.innerHTML = '';
+        emptyMsg.style.display = 'block';
+        return;
+      }
+
+      emptyMsg.style.display = 'none';
+      let html = '';
+      for (let i = 0; i < filtered.length; i++) {
+        const [city, lName, time, date, file] = filtered[i];
+        html += `<div class="bulletin-card">
+          <div class="bulletin-info">
+            <div class="bulletin-heading">${city}</div>
+            <div class="bulletin-meta">
+              <span class="lang-badge">${lName}</span>
+              <div>• ${time} • ${date}</div>
+            </div>
+          </div>
+          <a href="${baseUrl}${file}" class="play-icon-wrap" aria-label="Play ${city} ${lName}"><div class="play-icon"></div></a>
+        </div>`;
+      }
+      bulletinList.innerHTML = html;
+    }
+
+    function renderChips() {
+      let html = '';
+      for (const lang of uniqueLanguages) {
+        html += `<button class="lang-chip" data-lang="${lang}">${lang}</button>`;
+      }
+      langChipContainer.innerHTML = html;
+    }
+
+    function setModal(show) {
+      modal.classList.toggle('active', show);
+      if (show) {
+        langSearchInput.value = '';
+        filterChips('');
+      }
+    }
+
+    function filterChips(query) {
+      const chips = langChipContainer.children;
+      for (let i = 0; i < chips.length; i++) {
+        const match = chips[i].dataset.lang.toLowerCase().includes(query);
+        chips[i].classList.toggle('is-hidden', !match);
+      }
+    }
+
+    langChipContainer.addEventListener('click', (e) => {
+      const lang = e.target.dataset.lang;
+      if (lang) {
+        localStorage.setItem(STORAGE_KEY, lang);
+        renderBulletins(lang);
+        setModal(false);
+      }
+    });
+
+    langSearchInput.addEventListener('input', (e) => {
+      filterChips(e.target.value.toLowerCase().trim());
+    });
+
+    openModalBtn.addEventListener('click', () => setModal(true));
+    closeModalBtn.addEventListener('click', () => setModal(false));
+
+    renderChips();
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      renderBulletins(saved);
+    } else {
+      renderBulletins('Assamese');
+      setModal(true);
+    }
+  </script>
+</body>
+</html>
