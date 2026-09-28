@@ -826,23 +826,23 @@ button, a {
       </div>
     </div>
 
-    <div class="cs-note" data-field="note">IND vs WI 1st ODI • Match starts at 27 SEP, 2:00 PM</div>
+    <div class="cs-note" data-field="note">IND vs AFG T20, Match starts at 10:30am</div>
 
     <div class="cs-teams-wrapper">
-      <!-- Team A Line (India) -->
+      <!-- Team A Line -->
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp" class="cs-flag" alt="IND" width="20" height="20">
-          <span class="cs-team-name" data-field="nameA">IND</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp" class="cs-flag" data-field="flagA" alt="AFG" width="20" height="20">
+          <span class="cs-team-name" data-field="nameA">AFG</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
 
-      <!-- Team B Line (West Indies) -->
+      <!-- Team B Line -->
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/west-indies.webp" class="cs-flag" alt="WI" width="20" height="20">
-          <span class="cs-team-name" data-field="nameB">WI</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp" class="cs-flag" data-field="flagB" alt="IND" width="20" height="20">
+          <span class="cs-team-name" data-field="nameB">IND</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
@@ -1137,20 +1137,36 @@ if (supportForm) {
    ============================================================ */
 const SHOW_CRICKET = true;
 
+// Known Team Flags Map
+const TEAM_FLAGS_MAP = {
+  "ind": "https://ik.imagekit.io/sqt8ptw1k/india.webp",
+  "india": "https://ik.imagekit.io/sqt8ptw1k/india.webp",
+  "afg": "https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp",
+  "afghanistan": "https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp",
+  "wi": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
+  "west indies": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp"
+};
+
+function getTeamLogoUrl(team) {
+  if (!team) return "";
+  const key = (team.shortName || team.name || "").toLowerCase().trim();
+  return TEAM_FLAGS_MAP[key] || team.logo || team.flag || "";
+}
+
 const cricketMatch = {
   cardId: "cricketCard1",
-  matchId: "6a3103797327c23debef2675",
+  matchId: "6a9a9df21f0f3936e9027d6f",
   scorecardLink: "go:card1",
   audioLink: "go:COMM",
   initialData: {
-    "_id": "6a3103797327c23debef2675",
+    "_id": "6a9a9df21f0f3936e9027d6f",
     "status": "notstarted",
-    "format": "odi",
-    "announcement1": "IND vs WI 1st ODI • Match starts at 27 SEP, 2:00 PM",
+    "format": "t20",
+    "announcement1": "IND vs AFG T20, Match starts at 10:30am",
     "powerplay": "",
     "teams": {
-      "a": { "name": "India", "shortName": "IND" },
-      "b": { "name": "West Indies", "shortName": "WI" }
+      "a": { "name": "Afghanistan", "shortName": "AFG" },
+      "b": { "name": "India", "shortName": "IND" }
     },
     "now": { "req_run_rate": "", "run_rate": "" },
     "currentBattingOrder": 0,
@@ -1206,15 +1222,15 @@ function extractMatchNote(result) {
   return note.split(/\r?\n/).map(line => line.trim()).filter(Boolean).join(" • ");
 }
 
-/* SMART CRICKET RENDER */
+/* SMART CRICKET RENDER WITH DYNAMIC FLAG DETECTION */
 function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   if (!cardElement || !matchData) return;
 
   const teamA = matchData.teams ? matchData.teams.a : {};
   const teamB = matchData.teams ? matchData.teams.b : {};
 
-  const nameA = teamA.shortName || teamA.name || "IND";
-  const nameB = teamB.shortName || teamB.name || "WI";
+  const nameA = teamA.shortName || teamA.name || "AFG";
+  const nameB = teamB.shortName || teamB.name || "IND";
 
   const teamAScore = getFormattedScore(teamA, "a");
   const teamBScore = getFormattedScore(teamB, "b");
@@ -1272,7 +1288,7 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   let statusText = "UPCOMING";
   let statusClass = "cs-status-tag";
   let showDot = false;
-  let finalNote = noteText || matchData.announcement1 || "IND vs WI 1st ODI • Match starts at 27 SEP, 2:00 PM";
+  let finalNote = noteText || matchData.announcement1 || "IND vs AFG T20, Match starts at 10:30am";
 
   if (isCompleted) {
     statusText = "COMPLETED";
@@ -1289,6 +1305,8 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
   const statusEl = cardElement.querySelector('[data-field="status"]');
   const nameAEl = cardElement.querySelector('[data-field="nameA"]');
   const nameBEl = cardElement.querySelector('[data-field="nameB"]');
+  const flagAEl = cardElement.querySelector('[data-field="flagA"]');
+  const flagBEl = cardElement.querySelector('[data-field="flagB"]');
   const scoreAEl = cardElement.querySelector('[data-field="scoreA"]');
   const scoreBEl = cardElement.querySelector('[data-field="scoreB"]');
   const noteEl = cardElement.querySelector('[data-field="note"]');
@@ -1309,6 +1327,18 @@ function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
 
   if (nameAEl) nameAEl.textContent = nameA;
   if (nameBEl) nameBEl.textContent = nameB;
+
+  // Dynamic Flag Assignment
+  if (flagAEl) {
+    const flagA = getTeamLogoUrl(teamA);
+    if (flagA) flagAEl.src = flagA;
+    flagAEl.alt = nameA;
+  }
+  if (flagBEl) {
+    const flagB = getTeamLogoUrl(teamB);
+    if (flagB) flagBEl.src = flagB;
+    flagBEl.alt = nameB;
+  }
 
   if (scoreAEl) {
     scoreAEl.innerHTML = teamAScore || "Yet to bat";
