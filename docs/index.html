@@ -2,64 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIR Radio</title>
 
 <style>
-* {
-  -webkit-tap-highlight-color: transparent;
+*, *::before, *::after {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
   user-select: none;
+}
+
+html { touch-action: manipulation; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0c0e14;
+  color: #f1f5f9;
+  padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
 }
 
 a {
   text-decoration: none;
   color: inherit;
-  -webkit-tap-highlight-color: transparent;
-}
-a:active, a:focus {
   outline: none;
 }
 
-html {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* ===== BASE: MODERN DEEP DARK THEME & SAFE AREA ===== */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #0c0e14;
-  color: #f1f5f9;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  padding-left: env(safe-area-inset-left, 0px);
-  padding-right: env(safe-area-inset-right, 0px);
-}
-
-/* ===== APP HEADER ===== */
+/* HEADER */
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: calc(12px + env(safe-area-inset-top, 0px));
-  padding-bottom: 12px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px;
   background: #11131a;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   position: sticky;
   top: 0;
   z-index: 100;
-}
-
-.header-title-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 .header-title {
@@ -81,12 +61,11 @@ body {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #e2e8f0;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .hdr-btn svg {
@@ -95,7 +74,7 @@ body {
   fill: currentColor;
 }
 
-/* ===== MODAL POPUPS ===== */
+/* MODALS */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -106,7 +85,7 @@ body {
   z-index: 999;
   padding: 16px;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
 }
 
 .modal-overlay.active {
@@ -123,7 +102,6 @@ body {
   max-height: 85vh;
   display: flex;
   flex-direction: column;
-  box-shadow: none;
   overflow: hidden;
 }
 
@@ -145,12 +123,10 @@ body {
   background: transparent;
   border: none;
   color: #94a3b8;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
   padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 1;
 }
 
 .modal-body {
@@ -178,14 +154,11 @@ body {
   position: absolute;
   left: 0;
   color: #38bdf8;
-  font-size: 16px;
 }
 
-.policy-item strong {
-  color: #ffffff;
-}
+.policy-item strong { color: #ffffff; }
 
-/* FORM ELEMENTS */
+/* FORM */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -209,17 +182,10 @@ body {
   font-size: 13.5px;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s;
 }
 
-.form-input:focus, .form-textarea:focus {
-  border-color: #38bdf8;
-}
-
-.form-textarea {
-  resize: none;
-  height: 95px;
-}
+.form-input:focus, .form-textarea:focus { border-color: #38bdf8; }
+.form-textarea { resize: none; height: 90px; }
 
 .form-submit-btn {
   width: 100%;
@@ -231,48 +197,32 @@ body {
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: none;
   margin-top: 4px;
-  transition: opacity 0.2s;
 }
 
-.form-submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+.form-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-status { margin-top: 12px; font-size: 12.5px; text-align: center; font-weight: 600; display: none; }
 
-.form-status {
-  margin-top: 12px;
-  font-size: 12.5px;
-  text-align: center;
-  font-weight: 600;
-  display: none;
-}
-
-/* ===== TOP MOBILE AD ===== */
+/* AD BANNER */
 .top-ad {
   width: 100%;
-  min-height: 100px;
+  min-height: 96px;
   padding: 10px 14px 2px;
   display: flex;
   justify-content: center;
-  background: #0c0e14;
-  box-sizing: border-box;
 }
 
 .top-ad img {
   width: 100%;
   max-width: 320px;
-  height: auto;
   aspect-ratio: 320 / 100;
   object-fit: cover;
   border-radius: 16px;
   display: block;
-  box-shadow: none;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* ===== CRICKET SCORE STRIP ===== */
+/* CRICKET CARD */
 .cricket-strip-container {
   padding: 8px 14px 2px;
   display: flex; 
@@ -290,11 +240,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-sizing: border-box;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  position: relative;
-  overflow: hidden;
-  margin: 0 auto;
 }
 
 .cs-top-row {
@@ -334,12 +279,9 @@ body {
 .live-dot {
   width: 6px;
   height: 6px;
-  min-width: 6px;
-  min-height: 6px;
   border-radius: 50%;
   background: #ef4444;
   display: inline-block;
-  flex-shrink: 0;
 }
 
 .cs-top-actions {
@@ -348,53 +290,20 @@ body {
   gap: 8px;
 }
 
-.cs-btn-audio {
+.cs-btn-audio, .cs-btn-card {
   height: 27px;
   padding: 0 12px;
   border-radius: 14px;
-  background: #ef4444;
-  color: #ffffff;
   font-size: 11px;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  text-decoration: none;
-  box-shadow: none;
-  transition: transform 0.15s ease;
+  gap: 4px;
 }
 
-.cs-btn-audio:active {
-  transform: scale(0.94);
-}
-
-.cs-btn-audio svg {
-  width: 12px;
-  height: 12px;
-  fill: currentColor;
-}
-
-.cs-btn-card {
-  height: 27px;
-  padding: 0 12px;
-  border-radius: 14px;
-  background: #0c1c33;
-  border: 1px solid #1e3a66;
-  color: #60a5fa;
-  font-size: 11px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  text-decoration: none;
-  transition: background 0.15s ease;
-}
-
-.cs-btn-card svg {
-  width: 12px;
-  height: 12px;
-  fill: currentColor;
-}
+.cs-btn-audio { background: #ef4444; color: #fff; }
+.cs-btn-card { background: #0c1c33; border: 1px solid #1e3a66; color: #60a5fa; }
+.cs-btn-audio svg, .cs-btn-card svg { width: 12px; height: 12px; fill: currentColor; }
 
 .cs-note {
   font-size: 12px;
@@ -404,16 +313,14 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.2;
-  margin-top: 1px;
-  margin-bottom: 2px;
 }
 
 .cs-teams-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 7px;
+  padding-top: 6px;
 }
 
 .cs-team-line {
@@ -435,14 +342,12 @@ body {
   object-fit: cover;
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: #111a2e;
-  flex-shrink: 0;
 }
 
 .cs-team-name {
   font-size: 13.5px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.2px;
 }
 
 .cs-team-score-right {
@@ -460,11 +365,8 @@ body {
   color: #94a3b8;
 }
 
-/* ===== LAYOUT ===== */
-.container {
-  padding: 12px 14px 24px;
-}
-
+/* LAYOUT */
+.container { padding: 12px 14px 24px; }
 .section-title {
   font-size: 16px;
   font-weight: 800;
@@ -473,29 +375,23 @@ body {
   color: #ffffff;
 }
 
-/* ===== QUICK BUTTONS ===== */
+/* QUICK BUTTONS */
 .quick-buttons {
   display: flex;
   gap: 10px;
   margin-bottom: 18px;
 }
 
-.quick-buttons a {
-  flex: 1;
-  min-width: 0;
-  text-decoration: none;
-}
+.quick-buttons a { flex: 1; }
 
 .qbtn {
   padding: 14px 8px 12px;
   border-radius: 18px;
   background: #171a22;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .icon-box {
@@ -508,37 +404,23 @@ body {
   margin-bottom: 8px;
 }
 
-.icon-box svg {
-  width: 20px;
-  height: 20px;
-}
+.icon-box svg { width: 20px; height: 20px; }
+.qb-air .icon-box { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); }
+.qb-air svg { fill: #38bdf8; }
 
-.qb-air .icon-box {
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-}
-.qb-air .icon-box svg { fill: #38bdf8; }
+.qb-fm .icon-box { background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.3); }
+.qb-fm svg { fill: #c084fc; }
 
-.qb-fm .icon-box {
-  background: rgba(168, 85, 247, 0.12);
-  border: 1px solid rgba(168, 85, 247, 0.3);
-}
-.qb-fm .icon-box svg { fill: #c084fc; }
-
-.qb-news .icon-box {
-  background: rgba(244, 63, 94, 0.12);
-  border: 1px solid rgba(244, 63, 94, 0.3);
-}
-.qb-news .icon-box svg { fill: #fb7185; }
+.qb-news .icon-box { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); }
+.qb-news svg { fill: #fb7185; }
 
 .label {
   font-size: 12px;
   font-weight: 700;
   color: #e2e8f0;
-  letter-spacing: 0.2px;
 }
 
-/* ===== POPULAR STATIONS ===== */
+/* STATIONS */
 #stations {
   display: flex;
   flex-direction: column;
@@ -558,7 +440,6 @@ body {
 .station-thumb {
   width: 48px;
   height: 48px;
-  aspect-ratio: 1 / 1;
   border-radius: 14px;
   object-fit: cover;
   background: #1a1d26;
@@ -566,44 +447,37 @@ body {
   flex-shrink: 0;
 }
 
-.station-info {
-  flex: 1;
-  min-width: 0;
-}
-
+.station-info { flex: 1; min-width: 0; }
 .station-name {
   font-size: 15px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.2px;
   margin-bottom: 4px;
 }
 
 .program-row {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: flex-start; /* যাতে একাধিক লাইন হ'লেও ডটটো প্ৰথম লাইনৰ সৈতে মিলি থাকে */
+  gap: 7px;
 }
 
 .station .live-dot {
   width: 7px;
   height: 7px;
-  min-width: 7px;
-  min-height: 7px;
   border-radius: 50%;
   background: #10b981;
-  display: inline-block;
   flex-shrink: 0;
-  margin-top: 5px;
-  box-shadow: none;
+  margin-top: 5px; /* প্ৰথম লাইনৰ টেক্সটৰ সমান্তৰালভাৱে থাকিব */
 }
 
+/* সম্পূৰ্ণ নাম ওলাবলৈ */
 .program {
   font-size: 12.5px;
   font-weight: 500;
   color: #94a3b8;
   line-height: 1.35;
-  word-break: break-word;
+  word-break: break-word; /* দীঘলীয়া শব্দ বা নাম তলৰ লাইনলৈ ভাঙি আহিব */
+  white-space: normal;    /* এটা লাইনৰ বাধ্যবাধকতা আঁতৰোৱা হ'ল */
 }
 
 .play {
@@ -615,7 +489,6 @@ body {
   justify-content: center;
   background: #169fe6;
   flex-shrink: 0;
-  text-decoration: none;
 }
 
 .play svg {
@@ -625,11 +498,8 @@ body {
   margin-left: 2px;
 }
 
-/* ===== NEWS BULLETIN SECTION ===== */
-.bulletin-section {
-  margin-top: 24px;
-}
-
+/* BULLETIN SECTION */
+.bulletin-section { margin-top: 24px; }
 .bulletin-toggle-bar {
   display: flex;
   gap: 6px;
@@ -650,12 +520,6 @@ body {
   padding: 8px 12px;
   border-radius: 10px;
   cursor: pointer;
-  outline: none;
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
 }
 
 .bulletin-tab-btn.active {
@@ -688,7 +552,6 @@ body {
 .bulletin-icon-box {
   width: 48px;
   height: 48px;
-  min-width: 48px;
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -698,24 +561,12 @@ body {
   flex-shrink: 0;
 }
 
-.bulletin-icon-box svg {
-  width: 24px;
-  height: 24px;
-  fill: #38bdf8;
-}
-
-.bulletin-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
+.bulletin-icon-box svg { width: 24px; height: 24px; fill: #38bdf8; }
+.bulletin-info { flex: 1; min-width: 0; }
 .bulletin-name {
   font-size: 15px;
   font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.2px;
   margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
@@ -728,7 +579,6 @@ body {
   gap: 6px;
   color: #94a3b8;
   font-size: 12px;
-  font-weight: 500;
 }
 
 .bulletin-time-row svg {
@@ -747,89 +597,63 @@ body {
   justify-content: center;
   background: #169fe6;
   flex-shrink: 0;
-  text-decoration: none;
-  position: relative;
-  transition: transform 0.2s ease;
-}
-
-.play-btn:active {
-  transform: scale(0.92);
 }
 
 .play-btn::before {
   content: "";
-  width: 0;
-  height: 0;
   border-style: solid;
   border-width: 8px 0 8px 14px;
   border-color: transparent transparent transparent #041426;
   margin-left: 3px;
-  display: block;
 }
 
-.play-btn.disabled {
-  opacity: 0.35;
-  pointer-events: none;
-  cursor: not-allowed;
-}
-
-button, a {
-  touch-action: manipulation;
-}
+.play-btn.disabled { opacity: 0.35; pointer-events: none; }
 </style>
 </head>
 
 <body>
 
-<!-- TOP APP HEADER -->
+<!-- HEADER -->
 <header class="app-header">
-  <div class="header-title-box">
-    <span class="header-title">AIR Radio</span>
-  </div>
+  <div class="header-title">AIR Radio</div>
   <div class="header-actions">
-    <button class="hdr-btn" onclick="openModal('supportModal')" title="Support & Suggestion">
+    <button class="hdr-btn" onclick="openModal('supportModal')" aria-label="Support">
       <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.2L4 17.2V4h16v12zM7 9h10v2H7zm0-3h10v2H7z"/></svg>
     </button>
-    <button class="hdr-btn" onclick="openModal('privacyModal')" title="Privacy Policy">
+    <button class="hdr-btn" onclick="openModal('privacyModal')" aria-label="Privacy">
       <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
     </button>
-    <a href="http://action_share" class="hdr-btn" title="Share App">
+    <a href="http://action_share" class="hdr-btn" aria-label="Share">
       <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
     </a>
   </div>
 </header>
 
-<!-- TOP AD BANNER -->
+<!-- AD BANNER -->
 <a href="go:COMM"> 
   <div class="top-ad">
     <img src="https://ik.imagekit.io/sqt8ptw1k/ChatGPT%20Image%20Sep%2022,%202026,%2010_58_06%20PM.webp?updatedAt=1790098189770" alt="AIR Banner" width="320" height="100" decoding="async">
   </div>
 </a>
 
-<!-- LIVE CRICKET SCORE STRIP -->
+<!-- CRICKET STRIP -->
 <div class="cricket-strip-container" id="cricketSection">
   <div class="cricket-card" id="cricketCard1">
-    
     <div class="cs-top-row">
       <span class="cs-status-tag" data-field="status">UPCOMING</span>
-      
       <div class="cs-top-actions">
         <a href="" class="cs-btn-audio" data-field="audio" style="display:none;">
           <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
           <span>Audio</span>
         </a>
-
         <a href="go:card1" class="cs-btn-card" data-field="scorecard">
           <span>Scorecard</span>
           <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
         </a>
       </div>
     </div>
-
     <div class="cs-note" data-field="note">IND vs AFG T20, Match starts at 10:30am</div>
-
     <div class="cs-teams-wrapper">
-      <!-- Team A Line -->
       <div class="cs-team-line">
         <div class="cs-team-left">
           <img src="https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp" class="cs-flag" data-field="flagA" alt="AFG" width="20" height="20">
@@ -837,8 +661,6 @@ button, a {
         </div>
         <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
-
-      <!-- Team B Line -->
       <div class="cs-team-line">
         <div class="cs-team-left">
           <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp" class="cs-flag" data-field="flagB" alt="IND" width="20" height="20">
@@ -847,143 +669,118 @@ button, a {
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
     </div>
-
   </div>
 </div>
 
 <div class="container">
-
-<!-- QUICK BUTTONS -->
-<div class="quick-buttons">
-  <a href="go:AIR" class="qb-air">
-    <div class="qbtn">
-      <div class="icon-box">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8H3zm16 8H5v-6h14v6zM7 4l10 4H7V4zm2 9h3v3H9v-3zm7 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/>
-        </svg>
-      </div>
-      <div class="label">AIR Radio</div>
-    </div>
-  </a>
-
-  <a href="go:FM2" class="qb-fm">
-    <div class="qbtn">
-      <div class="icon-box">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/>
-        </svg>
-      </div>
-      <div class="label">FM Radio</div>
-    </div>
-  </a>
-
-  <a href="go:LIVEN" class="qb-news">
-    <div class="qbtn">
-      <div class="icon-box">
-        <svg viewBox="0 0 24 24">
-          <path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/>
-        </svg>
-      </div>
-      <div class="label">Live News</div>
-    </div>
-  </a>
-</div>
-
-<!-- POPULAR STATIONS (STATIC HTML FOR INSTANT RENDERING) -->
-<div id="homeContent">
-  <h2 class="section-title">🔥 Popular Stations</h2>
-  
-  <div id="stations">
-    <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" class="station-thumb" alt="FM Rainbow" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
-      <div class="station-info">
-        <div class="station-name">FM Rainbow</div>
-        <div class="program-row">
-          <span class="live-dot"></span>
-          <div class="program" data-channel="FM Rainbow">Live Broadcast</div>
+  <!-- QUICK BUTTONS -->
+  <div class="quick-buttons">
+    <a href="go:AIR" class="qb-air">
+      <div class="qbtn">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24"><path d="M3 10v8a2 2 0 002 2h14a2 2 0 002-2v-8H3zm16 8H5v-6h14v6zM7 4l10 4H7V4zm2 9h3v3H9v-3zm7 1a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
         </div>
+        <div class="label">AIR Radio</div>
       </div>
-      <a href="go:FMR" class="play" aria-label="Play FM Rainbow">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </a>
-    </div>
-
-    <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" class="station-thumb" alt="Vividh Bharati" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
-      <div class="station-info">
-        <div class="station-name">Vividh Bharati</div>
-        <div class="program-row">
-          <span class="live-dot"></span>
-          <div class="program" data-channel="Vividh Bharati">Live Broadcast</div>
+    </a>
+    <a href="go:FM2" class="qb-fm">
+      <div class="qbtn">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 019 9h-2a7 7 0 00-14 0H3a9 9 0 019-9zm0 6a3 3 0 013 3h-2a1 1 0 00-2 0H9a3 3 0 013-3zm-1 8h2v4h-2z"/></svg>
         </div>
+        <div class="label">FM Radio</div>
       </div>
-      <a href="go:N002" class="play" aria-label="Play Vividh Bharati">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </a>
-    </div>
-
-    <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" class="station-thumb" alt="FM Gold" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
-      <div class="station-info">
-        <div class="station-name">FM Gold</div>
-        <div class="program-row">
-          <span class="live-dot"></span>
-          <div class="program" data-channel="FM Gold">Live Broadcast</div>
+    </a>
+    <a href="go:LIVEN" class="qb-news">
+      <div class="qbtn">
+        <div class="icon-box">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM10 9l5 3-5 3zM8 20h8v-2H8z"/></svg>
         </div>
+        <div class="label">Live News</div>
       </div>
-      <a href="go:FMG" class="play" aria-label="Play FM Gold">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </a>
-    </div>
-
-    <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" class="station-thumb" alt="Indraprastha" width="48" height="48" decoding="async" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
-      <div class="station-info">
-        <div class="station-name">Indraprastha</div>
-        <div class="program-row">
-          <span class="live-dot"></span>
-          <div class="program" data-channel="Indraprastha">Live Broadcast</div>
-        </div>
-      </div>
-      <a href="go:INDRA" class="play" aria-label="Play Indraprastha">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </a>
-    </div>
+    </a>
   </div>
 
-  <!-- NEWS BULLETIN SECTION -->
-  <div class="bulletin-section">
-    <h2 class="section-title">🎙️ Latest Updates</h2>
-    
-    <div class="bulletin-toggle-bar" id="bulletinTabs">
-      <button class="bulletin-tab-btn active" id="bulletinTab0" onclick="switchBulletin(0)">Hindi</button>
-      <button class="bulletin-tab-btn" id="bulletinTab1" onclick="switchBulletin(1)">English</button>
-      <button class="bulletin-tab-btn" id="bulletinTab2" onclick="switchBulletin(2)">BBC</button>
+  <!-- POPULAR STATIONS -->
+  <div id="homeContent">
+    <h2 class="section-title">🔥 Popular Stations</h2>
+    <div id="stations">
+      <div class="station">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" class="station-thumb" alt="FM Rainbow" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <div class="station-info">
+          <div class="station-name">FM Rainbow</div>
+          <div class="program-row">
+            <span class="live-dot"></span>
+            <div class="program" data-channel="fm rainbow">Live Broadcast</div>
+          </div>
+        </div>
+        <a href="go:FMR" class="play" aria-label="Play FM Rainbow"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+      </div>
+
+      <div class="station">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" class="station-thumb" alt="Vividh Bharati" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <div class="station-info">
+          <div class="station-name">Vividh Bharati</div>
+          <div class="program-row">
+            <span class="live-dot"></span>
+            <div class="program" data-channel="vividh bharati">Live Broadcast</div>
+          </div>
+        </div>
+        <a href="go:N002" class="play" aria-label="Play Vividh Bharati"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+      </div>
+
+      <div class="station">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" class="station-thumb" alt="FM Gold" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <div class="station-info">
+          <div class="station-name">FM Gold</div>
+          <div class="program-row">
+            <span class="live-dot"></span>
+            <div class="program" data-channel="fm gold">Live Broadcast</div>
+          </div>
+        </div>
+        <a href="go:FMG" class="play" aria-label="Play FM Gold"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+      </div>
+
+      <div class="station">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" class="station-thumb" alt="Indraprastha" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <div class="station-info">
+          <div class="station-name">Indraprastha</div>
+          <div class="program-row">
+            <span class="live-dot"></span>
+            <div class="program" data-channel="indraprastha">Live Broadcast</div>
+          </div>
+        </div>
+        <a href="go:INDRA" class="play" aria-label="Play Indraprastha"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+      </div>
     </div>
 
-    <div class="bulletin-card" id="bulletinCard">
-      <div class="bulletin-icon-box" aria-hidden="true">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.94V22h2v-2.06A8 8 0 0 0 20 12h-2z"/>
-        </svg>
+    <!-- NEWS BULLETIN -->
+    <div class="bulletin-section">
+      <h2 class="section-title">🎙️ Latest Updates</h2>
+      <div class="bulletin-toggle-bar">
+        <button class="bulletin-tab-btn active" id="bulletinTab0" onclick="switchBulletin(0)">Hindi</button>
+        <button class="bulletin-tab-btn" id="bulletinTab1" onclick="switchBulletin(1)">English</button>
+        <button class="bulletin-tab-btn" id="bulletinTab2" onclick="switchBulletin(2)">BBC</button>
       </div>
-      <div class="bulletin-info">
-        <div class="bulletin-name" id="bulletinName">AIR Hindi Samachar</div>
-        <div class="bulletin-time-row">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/>
-          </svg>
-          <span id="bulletinTime">Loading latest bulletin...</span>
+
+      <div class="bulletin-card">
+        <div class="bulletin-icon-box" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.94V22h2v-2.06A8 8 0 0 0 20 12h-2z"/></svg>
         </div>
+        <div class="bulletin-info">
+          <div class="bulletin-name" id="bulletinName">AIR Hindi Samachar</div>
+          <div class="bulletin-time-row">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/></svg>
+            <span id="bulletinTime">Loading latest bulletin...</span>
+          </div>
+        </div>
+        <a href="javascript:void(0)" id="bulletinPlayBtn" class="play-btn disabled" aria-label="Play"></a>
       </div>
-      <a href="javascript:void(0)" id="bulletinPlayBtn" class="play-btn disabled" aria-label="Loading News Bulletin"></a>
     </div>
   </div>
 </div>
 
-</div>
-
-<!-- PRIVACY POLICY MODAL -->
+<!-- MODALS -->
 <div class="modal-overlay" id="privacyModal" onclick="closeModalOnOverlay(event, 'privacyModal')">
   <div class="modal-card">
     <div class="modal-header">
@@ -991,26 +788,16 @@ button, a {
       <button class="modal-close" onclick="closeModal('privacyModal')">&times;</button>
     </div>
     <div class="modal-body">
-      <p style="margin-top:0; font-weight: 600; color: #f1f5f9;">AIR Radio App values your privacy:</p>
+      <p style="margin-top:0; font-weight:600; color:#f1f5f9;">AIR Radio App values your privacy:</p>
       <div class="policy-list">
-        <div class="policy-item">
-          <strong>No Personal Data:</strong> We do not collect, store, or share your personal details, contacts, or location.
-        </div>
-        <div class="policy-item">
-          <strong>Advertisements:</strong> We use Google AdMob to show ads, which may use anonymous device Advertising IDs to serve relevant ads.
-        </div>
-        <div class="policy-item">
-          <strong>Permissions:</strong> Network and background playback permissions are strictly used to deliver live radio streaming.
-        </div>
-        <div class="policy-item">
-          <strong>Disclaimer:</strong> All radio streams, names, and logos belong to their respective broadcast owners (including Prasar Bharati / All India Radio).
-        </div>
+        <div class="policy-item"><strong>No Personal Data:</strong> We do not collect or store personal details.</div>
+        <div class="policy-item"><strong>Advertisements:</strong> Google AdMob may use device IDs to serve ads.</div>
+        <div class="policy-item"><strong>Permissions:</strong> Network permissions are strictly for radio audio.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- SUPPORT & SUGGESTION MODAL -->
 <div class="modal-overlay" id="supportModal" onclick="closeModalOnOverlay(event, 'supportModal')">
   <div class="modal-card">
     <div class="modal-header">
@@ -1020,19 +807,15 @@ button, a {
     <div class="modal-body">
       <form id="supportForm">
         <input type="hidden" name="access_key" value="c4f49c46-1477-463a-826c-e08860762292">
-        <input type="hidden" name="subject" value="New Feedback from AIR Radio App">
-
         <div class="form-group">
           <label class="form-label" for="userName">Name</label>
-          <input type="text" id="userName" name="name" class="form-input" placeholder="Enter your name" required>
+          <input type="text" id="userName" name="name" class="form-input" placeholder="Your name" required>
         </div>
-
         <div class="form-group">
-          <label class="form-label" for="userMessage">Issue / Suggestion</label>
-          <textarea id="userMessage" name="message" class="form-textarea" placeholder="Write your issue or suggestion here..." required></textarea>
+          <label class="form-label" for="userMessage">Message</label>
+          <textarea id="userMessage" name="message" class="form-textarea" placeholder="Your issue or suggestion..." required></textarea>
         </div>
-
-        <button type="submit" class="form-submit-btn" id="submitBtn">Send Message</button>
+        <button type="submit" class="form-submit-btn" id="submitBtn">Send</button>
         <div class="form-status" id="formStatus"></div>
       </form>
     </div>
@@ -1040,595 +823,265 @@ button, a {
 </div>
 
 <script>
-/* ===== MODAL FUNCTIONS ===== */
-let activeModalId = null;
+/* DOM CACHE FOR PROGRAM LABELS (PREVENTS QUERYING EVERY MINUTE) */
+let cachedProgramNodes = [];
 
+/* MODAL LOGIC */
+let activeModalId = null;
 function openModal(id) {
-  const modal = document.getElementById(id);
-  if (modal) {
-    modal.classList.add("active");
+  const m = document.getElementById(id);
+  if (m) {
+    m.classList.add("active");
     activeModalId = id;
     history.pushState({ modalOpen: id }, "");
   }
 }
 
 function closeModal(id) {
-  const modal = document.getElementById(id);
-  if (modal && modal.classList.contains("active")) {
-    modal.classList.remove("active");
-    if (history.state && history.state.modalOpen === id) {
-      activeModalId = null;
-      history.back();
-    } else {
-      activeModalId = null;
-    }
+  const m = document.getElementById(id);
+  if (m && m.classList.contains("active")) {
+    m.classList.remove("active");
+    if (history.state && history.state.modalOpen === id) history.back();
+    activeModalId = null;
   }
 }
 
 function closeModalOnOverlay(e, id) {
-  if (e.target.id === id) {
-    closeModal(id);
-  }
+  if (e.target.id === id) closeModal(id);
 }
 
-window.addEventListener("popstate", function () {
+window.addEventListener("popstate", () => {
   if (activeModalId) {
-    const modal = document.getElementById(activeModalId);
-    if (modal) modal.classList.remove("active");
+    const m = document.getElementById(activeModalId);
+    if (m) m.classList.remove("active");
     activeModalId = null;
   }
 });
 
-/* ===== SUPPORT FORM SUBMISSION ===== */
+/* FORM HANDLER */
 const supportForm = document.getElementById("supportForm");
 if (supportForm) {
-  supportForm.addEventListener("submit", async function(e) {
+  supportForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-    
-    const submitBtn = document.getElementById("submitBtn");
+    const btn = document.getElementById("submitBtn");
     const statusBox = document.getElementById("formStatus");
+    btn.disabled = true;
+    btn.textContent = "Sending...";
     
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-    statusBox.style.display = "none";
-    
-    const formData = new FormData(supportForm);
-    const jsonObject = Object.fromEntries(formData.entries());
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify(jsonObject)
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(Object.fromEntries(new FormData(supportForm).entries()))
       });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        statusBox.style.display = "block";
-        statusBox.style.color = "#10b981";
-        statusBox.textContent = "✓ Message sent successfully!";
+      const data = await res.json();
+      statusBox.style.display = "block";
+      statusBox.style.color = data.success ? "#10b981" : "#ef4444";
+      statusBox.textContent = data.success ? "✓ Message sent!" : "Failed to send.";
+      if (data.success) {
         supportForm.reset();
-        setTimeout(() => {
-          closeModal("supportModal");
-          statusBox.style.display = "none";
-        }, 2000);
-      } else {
-        statusBox.style.display = "block";
-        statusBox.style.color = "#ef4444";
-        statusBox.textContent = result.message || "Failed to send message.";
+        setTimeout(() => { closeModal("supportModal"); statusBox.style.display = "none"; }, 1500);
       }
-    } catch (err) {
+    } catch {
       statusBox.style.display = "block";
       statusBox.style.color = "#ef4444";
-      statusBox.textContent = "Network error. Please try again.";
+      statusBox.textContent = "Network error.";
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send Message";
+      btn.disabled = false;
+      btn.textContent = "Send";
     }
   });
 }
 
-/* ============================================================
-   ===== CRICKET MASTER SWITCH (SHOW / HIDE) =====
-   ============================================================ */
+/* CRICKET LOGIC */
 const SHOW_CRICKET = true;
+const cricketCard = document.getElementById("cricketCard1");
+const cardEls = cricketCard ? {
+  status: cricketCard.querySelector('[data-field="status"]'),
+  nameA: cricketCard.querySelector('[data-field="nameA"]'),
+  nameB: cricketCard.querySelector('[data-field="nameB"]'),
+  flagA: cricketCard.querySelector('[data-field="flagA"]'),
+  flagB: cricketCard.querySelector('[data-field="flagB"]'),
+  scoreA: cricketCard.querySelector('[data-field="scoreA"]'),
+  scoreB: cricketCard.querySelector('[data-field="scoreB"]'),
+  note: cricketCard.querySelector('[data-field="note"]'),
+  audio: cricketCard.querySelector('[data-field="audio"]')
+} : null;
 
-// Known Team Flags Map
-const TEAM_FLAGS_MAP = {
-  "ind": "https://ik.imagekit.io/sqt8ptw1k/india.webp",
-  "india": "https://ik.imagekit.io/sqt8ptw1k/india.webp",
-  "afg": "https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp",
-  "afghanistan": "https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp",
-  "wi": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
-  "west indies": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp"
+const FLAGS = {
+  ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp",
+  afg: "https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp",
+  wi: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp"
 };
 
-function getTeamLogoUrl(team) {
-  if (!team) return "";
-  const key = (team.shortName || team.name || "").toLowerCase().trim();
-  return TEAM_FLAGS_MAP[key] || team.logo || team.flag || "";
+function formatScore(s) {
+  if (!s || s.runs === undefined) return "";
+  const ov = s.overs ?? (s.balls !== undefined ? `${Math.floor(s.balls / 6)}.${s.balls % 6}` : "");
+  return `${s.runs}/${s.wickets || 0}${ov ? ` <span class="cs-overs">(${ov} ov)</span>` : ""}`;
 }
 
-const cricketMatch = {
-  cardId: "cricketCard1",
-  matchId: "6a9a9df21f0f3936e9027d6f",
-  scorecardLink: "go:card1",
-  audioLink: "",
-  initialData: {
-    "_id": "6a9a9df21f0f3936e9027d6f",
-    "status": "notstarted",
-    "format": "t20",
-    "announcement1": "IND vs AFG T20, Match starts at 10:30am",
-    "powerplay": "",
-    "teams": {
-      "a": { "name": "Afghanistan", "shortName": "AFG" },
-      "b": { "name": "India", "shortName": "IND" }
-    },
-    "now": { "req_run_rate": "", "run_rate": "" },
-    "currentBattingOrder": 0,
-    "settingObj": {
-      "currentInning": 0,
-      "currentTeam": "a",
-      "isTeamAReducedOver": false,
-      "isTeamBReducedOver": false,
-      "teamAOver": 0,
-      "teamBOver": 0
-    }
-  }
-};
+function renderCricket(data) {
+  if (!cardEls || !data) return;
+  const a = data.teams?.a || {}, b = data.teams?.b || {};
+  const nameA = a.shortName || a.name || "AFG";
+  const nameB = b.shortName || b.name || "IND";
 
-function formatInningScore(scoreObj) {
-  if (!scoreObj) return "";
-  const runs = scoreObj.runs ?? scoreObj.r;
-  if (runs === undefined || runs === null) return "";
+  cardEls.nameA.textContent = nameA;
+  cardEls.nameB.textContent = nameB;
+  cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || "";
+  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || "";
 
-  const wickets = scoreObj.wickets ?? scoreObj.w ?? 0;
-  let overs = scoreObj.overs ?? scoreObj.over ?? scoreObj.o;
+  const scA = formatScore(a.a_1_score || a.score);
+  const scB = formatScore(b.b_1_score || b.score);
+  cardEls.scoreA.innerHTML = scA || "Yet to bat";
+  cardEls.scoreB.innerHTML = scB || "Yet to bat";
+  cardEls.scoreA.style.color = scA ? "#38bdf8" : "#94a3b8";
+  cardEls.scoreB.style.color = scB ? "#38bdf8" : "#94a3b8";
 
-  if ((overs === undefined || overs === null) && scoreObj.balls !== undefined) {
-    const completedOvers = Math.floor(scoreObj.balls / 6);
-    const remBalls = scoreObj.balls % 6;
-    overs = `${completedOvers}.${remBalls}`;
-  }
+  const st = (data.status || "").toLowerCase();
+  const isLive = st.includes("live") || st.includes("progress") || (scA || scB);
+  const isEnd = st.includes("finish") || st.includes("complete");
 
-  const overText = (overs !== undefined && overs !== null && overs !== "") ? ` <span class="cs-overs">(${overs} ov)</span>` : "";
-  return `${runs}/${wickets}${overText}`;
-}
-
-function getFormattedScore(teamData, teamKey) {
-  if (!teamData) return "";
-  const s1 = teamData[`${teamKey}_1_score`] || teamData.score;
-  const s2 = teamData[`${teamKey}_2_score`];
-
-  const score1 = formatInningScore(s1);
-  const score2 = formatInningScore(s2);
-
-  if (score2 && score1) return `${score2} & ${score1}`;
-  return score2 || score1 || "";
-}
-
-function extractMatchNote(result) {
-  let note = "";
-  if (result.lastCommentary && result.lastCommentary.secondaryText) {
-    note = result.lastCommentary.secondaryText;
-  } else if (result.announcement1 && result.announcement1.trim() !== "") {
-    note = result.announcement1.trim();
-  }
-
-  return note.split(/\r?\n/).map(line => line.trim()).filter(Boolean).join(" • ");
-}
-
-/* SMART CRICKET RENDER WITH DYNAMIC FLAG DETECTION */
-function renderCricketStrip(cardElement, matchData, scorecardLink, audioLink) {
-  if (!cardElement || !matchData) return;
-
-  const teamA = matchData.teams ? matchData.teams.a : {};
-  const teamB = matchData.teams ? matchData.teams.b : {};
-
-  const nameA = teamA.shortName || teamA.name || "AFG";
-  const nameB = teamB.shortName || teamB.name || "IND";
-
-  const teamAScore = getFormattedScore(teamA, "a");
-  const teamBScore = getFormattedScore(teamB, "b");
-
-  const noteText = extractMatchNote(matchData);
-  const noteLower = (noteText || "").toLowerCase();
-
-  const rawStatus = (
-    matchData.status ||
-    matchData.state ||
-    matchData.matchStatus ||
-    ""
-  ).toLowerCase().replace(/[\s_\-]+/g, "");
-
-  const hasScores = Boolean(
-    teamAScore ||
-    teamBScore ||
-    (teamA && (teamA.score || teamA.a_1_score || teamA.a_2_score)) ||
-    (teamB && (teamB.score || teamB.b_1_score || teamB.b_2_score))
-  );
-
-  const isCompleted =
-    rawStatus.includes("complete") ||
-    rawStatus.includes("finish") ||
-    rawStatus.includes("ended") ||
-    rawStatus.includes("result") ||
-    noteLower.includes("won by") ||
-    noteLower.includes("won") ||
-    noteLower.includes("match drawn") ||
-    noteLower.includes("draw") ||
-    noteLower.includes("tied") ||
-    noteLower.includes("abandoned");
-
-  const isUpcoming =
-    rawStatus.includes("notstarted") ||
-    rawStatus.includes("upcoming") ||
-    rawStatus.includes("preview");
-
-  const isLive =
-    !isCompleted &&
-    !isUpcoming &&
-    (
-      rawStatus.includes("live") ||
-      rawStatus.includes("inprogress") ||
-      (rawStatus.includes("started") && !rawStatus.includes("notstarted")) ||
-      rawStatus.includes("ongoing") ||
-      rawStatus.includes("stump") ||
-      rawStatus.includes("break") ||
-      rawStatus.includes("tea") ||
-      rawStatus.includes("lunch") ||
-      rawStatus.includes("delay") ||
-      (hasScores && !isUpcoming)
-    );
-
-  let statusText = "UPCOMING";
-  let statusClass = "cs-status-tag";
-  let showDot = false;
-  let finalNote = noteText || matchData.announcement1 || "IND vs AFG T20, Match starts at 10:30am";
-
-  if (isCompleted) {
-    statusText = "COMPLETED";
-    statusClass = "cs-status-tag completed";
-    showDot = false;
-    finalNote = noteText || "Match Finished";
-  } else if (isLive) {
-    statusText = "LIVE";
-    statusClass = "cs-status-tag live";
-    showDot = true;
-    finalNote = noteText || "Match in progress";
-  }
-
-  const statusEl = cardElement.querySelector('[data-field="status"]');
-  const nameAEl = cardElement.querySelector('[data-field="nameA"]');
-  const nameBEl = cardElement.querySelector('[data-field="nameB"]');
-  const flagAEl = cardElement.querySelector('[data-field="flagA"]');
-  const flagBEl = cardElement.querySelector('[data-field="flagB"]');
-  const scoreAEl = cardElement.querySelector('[data-field="scoreA"]');
-  const scoreBEl = cardElement.querySelector('[data-field="scoreB"]');
-  const noteEl = cardElement.querySelector('[data-field="note"]');
-  const scorecardEl = cardElement.querySelector('[data-field="scorecard"]');
-  const audioEl = cardElement.querySelector('[data-field="audio"]');
-
-  if (statusEl) {
-    statusEl.className = statusClass;
-    statusEl.textContent = "";
-
-    if (showDot) {
-      const dot = document.createElement("span");
-      dot.className = "live-dot";
-      statusEl.appendChild(dot);
-    }
-    statusEl.appendChild(document.createTextNode(statusText));
-  }
-
-  if (nameAEl) nameAEl.textContent = nameA;
-  if (nameBEl) nameBEl.textContent = nameB;
-
-  // Dynamic Flag Assignment
-  if (flagAEl) {
-    const flagA = getTeamLogoUrl(teamA);
-    if (flagA) flagAEl.src = flagA;
-    flagAEl.alt = nameA;
-  }
-  if (flagBEl) {
-    const flagB = getTeamLogoUrl(teamB);
-    if (flagB) flagBEl.src = flagB;
-    flagBEl.alt = nameB;
-  }
-
-  if (scoreAEl) {
-    scoreAEl.innerHTML = teamAScore || "Yet to bat";
-    scoreAEl.style.color = teamAScore ? "#38bdf8" : "#94a3b8";
-  }
-
-  if (scoreBEl) {
-    scoreBEl.innerHTML = teamBScore || "Yet to bat";
-    scoreBEl.style.color = teamBScore ? "#38bdf8" : "#94a3b8";
-  }
-
-  if (noteEl) noteEl.textContent = finalNote;
-  if (scorecardEl) scorecardEl.href = scorecardLink || "#";
-
-  if (audioEl) {
-    if (audioLink) {
-      audioEl.href = audioLink;
-      audioEl.style.display = "inline-flex";
-    } else {
-      audioEl.removeAttribute("href");
-      audioEl.style.display = "none";
-    }
-  }
+  cardEls.status.className = isEnd ? "cs-status-tag completed" : (isLive ? "cs-status-tag live" : "cs-status-tag");
+  cardEls.status.innerHTML = (isLive ? '<span class="live-dot"></span>' : '') + (isEnd ? 'COMPLETED' : (isLive ? 'LIVE' : 'UPCOMING'));
+  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "Match in progress";
 }
 
 async function fetchMatchScore() {
   if (!SHOW_CRICKET) return;
-  const cardElement = document.getElementById(cricketMatch.cardId);
-  if (!cardElement || cricketMatch.loading) return;
-
-  cricketMatch.loading = true;
-
   try {
-    const url = `https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=${cricketMatch.matchId}&_t=${Date.now()}`;
-    const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) return;
-
-    const data = await response.json();
-
-    if (data && data.responseData && data.responseData.result) {
-      renderCricketStrip(
-        cardElement,
-        data.responseData.result,
-        cricketMatch.scorecardLink,
-        cricketMatch.audioLink
-      );
+    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a9a9df21f0f3936e9027d6f", { cache: "no-store" });
+    if (res.ok) {
+      const json = await res.json();
+      if (json?.responseData?.result) renderCricket(json.responseData.result);
     }
-  } catch (error) {
-    console.error(`Match Fetch Error (${cricketMatch.matchId}):`, error);
-  } finally {
-    cricketMatch.loading = false;
+  } catch {}
+}
+
+/* PURE MATH IST MINUTES (NO INTL OVERHEAD) */
+function getISTMinutes() {
+  const d = new Date(Date.now() + 19800000);
+  return d.getUTCHours() * 60 + d.getUTCMinutes();
+}
+
+function parseTimeToMin(t) {
+  if (!t) return 0;
+  const m = String(t).match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+  if (!m) return 0;
+  let h = +m[1];
+  if (m[3]?.toUpperCase() === "PM" && h !== 12) h += 12;
+  if (m[3]?.toUpperCase() === "AM" && h === 12) h = 0;
+  return h * 60 + (+m[2]);
+}
+
+/* SCHEDULE CACHE & FAST RESOLUTION */
+let scheduleCache = {};
+try {
+  const cached = localStorage.getItem("air_sch");
+  if (cached) scheduleCache = JSON.parse(cached);
+} catch {}
+
+function rebuildSchedule() {
+  const data = window.SCHEDULE_DATA;
+  if (!Array.isArray(data)) return;
+  scheduleCache = {};
+  
+  ["fm rainbow", "vividh bharati", "fm gold", "indraprastha"].forEach(ch => {
+    scheduleCache[ch] = data
+      .filter(item => item?.channel && item?.time && item.channel.toLowerCase().includes(ch))
+      .map(item => ({ title: item.title || "Live Broadcast", min: parseTimeToMin(item.time) }))
+      .sort((a, b) => a.min - b.min);
+  });
+
+  try { localStorage.setItem("air_sch", JSON.stringify(scheduleCache)); } catch {}
+}
+
+function updatePrograms() {
+  const now = getISTMinutes();
+  for (let i = 0; i < cachedProgramNodes.length; i++) {
+    const { el, channel } = cachedProgramNodes[i];
+    const list = scheduleCache[channel];
+    if (!list || !list.length) continue;
+
+    let title = list[list.length - 1].title;
+    for (let j = 0; j < list.length; j++) {
+      if (now >= list[j].min && (!list[j + 1] || now < list[j + 1].min)) {
+        title = list[j].title;
+        break;
+      }
+    }
+    el.textContent = title;
   }
 }
 
-function checkAndInitCricket() {
-  const cricketSec = document.getElementById("cricketSection");
-  if (!cricketSec) return;
-
-  if (SHOW_CRICKET) {
-    cricketSec.style.display = "flex";
-    if (cricketMatch.initialData) {
-      const el = document.getElementById(cricketMatch.cardId);
-      renderCricketStrip(el, cricketMatch.initialData, cricketMatch.scorecardLink, cricketMatch.audioLink);
+/* NEWS BULLETIN */
+let bulletins = [];
+async function loadBulletins() {
+  try {
+    const res = await fetch("https://vividh.pages.dev/bulletins.json");
+    if (res.ok) {
+      bulletins = await res.json();
+      if (bulletins.length) switchBulletin(0);
     }
-    fetchMatchScore();
-  } else {
-    cricketSec.style.display = "none";
+  } catch {}
+}
+
+function switchBulletin(idx) {
+  if (!bulletins[idx]) return;
+  for (let i = 0; i < 3; i++) {
+    document.getElementById(`bulletinTab${i}`)?.classList.toggle("active", i === idx);
+  }
+  const item = bulletins[idx];
+  document.getElementById("bulletinName").textContent = item.name || "News Bulletin";
+  document.getElementById("bulletinTime").textContent = item.time || "";
+  const playBtn = document.getElementById("bulletinPlayBtn");
+  if (item.streamUrl) {
+    playBtn.href = item.streamUrl;
+    playBtn.classList.remove("disabled");
   }
 }
 
-/* ===== BACKGROUND POLLING ===== */
-let cricketPollTimer = null;
-let schedulePollTimer = null;
-let scheduleLoaded = false;
-
-function startSchedulePolling() {
-  if (!scheduleLoaded || schedulePollTimer || document.hidden) return;
-  schedulePollTimer = setInterval(() => {
-    updateProgramsOnly();
+/* UNIFIED TICKER (SINGLE INTERVAL) */
+let ticker = null;
+function startTicker() {
+  if (ticker) clearInterval(ticker);
+  ticker = setInterval(() => {
+    if (!document.hidden) {
+      fetchMatchScore();
+      updatePrograms();
+    }
   }, 60000);
-}
-
-function startPolling() {
-  stopPolling();
-
-  if (SHOW_CRICKET) {
-    cricketPollTimer = setInterval(() => {
-      if (!document.hidden) fetchMatchScore();
-    }, 60000);
-  }
-
-  startSchedulePolling();
-}
-
-function stopPolling() {
-  if (cricketPollTimer) {
-    clearInterval(cricketPollTimer);
-    cricketPollTimer = null;
-  }
-  if (schedulePollTimer) {
-    clearInterval(schedulePollTimer);
-    schedulePollTimer = null;
-  }
 }
 
 document.addEventListener("visibilitychange", () => {
   if (document.hidden) {
-    stopPolling();
+    if (ticker) clearInterval(ticker);
   } else {
-    if (SHOW_CRICKET) fetchMatchScore();
-    if (scheduleLoaded) updateProgramsOnly();
-    startPolling();
+    fetchMatchScore();
+    updatePrograms();
+    startTicker();
   }
 });
 
-/* ===== FAST PURE MATH IST CLOCK (NO INTL OVERHEAD) ===== */
-function getISTMinutes() {
-  const istDate = new Date(Date.now() + 19800000); // UTC + 5:30
-  return istDate.getUTCHours() * 60 + istDate.getUTCMinutes();
-}
-
-function timeToMinutes(t) {
-  if (!t) return 0;
-
-  const value = String(t).trim();
-  const match = value.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
-  if (!match) return 0;
-
-  let h = Number(match[1]);
-  const m = Number(match[2]);
-  const meridiem = match[3] ? match[3].toUpperCase() : null;
-
-  if (meridiem === "PM" && h !== 12) h += 12;
-  if (meridiem === "AM" && h === 12) h = 0;
-
-  return h * 60 + m;
-}
-
-/* ===== RADIO & SCHEDULE LOGIC ===== */
-const popularStationNames = ["FM Rainbow", "Vividh Bharati", "FM Gold", "Indraprastha"];
-const lastProgram = {};
-let scheduleCache = {};
-
-try {
-  const savedCache = localStorage.getItem("air_schedule_cache");
-  if (savedCache) {
-    scheduleCache = JSON.parse(savedCache);
-    scheduleLoaded = true;
-  }
-} catch (e) {
-  scheduleCache = {};
-}
-
-function rebuildScheduleCache() {
-  const data = Array.isArray(window.SCHEDULE_DATA) ? window.SCHEDULE_DATA : [];
-  if (!data.length) return;
-
-  scheduleCache = {};
-
-  popularStationNames.forEach(name => {
-    const channelKey = name.toLowerCase().trim();
-
-    scheduleCache[channelKey] = data
-      .filter(item => item && item.channel && item.time && item.channel.toLowerCase().includes(channelKey))
-      .map(item => ({
-        title: item.title || "Live Broadcast",
-        min: timeToMinutes(item.time)
-      }))
-      .sort((a, b) => a.min - b.min);
-  });
-}
-
-function getCurrentProgram(channel, nowMin) {
-  const channelKey = String(channel || "").toLowerCase().trim();
-  const list = scheduleCache[channelKey];
-
-  if (!list || !list.length) {
-    return lastProgram[channel] || (scheduleLoaded ? "Live Broadcast" : "Loading...");
-  }
-
-  const currentMinute = Number.isFinite(nowMin) ? nowMin : getISTMinutes();
-  let currentTitle = "Live Broadcast";
-
-  if (currentMinute < list[0].min) {
-    currentTitle = list[list.length - 1].title;
-  } else {
-    for (let i = 0; i < list.length; i++) {
-      const current = list[i];
-      const next = list[i + 1];
-
-      if (currentMinute >= current.min && (!next || currentMinute < next.min)) {
-        currentTitle = current.title;
-        break;
-      }
-    }
-  }
-
-  lastProgram[channel] = currentTitle;
-  return currentTitle;
-}
-
-function updateProgramsOnly() {
-  const nowMin = getISTMinutes();
-
+/* INIT */
+document.addEventListener("DOMContentLoaded", () => {
+  // Cache DOM nodes once
   document.querySelectorAll(".program").forEach(el => {
-    const channel = el.getAttribute("data-channel");
-    if (channel) {
-      el.textContent = getCurrentProgram(channel, nowMin);
-    }
+    cachedProgramNodes.push({ el, channel: el.getAttribute("data-channel") });
   });
-}
 
-function handleScheduleLoaded() {
-  scheduleLoaded = true;
-  rebuildScheduleCache();
+  fetchMatchScore();
+  loadBulletins();
+  updatePrograms();
+  startTicker();
 
-  try {
-    localStorage.setItem("air_schedule_cache", JSON.stringify(scheduleCache));
-  } catch (e) {}
-
-  updateProgramsOnly();
-  startSchedulePolling();
-}
-
-function handleScheduleError() {
-  if (!scheduleLoaded) {
-    document.querySelectorAll(".program").forEach(el => {
-      if (el.textContent === "Loading...") el.textContent = "Live Broadcast";
-    });
-  }
-}
-
-function loadScheduleScript() {
-  if (document.getElementById("airScheduleScript")) return;
-
-  const script = document.createElement("script");
-  script.id = "airScheduleScript";
-  script.src = "https://allindiaradio.pages.dev/docs/schedule.js";
-  script.onload = handleScheduleLoaded;
-  script.onerror = handleScheduleError;
-  document.head.appendChild(script);
-}
-
-/* ===== NEWS BULLETIN FETCH & LOGIC ===== */
-let bulletinData = [];
-
-async function loadBulletins() {
-  try {
-    const response = await fetch("https://vividh.pages.dev/bulletins.json?t=" + Date.now());
-    if (!response.ok) return;
-    
-    bulletinData = await response.json();
-    
-    if (Array.isArray(bulletinData) && bulletinData.length > 0) {
-      switchBulletin(0);
-    }
-  } catch (error) {
-    console.error("News Bulletin Fetch Error:", error);
-  }
-}
-
-function switchBulletin(idx) {
-  if (!bulletinData || !bulletinData[idx]) return;
-  const item = bulletinData[idx];
-
-  for (let i = 0; i < 3; i++) {
-    const tabEl = document.getElementById(`bulletinTab${i}`);
-    if (tabEl) tabEl.classList.toggle("active", i === idx);
-  }
-
-  const nameEl = document.getElementById("bulletinName");
-  const timeEl = document.getElementById("bulletinTime");
-  const playBtn = document.getElementById("bulletinPlayBtn");
-
-  if (nameEl) nameEl.textContent = item.name || "News Bulletin";
-  if (timeEl) timeEl.textContent = item.time || "";
-  if (playBtn && item.streamUrl) {
-    playBtn.href = item.streamUrl;
-    playBtn.classList.remove("disabled");
-    playBtn.setAttribute("aria-label", "Play " + (item.name || "News"));
-  }
-}
-
-/* ===== INITIALIZATION ===== */
-checkAndInitCricket();
-loadBulletins();
-
-window.addEventListener("DOMContentLoaded", () => {
-  startPolling();
-  setTimeout(loadScheduleScript, 1000);
+  // Lazy load schedule script
+  setTimeout(() => {
+    const s = document.createElement("script");
+    s.src = "https://allindiaradio.pages.dev/docs/schedule.js";
+    s.onload = () => { rebuildSchedule(); updatePrograms(); };
+    document.head.appendChild(s);
+  }, 1200);
 });
 </script>
 
