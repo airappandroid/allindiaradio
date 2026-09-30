@@ -301,9 +301,29 @@ a {
   gap: 4px;
 }
 
-.cs-btn-audio { background: #ef4444; color: #fff; }
-.cs-btn-card { background: #0c1c33; border: 1px solid #1e3a66; color: #60a5fa; }
-.cs-btn-audio svg, .cs-btn-card svg { width: 12px; height: 12px; fill: currentColor; }
+/* RED AUDIO BUTTON */
+.cs-btn-audio { 
+  background: #dc2626; 
+  color: #ffffff; 
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  cursor: pointer;
+}
+
+.cs-btn-audio:active {
+  background: #b91c1c;
+}
+
+.cs-btn-card { 
+  background: #0c1c33; 
+  border: 1px solid #1e3a66; 
+  color: #60a5fa; 
+}
+
+.cs-btn-audio svg, .cs-btn-card svg { 
+  width: 12px; 
+  height: 12px; 
+  fill: currentColor; 
+}
 
 .cs-note {
   font-size: 12px;
@@ -641,7 +661,8 @@ a {
     <div class="cs-top-row">
       <span class="cs-status-tag" data-field="status">UPCOMING</span>
       <div class="cs-top-actions">
-        <a href="" class="cs-btn-audio" data-field="audio" style="display:none;">
+        <!-- RED AUDIO BUTTON TRIGGERING go:COMM -->
+        <a href="go:COMM" class="cs-btn-audio" data-field="audio" aria-label="Audio Commentary">
           <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
           <span>Audio</span>
         </a>
@@ -822,7 +843,7 @@ a {
 </div>
 
 <script>
-/* DOM CACHE FOR PROGRAM LABELS (PREVENTS QUERYING EVERY MINUTE) */
+/* DOM CACHE FOR PROGRAM LABELS */
 let cachedProgramNodes = [];
 
 /* MODAL LOGIC */
@@ -1067,7 +1088,6 @@ document.addEventListener("visibilitychange", () => {
 
 /* INIT */
 document.addEventListener("DOMContentLoaded", () => {
-  // Cache DOM nodes once
   document.querySelectorAll(".program").forEach(el => {
     cachedProgramNodes.push({ el, channel: el.getAttribute("data-channel") });
   });
@@ -1077,7 +1097,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updatePrograms();
   startTicker();
 
-  // Lazy load schedule script
   setTimeout(() => {
     const s = document.createElement("script");
     s.src = "https://allindiaradio.pages.dev/docs/schedule.js";
