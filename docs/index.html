@@ -6,10 +6,20 @@
 <title>AIR Radio</title>
 
 <style>
+:root {
+  --bg-main: #0c0e14;
+  --bg-card: #161922;
+  --bg-header: #11131a;
+  --primary: #38bdf8;
+  --primary-btn: #169fe6;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
   user-select: none;
 }
 
@@ -18,16 +28,12 @@ html { touch-action: manipulation; }
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #0c0e14;
-  color: #f1f5f9;
+  background: var(--bg-main);
+  color: var(--text-main);
   padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  outline: none;
-}
+a { text-decoration: none; color: inherit; outline: none; }
 
 /* HEADER */
 .app-header {
@@ -35,25 +41,15 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px;
-  background: #11131a;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
-.header-title {
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.4px;
-  color: #38bdf8;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.header-title { font-size: 18px; font-weight: 800; letter-spacing: 0.4px; color: var(--primary); }
+.header-actions { display: flex; align-items: center; gap: 8px; }
 
 .hdr-btn {
   width: 36px;
@@ -67,12 +63,7 @@ a {
   color: #e2e8f0;
   cursor: pointer;
 }
-
-.hdr-btn svg {
-  width: 17px;
-  height: 17px;
-  fill: currentColor;
-}
+.hdr-btn svg { width: 17px; height: 17px; fill: currentColor; }
 
 /* MODALS */
 .modal-overlay {
@@ -84,14 +75,8 @@ a {
   justify-content: center;
   z-index: 999;
   padding: 16px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
 }
-
-.modal-overlay.active {
-  display: flex;
-  opacity: 1;
-}
+.modal-overlay.active { display: flex; }
 
 .modal-card {
   background: #151821;
@@ -110,86 +95,36 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 14px 18px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border);
 }
 
-.modal-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #38bdf8;
-}
+.modal-title { font-size: 16px; font-weight: 700; color: var(--primary); }
+.modal-close { background: transparent; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; padding: 4px; }
+.modal-body { padding: 16px 18px; overflow-y: auto; font-size: 13.5px; line-height: 1.6; color: #cbd5e1; }
 
-.modal-close {
-  background: transparent;
-  border: none;
-  color: #94a3b8;
-  font-size: 22px;
-  cursor: pointer;
-  padding: 4px;
-  line-height: 1;
-}
-
-.modal-body {
-  padding: 16px 18px;
-  overflow-y: auto;
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: #cbd5e1;
-}
-
-.policy-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.policy-item {
-  position: relative;
-  padding-left: 14px;
-}
-
-.policy-item::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: #38bdf8;
-}
-
+.policy-list { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+.policy-item { position: relative; padding-left: 14px; }
+.policy-item::before { content: "•"; position: absolute; left: 0; color: var(--primary); }
 .policy-item strong { color: #ffffff; }
 
 /* FORM */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.form-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: #94a3b8;
-}
-
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.form-label { font-size: 12px; font-weight: 600; color: var(--text-muted); }
 .form-input, .form-textarea {
   width: 100%;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
   padding: 10px 12px;
-  color: #ffffff;
+  color: #fff;
   font-size: 13.5px;
-  font-family: inherit;
   outline: none;
 }
-
-.form-input:focus, .form-textarea:focus { border-color: #38bdf8; }
+.form-input:focus, .form-textarea:focus { border-color: var(--primary); }
 .form-textarea { resize: none; height: 90px; }
-
 .form-submit-btn {
   width: 100%;
-  background: #169fe6;
+  background: var(--primary-btn);
   color: #041426;
   border: none;
   border-radius: 12px;
@@ -197,21 +132,12 @@ a {
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 4px;
 }
-
-.form-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-submit-btn:disabled { opacity: 0.6; }
 .form-status { margin-top: 12px; font-size: 12.5px; text-align: center; font-weight: 600; display: none; }
 
 /* AD BANNER */
-.top-ad {
-  width: 100%;
-  min-height: 96px;
-  padding: 10px 14px 2px;
-  display: flex;
-  justify-content: center;
-}
-
+.top-ad { width: 100%; min-height: 96px; padding: 10px 14px 2px; display: flex; justify-content: center; }
 .top-ad img {
   width: 100%;
   max-width: 320px;
@@ -219,16 +145,11 @@ a {
   object-fit: cover;
   border-radius: 16px;
   display: block;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
 }
 
 /* CRICKET CARD */
-.cricket-strip-container {
-  padding: 8px 14px 2px;
-  display: flex; 
-  justify-content: center;
-}
-
+.cricket-strip-container { padding: 8px 14px 2px; display: flex; justify-content: center; }
 .cricket-card {
   width: 340px;
   height: 148px;
@@ -242,13 +163,7 @@ a {
   justify-content: space-between;
 }
 
-.cs-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 28px;
-}
-
+.cs-top-row { display: flex; align-items: center; justify-content: space-between; height: 28px; }
 .cs-status-tag {
   display: inline-flex;
   align-items: center;
@@ -260,36 +175,14 @@ a {
   border-radius: 6px;
   background: #0b1a2e;
   border: 1px solid #1d4ed8;
-  color: #38bdf8;
+  color: var(--primary);
   text-transform: uppercase;
 }
+.cs-status-tag.live { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.45); color: #ef4444; }
+.cs-status-tag.completed { background: #0b1c33; border-color: #1e40af; color: var(--primary); }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: #ef4444; display: inline-block; }
 
-.cs-status-tag.live {
-  background: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.45);
-  color: #ef4444;
-}
-
-.cs-status-tag.completed {
-  background: #0b1c33;
-  border-color: #1e40af;
-  color: #38bdf8;
-}
-
-.live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ef4444;
-  display: inline-block;
-}
-
-.cs-top-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
+.cs-top-actions { display: flex; align-items: center; gap: 8px; }
 .cs-btn-audio, .cs-btn-card {
   height: 27px;
   padding: 0 12px;
@@ -300,120 +193,35 @@ a {
   align-items: center;
   gap: 4px;
 }
+.cs-btn-audio { background: #dc2626; color: #fff; border: 1px solid rgba(239, 68, 68, 0.6); }
+.cs-btn-card { background: #0c1c33; border: 1px solid #1e3a66; color: #60a5fa; }
+.cs-btn-audio svg, .cs-btn-card svg { width: 12px; height: 12px; fill: currentColor; }
 
-/* RED AUDIO BUTTON */
-.cs-btn-audio { 
-  background: #dc2626; 
-  color: #ffffff; 
-  border: 1px solid rgba(239, 68, 68, 0.6);
-  cursor: pointer;
-}
-
-.cs-btn-audio:active {
-  background: #b91c1c;
-}
-
-.cs-btn-card { 
-  background: #0c1c33; 
-  border: 1px solid #1e3a66; 
-  color: #60a5fa; 
-}
-
-.cs-btn-audio svg, .cs-btn-card svg { 
-  width: 12px; 
-  height: 12px; 
-  fill: currentColor; 
-}
-
-.cs-note {
-  font-size: 12px;
-  font-weight: 600;
-  color: #cbd5e1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.2;
-}
-
-.cs-teams-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 6px;
-}
-
-.cs-team-line {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.cs-team-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.cs-flag {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: #111a2e;
-}
-
-.cs-team-name {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.cs-team-score-right {
-  font-size: 13.5px;
-  font-weight: 700;
-  color: #38bdf8;
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.cs-overs {
-  font-size: 11px;
-  font-weight: 500;
-  color: #94a3b8;
-}
+.cs-note { font-size: 12px; font-weight: 600; color: #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cs-teams-wrapper { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--border); padding-top: 6px; }
+.cs-team-line { display: flex; align-items: center; justify-content: space-between; }
+.cs-team-left { display: flex; align-items: center; gap: 8px; }
+.cs-flag { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; background: #111a2e; border: 1px solid rgba(255,255,255,0.15); }
+.cs-team-name { font-size: 13.5px; font-weight: 700; }
+.cs-team-score-right { font-size: 13.5px; font-weight: 700; color: var(--primary); display: flex; align-items: baseline; gap: 4px; }
+.cs-overs { font-size: 11px; font-weight: 500; color: var(--text-muted); }
 
 /* LAYOUT */
 .container { padding: 12px 14px 24px; }
-.section-title {
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: .3px;
-  margin: 20px 0 12px;
-  color: #ffffff;
-}
+.section-title { font-size: 16px; font-weight: 800; margin: 20px 0 12px; color: #fff; }
 
 /* QUICK BUTTONS */
-.quick-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-
+.quick-buttons { display: flex; gap: 10px; margin-bottom: 18px; }
 .quick-buttons a { flex: 1; }
-
 .qbtn {
   padding: 14px 8px 12px;
   border-radius: 18px;
   background: #171a22;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .icon-box {
   width: 42px;
   height: 42px;
@@ -423,81 +231,33 @@ a {
   justify-content: center;
   margin-bottom: 8px;
 }
-
 .icon-box svg { width: 20px; height: 20px; }
 .qb-air .icon-box { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); }
-.qb-air svg { fill: #38bdf8; }
-
+.qb-air svg { fill: var(--primary); }
 .qb-fm .icon-box { background: rgba(168, 85, 247, 0.12); border: 1px solid rgba(168, 85, 247, 0.3); }
 .qb-fm svg { fill: #c084fc; }
-
 .qb-news .icon-box { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3); }
 .qb-news svg { fill: #fb7185; }
+.label { font-size: 12px; font-weight: 700; color: #e2e8f0; }
 
-.label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #e2e8f0;
-}
-
-/* STATIONS */
-#stations {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
+/* STATIONS (Optimized with contain for fast scroll) */
+#stations { display: flex; flex-direction: column; gap: 12px; }
 .station {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
   border-radius: 20px;
-  background: #161922;
+  background: var(--bg-card);
   border: 1px solid rgba(255, 255, 255, 0.07);
+  contain: layout paint;
 }
-
-.station-thumb {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  object-fit: cover;
-  background: #1a1d26;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  flex-shrink: 0;
-}
-
+.station-thumb { width: 48px; height: 48px; border-radius: 14px; object-fit: cover; background: #1a1d26; flex-shrink: 0; }
 .station-info { flex: 1; min-width: 0; }
-.station-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 4px;
-}
-
-.program-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-}
-
-.station .live-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #10b981;
-  flex-shrink: 0;
-  margin-top: 5px;
-}
-
-.program {
-  font-size: 12.5px;
-  font-weight: 500;
-  color: #94a3b8;
-  line-height: 1.35;
-  word-break: break-word;
-  white-space: normal;
-}
+.station-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.program-row { display: flex; align-items: flex-start; gap: 7px; }
+.station .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; flex-shrink: 0; margin-top: 5px; }
+.program { font-size: 12.5px; font-weight: 500; color: var(--text-muted); line-height: 1.35; }
 
 .play {
   width: 44px;
@@ -506,18 +266,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #169fe6;
+  background: var(--primary-btn);
   flex-shrink: 0;
 }
+.play svg { width: 17px; height: 17px; fill: #041426; margin-left: 2px; }
 
-.play svg {
-  width: 17px;
-  height: 17px;
-  fill: #041426;
-  margin-left: 2px;
-}
-
-/* BULLETIN SECTION */
+/* BULLETIN */
 .bulletin-section { margin-top: 24px; }
 .bulletin-toggle-bar {
   display: flex;
@@ -528,23 +282,18 @@ a {
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.07);
 }
-
 .bulletin-tab-btn {
   flex: 1;
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 12.5px;
   font-weight: 700;
   padding: 8px 12px;
   border-radius: 10px;
   cursor: pointer;
 }
-
-.bulletin-tab-btn.active {
-  background: #169fe6;
-  color: #031326;
-}
+.bulletin-tab-btn.active { background: var(--primary-btn); color: #031326; }
 
 .bulletin-card {
   display: flex;
@@ -552,22 +301,12 @@ a {
   gap: 12px;
   padding: 12px 14px;
   border-radius: 20px;
-  background: #161922;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   position: relative;
   overflow: hidden;
 }
-
-.bulletin-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #38bdf8;
-}
-
+.bulletin-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--primary); }
 .bulletin-icon-box {
   width: 48px;
   height: 48px;
@@ -579,33 +318,11 @@ a {
   border: 1px solid rgba(56, 189, 248, 0.25);
   flex-shrink: 0;
 }
-
-.bulletin-icon-box svg { width: 24px; height: 24px; fill: #38bdf8; }
+.bulletin-icon-box svg { width: 24px; height: 24px; fill: var(--primary); }
 .bulletin-info { flex: 1; min-width: 0; }
-.bulletin-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.bulletin-time-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #94a3b8;
-  font-size: 12px;
-}
-
-.bulletin-time-row svg {
-  width: 13px;
-  height: 13px;
-  fill: #38bdf8;
-  flex-shrink: 0;
-}
+.bulletin-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bulletin-time-row { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 12px; }
+.bulletin-time-row svg { width: 13px; height: 13px; fill: var(--primary); flex-shrink: 0; }
 
 .play-btn {
   width: 44px;
@@ -614,10 +331,9 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #169fe6;
+  background: var(--primary-btn);
   flex-shrink: 0;
 }
-
 .play-btn::before {
   content: "";
   border-style: solid;
@@ -625,12 +341,18 @@ a {
   border-color: transparent transparent transparent #041426;
   margin-left: 3px;
 }
-
 .play-btn.disabled { opacity: 0.35; pointer-events: none; }
 </style>
 </head>
 
 <body>
+
+<!-- GLOBAL SVG SYMBOLS (Saves repeated path bytes) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="icon-headphone" viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/></symbol>
+</svg>
 
 <!-- HEADER -->
 <header class="app-header">
@@ -661,9 +383,8 @@ a {
     <div class="cs-top-row">
       <span class="cs-status-tag" data-field="status">UPCOMING</span>
       <div class="cs-top-actions">
-        <!-- RED AUDIO BUTTON TRIGGERING go:COMM -->
         <a href="go:COMM" class="cs-btn-audio" data-field="audio" aria-label="Audio Commentary">
-          <svg viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></svg>
+          <svg><use href="#icon-headphone"/></svg>
           <span>Audio</span>
         </a>
         <a href="go:card1" class="cs-btn-card" data-field="scorecard">
@@ -676,14 +397,14 @@ a {
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690" class="cs-flag" data-field="flagA" alt="IND" width="20" height="20">
+          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690" class="cs-flag" data-field="flagA" alt="IND" width="20" height="20" decoding="async">
           <span class="cs-team-name" data-field="nameA">IND</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336" class="cs-flag" data-field="flagB" alt="SL" width="20" height="20">
+          <img src="https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336" class="cs-flag" data-field="flagB" alt="SL" width="20" height="20" decoding="async">
           <span class="cs-team-name" data-field="nameB">SL</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
@@ -726,7 +447,7 @@ a {
     <h2 class="section-title">🔥 Popular Stations</h2>
     <div id="stations">
       <div class="station">
-        <img src="https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" class="station-thumb" alt="FM Rainbow" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" class="station-thumb" alt="FM Rainbow" width="48" height="48" loading="lazy" decoding="async">
         <div class="station-info">
           <div class="station-name">FM Rainbow</div>
           <div class="program-row">
@@ -734,11 +455,11 @@ a {
             <div class="program" data-channel="fm rainbow">Live Broadcast</div>
           </div>
         </div>
-        <a href="go:FMR" class="play" aria-label="Play FM Rainbow"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <a href="go:FMR" class="play" aria-label="Play FM Rainbow"><svg><use href="#icon-play"/></svg></a>
       </div>
 
       <div class="station">
-        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" class="station-thumb" alt="Vividh Bharati" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" class="station-thumb" alt="Vividh Bharati" width="48" height="48" loading="lazy" decoding="async">
         <div class="station-info">
           <div class="station-name">Vividh Bharati</div>
           <div class="program-row">
@@ -746,11 +467,11 @@ a {
             <div class="program" data-channel="vividh bharati">Live Broadcast</div>
           </div>
         </div>
-        <a href="go:N002" class="play" aria-label="Play Vividh Bharati"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <a href="go:N002" class="play" aria-label="Play Vividh Bharati"><svg><use href="#icon-play"/></svg></a>
       </div>
 
       <div class="station">
-        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" class="station-thumb" alt="FM Gold" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" class="station-thumb" alt="FM Gold" width="48" height="48" loading="lazy" decoding="async">
         <div class="station-info">
           <div class="station-name">FM Gold</div>
           <div class="program-row">
@@ -758,11 +479,11 @@ a {
             <div class="program" data-channel="fm gold">Live Broadcast</div>
           </div>
         </div>
-        <a href="go:FMG" class="play" aria-label="Play FM Gold"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <a href="go:FMG" class="play" aria-label="Play FM Gold"><svg><use href="#icon-play"/></svg></a>
       </div>
 
       <div class="station">
-        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" class="station-thumb" alt="Indraprastha" width="48" height="48" loading="lazy" onerror="this.onerror=null;this.src='https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Hj7uO2JJu.jpg';">
+        <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" class="station-thumb" alt="Indraprastha" width="48" height="48" loading="lazy" decoding="async">
         <div class="station-info">
           <div class="station-name">Indraprastha</div>
           <div class="program-row">
@@ -770,7 +491,7 @@ a {
             <div class="program" data-channel="indraprastha">Live Broadcast</div>
           </div>
         </div>
-        <a href="go:INDRA" class="play" aria-label="Play Indraprastha"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></a>
+        <a href="go:INDRA" class="play" aria-label="Play Indraprastha"><svg><use href="#icon-play"/></svg></a>
       </div>
     </div>
 
@@ -790,7 +511,7 @@ a {
         <div class="bulletin-info">
           <div class="bulletin-name" id="bulletinName">AIR Hindi Samachar</div>
           <div class="bulletin-time-row">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.2 3.1.8-1.3-4.5-2.7V7z"/></svg>
+            <svg><use href="#icon-clock"/></svg>
             <span id="bulletinTime">Loading latest bulletin...</span>
           </div>
         </div>
@@ -843,11 +564,9 @@ a {
 </div>
 
 <script>
-/* DOM CACHE FOR PROGRAM LABELS */
 let cachedProgramNodes = [];
-
-/* MODAL LOGIC */
 let activeModalId = null;
+
 function openModal(id) {
   const m = document.getElementById(id);
   if (m) {
@@ -861,7 +580,7 @@ function closeModal(id) {
   const m = document.getElementById(id);
   if (m && m.classList.contains("active")) {
     m.classList.remove("active");
-    if (history.state && history.state.modalOpen === id) history.back();
+    if (history.state?.modalOpen === id) history.back();
     activeModalId = null;
   }
 }
@@ -872,8 +591,7 @@ function closeModalOnOverlay(e, id) {
 
 window.addEventListener("popstate", () => {
   if (activeModalId) {
-    const m = document.getElementById(activeModalId);
-    if (m) m.classList.remove("active");
+    document.getElementById(activeModalId)?.classList.remove("active");
     activeModalId = null;
   }
 });
@@ -914,7 +632,6 @@ if (supportForm) {
 }
 
 /* CRICKET LOGIC */
-const SHOW_CRICKET = true;
 const cricketCard = document.getElementById("cricketCard1");
 const cardEls = cricketCard ? {
   status: cricketCard.querySelector('[data-field="status"]'),
@@ -924,20 +641,12 @@ const cardEls = cricketCard ? {
   flagB: cricketCard.querySelector('[data-field="flagB"]'),
   scoreA: cricketCard.querySelector('[data-field="scoreA"]'),
   scoreB: cricketCard.querySelector('[data-field="scoreB"]'),
-  note: cricketCard.querySelector('[data-field="note"]'),
-  audio: cricketCard.querySelector('[data-field="audio"]')
+  note: cricketCard.querySelector('[data-field="note"]')
 } : null;
 
 const FLAGS = {
   ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  india: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  sl: "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336",
-  "sri lanka": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336",
-  srilanka: "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336",
-  wi: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
-  "west indies": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
-  windies: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
-  afg: "https://ik.imagekit.io/sqt8ptw1k/afghanistan.webp"
+  sl: "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336"
 };
 
 function formatScore(s) {
@@ -954,8 +663,8 @@ function renderCricket(data) {
 
   cardEls.nameA.textContent = nameA;
   cardEls.nameB.textContent = nameB;
-  cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690";
-  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336";
+  cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || FLAGS.ind;
+  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || FLAGS.sl;
 
   const scA = formatScore(a.a_1_score || a.score);
   const scB = formatScore(b.b_1_score || b.score);
@@ -974,7 +683,6 @@ function renderCricket(data) {
 }
 
 async function fetchMatchScore() {
-  if (!SHOW_CRICKET) return;
   try {
     const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a9a9dfc1f0f3936e9027d77", { cache: "no-store" });
     if (res.ok) {
@@ -984,7 +692,7 @@ async function fetchMatchScore() {
   } catch {}
 }
 
-/* PURE MATH IST MINUTES (NO INTL OVERHEAD) */
+/* PURE MATH IST MINUTES */
 function getISTMinutes() {
   const d = new Date(Date.now() + 19800000);
   return d.getUTCHours() * 60 + d.getUTCMinutes();
@@ -1000,7 +708,7 @@ function parseTimeToMin(t) {
   return h * 60 + (+m[2]);
 }
 
-/* SCHEDULE CACHE & FAST RESOLUTION */
+/* SCHEDULE CACHE */
 let scheduleCache = {};
 try {
   const cached = localStorage.getItem("air_sch");
@@ -1040,7 +748,7 @@ function updatePrograms() {
   }
 }
 
-/* NEWS BULLETIN */
+/* BULLETIN */
 let bulletins = [];
 async function loadBulletins() {
   try {
@@ -1067,7 +775,7 @@ function switchBulletin(idx) {
   }
 }
 
-/* UNIFIED TICKER (SINGLE INTERVAL) */
+/* TIMER */
 let ticker = null;
 function startTicker() {
   if (ticker) clearInterval(ticker);
@@ -1103,6 +811,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     const s = document.createElement("script");
     s.src = "https://allindiaradio.pages.dev/docs/schedule.js";
+    s.defer = true;
     s.onload = () => { rebuildSchedule(); updatePrograms(); };
     document.head.appendChild(s);
   }, 1200);
