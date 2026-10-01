@@ -672,19 +672,19 @@ a {
         </a>
       </div>
     </div>
-    <div class="cs-note" data-field="note">IND vs WI, 2nd ODI, 30 Sep, 2pm</div>
+    <div class="cs-note" data-field="note">IND vs SL, T20</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/west-indies.webp" class="cs-flag" data-field="flagA" alt="WI" width="20" height="20">
-          <span class="cs-team-name" data-field="nameA">WI</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690" class="cs-flag" data-field="flagA" alt="IND" width="20" height="20">
+          <span class="cs-team-name" data-field="nameA">IND</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp" class="cs-flag" data-field="flagB" alt="IND" width="20" height="20">
-          <span class="cs-team-name" data-field="nameB">IND</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336" class="cs-flag" data-field="flagB" alt="SL" width="20" height="20">
+          <span class="cs-team-name" data-field="nameB">SL</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
@@ -929,8 +929,11 @@ const cardEls = cricketCard ? {
 } : null;
 
 const FLAGS = {
-  ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp",
-  india: "https://ik.imagekit.io/sqt8ptw1k/india.webp",
+  ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
+  india: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
+  sl: "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336",
+  "sri lanka": "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336",
+  srilanka: "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336",
   wi: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
   "west indies": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
   windies: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp",
@@ -946,13 +949,13 @@ function formatScore(s) {
 function renderCricket(data) {
   if (!cardEls || !data) return;
   const a = data.teams?.a || {}, b = data.teams?.b || {};
-  const nameA = a.shortName || a.name || "WI";
-  const nameB = b.shortName || b.name || "IND";
+  const nameA = a.shortName || a.name || "IND";
+  const nameB = b.shortName || b.name || "SL";
 
   cardEls.nameA.textContent = nameA;
   cardEls.nameB.textContent = nameB;
-  cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp";
-  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || "https://ik.imagekit.io/sqt8ptw1k/india.webp";
+  cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690";
+  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || "https://ik.imagekit.io/sqt8ptw1k/sri-lanka.webp?updatedAt=1790249781336";
 
   const scA = formatScore(a.a_1_score || a.score);
   const scB = formatScore(b.b_1_score || b.score);
@@ -967,13 +970,13 @@ function renderCricket(data) {
 
   cardEls.status.className = isEnd ? "cs-status-tag completed" : (isLive ? "cs-status-tag live" : "cs-status-tag");
   cardEls.status.innerHTML = (isLive ? '<span class="live-dot"></span>' : '') + (isEnd ? 'COMPLETED' : (isLive ? 'LIVE' : 'UPCOMING'));
-  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND vs WI, 2nd ODI, 30 Sep, 2pm";
+  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND vs SL, T20";
 }
 
 async function fetchMatchScore() {
   if (!SHOW_CRICKET) return;
   try {
-    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a3103727327c23debef2654", { cache: "no-store" });
+    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a9a9dfc1f0f3936e9027d77", { cache: "no-store" });
     if (res.ok) {
       const json = await res.json();
       if (json?.responseData?.result) renderCricket(json.responseData.result);
