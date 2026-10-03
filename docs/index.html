@@ -240,7 +240,7 @@ a { text-decoration: none; color: inherit; outline: none; }
 .qb-news svg { fill: #fb7185; }
 .label { font-size: 12px; font-weight: 700; color: #e2e8f0; }
 
-/* STATIONS (Optimized with contain for fast scroll) */
+/* STATIONS */
 #stations { display: flex; flex-direction: column; gap: 12px; }
 .station {
   display: flex;
@@ -251,7 +251,7 @@ a { text-decoration: none; color: inherit; outline: none; }
   background: var(--bg-card);
   border: 1px solid rgba(255, 255, 255, 0.07);
   contain: layout paint;
-  min-height: 80px; /* সকলো কাৰ্ডৰ উচ্চতা একে সমান ৰাখিবলৈ */
+  min-height: 80px;
 }
 .station-thumb { width: 48px; height: 48px; border-radius: 14px; object-fit: cover; background: #1a1d26; flex-shrink: 0; }
 .station-info { flex: 1; min-width: 0; }
@@ -266,7 +266,6 @@ a { text-decoration: none; color: inherit; outline: none; }
 .program-row { display: flex; align-items: flex-start; gap: 7px; }
 .station .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; flex-shrink: 0; margin-top: 5px; }
 
-/* সৰ্বোচ্চ ২ লাইন আৰু ellipsis (...) যোগ কৰা হৈছে */
 .program { 
   font-size: 12.5px; 
   font-weight: 500; 
@@ -368,7 +367,7 @@ a { text-decoration: none; color: inherit; outline: none; }
 
 <body>
 
-<!-- GLOBAL SVG SYMBOLS (Saves repeated path bytes) -->
+<!-- GLOBAL SVG SYMBOLS -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
   <symbol id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></symbol>
   <symbol id="icon-headphone" viewBox="0 0 24 24"><path d="M12 1a9 9 0 0 0-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2a7 7 0 0 1 14 0v2h-4v8h3c1.66 0 3-1.34 3-3v-7a9 9 0 0 0-9-9z"/></symbol>
@@ -414,7 +413,7 @@ a { text-decoration: none; color: inherit; outline: none; }
         </a>
       </div>
     </div>
-    <div class="cs-note" data-field="note">Ind vs Pak T20, Match starts 3 SEP, 10 AM</div>
+    <div class="cs-note" data-field="note">IND vs WI, 3rd ODI</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
@@ -425,8 +424,8 @@ a { text-decoration: none; color: inherit; outline: none; }
       </div>
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/pakistan.webp" class="cs-flag" data-field="flagB" alt="PAK" width="20" height="20" decoding="async">
-          <span class="cs-team-name" data-field="nameB">PAK</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784" class="cs-flag" data-field="flagB" alt="WI" width="20" height="20" decoding="async">
+          <span class="cs-team-name" data-field="nameB">WI</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
@@ -667,7 +666,8 @@ const cardEls = cricketCard ? {
 
 const FLAGS = {
   ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  pak: "https://ik.imagekit.io/sqt8ptw1k/pakistan.webp"
+  wi: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784",
+  "west indies": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784"
 };
 
 function formatScore(s) {
@@ -680,12 +680,12 @@ function renderCricket(data) {
   if (!cardEls || !data) return;
   const a = data.teams?.a || {}, b = data.teams?.b || {};
   const nameA = a.shortName || a.name || "IND";
-  const nameB = b.shortName || b.name || "PAK";
+  const nameB = b.shortName || b.name || "WI";
 
   cardEls.nameA.textContent = nameA;
   cardEls.nameB.textContent = nameB;
   cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || FLAGS.ind;
-  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || FLAGS.pak;
+  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || FLAGS.wi;
 
   const scA = formatScore(a.a_1_score || a.score);
   const scB = formatScore(b.b_1_score || b.score);
@@ -700,12 +700,12 @@ function renderCricket(data) {
 
   cardEls.status.className = isEnd ? "cs-status-tag completed" : (isLive ? "cs-status-tag live" : "cs-status-tag");
   cardEls.status.innerHTML = (isLive ? '<span class="live-dot"></span>' : '') + (isEnd ? 'COMPLETED' : (isLive ? 'LIVE' : 'UPCOMING'));
-  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "Ind vs Pak T20, Match starts 3 SEP, 10 AM";
+  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND vs WI, 3rd ODI";
 }
 
 async function fetchMatchScore() {
   try {
-    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a9a9df71f0f3936e9027d73", { cache: "no-store" });
+    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a3103757327c23debef2656", { cache: "no-store" });
     if (res.ok) {
       const json = await res.json();
       if (json?.responseData?.result) renderCricket(json.responseData.result);
