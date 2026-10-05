@@ -413,7 +413,7 @@ a { text-decoration: none; color: inherit; outline: none; }
         </a>
       </div>
     </div>
-    <div class="cs-note" data-field="note">IND vs WI, 3rd ODI</div>
+    <div class="cs-note" data-field="note">IND vs WI 1st T20, Match Starts Today at 7 PM</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
@@ -700,12 +700,12 @@ function renderCricket(data) {
 
   cardEls.status.className = isEnd ? "cs-status-tag completed" : (isLive ? "cs-status-tag live" : "cs-status-tag");
   cardEls.status.innerHTML = (isLive ? '<span class="live-dot"></span>' : '') + (isEnd ? 'COMPLETED' : (isLive ? 'LIVE' : 'UPCOMING'));
-  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND vs WI, 3rd ODI";
+  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND vs WI 1st T20, Match Starts Today at 7 PM";
 }
 
 async function fetchMatchScore() {
   try {
-    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a3103757327c23debef2656", { cache: "no-store" });
+    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a3103777327c23debef2658", { cache: "no-store" });
     if (res.ok) {
       const json = await res.json();
       if (json?.responseData?.result) renderCricket(json.responseData.result);
