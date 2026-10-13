@@ -818,25 +818,36 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
+
 /* INIT */
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".program").forEach(el => {
-    cachedProgramNodes.push({ el, channel: el.getAttribute("data-channel") });
+    cachedProgramNodes.push({
+      el,
+      channel: el.getAttribute("data-channel")
+    });
   });
 
   fetchMatchScore();
   loadBulletins();
-  updatePrograms();
   startTicker();
 
-  setTimeout(() => {
-    const s = document.createElement("script");
-    s.src = "https://allindiaradio.pages.dev/docs/schedule.js";
-    s.defer = true;
-    s.onload = () => { rebuildSchedule(); updatePrograms(); };
-    document.head.appendChild(s);
-  }, 1200);
+  const s = document.createElement("script");
+  s.src = "https://allindiaradio.pages.dev/docs/schedule.js";
+  s.async = true;
+
+  s.onload = () => {
+    rebuildSchedule();
+    updatePrograms();
+  };
+
+  s.onerror = () => {
+    console.warn("AIR schedule failed to load.");
+  };
+
+  document.head.appendChild(s);
 });
+
 </script>
 
 </body>
