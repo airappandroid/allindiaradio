@@ -1,281 +1,281 @@
 window.SCHEDULE_DATA = [
   // --- Vividh Bharati ---
-  { "time": "12:00 AM", "title": "विविध भारती प्रोमो / वाद्यसंगीत", "channel": "Vividh Bharati" },
-  { "time": "12:05 AM", "title": "यादों की महफिल\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "1:00 AM", "title": "सुरीला सफर\n(Hit Film Songs Selected by Announcers on Duty)\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "2:00 AM", "title": "सदाबहार नग्मे - फिल्मी गीत\n(Golden Hits from 1955-1965)\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "3:00 AM", "title": "सखी सहेली\n1) माँ की अलमारी में छिपे उसके अधूरे सपने\n2) सखी विशेष : महिला उद्यमी अंकिता गाबा\n3) हल्की फुलकी बातें: गरबा, दांडिया का बदलता स्वरूप\n4) मुहावरों की दुनिया: अपना उल्लू सीधा करना", "channel": "Vividh Bharati" },
-  { "time": "4:00 AM", "title": "तराने नए पुराने\n(Nonstop Hindi Film Songs)\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "5:00 AM", "title": "जागो सुबह हो गई", "channel": "Vividh Bharati" },
-  { "time": "5:45 AM", "title": "फिलर", "channel": "Vividh Bharati" },
-  { "time": "5:50 AM", "title": "संकेत धुन", "channel": "Vividh Bharati" },
-  { "time": "5:52 AM", "title": "वंदे मातरम", "channel": "Vividh Bharati" },
-  { "time": "5:56 AM", "title": "प्रारंभिक उद्‌घोषणा", "channel": "Vividh Bharati" },
-  { "time": "5:57 AM", "title": "मंगलध्वनी", "channel": "Vividh Bharati" },
-  { "time": "6:00 AM", "title": "हिंदी समाचार", "channel": "Vividh Bharati" },
-  { "time": "6:05 AM", "title": "वंदनवार / चिंतन", "channel": "Vividh Bharati" },
-  { "time": "6:30 AM", "title": "झरोखा (रूपरेखा)", "channel": "Vividh Bharati" },
-  { "time": "6:35 AM", "title": "श्रीराम चरित मानस\n(भाग - 341)", "channel": "Vividh Bharati" },
-  { "time": "6:45 AM", "title": "संगीत सरिता\nश्रृंखला - राग समयचक्र (भाग - 1)\nकलाकार - गायिका मंजिरी आलेगांवकर\nप्रस्तुती - मनीषा जैन", "channel": "Vividh Bharati" },
-  { "time": "7:00 AM", "title": "भूले बिसरे गीत\n(Old & Vintage songs of 1940-1960)", "channel": "Vividh Bharati" },
-  { "time": "7:30 AM", "title": "हम है राही प्यार के\n(Golden duets songs 1955-1980)", "channel": "Vividh Bharati" },
-  { "time": "8:00 AM", "title": "समाचार प्रभात", "channel": "Vividh Bharati" },
-  { "time": "8:15 AM", "title": "त्रिवेणी\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - अनुश्री पाठक", "channel": "Vividh Bharati" },
-  { "time": "8:30 AM", "title": "चित्रलोक\n(Hit film songs: 2011- Till date)", "channel": "Vividh Bharati" },
-  { "time": "9:30 AM", "title": "आज के फ़नकार\nकॉस्ट्यूम डिज़ाइनर - भानू अथैय्या\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - रमेश गोखले", "channel": "Vividh Bharati" },
-  { "time": "10:00 AM", "title": "पिटारा : सेल्यूलॉइड के सितारे\nअभिनेता चंदन रॉय से अनुराधा उपाध्याय की बातचीत (भाग - 2)", "channel": "Vividh Bharati" },
-  { "time": "11:00 AM", "title": "रंग तरंग\n(Non film songs: Mix songs- Film, Gazal, Qawali, Pop, Folk)", "channel": "Vividh Bharati" },
-  { "time": "12:00 PM", "title": "हिंदी समाचार", "channel": "Vividh Bharati" },
-  { "time": "12:05 PM", "title": "यादों की महफ़िल\n(Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "1:00 PM", "title": "सुरीला सफर\n(Progm based on FB coments)", "channel": "Vividh Bharati" },
-  { "time": "2:00 PM", "title": "त्रिवेणी\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - अनुश्री पाठक\n(Repeat of Morning)", "channel": "Vividh Bharati" },
-  { "time": "2:15 PM", "title": "दोपहर समाचार", "channel": "Vividh Bharati" },
-  { "time": "2:30 PM", "title": "सदाबहार नग्मे - फिल्मी गीत\n(Hits From 1955-1965)", "channel": "Vividh Bharati" },
-  { "time": "3:00 PM", "title": "सखी सहेली\n1) विश्व मानक दिवस\n2) शब्द हमारा विचार आपके - प्रार्थना\n3) साड़ियों का संसार - पोचमपल्ली इकत (तेलंगाना)\n4) वैवाहिक जिम्मेदारी से बचते युवा\n5) व्यंजन - शकरकंद के व्यंजन", "channel": "Vividh Bharati" },
-  { "time": "4:00 PM", "title": "पिटारा : आज के मेहमान\nफिल्म लेखक - निर्देशक डॉ. विशाल चतुर्वेदी से ममता सिंह की बातचीत (भाग - 2)", "channel": "Vividh Bharati" },
-  { "time": "5:00 PM", "title": "छायागीत\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },
-  { "time": "5:30 PM", "title": "तराने नए पुराने\n(New & Old Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "6:00 PM", "title": "हिन्दी समाचार", "channel": "Vividh Bharati" },
-  { "time": "6:05 PM", "title": "तराने नए पुराने (Contd...)\n(New & Old Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "6:30 PM", "title": "झरोखा (रूपरेखा)", "channel": "Vividh Bharati" },
-  { "time": "6:35 PM", "title": "संध्या रंजन (चित्रपट संगीत)", "channel": "Vividh Bharati" },
-  { "time": "6:45 PM", "title": "संगीत सरिता\nश्रृंखला - राग समयचक्र (भाग - 1)\nकलाकार - गायिका मंजिरी आलेगांवकर\n(Repeat of Morning)", "channel": "Vividh Bharati" },
-  { "time": "7:00 PM", "title": "जयमाला", "channel": "Vividh Bharati" },
-  { "time": "7:45 PM", "title": "इंद्रधनुष : राग अनुराग", "channel": "Vividh Bharati" },
-  { "time": "8:00 PM", "title": "हवामहल\nप्रहसन - शीर्षक की खोज\nलेखन - देवराज दिनेश\nनिर्देशन - मुख्तार अहमद", "channel": "Vividh Bharati" },
-  { "time": "8:15 PM", "title": "चित्रलोक\n(New film songs)", "channel": "Vividh Bharati" },
-  { "time": "8:45 PM", "title": "समाचार संध्या", "channel": "Vividh Bharati" },
-  { "time": "9:00 PM", "title": "आप के लिए\n(Film Songs)", "channel": "Vividh Bharati" },
-  { "time": "9:30 PM", "title": "आज के फ़नकार\nकॉस्ट्यूम डिज़ाइनर - भानू अथैय्या\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - रमेश गोखले", "channel": "Vividh Bharati" },
-  { "time": "10:00 PM", "title": "छायागीत\nआलेख एवं स्वर - मन्दाकिनी जोशी\nप्रस्तुतकर्ता - राघवेंद्र सिंह नेगी", "channel": "Vividh Bharati" },
-  { "time": "10:30 PM", "title": "ढलती जाए रात\n(Soft romantic songs of films)", "channel": "Vividh Bharati" },
-  { "time": "11:00 PM", "title": "रंग तरंग\n(Film Songs, Gazal, Qawwali, Pop & Folk Songs)\n(Repeat of 11.00 am progm)", "channel": "Vividh Bharati" },
+  { "time": "12:00 AM", "title": "विविध भारती प्रोमो / वाद्यसंगीत", "channel": "Vividh Bharati" },[span_0](start_span)[span_0](end_span)
+  { "time": "12:05 AM", "title": "यादों की महफिल\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },[span_1](start_span)[span_1](end_span)
+  { "time": "1:00 AM", "title": "सुरीला सफर\n(Hit Film Songs Selected by Announcers on Duty)\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },[span_2](start_span)[span_2](end_span)
+  { "time": "2:00 AM", "title": "सदाबहार नग्मे - फिल्मी गीत\n(Golden Hits from 1955-1965)\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },[span_3](start_span)[span_3](end_span)
+  { "time": "3:00 AM", "title": "सखी सहेली\n1) माँ की अलमारी में छिपे उसके अधूरे सपने\n2) सखी विशेष : महिला उद्यमी अंकिता गाबा\n3) हल्की फुलकी बातें: गरबा, दांडिया का बदलता स्वरूप\n4) मुहावरों की दुनिया: अपना उल्लू सीधा करना", "channel": "Vividh Bharati" },[span_4](start_span)[span_4](end_span)
+  { "time": "4:00 AM", "title": "तराने नए पुराने\n(Nonstop Hindi Film Songs)\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },[span_5](start_span)[span_5](end_span)
+  { "time": "5:00 AM", "title": "जागो सुबह हो गई", "channel": "Vividh Bharati" },[span_6](start_span)[span_6](end_span)
+  { "time": "5:45 AM", "title": "फिलर", "channel": "Vividh Bharati" },[span_7](start_span)[span_7](end_span)
+  { "time": "5:50 AM", "title": "संकेत धुन", "channel": "Vividh Bharati" },[span_8](start_span)[span_8](end_span)
+  { "time": "5:52 AM", "title": "वंदे मातरम", "channel": "Vividh Bharati" },[span_9](start_span)[span_9](end_span)
+  { "time": "5:56 AM", "title": "प्रारंभिक उद्‌घोषणा", "channel": "Vividh Bharati" },[span_10](start_span)[span_10](end_span)
+  { "time": "5:57 AM", "title": "मंगलध्वनी", "channel": "Vividh Bharati" },[span_11](start_span)[span_11](end_span)
+  { "time": "6:00 AM", "title": "हिंदी समाचार", "channel": "Vividh Bharati" },[span_12](start_span)[span_12](end_span)
+  { "time": "6:05 AM", "title": "वंदनवार / चिंतन", "channel": "Vividh Bharati" },[span_13](start_span)[span_13](end_span)
+  { "time": "6:30 AM", "title": "झरोखा (रूपरेखा)", "channel": "Vividh Bharati" },[span_14](start_span)[span_14](end_span)
+  { "time": "6:35 AM", "title": "श्रीराम चरित मानस\n(भाग - 341)", "channel": "Vividh Bharati" },[span_15](start_span)[span_15](end_span)
+  { "time": "6:45 AM", "title": "संगीत सरिता\nश्रृंखला - राग समयचक्र (भाग - 1)\nकलाकार - गायिका मंजिरी आलेगांवकर\nप्रस्तुती - मनीषा जैन", "channel": "Vividh Bharati" },[span_16](start_span)[span_16](end_span)
+  { "time": "7:00 AM", "title": "भूले बिसरे गीत\n(Old & Vintage songs of 1940-1960)", "channel": "Vividh Bharati" },[span_17](start_span)[span_17](end_span)
+  { "time": "7:30 AM", "title": "हम है राही प्यार के\n(Golden duets songs 1955-1980)", "channel": "Vividh Bharati" },[span_18](start_span)[span_18](end_span)
+  { "time": "8:00 AM", "title": "समाचार प्रभात", "channel": "Vividh Bharati" },[span_19](start_span)[span_19](end_span)
+  { "time": "8:15 AM", "title": "त्रिवेणी\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - अनुश्री पाठक", "channel": "Vividh Bharati" },[span_20](start_span)[span_20](end_span)
+  { "time": "8:30 AM", "title": "चित्रलोक\n(Hit film songs: 2011- Till date)", "channel": "Vividh Bharati" },[span_21](start_span)[span_21](end_span)
+  { "time": "9:30 AM", "title": "आज के फ़नकार\nकॉस्ट्यूम डिज़ाइनर - भानू अथैय्या\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - रमेश गोखले", "channel": "Vividh Bharati" },[span_22](start_span)[span_22](end_span)
+  { "time": "10:00 AM", "title": "पिटारा : सेल्यूलॉइड के सितारे\nअभिनेता चंदन रॉय से अनुराधा उपाध्याय की बातचीत (भाग - 2)", "channel": "Vividh Bharati" },[span_23](start_span)[span_23](end_span)
+  { "time": "11:00 AM", "title": "रंग तरंग\n(Non film songs: Mix songs- Film, Gazal, Qawali, Pop, Folk)", "channel": "Vividh Bharati" },[span_24](start_span)[span_24](end_span)
+  { "time": "12:00 PM", "title": "हिंदी समाचार", "channel": "Vividh Bharati" },[span_25](start_span)[span_25](end_span)
+  { "time": "12:05 PM", "title": "यादों की महफ़िल\n(Film Songs)", "channel": "Vividh Bharati" },[span_26](start_span)[span_26](end_span)
+  { "time": "1:00 PM", "title": "सुरीला सफर\n(Progm based on FB coments)", "channel": "Vividh Bharati" },[span_27](start_span)[span_27](end_span)
+  { "time": "2:00 PM", "title": "त्रिवेणी\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - अनुश्री पाठक\n(Repeat of Morning)", "channel": "Vividh Bharati" },[span_28](start_span)[span_28](end_span)
+  { "time": "2:15 PM", "title": "दोपहर समाचार", "channel": "Vividh Bharati" },[span_29](start_span)[span_29](end_span)
+  { "time": "2:30 PM", "title": "सदाबहार नग्मे - फिल्मी गीत\n(Hits From 1955-1965)", "channel": "Vividh Bharati" },[span_30](start_span)[span_30](end_span)
+  { "time": "3:00 PM", "title": "सखी सहेली\n1) विश्व मानक दिवस\n2) शब्द हमारा विचार आपके - प्रार्थना\n3) साड़ियों का संसार - पोचमपल्ली इकत (तेलंगाना)\n4) वैवाहिक जिम्मेदारी से बचते युवा\n5) व्यंजन - शकरकंद के व्यंजन", "channel": "Vividh Bharati" },[span_31](start_span)[span_31](end_span)
+  { "time": "4:00 PM", "title": "पिटारा : आज के मेहमान\nफिल्म लेखक - निर्देशक डॉ. विशाल चतुर्वेदी से ममता सिंह की बातचीत (भाग - 2)", "channel": "Vividh Bharati" },[span_32](start_span)[span_32](end_span)
+  { "time": "5:00 PM", "title": "छायागीत\n(Repeat of previous day progm)", "channel": "Vividh Bharati" },[span_33](start_span)[span_33](end_span)
+  { "time": "5:30 PM", "title": "तराने नए पुराने\n(New & Old Film Songs)", "channel": "Vividh Bharati" },[span_34](start_span)[span_34](end_span)
+  { "time": "6:00 PM", "title": "हिन्दी समाचार", "channel": "Vividh Bharati" },[span_35](start_span)[span_35](end_span)
+  { "time": "6:05 PM", "title": "तराने नए पुराने (Contd...)\n(New & Old Film Songs)", "channel": "Vividh Bharati" },[span_36](start_span)[span_36](end_span)
+  { "time": "6:30 PM", "title": "झरोखा (रूपरेखा)", "channel": "Vividh Bharati" },[span_37](start_span)[span_37](end_span)
+  { "time": "6:35 PM", "title": "संध्या रंजन (चित्रपट संगीत)", "channel": "Vividh Bharati" },[span_38](start_span)[span_38](end_span)
+  { "time": "6:45 PM", "title": "संगीत सरिता\nश्रृंखला - राग समयचक्र (भाग - 1)\nकलाकार - गायिका मंजिरी आलेगांवकर\n(Repeat of Morning)", "channel": "Vividh Bharati" },[span_39](start_span)[span_39](end_span)
+  { "time": "7:00 PM", "title": "जयमाला", "channel": "Vividh Bharati" },[span_40](start_span)[span_40](end_span)
+  { "time": "7:45 PM", "title": "इंद्रधनुष : राग अनुराग", "channel": "Vividh Bharati" },[span_41](start_span)[span_41](end_span)
+  { "time": "8:00 PM", "title": "हवामहल\nप्रहसन - शीर्षक की खोज\nलेखन - देवराज दिनेश\nनिर्देशन - मुख्तार अहमद", "channel": "Vividh Bharati" },[span_42](start_span)[span_42](end_span)
+  { "time": "8:15 PM", "title": "चित्रलोक\n(New film songs)", "channel": "Vividh Bharati" },[span_43](start_span)[span_43](end_span)
+  { "time": "8:45 PM", "title": "समाचार संध्या", "channel": "Vividh Bharati" },[span_44](start_span)[span_44](end_span)
+  { "time": "9:00 PM", "title": "आप के लिए\n(Film Songs)", "channel": "Vividh Bharati" },[span_45](start_span)[span_45](end_span)
+  { "time": "9:30 PM", "title": "आज के फ़नकार\nकॉस्ट्यूम डिज़ाइनर - भानू अथैय्या\nआलेख एवं स्वर - यूनुस खान\nप्रस्तुतकर्ता - रमेश गोखले", "channel": "Vividh Bharati" },[span_46](start_span)[span_46](end_span)
+  { "time": "10:00 PM", "title": "छायागीत\nआलेख एवं स्वर - मन्दाकिनी जोशी\nप्रस्तुतकर्ता - राघवेंद्र सिंह नेगी", "channel": "Vividh Bharati" },[span_47](start_span)[span_47](end_span)
+  { "time": "10:30 PM", "title": "ढलती जाए रात\n(Soft romantic songs of films)", "channel": "Vividh Bharati" },[span_48](start_span)[span_48](end_span)
+  { "time": "11:00 PM", "title": "रंग तरंग\n(Film Songs, Gazal, Qawwali, Pop & Folk Songs)\n(Repeat of 11.00 am progm)", "channel": "Vividh Bharati" },[span_49](start_span)[span_49](end_span)
 
   // --- FM Gold ---
-  { "time": "12:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "12:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "12:10 AM", "title": "NISHIGANDHA\n(SUPERHIT EVERGREENS FILM SONGS SUITABLE FOR THE NIGHT)", "channel": "FM Gold" },
-  { "time": "1:00 AM", "title": "NEWS BULLETIN HINDI", "channel": "FM Gold" },
-  { "time": "1:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "1:10 AM", "title": "GEET SUHANE - (OLD CLASSICS)", "channel": "FM Gold" },
-  { "time": "2:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "2:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "2:10 AM", "title": "RAAT SURMAYI\n(VARIETY OF SONGS THAT EXPRESS DIFFERENT EMOTIONS)", "channel": "FM Gold" },
-  { "time": "3:00 AM", "title": "NEWS BULLETIN HINDI", "channel": "FM Gold" },
-  { "time": "3:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "3:10 AM", "title": "HUMRAHI - HIT FILMI DUETS (OLD CLASSICS)", "channel": "FM Gold" },
-  { "time": "4:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "4:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "4:10 AM", "title": "ARUNIMA\n(FILMI & NON-FILMI SOOTHING SONGS WITH POSITIVE THOUGHTS)", "channel": "FM Gold" },
-  { "time": "5:00 AM", "title": "NEWS BULLETIN HINDI", "channel": "FM Gold" },
-  { "time": "5:05 AM", "title": "NEWS BULLETIN (ENGLISH)", "channel": "FM Gold" },
-  { "time": "5:10 AM", "title": "BHOR SUHANI\n(SOOTHING FILM SONGS SUITABLE WITH VERY EARLY MORNING MOOD)\n05:50 AM - वंदे मातरम / मंगल ध्वनि", "channel": "FM Gold" },
-  { "time": "6:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "6:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "6:10 AM", "title": "ARPAN\n(DEVOTIONAL SONGS WITH POSITIVE INSPIRATIONAL THOUGHTS)", "channel": "FM Gold" },
-  { "time": "6:44 AM", "title": "Shri Ram Charit Manas Gaan\nअयोध्या कांड - भाग 83", "channel": "FM Gold" },
-  { "time": "6:55 AM", "title": "NEWS IN SANSKRIT", "channel": "FM Gold" },
-  { "time": "7:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "7:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "7:10 AM", "title": "नवरात्र विशेष कार्यक्रम - शक्ति आराधना - माँ कुष्मांडा\nगोल्ड सुप्रभात (MORNING INFO & YOG)", "channel": "FM Gold" },
-  { "time": "7:30 AM", "title": "AAJ SAVERE (NSD - Bilingual)", "channel": "FM Gold" },
-  { "time": "8:00 AM", "title": "HINDI NEWS समाचार प्रभात", "channel": "FM Gold" },
-  { "time": "8:15 AM", "title": "NEWS IN ENGLISH - MORNING NEWS", "channel": "FM Gold" },
-  { "time": "8:30 AM", "title": "NEWS BULLETIN URDU", "channel": "FM Gold" },
-  { "time": "8:45 AM", "title": "MUSICAL DILLAGI\n(SPECIAL SHOW ON A PARTICULAR ISSUE OR CAMPAIGN)", "channel": "FM Gold" },
-  { "time": "9:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "9:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "9:10 AM", "title": "SPECIAL SERIES: JAN SEVA SE DESH SEVA\nEPISODE: 27", "channel": "FM Gold" },
-  { "time": "9:45 AM", "title": "MUSICAL DILLAGI\n* वन नेशन वन स्टैंडर्ड\n* World Standards Day", "channel": "FM Gold" },
-  { "time": "10:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "10:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "10:10 AM", "title": "VISHWA DARPAN", "channel": "FM Gold" },
-  { "time": "10:20 AM", "title": "WORLD NEWS", "channel": "FM Gold" },
-  { "time": "10:30 AM", "title": "DIL KA MAILBOX (REQUEST BASED)", "channel": "FM Gold" },
-  { "time": "11:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "11:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "11:10 AM", "title": "तस्वीर - वर्कला (केरल)\n(EK BHARAT SHRESHTH BHARAT / SUGAMY BHARAT)", "channel": "FM Gold" },
-  { "time": "12:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "12:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "12:10 PM", "title": "GHAR AANGAN (WOMEN & FAMILY SHOW)\n* शक्ति आराधना - माँ कुष्मांडा\n* विश्व मानक दिवस\n* डिजिटल स्वच्छता\n* पीएम सूर्य घर योजना", "channel": "FM Gold" },
-  { "time": "1:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "1:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "1:10 PM", "title": "कलाकार बेमिसाल\nअभिनेता - अशोक कुमार", "channel": "FM Gold" },
-  { "time": "1:50 PM", "title": "Urdu Samachar", "channel": "FM Gold" },
-  { "time": "2:00 PM", "title": "MID DAY NEWS (English)", "channel": "FM Gold" },
-  { "time": "2:15 PM", "title": "DOPAHAR SAMACHAAR (Hindi)", "channel": "FM Gold" },
-  { "time": "2:30 PM", "title": "SANGEET.COM\n(MUSIC BASED THEME LIVE COMPERING)", "channel": "FM Gold" },
-  { "time": "3:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "3:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "3:10 PM", "title": "MANBHAVAN - (REQUEST SHOW)", "channel": "FM Gold" },
-  { "time": "4:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "4:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "4:10 PM", "title": "Film Songs with Promos/Jingles/Traffic Updates", "channel": "FM Gold" },
-  { "time": "4:20 PM", "title": "EMPLOYMENT NEWS (ENGLISH) AND ROZGAR SAMACHAR (HINDI)", "channel": "FM Gold" },
-  { "time": "4:30 PM", "title": "PARIKRAMA (NSD - Bilingual)", "channel": "FM Gold" },
-  { "time": "5:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "5:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "5:10 PM", "title": "गाते गुनगुनाते\n(MELODIOUS OLD CLASSICS OF 80'S & 90'S ERA)", "channel": "FM Gold" },
-  { "time": "6:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "6:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "6:10 PM", "title": "VISHLESHAN (RECORDED PROG.)", "channel": "FM Gold" },
-  { "time": "6:20 PM", "title": "NEWS IN SANSKRIT", "channel": "FM Gold" },
-  { "time": "6:30 PM", "title": "MARKET MANTRA", "channel": "FM Gold" },
-  { "time": "7:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "7:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "7:10 PM", "title": "SPECIAL SERIES: JAN SEVA SE DESH SEVA\nEPISODE: 28", "channel": "FM Gold" },
-  { "time": "7:45 PM", "title": "PRADESHIK SAMACHAAR", "channel": "FM Gold" },
-  { "time": "8:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "8:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "8:10 PM", "title": "MADHURIMA\n(FILM SONGS BASED ON RAGAS/SEMI CLASSICAL)", "channel": "FM Gold" },
-  { "time": "8:30 PM", "title": "SPORTS SCAN", "channel": "FM Gold" },
-  { "time": "8:45 PM", "title": "SAMACHAR SANDHYA (Hindi)", "channel": "FM Gold" },
-  { "time": "9:00 PM", "title": "NEWS AT NINE (English)", "channel": "FM Gold" },
-  { "time": "9:15 PM", "title": "SPOT LIGHT (RECORDED)", "channel": "FM Gold" },
-  { "time": "9:30 PM", "title": "CHARCHA KA VISHAY HAI (RECORDED)", "channel": "FM Gold" },
-  { "time": "10:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "10:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "10:10 PM", "title": "VISHWA DARPAN", "channel": "FM Gold" },
-  { "time": "10:20 PM", "title": "WORLD NEWS", "channel": "FM Gold" },
-  { "time": "10:30 PM", "title": "हरसिंगार\n(COMPERED PROGRAMME WITH ROMANTIC FILM SONGS)", "channel": "FM Gold" },
-  { "time": "11:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },
-  { "time": "11:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },
-  { "time": "11:10 PM", "title": "MARKET MANTRA (REPEAT BROADCAST)", "channel": "FM Gold" },
-  { "time": "11:40 PM", "title": "GEET MERE MANMEET\n(NONSTOP EVERGREEN OLD FILM HITS)", "channel": "FM Gold" },
+  { "time": "12:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_50](start_span)[span_50](end_span)
+  { "time": "12:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_51](start_span)[span_51](end_span)
+  { "time": "12:10 AM", "title": "NISHIGANDHA\n(SUPERHIT EVERGREENS FILM SONGS SUITABLE FOR THE NIGHT)", "channel": "FM Gold" },[span_52](start_span)[span_52](end_span)
+  { "time": "1:00 AM", "title": "NEWS BULLETIN HINDI", "channel": "FM Gold" },[span_53](start_span)[span_53](end_span)
+  { "time": "1:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_54](start_span)[span_54](end_span)
+  { "time": "1:10 AM", "title": "GEET SUHANE - (OLD CLASSICS)", "channel": "FM Gold" },[span_55](start_span)[span_55](end_span)
+  { "time": "2:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_56](start_span)[span_56](end_span)
+  { "time": "2:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_57](start_span)[span_57](end_span)
+  { "time": "2:10 AM", "title": "RAAT SURMAYI\n(VARIETY OF SONGS THAT EXPRESS DIFFERENT EMOTIONS)", "channel": "FM Gold" },[span_58](start_span)[span_58](end_span)
+  { "time": "3:00 AM", "title": "NEWS BULLETIN HINDI", "channel": "FM Gold" },[span_59](start_span)[span_59](end_span)
+  { "time": "3:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_60](start_span)[span_60](end_span)
+  { "time": "3:10 AM", "title": "HUMRAHI - HIT FILMI DUETS (OLD CLASSICS)", "channel": "FM Gold" },[span_61](start_span)[span_61](end_span)
+  { "time": "4:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_62](start_span)[span_62](end_span)
+  { "time": "4:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_63](start_span)[span_63](end_span)
+  { "time": "4:10 AM", "title": "ARUNIMA\n(FILMI & NON-FILMI SOOTHING SONGS WITH POSITIVE THOUGHTS)", "channel": "FM Gold" },[span_64](start_span)[span_64](end_span)
+  { "time": "5:00 AM", "title": "NEWS BULLETIN HINDI", "channel": "FM Gold" },[span_65](start_span)[span_65](end_span)
+  { "time": "5:05 AM", "title": "NEWS BULLETIN (ENGLISH)", "channel": "FM Gold" },[span_66](start_span)[span_66](end_span)
+  { "time": "5:10 AM", "title": "BHOR SUHANI\n(SOOTHING FILM SONGS SUITABLE WITH VERY EARLY MORNING MOOD)\n05:50 AM - वंदे मातरम / मंगल ध्वनि", "channel": "FM Gold" },[span_67](start_span)[span_67](end_span)
+  { "time": "6:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_68](start_span)[span_68](end_span)
+  { "time": "6:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_69](start_span)[span_69](end_span)
+  { "time": "6:10 AM", "title": "ARPAN\n(DEVOTIONAL SONGS WITH POSITIVE INSPIRATIONAL THOUGHTS)", "channel": "FM Gold" },[span_70](start_span)[span_70](end_span)
+  { "time": "6:44 AM", "title": "Shri Ram Charit Manas Gaan\nअयोध्या कांड - भाग 83", "channel": "FM Gold" },[span_71](start_span)[span_71](end_span)
+  { "time": "6:55 AM", "title": "NEWS IN SANSKRIT", "channel": "FM Gold" },[span_72](start_span)[span_72](end_span)
+  { "time": "7:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_73](start_span)[span_73](end_span)
+  { "time": "7:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_74](start_span)[span_74](end_span)
+  { "time": "7:10 AM", "title": "नवरात्र विशेष कार्यक्रम - शक्ति आराधना - माँ कुष्मांडा\nगोल्ड सुप्रभात (MORNING INFO & YOG)", "channel": "FM Gold" },[span_75](start_span)[span_75](end_span)
+  { "time": "7:30 AM", "title": "AAJ SAVERE (NSD - Bilingual)", "channel": "FM Gold" },[span_76](start_span)[span_76](end_span)
+  { "time": "8:00 AM", "title": "HINDI NEWS समाचार प्रभात", "channel": "FM Gold" },[span_77](start_span)[span_77](end_span)
+  { "time": "8:15 AM", "title": "NEWS IN ENGLISH - MORNING NEWS", "channel": "FM Gold" },[span_78](start_span)[span_78](end_span)
+  { "time": "8:30 AM", "title": "NEWS BULLETIN URDU", "channel": "FM Gold" },[span_79](start_span)[span_79](end_span)
+  { "time": "8:45 AM", "title": "MUSICAL DILLAGI\n(SPECIAL SHOW ON A PARTICULAR ISSUE OR CAMPAIGN)", "channel": "FM Gold" },[span_80](start_span)[span_80](end_span)
+  { "time": "9:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_81](start_span)[span_81](end_span)
+  { "time": "9:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_82](start_span)[span_82](end_span)
+  { "time": "9:10 AM", "title": "SPECIAL SERIES: JAN SEVA SE DESH SEVA\nEPISODE: 27", "channel": "FM Gold" },[span_83](start_span)[span_83](end_span)
+  { "time": "9:45 AM", "title": "MUSICAL DILLAGI\n* वन नेशन वन स्टैंडर्ड\n* World Standards Day", "channel": "FM Gold" },[span_84](start_span)[span_84](end_span)
+  { "time": "10:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_85](start_span)[span_85](end_span)
+  { "time": "10:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_86](start_span)[span_86](end_span)
+  { "time": "10:10 AM", "title": "VISHWA DARPAN", "channel": "FM Gold" },[span_87](start_span)[span_87](end_span)
+  { "time": "10:20 AM", "title": "WORLD NEWS", "channel": "FM Gold" },[span_88](start_span)[span_88](end_span)
+  { "time": "10:30 AM", "title": "DIL KA MAILBOX (REQUEST BASED)", "channel": "FM Gold" },[span_89](start_span)[span_89](end_span)
+  { "time": "11:00 AM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_90](start_span)[span_90](end_span)
+  { "time": "11:05 AM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_91](start_span)[span_91](end_span)
+  { "time": "11:10 AM", "title": "तस्वीर - वर्कला (केरल)\n(EK BHARAT SHRESHTH BHARAT / SUGAMY BHARAT)", "channel": "FM Gold" },[span_92](start_span)[span_92](end_span)
+  { "time": "12:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_93](start_span)[span_93](end_span)
+  { "time": "12:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_94](start_span)[span_94](end_span)
+  { "time": "12:10 PM", "title": "GHAR AANGAN (WOMEN & FAMILY SHOW)\n* शक्ति आराधना - माँ कुष्मांडा\n* विश्व मानक दिवस\n* डिजिटल स्वच्छता\n* पीएम सूर्य घर योजना", "channel": "FM Gold" },[span_95](start_span)[span_95](end_span)
+  { "time": "1:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_96](start_span)[span_96](end_span)
+  { "time": "1:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_97](start_span)[span_97](end_span)
+  { "time": "1:10 PM", "title": "कलाकार बेमिसाल\nअभिनेता - अशोक कुमार", "channel": "FM Gold" },[span_98](start_span)[span_98](end_span)
+  { "time": "1:50 PM", "title": "Urdu Samachar", "channel": "FM Gold" },[span_99](start_span)[span_99](end_span)
+  { "time": "2:00 PM", "title": "MID DAY NEWS (English)", "channel": "FM Gold" },[span_100](start_span)[span_100](end_span)
+  { "time": "2:15 PM", "title": "DOPAHAR SAMACHAAR (Hindi)", "channel": "FM Gold" },[span_101](start_span)[span_101](end_span)
+  { "time": "2:30 PM", "title": "SANGEET.COM\n(MUSIC BASED THEME LIVE COMPERING)", "channel": "FM Gold" },[span_102](start_span)[span_102](end_span)
+  { "time": "3:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_103](start_span)[span_103](end_span)
+  { "time": "3:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_104](start_span)[span_104](end_span)
+  { "time": "3:10 PM", "title": "MANBHAVAN - (REQUEST SHOW)", "channel": "FM Gold" },[span_105](start_span)[span_105](end_span)
+  { "time": "4:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_106](start_span)[span_106](end_span)
+  { "time": "4:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_107](start_span)[span_107](end_span)
+  { "time": "4:10 PM", "title": "Film Songs with Promos/Jingles/Traffic Updates", "channel": "FM Gold" },[span_108](start_span)[span_108](end_span)
+  { "time": "4:20 PM", "title": "EMPLOYMENT NEWS (ENGLISH) AND ROZGAR SAMACHAR (HINDI)", "channel": "FM Gold" },[span_109](start_span)[span_109](end_span)
+  { "time": "4:30 PM", "title": "PARIKRAMA (NSD - Bilingual)", "channel": "FM Gold" },[span_110](start_span)[span_110](end_span)
+  { "time": "5:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_111](start_span)[span_111](end_span)
+  { "time": "5:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_112](start_span)[span_112](end_span)
+  { "time": "5:10 PM", "title": "गाते गुनगुनाते\n(MELODIOUS OLD CLASSICS OF 80'S & 90'S ERA)", "channel": "FM Gold" },[span_113](start_span)[span_113](end_span)
+  { "time": "6:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_114](start_span)[span_114](end_span)
+  { "time": "6:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_115](start_span)[span_115](end_span)
+  { "time": "6:10 PM", "title": "VISHLESHAN (RECORDED PROG.)", "channel": "FM Gold" },[span_116](start_span)[span_116](end_span)
+  { "time": "6:20 PM", "title": "NEWS IN SANSKRIT", "channel": "FM Gold" },[span_117](start_span)[span_117](end_span)
+  { "time": "6:30 PM", "title": "MARKET MANTRA", "channel": "FM Gold" },[span_118](start_span)[span_118](end_span)
+  { "time": "7:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_119](start_span)[span_119](end_span)
+  { "time": "7:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_120](start_span)[span_120](end_span)
+  { "time": "7:10 PM", "title": "SPECIAL SERIES: JAN SEVA SE DESH SEVA\nEPISODE: 28", "channel": "FM Gold" },[span_121](start_span)[span_121](end_span)
+  { "time": "7:45 PM", "title": "PRADESHIK SAMACHAAR", "channel": "FM Gold" },[span_122](start_span)[span_122](end_span)
+  { "time": "8:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_123](start_span)[span_123](end_span)
+  { "time": "8:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_124](start_span)[span_124](end_span)
+  { "time": "8:10 PM", "title": "MADHURIMA\n(FILM SONGS BASED ON RAGAS/SEMI CLASSICAL)", "channel": "FM Gold" },[span_125](start_span)[span_125](end_span)
+  { "time": "8:30 PM", "title": "SPORTS SCAN", "channel": "FM Gold" },[span_126](start_span)[span_126](end_span)
+  { "time": "8:45 PM", "title": "SAMACHAR SANDHYA (Hindi)", "channel": "FM Gold" },[span_127](start_span)[span_127](end_span)
+  { "time": "9:00 PM", "title": "NEWS AT NINE (English)", "channel": "FM Gold" },[span_128](start_span)[span_128](end_span)
+  { "time": "9:15 PM", "title": "SPOT LIGHT (RECORDED)", "channel": "FM Gold" },[span_129](start_span)[span_129](end_span)
+  { "time": "9:30 PM", "title": "CHARCHA KA VISHAY HAI (RECORDED)", "channel": "FM Gold" },[span_130](start_span)[span_130](end_span)
+  { "time": "10:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_131](start_span)[span_131](end_span)
+  { "time": "10:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_132](start_span)[span_132](end_span)
+  { "time": "10:10 PM", "title": "VISHWA DARPAN", "channel": "FM Gold" },[span_133](start_span)[span_133](end_span)
+  { "time": "10:20 PM", "title": "WORLD NEWS", "channel": "FM Gold" },[span_134](start_span)[span_134](end_span)
+  { "time": "10:30 PM", "title": "हरसिंगार\n(COMPERED PROGRAMME WITH ROMANTIC FILM SONGS)", "channel": "FM Gold" },[span_135](start_span)[span_135](end_span)
+  { "time": "11:00 PM", "title": "NEWS IN HINDI", "channel": "FM Gold" },[span_136](start_span)[span_136](end_span)
+  { "time": "11:05 PM", "title": "NEWS IN ENGLISH", "channel": "FM Gold" },[span_137](start_span)[span_137](end_span)
+  { "time": "11:10 PM", "title": "MARKET MANTRA (REPEAT BROADCAST)", "channel": "FM Gold" },[span_138](start_span)[span_138](end_span)
+  { "time": "11:40 PM", "title": "GEET MERE MANMEET\n(NONSTOP EVERGREEN OLD FILM HITS)", "channel": "FM Gold" },[span_139](start_span)[span_139](end_span)
 
   // --- FM Rainbow Delhi ---
-  { "time": "12:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "12:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nZERO HOUR SHOW\n(Songs suitable for the Late Night Mood)", "channel": "FM Rainbow Delhi" },
-  { "time": "1:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "1:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nSUHANI RAAT\n(Soft Romantic Songs, 90s & new songs)", "channel": "FM Rainbow Delhi" },
-  { "time": "2:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "2:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nBHULAYE NA BANE\n(Soft melodious songs)", "channel": "FM Rainbow Delhi" },
-  { "time": "3:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "3:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nMID NIGHT MELODIES\n(Non stop bollywood music)", "channel": "FM Rainbow Delhi" },
-  { "time": "4:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "4:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nSA RE GA MA\n(Morning Mood Songs)", "channel": "FM Rainbow Delhi" },
-  { "time": "5:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "5:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nARADHANA\n(Devotional songs non stop)\n05:50 AM - वंदे मातरम / मंगल ध्वनि", "channel": "FM Rainbow Delhi" },
-  { "time": "6:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "6:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nSUPRABHAT\n(A compered programme)", "channel": "FM Rainbow Delhi" },
-  { "time": "7:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "7:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nGOOD MORNING DELHI / NCR\n* World Standards Day", "channel": "FM Rainbow Delhi" },
-  { "time": "8:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "8:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nGOOD MORNING DELHI/NCR\n08:30 AM - सेवा संकल्प अभियान PARIKSHA PE CHARCHA", "channel": "FM Rainbow Delhi" },
-  { "time": "9:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "9:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nDIL KE TARANE GAANE NAYE PURANE", "channel": "FM Rainbow Delhi" },
-  { "time": "10:00 AM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },
-  { "time": "10:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nWESTERN MUSIC: (MATCHLESS MUSIC HOUR)", "channel": "FM Rainbow Delhi" },
-  { "time": "11:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "11:02 AM", "title": "आकाशवाणी रेनबो जिंगल\nBOLLYWOOD TRAILS", "channel": "FM Rainbow Delhi" },
-  { "time": "12:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },
-  { "time": "12:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nWESTERN MUSIC: (PLAY IT COOL)", "channel": "FM Rainbow Delhi" },
-  { "time": "1:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "1:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nRAINBOW HELPLINE\nTopic: AI Careers: Opportunities for the Future\nGuest: Dr Garima Saini", "channel": "FM Rainbow Delhi" },
-  { "time": "2:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "2:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nAASHIYANA (Hum Kadam)\n02:30 PM - NCERT Programme", "channel": "FM Rainbow Delhi" },
-  { "time": "3:00 PM", "title": "आकाशवाणी रेनबो जिंगल\nRADIO DOCTOR (Phone-in)\nTopic: Kidney & Urological Problems In Old Age", "channel": "FM Rainbow Delhi" },
-  { "time": "4:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "4:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nALPHA GEN (Campus Calling)\n04:05 PM - SPONSORED PROGRAMME 'DISHA'", "channel": "FM Rainbow Delhi" },
-  { "time": "5:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "5:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nCITYLIGHTS (Events & Traffic updates)", "channel": "FM Rainbow Delhi" },
-  { "time": "6:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "6:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nMESSAGE MASALA MIX", "channel": "FM Rainbow Delhi" },
-  { "time": "7:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },
-  { "time": "7:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nWESTERN MUSIC (NORTH EAST HUES)", "channel": "FM Rainbow Delhi" },
-  { "time": "8:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "8:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nMUSIC MASTI (Non-Stop dance Hits)", "channel": "FM Rainbow Delhi" },
-  { "time": "9:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "9:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nAAPKI YAAD AATI RAHI", "channel": "FM Rainbow Delhi" },
-  { "time": "10:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },
-  { "time": "10:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nWESTERN MUSIC (Rainbow Classics)", "channel": "FM Rainbow Delhi" },
-  { "time": "11:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },
-  { "time": "11:02 PM", "title": "आकाशवाणी रेनबो जिंगल\nRANGE-MEHFIL (Ghazal based program)", "channel": "FM Rainbow Delhi" },
+  { "time": "12:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_140](start_span)[span_140](end_span)
+  { "time": "12:02 AM", "title": "ZERO HOUR SHOW\n(Songs suitable for the Late Night Mood)", "channel": "FM Rainbow Delhi" },[span_141](start_span)[span_141](end_span)
+  { "time": "1:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_142](start_span)[span_142](end_span)
+  { "time": "1:02 AM", "title": "SUHANI RAAT\n(Soft Romantic Songs, 90s & new songs)", "channel": "FM Rainbow Delhi" },[span_143](start_span)[span_143](end_span)
+  { "time": "2:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_144](start_span)[span_144](end_span)
+  { "time": "2:02 AM", "title": "BHULAYE NA BANE\n(Soft melodious songs)", "channel": "FM Rainbow Delhi" },[span_145](start_span)[span_145](end_span)
+  { "time": "3:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_146](start_span)[span_146](end_span)
+  { "time": "3:02 AM", "title": "MID NIGHT MELODIES\n(Non stop bollywood music)", "channel": "FM Rainbow Delhi" },[span_147](start_span)[span_147](end_span)
+  { "time": "4:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_148](start_span)[span_148](end_span)
+  { "time": "4:02 AM", "title": "SA RE GA MA\n(Morning Mood Songs)", "channel": "FM Rainbow Delhi" },[span_149](start_span)[span_149](end_span)
+  { "time": "5:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_150](start_span)[span_150](end_span)
+  { "time": "5:02 AM", "title": "ARADHANA\n(Devotional songs non stop)\n05:50 AM - वंदे मातरम / मंगल ध्वनि", "channel": "FM Rainbow Delhi" },[span_151](start_span)[span_151](end_span)
+  { "time": "6:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_152](start_span)[span_152](end_span)
+  { "time": "6:02 AM", "title": "SUPRABHAT\n(A compered programme)", "channel": "FM Rainbow Delhi" },[span_153](start_span)[span_153](end_span)
+  { "time": "7:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_154](start_span)[span_154](end_span)
+  { "time": "7:02 AM", "title": "GOOD MORNING DELHI / NCR\n* World Standards Day", "channel": "FM Rainbow Delhi" },[span_155](start_span)[span_155](end_span)
+  { "time": "8:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_156](start_span)[span_156](end_span)
+  { "time": "8:02 AM", "title": "GOOD MORNING DELHI/NCR\n08:30 AM - सेवा संकल्प अभियान PARIKSHA PE CHARCHA", "channel": "FM Rainbow Delhi" },[span_157](start_span)[span_157](end_span)
+  { "time": "9:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_158](start_span)[span_158](end_span)
+  { "time": "9:02 AM", "title": "DIL KE TARANE GAANE NAYE PURANE", "channel": "FM Rainbow Delhi" },[span_159](start_span)[span_159](end_span)
+  { "time": "10:00 AM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },[span_160](start_span)[span_160](end_span)
+  { "time": "10:02 AM", "title": "WESTERN MUSIC: (MATCHLESS MUSIC HOUR)", "channel": "FM Rainbow Delhi" },[span_161](start_span)[span_161](end_span)
+  { "time": "11:00 AM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_162](start_span)[span_162](end_span)
+  { "time": "11:02 AM", "title": "BOLLYWOOD TRAILS", "channel": "FM Rainbow Delhi" },[span_163](start_span)[span_163](end_span)
+  { "time": "12:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },[span_164](start_span)[span_164](end_span)
+  { "time": "12:02 PM", "title": "WESTERN MUSIC: (PLAY IT COOL)", "channel": "FM Rainbow Delhi" },[span_165](start_span)[span_165](end_span)
+  { "time": "1:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_166](start_span)[span_166](end_span)
+  { "time": "1:02 PM", "title": "RAINBOW HELPLINE\nTopic: AI Careers: Opportunities for the Future\nGuest: Dr Garima Saini", "channel": "FM Rainbow Delhi" },[span_167](start_span)[span_167](end_span)
+  { "time": "2:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_168](start_span)[span_168](end_span)
+  { "time": "2:02 PM", "title": "AASHIYANA (Hum Kadam)\n02:30 PM - NCERT Programme", "channel": "FM Rainbow Delhi" },[span_169](start_span)[span_169](end_span)
+  { "time": "3:00 PM", "title": "RADIO DOCTOR (Phone-in)\nTopic: Kidney & Urological Problems In Old Age", "channel": "FM Rainbow Delhi" },[span_170](start_span)[span_170](end_span)
+  { "time": "4:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_171](start_span)[span_171](end_span)
+  { "time": "4:02 PM", "title": "ALPHA GEN (Campus Calling)\n04:05 PM - SPONSORED PROGRAMME 'DISHA'", "channel": "FM Rainbow Delhi" },[span_172](start_span)[span_172](end_span)
+  { "time": "5:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_173](start_span)[span_173](end_span)
+  { "time": "5:02 PM", "title": "CITYLIGHTS (Events & Traffic updates)", "channel": "FM Rainbow Delhi" },[span_174](start_span)[span_174](end_span)
+  { "time": "6:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_175](start_span)[span_175](end_span)
+  { "time": "6:02 PM", "title": "MESSAGE MASALA MIX", "channel": "FM Rainbow Delhi" },[span_176](start_span)[span_176](end_span)
+  { "time": "7:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },[span_177](start_span)[span_177](end_span)
+  { "time": "7:02 PM", "title": "WESTERN MUSIC (NORTH EAST HUES)", "channel": "FM Rainbow Delhi" },[span_178](start_span)[span_178](end_span)
+  { "time": "8:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_179](start_span)[span_179](end_span)
+  { "time": "8:02 PM", "title": "MUSIC MASTI (Non-Stop dance Hits)", "channel": "FM Rainbow Delhi" },[span_180](start_span)[span_180](end_span)
+  { "time": "9:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_181](start_span)[span_181](end_span)
+  { "time": "9:02 PM", "title": "AAPKI YAAD AATI RAHI", "channel": "FM Rainbow Delhi" },[span_182](start_span)[span_182](end_span)
+  { "time": "10:00 PM", "title": "News Headlines in English", "channel": "FM Rainbow Delhi" },[span_183](start_span)[span_183](end_span)
+  { "time": "10:02 PM", "title": "WESTERN MUSIC (Rainbow Classics)", "channel": "FM Rainbow Delhi" },[span_184](start_span)[span_184](end_span)
+  { "time": "11:00 PM", "title": "हिन्दी मे मुख्य समाचार", "channel": "FM Rainbow Delhi" },[span_185](start_span)[span_185](end_span)
+  { "time": "11:02 PM", "title": "RANGE-MEHFIL (Ghazal based program)", "channel": "FM Rainbow Delhi" },[span_186](start_span)[span_186](end_span)
 
   // --- Indraprastha ---
-  { "time": "12:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "12:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "12:10 AM", "title": "सुरों का सफ़रनामा", "channel": "Indraprastha" },
-  { "time": "1:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "1:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "1:10 AM", "title": "गीत सुनहरे Golden Era (फिल्म संगीत)", "channel": "Indraprastha" },
-  { "time": "2:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "2:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "2:10 AM", "title": "गीत बहार - FILM MUSIC (NON-STOP)", "channel": "Indraprastha" },
-  { "time": "3:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "3:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "3:10 AM", "title": "ग़ज़ल / गीत", "channel": "Indraprastha" },
-  { "time": "4:00 AM", "title": "Archana (Carnatic Devotional)\nDEVOTIONAL MUSIC BY P. LEELA", "channel": "Indraprastha" },
-  { "time": "4:20 AM", "title": "नाद ब्रह्म - Carnatic Music\nVOCAL/MININ/RAGAM KALYANI", "channel": "Indraprastha" },
-  { "time": "4:50 AM", "title": "वन्देमातरम / मंगल ध्वनि\nकार्यक्रम विवरण", "channel": "Indraprastha" },
-  { "time": "5:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "5:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "5:10 AM", "title": "आओ योग करें (Yoga for Wellness)\nयोग- उज्जायी प्राणायाम और वृक्षासन", "channel": "Indraprastha" },
-  { "time": "5:20 AM", "title": "देश भक्ति गीत - फिल्मों से", "channel": "Indraprastha" },
-  { "time": "5:30 AM", "title": "स्वर रंजनी (HINDUSTANI CLASSICAL)\nJALTARANG BY MANISH SHARMA (RAAG-BHAIRAVI)", "channel": "Indraprastha" },
-  { "time": "6:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "6:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "6:10 AM", "title": "वंदना (DEVOTIONAL SONGS / BHAJAN)", "channel": "Indraprastha" },
-  { "time": "6:40 AM", "title": "चिंतन - डॉ. भीमराव अंबेडकर के विचार", "channel": "Indraprastha" },
-  { "time": "6:45 AM", "title": "राम चरित मानस\nअयोध्या कांड भाग 78", "channel": "Indraprastha" },
-  { "time": "6:55 AM", "title": "NEWS IN SANSKRIT", "channel": "Indraprastha" },
-  { "time": "7:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "7:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "7:10 AM", "title": "SANGEETIKA\nSULAGNA HALDAR - BHAJAN", "channel": "Indraprastha" },
-  { "time": "7:30 AM", "title": "गीतों भरी Good Morning\n(Film Music)", "channel": "Indraprastha" },
-  { "time": "8:00 AM", "title": "News in Hindi - Samachaar Prabhaat", "channel": "Indraprastha" },
-  { "time": "8:15 AM", "title": "News in English - Morning News", "channel": "Indraprastha" },
-  { "time": "8:30 AM", "title": "NEWS IN URDU", "channel": "Indraprastha" },
-  { "time": "8:45 AM", "title": "स्वर गंगा - शास्त्रीय संगीत\nSITAR RECITAL: AMITAVA CHATTERJEE (RAAG BHAIRAV)", "channel": "Indraprastha" },
-  { "time": "9:15 AM", "title": "SCIENCE MAGAZINE\nFrom AI to Quantum: Reimagining Technology Education", "channel": "Indraprastha" },
-  { "time": "9:30 AM", "title": "मिटटी दी महक (Punjabi Programme)\nSada Virsa / Lok Geet / World Standards Day", "channel": "Indraprastha" },
-  { "time": "10:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "10:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "10:10 AM", "title": "आप की पसंद", "channel": "Indraprastha" },
-  { "time": "11:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "11:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "11:10 AM", "title": "सबरस", "channel": "Indraprastha" },
-  { "time": "11:30 AM", "title": "सुर मंजरी-हिन्दुस्तानी शास्त्रीय संगीत\nVOCAL: APOORVA TIWARI (RAAG-MIYA KI TODI)", "channel": "Indraprastha" },
-  { "time": "12:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "12:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "12:10 PM", "title": "महिला कार्यक्रम घर आंगन\n* शक्ति आराधना - माँ कुष्मांडा\n* विश्व मानक दिवस\n* डिजिटल स्वच्छता", "channel": "Indraprastha" },
-  { "time": "1:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "1:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "1:10 PM", "title": "एक ही फिल्म से -", "channel": "Indraprastha" },
-  { "time": "1:40 PM", "title": "NEWS IN PUNJABI", "channel": "Indraprastha" },
-  { "time": "1:50 PM", "title": "NEWS IN URDU", "channel": "Indraprastha" },
-  { "time": "2:00 PM", "title": "MID DAY NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "2:15 PM", "title": "MID DAY NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "2:30 PM", "title": "एक ही कलाकार-", "channel": "Indraprastha" },
-  { "time": "3:00 PM", "title": "Matinee Melodies\n(Film Songs of Golden Era)", "channel": "Indraprastha" },
-  { "time": "3:30 PM", "title": "URDU MAJLIS - Aks-e-Adab", "channel": "Indraprastha" },
-  { "time": "4:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "4:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "4:10 PM", "title": "SOS (गुमशुदा व्यक्तियों के सम्बन्ध में सूचना) / प्रोमो", "channel": "Indraprastha" },
-  { "time": "4:15 PM", "title": "YUVVANI LIVE\nAAJ KI BAAT / MANN SE MICROPHONE TAK", "channel": "Indraprastha" },
-  { "time": "5:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "5:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "5:10 PM", "title": "लोक संगीत का कार्यक्रम लोक रंजनी", "channel": "Indraprastha" },
-  { "time": "5:30 PM", "title": "दैनिक कार्यक्रम \"खेल खिलाड़ी\"", "channel": "Indraprastha" },
-  { "time": "6:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "6:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "6:10 PM", "title": "हिंदी वार्ता\n'हमारे रोजमर्रा के जीवन में मानकों की भूमिका' (विश्व मानक दिवस)", "channel": "Indraprastha" },
-  { "time": "6:20 PM", "title": "NEWS IN SANSKRIT", "channel": "Indraprastha" },
-  { "time": "6:30 PM", "title": "कार्यक्रम - ग्राम संसार\nचर्चा-विश्व मानक दिवस / नवरात्रि संतुलित खान-पान", "channel": "Indraprastha" },
-  { "time": "7:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "7:05 PM", "title": "कार्यक्रम - कृषि जगत\nआलू की खेती की तैयारी", "channel": "Indraprastha" },
-  { "time": "7:35 PM", "title": "ग़ज़ल / क़व्वाली", "channel": "Indraprastha" },
-  { "time": "7:45 PM", "title": "PRADESHIK SAMACHAR (Regional News)", "channel": "Indraprastha" },
-  { "time": "8:00 PM", "title": "गीत मालिका - फिल्म संगीत", "channel": "Indraprastha" },
-  { "time": "8:45 PM", "title": "Hindi News - SAMACHAAR SANDHYAA", "channel": "Indraprastha" },
-  { "time": "9:00 PM", "title": "English News - EVENING NEWS", "channel": "Indraprastha" },
-  { "time": "9:15 PM", "title": "NEWS IN URDU", "channel": "Indraprastha" },
-  { "time": "9:30 PM", "title": "चर्चा का विषय है", "channel": "Indraprastha" },
-  { "time": "10:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "10:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "10:10 PM", "title": "MAATI KE RANG\nVINOD KUMAR GANDHARV - HIMACHALI GEET", "channel": "Indraprastha" },
-  { "time": "10:30 PM", "title": "राग रंजन-हिन्दुस्तानी शास्त्रीय संगीत\nSITAR RECITAL: AMITAVA CHATTERJEE (RAAG CHANDRAKAUNS)", "channel": "Indraprastha" },
-  { "time": "11:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },
-  { "time": "11:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },
-  { "time": "11:10 PM", "title": "फिल्म संगीत-आप की फरमाइश", "channel": "Indraprastha" }
+  { "time": "12:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_187](start_span)[span_187](end_span)
+  { "time": "12:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_188](start_span)[span_188](end_span)
+  { "time": "12:10 AM", "title": "सुरों का सफ़रनामा", "channel": "Indraprastha" },[span_189](start_span)[span_189](end_span)
+  { "time": "1:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_190](start_span)[span_190](end_span)
+  { "time": "1:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_191](start_span)[span_191](end_span)
+  { "time": "1:10 AM", "title": "गीत सुनहरे Golden Era (फिल्म संगीत)", "channel": "Indraprastha" },[span_192](start_span)[span_192](end_span)
+  { "time": "2:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_193](start_span)[span_193](end_span)
+  { "time": "2:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_194](start_span)[span_194](end_span)
+  { "time": "2:10 AM", "title": "गीत बहार - FILM MUSIC (NON-STOP)", "channel": "Indraprastha" },[span_195](start_span)[span_195](end_span)
+  { "time": "3:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_196](start_span)[span_196](end_span)
+  { "time": "3:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_197](start_span)[span_197](end_span)
+  { "time": "3:10 AM", "title": "ग़ज़ल / गीत", "channel": "Indraprastha" },[span_198](start_span)[span_198](end_span)
+  { "time": "4:00 AM", "title": "Archana (Carnatic Devotional)\nDEVOTIONAL MUSIC BY P. LEELA", "channel": "Indraprastha" },[span_199](start_span)[span_199](end_span)
+  { "time": "4:20 AM", "title": "नाद ब्रह्म - Carnatic Music\nVOCAL/MININ/RAGAM KALYANI", "channel": "Indraprastha" },[span_200](start_span)[span_200](end_span)
+  { "time": "4:50 AM", "title": "वन्देमातरम / मंगल ध्वनि\nकार्यक्रम विवरण", "channel": "Indraprastha" },[span_201](start_span)[span_201](end_span)
+  { "time": "5:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_202](start_span)[span_202](end_span)
+  { "time": "5:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_203](start_span)[span_203](end_span)
+  { "time": "5:10 AM", "title": "आओ योग करें (Yoga for Wellness)\nयोग- उज्जायी प्राणायाम और वृक्षासन", "channel": "Indraprastha" },[span_204](start_span)[span_204](end_span)
+  { "time": "5:20 AM", "title": "देश भक्ति गीत - फिल्मों से", "channel": "Indraprastha" },[span_205](start_span)[span_205](end_span)
+  { "time": "5:30 AM", "title": "स्वर रंजनी (HINDUSANI CLASSICAL MUSIC)\nJALTARANG BY MANISH SHARMA (RAAG-BHAIRAVI)", "channel": "Indraprastha" },[span_206](start_span)[span_206](end_span)
+  { "time": "6:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_207](start_span)[span_207](end_span)
+  { "time": "6:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_208](start_span)[span_208](end_span)
+  { "time": "6:10 AM", "title": "वंदना (DEVOTIONAL SONGS / BHAJAN)", "channel": "Indraprastha" },[span_209](start_span)[span_209](end_span)
+  { "time": "6:40 AM", "title": "चिंतन - डॉ. भीमराव अंबेडकर के विचार", "channel": "Indraprastha" },[span_210](start_span)[span_210](end_span)
+  { "time": "6:45 AM", "title": "राम चरित मानस\nअयोध्या कांड भाग 78", "channel": "Indraprastha" },[span_211](start_span)[span_211](end_span)
+  { "time": "6:55 AM", "title": "NEWS IN SANSKRIT", "channel": "Indraprastha" },[span_212](start_span)[span_212](end_span)
+  { "time": "7:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_213](start_span)[span_213](end_span)
+  { "time": "7:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_214](start_span)[span_214](end_span)
+  { "time": "7:10 AM", "title": "SANGEETIKA\nSULAGNA HALDAR - BHAJAN", "channel": "Indraprastha" },[span_215](start_span)[span_215](end_span)
+  { "time": "7:30 AM", "title": "गीतों भरी Good Morning\n(Film Music)", "channel": "Indraprastha" },[span_216](start_span)[span_216](end_span)
+  { "time": "8:00 AM", "title": "News in Hindi - Samachaar Prabhaat", "channel": "Indraprastha" },[span_217](start_span)[span_217](end_span)
+  { "time": "8:15 AM", "title": "News in English - Morning News", "channel": "Indraprastha" },[span_218](start_span)[span_218](end_span)
+  { "time": "8:30 AM", "title": "NEWS IN URDU", "channel": "Indraprastha" },[span_219](start_span)[span_219](end_span)
+  { "time": "8:45 AM", "title": "स्वर गंगा - शास्त्रीय संगीत\nSITAR RECITAL: AMITAVA CHATTERJEE (RAAG BHAIRAV)", "channel": "Indraprastha" },[span_220](start_span)[span_220](end_span)
+  { "time": "9:15 AM", "title": "SCIENCE MAGAZINE\nFrom AI to Quantum: Reimagining Technology Education", "channel": "Indraprastha" },[span_221](start_span)[span_221](end_span)
+  { "time": "9:30 AM", "title": "मिटटी दी महक (Punjabi Programme)\nSada Virsa / Lok Geet / World Standards Day", "channel": "Indraprastha" },[span_222](start_span)[span_222](end_span)
+  { "time": "10:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_223](start_span)[span_223](end_span)
+  { "time": "10:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_224](start_span)[span_224](end_span)
+  { "time": "10:10 AM", "title": "आप की पसंद", "channel": "Indraprastha" },[span_225](start_span)[span_225](end_span)
+  { "time": "11:00 AM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_226](start_span)[span_226](end_span)
+  { "time": "11:05 AM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_227](start_span)[span_227](end_span)
+  { "time": "11:10 AM", "title": "सबरस", "channel": "Indraprastha" },[span_228](start_span)[span_228](end_span)
+  { "time": "11:30 AM", "title": "सुर मंजरी-हिन्दुस्तानी शास्त्रीय संगीत\nVOCAL: APOORVA TIWARI (RAAG-MIYA KI TODI)", "channel": "Indraprastha" },[span_229](start_span)[span_229](end_span)
+  { "time": "12:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_230](start_span)[span_230](end_span)
+  { "time": "12:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_231](start_span)[span_231](end_span)
+  { "time": "12:10 PM", "title": "महिला कार्यक्रम घर आंगन\n* शक्ति आराधना - माँ कुष्मांडा\n* विश्व मानक दिवस\n* डिजिटल स्वच्छता", "channel": "Indraprastha" },[span_232](start_span)[span_232](end_span)
+  { "time": "1:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_233](start_span)[span_233](end_span)
+  { "time": "1:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_234](start_span)[span_234](end_span)
+  { "time": "1:10 PM", "title": "एक ही फिल्म से -", "channel": "Indraprastha" },[span_235](start_span)[span_235](end_span)
+  { "time": "1:40 PM", "title": "NEWS IN PUNJABI", "channel": "Indraprastha" },[span_236](start_span)[span_236](end_span)
+  { "time": "1:50 PM", "title": "NEWS IN URDU", "channel": "Indraprastha" },[span_237](start_span)[span_237](end_span)
+  { "time": "2:00 PM", "title": "MID DAY NEWS IN ENGLISH", "channel": "Indraprastha" },[span_238](start_span)[span_238](end_span)
+  { "time": "2:15 PM", "title": "MID DAY NEWS IN HINDI", "channel": "Indraprastha" },[span_239](start_span)[span_239](end_span)
+  { "time": "2:30 PM", "title": "एक ही कलाकार-", "channel": "Indraprastha" },[span_240](start_span)[span_240](end_span)
+  { "time": "3:00 PM", "title": "Matinee Melodies\n(Film Songs of Golden Era)", "channel": "Indraprastha" },[span_241](start_span)[span_241](end_span)
+  { "time": "3:30 PM", "title": "URDU MAJLIS - Aks-e-Adab", "channel": "Indraprastha" },[span_242](start_span)[span_242](end_span)
+  { "time": "4:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_243](start_span)[span_243](end_span)
+  { "time": "4:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_244](start_span)[span_244](end_span)
+  { "time": "4:10 PM", "title": "SOS (गुमशुदा व्यक्तियों के सम्बन्ध में सूचना) / प्रोमो", "channel": "Indraprastha" },[span_245](start_span)[span_245](end_span)
+  { "time": "4:15 PM", "title": "YUVVANI LIVE\nAAJ KI BAAT / MANN SE MICROPHONE TAK", "channel": "Indraprastha" },[span_246](start_span)[span_246](end_span)
+  { "time": "5:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_247](start_span)[span_247](end_span)
+  { "time": "5:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_248](start_span)[span_248](end_span)
+  { "time": "5:10 PM", "title": "लोक संगीत का कार्यक्रम लोक रंजनी", "channel": "Indraprastha" },[span_249](start_span)[span_249](end_span)
+  { "time": "5:30 PM", "title": "दैनिक कार्यक्रम \"खेल खिलाड़ी\"", "channel": "Indraprastha" },[span_250](start_span)[span_250](end_span)
+  { "time": "6:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_251](start_span)[span_251](end_span)
+  { "time": "6:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_252](start_span)[span_252](end_span)
+  { "time": "6:10 PM", "title": "हिंदी वार्ता\n'हमारे रोजमर्रा के जीवन में मानकों की भूमिका' (विश्व मानक दिवस)", "channel": "Indraprastha" },[span_253](start_span)[span_253](end_span)
+  { "time": "6:20 PM", "title": "NEWS IN SANSKRIT", "channel": "Indraprastha" },[span_254](start_span)[span_254](end_span)
+  { "time": "6:30 PM", "title": "कार्यक्रम - ग्राम संसार\nचर्चा-विश्व मानक दिवस / नवरात्रि संतुलित खान-पान", "channel": "Indraprastha" },[span_255](start_span)[span_255](end_span)
+  { "time": "7:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_256](start_span)[span_256](end_span)
+  { "time": "7:05 PM", "title": "कार्यक्रम - कृषि जगत\nआलू की खेती की तैयारी", "channel": "Indraprastha" },[span_257](start_span)[span_257](end_span)
+  { "time": "7:35 PM", "title": "ग़ज़ल / क़व्वाली", "channel": "Indraprastha" },[span_258](start_span)[span_258](end_span)
+  { "time": "7:45 PM", "title": "PRADESHIK SAMACHAR (Regional News)", "channel": "Indraprastha" },[span_259](start_span)[span_259](end_span)
+  { "time": "8:00 PM", "title": "गीत मालिका - फिल्म संगीत", "channel": "Indraprastha" },[span_260](start_span)[span_260](end_span)
+  { "time": "8:45 PM", "title": "Hindi News - SAMACHAAR SANDHYAA", "channel": "Indraprastha" },[span_261](start_span)[span_261](end_span)
+  { "time": "9:00 PM", "title": "English News - EVENING NEWS", "channel": "Indraprastha" },[span_262](start_span)[span_262](end_span)
+  { "time": "9:15 PM", "title": "NEWS IN URDU", "channel": "Indraprastha" },[span_263](start_span)[span_263](end_span)
+  { "time": "9:30 PM", "title": "चर्चा का विषय है", "channel": "Indraprastha" },[span_264](start_span)[span_264](end_span)
+  { "time": "10:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_265](start_span)[span_265](end_span)
+  { "time": "10:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_266](start_span)[span_266](end_span)
+  { "time": "10:10 PM", "title": "MAATI KE RANG\nVINOD KUMAR GANDHARV - HIMACHALI GEET", "channel": "Indraprastha" },[span_267](start_span)[span_267](end_span)
+  { "time": "10:30 PM", "title": "राग रंजन-हिन्दुस्तानी शास्त्रीय संगीत\nSITAR RECITAL: AMITAVA CHATTERJEE (RAAG CHANDRAKAUNS)", "channel": "Indraprastha" },[span_268](start_span)[span_268](end_span)
+  { "time": "11:00 PM", "title": "NEWS IN HINDI", "channel": "Indraprastha" },[span_269](start_span)[span_269](end_span)
+  { "time": "11:05 PM", "title": "NEWS IN ENGLISH", "channel": "Indraprastha" },[span_270](start_span)[span_270](end_span)
+  { "time": "11:10 PM", "title": "फिल्म संगीत-आप की फरमाइश", "channel": "Indraprastha" }[span_271](start_span)[span_271](end_span)
 ];
