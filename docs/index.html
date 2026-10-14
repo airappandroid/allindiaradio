@@ -736,8 +736,7 @@ try {
   if (cached) scheduleCache = JSON.parse(cached);
 } catch {}
 
-function rebuildSchedule() {
-  const data = window.SCHEDULE_DATA;
+function rebuildSchedule(data) {
   if (!Array.isArray(data)) return;
   scheduleCache = {};
   
@@ -766,6 +765,22 @@ function updatePrograms() {
       }
     }
     el.textContent = title;
+  }
+}
+
+/* FRESH SCHEDULE JSON FETCH WITH CACHE-BUSTING */
+async function loadFreshSchedule() {
+  try {
+    const res = await fetch("https://vividh.pages.dev/schedule.json?t=" + Date.now(), { 
+      cache: "no-store" 
+    });
+    if (res.ok) {
+      const data = await res.json();
+      rebuildSchedule(data);
+      updatePrograms();
+    }
+  } catch (err) {
+    console.warn("Schedule JSON load failed:", err);
   }
 }
 
@@ -803,6 +818,7 @@ function startTicker() {
   ticker = setInterval(() => {
     if (!document.hidden) {
       fetchMatchScore();
+      loadFreshSchedule();
       updatePrograms();
     }
   }, 60000);
@@ -813,41 +829,23 @@ document.addEventListener("visibilitychange", () => {
     if (ticker) clearInterval(ticker);
   } else {
     fetchMatchScore();
-    updatePrograms();
+    loadFreshSchedule();
     startTicker();
   }
 });
 
-
 /* INIT */
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".program").forEach(el => {
-    cachedProgramNodes.push({
-      el,
-      channel: el.getAttribute("data-channel")
-    });
+    cachedProgramNodes.push({ el, channel: el.getAttribute("data-channel") });
   });
 
   fetchMatchScore();
   loadBulletins();
+  updatePrograms();
+  loadFreshSchedule();
   startTicker();
-
-  const s = document.createElement("script");
-  s.src = "https://allindiaradio.pages.dev/docs/schedule.js";
-  s.async = true;
-
-  s.onload = () => {
-    rebuildSchedule();
-    updatePrograms();
-  };
-
-  s.onerror = () => {
-    console.warn("AIR schedule failed to load.");
-  };
-
-  document.head.appendChild(s);
 });
-
 </script>
 
 </body>
