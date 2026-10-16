@@ -413,19 +413,19 @@ a { text-decoration: none; color: inherit; outline: none; }
         </a>
       </div>
     </div>
-    <div class="cs-note" data-field="note">IND vs WI 4th T20, Match Starts Today at 7 PM</div>
+    <div class="cs-note" data-field="note">IND w vs ZIM w 1st T20, match starts today at 7 pm</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690" class="cs-flag" data-field="flagA" alt="IND" width="20" height="20" decoding="async">
-          <span class="cs-team-name" data-field="nameA">IND</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690" class="cs-flag" data-field="flagA" alt="IND W" width="20" height="20" decoding="async">
+          <span class="cs-team-name" data-field="nameA">IND W</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784" class="cs-flag" data-field="flagB" alt="WI" width="20" height="20" decoding="async">
-          <span class="cs-team-name" data-field="nameB">WI</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523" class="cs-flag" data-field="flagB" alt="ZIM W" width="20" height="20" decoding="async">
+          <span class="cs-team-name" data-field="nameB">ZIM W</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
@@ -666,8 +666,14 @@ const cardEls = cricketCard ? {
 
 const FLAGS = {
   ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  wi: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784",
-  "west indies": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784"
+  "ind w": "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
+  "india w": "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
+  "india women": "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
+  zim: "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
+  "zim w": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
+  "zimbabwe w": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
+  "zimbabwe women": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
+  zimbabwe: "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523"
 };
 
 function formatScore(s) {
@@ -679,13 +685,13 @@ function formatScore(s) {
 function renderCricket(data) {
   if (!cardEls || !data) return;
   const a = data.teams?.a || {}, b = data.teams?.b || {};
-  const nameA = a.shortName || a.name || "IND";
-  const nameB = b.shortName || b.name || "WI";
+  const nameA = a.shortName || a.name || "IND W";
+  const nameB = b.shortName || b.name || "ZIM W";
 
   cardEls.nameA.textContent = nameA;
   cardEls.nameB.textContent = nameB;
   cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || FLAGS.ind;
-  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || FLAGS.wi;
+  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || FLAGS.zim;
 
   const scA = formatScore(a.a_1_score || a.score);
   const scB = formatScore(b.b_1_score || b.score);
@@ -700,12 +706,12 @@ function renderCricket(data) {
 
   cardEls.status.className = isEnd ? "cs-status-tag completed" : (isLive ? "cs-status-tag live" : "cs-status-tag");
   cardEls.status.innerHTML = (isLive ? '<span class="live-dot"></span>' : '') + (isEnd ? 'COMPLETED' : (isLive ? 'LIVE' : 'UPCOMING'));
-  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND vs WI 4th T20, Match Starts Today at 7 PM";
+  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND w vs ZIM w 1st T20, match starts today at 7 pm";
 }
 
 async function fetchMatchScore() {
   try {
-    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a3103707327c23debef2652", { cache: "no-store" });
+    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a4b53d3f96b301cc0895785", { cache: "no-store" });
     if (res.ok) {
       const json = await res.json();
       if (json?.responseData?.result) renderCricket(json.responseData.result);
