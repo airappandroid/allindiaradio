@@ -178,9 +178,30 @@ a { text-decoration: none; color: inherit; outline: none; }
   color: var(--primary);
   text-transform: uppercase;
 }
-.cs-status-tag.live { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.45); color: #ef4444; }
-.cs-status-tag.completed { background: #0b1c33; border-color: #1e40af; color: var(--primary); }
-.live-dot { width: 6px; height: 6px; border-radius: 50%; background: #ef4444; display: inline-block; }
+.cs-status-tag.live { 
+  background: rgba(239, 68, 68, 0.15); 
+  border-color: rgba(239, 68, 68, 0.45); 
+  color: #ef4444; 
+}
+.cs-status-tag.completed { 
+  background: #0b1c33; 
+  border-color: #1e40af; 
+  color: var(--primary); 
+}
+.live-dot { 
+  width: 6px; 
+  height: 6px; 
+  border-radius: 50%; 
+  background: #ef4444; 
+  display: inline-block;
+  animation: pulse 1.2s infinite; 
+}
+
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
+}
 
 .cs-top-actions { display: flex; align-items: center; gap: 8px; }
 .cs-btn-audio, .cs-btn-card {
@@ -264,7 +285,7 @@ a { text-decoration: none; color: inherit; outline: none; }
   text-overflow: ellipsis;
 }
 .program-row { display: flex; align-items: flex-start; gap: 7px; }
-.station .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; flex-shrink: 0; margin-top: 5px; }
+.station .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; flex-shrink: 0; margin-top: 5px; animation: none; }
 
 .program { 
   font-size: 12.5px; 
@@ -413,19 +434,19 @@ a { text-decoration: none; color: inherit; outline: none; }
         </a>
       </div>
     </div>
-    <div class="cs-note" data-field="note">IND w vs ZIM w 1st T20, match starts today at 7 pm</div>
+    <div class="cs-note" data-field="note">IND vs WI 5th T20</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690" class="cs-flag" data-field="flagA" alt="IND W" width="20" height="20" decoding="async">
-          <span class="cs-team-name" data-field="nameA">IND W</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690" class="cs-flag" data-field="flagA" alt="IND" width="20" height="20" decoding="async">
+          <span class="cs-team-name" data-field="nameA">IND</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreA">Yet to bat</div>
       </div>
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <img src="https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523" class="cs-flag" data-field="flagB" alt="ZIM W" width="20" height="20" decoding="async">
-          <span class="cs-team-name" data-field="nameB">ZIM W</span>
+          <img src="https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784" class="cs-flag" data-field="flagB" alt="WI" width="20" height="20" decoding="async">
+          <span class="cs-team-name" data-field="nameB">WI</span>
         </div>
         <div class="cs-team-score-right" data-field="scoreB">Yet to bat</div>
       </div>
@@ -667,13 +688,10 @@ const cardEls = cricketCard ? {
 const FLAGS = {
   ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
   "ind w": "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  "india w": "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  "india women": "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  zim: "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
-  "zim w": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
-  "zimbabwe w": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
-  "zimbabwe women": "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523",
-  zimbabwe: "https://ik.imagekit.io/sqt8ptw1k/zimbabwe.webp?updatedAt=1789455540523"
+  "india": "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
+  wi: "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784",
+  "wi w": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784",
+  "west indies": "https://ik.imagekit.io/sqt8ptw1k/west-indies.webp?updatedAt=1790419929784"
 };
 
 function formatScore(s) {
@@ -685,13 +703,13 @@ function formatScore(s) {
 function renderCricket(data) {
   if (!cardEls || !data) return;
   const a = data.teams?.a || {}, b = data.teams?.b || {};
-  const nameA = a.shortName || a.name || "IND W";
-  const nameB = b.shortName || b.name || "ZIM W";
+  const nameA = a.shortName || a.name || "IND";
+  const nameB = b.shortName || b.name || "WI";
 
   cardEls.nameA.textContent = nameA;
   cardEls.nameB.textContent = nameB;
   cardEls.flagA.src = FLAGS[nameA.toLowerCase()] || a.logo || FLAGS.ind;
-  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || FLAGS.zim;
+  cardEls.flagB.src = FLAGS[nameB.toLowerCase()] || b.logo || FLAGS.wi;
 
   const scA = formatScore(a.a_1_score || a.score);
   const scB = formatScore(b.b_1_score || b.score);
@@ -700,18 +718,31 @@ function renderCricket(data) {
   cardEls.scoreA.style.color = scA ? "#38bdf8" : "#94a3b8";
   cardEls.scoreB.style.color = scB ? "#38bdf8" : "#94a3b8";
 
-  const st = (data.status || "").toLowerCase();
-  const isEnd = st.includes("finish") || st.includes("complete");
-  const isLive = !isEnd && (st.includes("live") || st.includes("progress") || Boolean(scA || scB));
+  // AUTO LIVE DETECTION LOGIC
+  const rawStatus = (data.status || data.matchStatus || data.state || "").toLowerCase();
+  const isEnd = rawStatus.includes("finish") || rawStatus.includes("complete") || rawStatus.includes("ended") || rawStatus.includes("result");
+  
+  // বল খেলা হ'লে নাইবা ৰাণ থাকিলে অথবা API ষ্টেটাছ live/progress হ'লে স্বয়ংক্ৰিয়ভাৱে LIVE হʼব
+  const hasStartedBatting = Boolean((a.score && (a.score.runs > 0 || a.score.balls > 0)) || (b.score && (b.score.runs > 0 || b.score.balls > 0)) || scA || scB);
+  const isLive = !isEnd && (rawStatus.includes("live") || rawStatus.includes("progress") || rawStatus.includes("in progress") || hasStartedBatting);
 
-  cardEls.status.className = isEnd ? "cs-status-tag completed" : (isLive ? "cs-status-tag live" : "cs-status-tag");
-  cardEls.status.innerHTML = (isLive ? '<span class="live-dot"></span>' : '') + (isEnd ? 'COMPLETED' : (isLive ? 'LIVE' : 'UPCOMING'));
-  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND w vs ZIM w 1st T20, match starts today at 7 pm";
+  if (isEnd) {
+    cardEls.status.className = "cs-status-tag completed";
+    cardEls.status.innerHTML = "COMPLETED";
+  } else if (isLive) {
+    cardEls.status.className = "cs-status-tag live";
+    cardEls.status.innerHTML = '<span class="live-dot"></span> LIVE';
+  } else {
+    cardEls.status.className = "cs-status-tag";
+    cardEls.status.innerHTML = "UPCOMING";
+  }
+
+  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND vs WI 5th T20";
 }
 
 async function fetchMatchScore() {
   try {
-    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a4b53d3f96b301cc0895785", { cache: "no-store" });
+    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a3103717327c23debef2653", { cache: "no-store" });
     if (res.ok) {
       const json = await res.json();
       if (json?.responseData?.result) renderCricket(json.responseData.result);
