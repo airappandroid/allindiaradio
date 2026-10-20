@@ -434,7 +434,7 @@ a { text-decoration: none; color: inherit; outline: none; }
         </a>
       </div>
     </div>
-    <div class="cs-note" data-field="note">IND-W vs ZIM-W 2nd T20, Today • 7PM</div>
+    <div class="cs-note" data-field="note">IND-W vs ZIM-W T20</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
@@ -726,7 +726,6 @@ function renderCricket(data) {
   const rawStatus = (data.status || data.matchStatus || data.state || "").toLowerCase();
   const isEnd = rawStatus.includes("finish") || rawStatus.includes("complete") || rawStatus.includes("ended") || rawStatus.includes("result");
   
-  // বল খেলা হ'লে নাইবা ৰাণ থাকিলে অথবা API ষ্টেটাছ live/progress হ'লে স্বয়ংক্ৰিয়ভাৱে LIVE হʼব
   const hasStartedBatting = Boolean((a.score && (a.score.runs > 0 || a.score.balls > 0)) || (b.score && (b.score.runs > 0 || b.score.balls > 0)) || scA || scB);
   const isLive = !isEnd && (rawStatus.includes("live") || rawStatus.includes("progress") || rawStatus.includes("in progress") || hasStartedBatting);
 
@@ -741,12 +740,12 @@ function renderCricket(data) {
     cardEls.status.innerHTML = "UPCOMING";
   }
 
-  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND-W vs ZIM-W 2nd T20, Today • 7PM";
+  cardEls.note.textContent = data.lastCommentary?.secondaryText || data.announcement1 || "IND-W vs ZIM-W T20";
 }
 
 async function fetchMatchScore() {
   try {
-    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a4b53d6f96b301cc0895787", { cache: "no-store" });
+    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a4b53d1f96b301cc0895783", { cache: "no-store" });
     if (res.ok) {
       const json = await res.json();
       if (json?.responseData?.result) renderCricket(json.responseData.result);
