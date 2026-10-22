@@ -619,9 +619,31 @@ async function fetchMatchScore() {
     elSA.style.color = sA ? "var(--primary)" : "var(--muted)";
     elSB.style.color = sB ? "var(--primary)" : "var(--muted)";
 
+    // মেচ ফলাফল বা ঘোষণাৰ পাঠ্য
+    const noteText = d.lastCommentary?.secondaryText || d.announcement1 || d.announcement2 || d.result || "IND vs NZ Match";
+    document.getElementById("cNote").textContent = noteText;
+
+    // মেচ সমাপ্তিৰ বাবে সকলো ধৰণৰ সম্ভাৱ্য শব্দ নিৰীক্ষণ কৰা হৈছে
+    const checkText = `${d.status || ""} ${d.matchStatus || ""} ${d.state || ""} ${noteText}`.toLowerCase();
+    
+    const isEnd = 
+      checkText.includes("finish") || 
+      checkText.includes("ended") || 
+      checkText.includes("complete") || 
+      checkText.includes("won") || 
+      checkText.includes("win") || 
+      checkText.includes("abandon") || 
+      checkText.includes("no result") || 
+      checkText.includes("tied") || 
+      checkText.includes("drawn");
+
     const raw = (d.status || d.matchStatus || "").toLowerCase();
-    const isEnd = raw.includes("finish") || raw.includes("ended");
-    const isLive = !isEnd && (raw.includes("live") || !!(sA || sB));
+    const isLive = !isEnd && (
+      raw.includes("live") || 
+      d.isLive === true || 
+      (!checkText.includes("upcoming") && (!!sA || !!sB))
+    );
+
     const tag = document.getElementById("cStatus");
 
     if (isEnd) {
@@ -634,7 +656,6 @@ async function fetchMatchScore() {
       tag.className = "cs-status-tag";
       tag.textContent = "UPCOMING";
     }
-    document.getElementById("cNote").textContent = d.lastCommentary?.secondaryText || d.announcement1 || "IND vs NZ Match";
   } catch {}
 }
 
