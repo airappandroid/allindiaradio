@@ -583,69 +583,59 @@ if (sForm) {
   });
 }
 
-// CRICKET SCORE ENGINE
-const FLAGS = {
-  ind: "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690",
-  nz: "https://ik.imagekit.io/sqt8ptw1k/images_ZyDOMUciT.png"
-};
-
-function formatScore(s) {
-  if (!s || s.runs === undefined) return "";
-  const ov = s.overs ?? (s.balls ? `${Math.floor(s.balls/6)}.${s.balls%6}` : "");
-  return `${s.runs}/${s.wickets || 0}${ov ? ` <span class="cs-overs">(${ov})</span>` : ""}`;
-}
+// CRICKET SCORE ENGINE — Cloudflare Worker API
+const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=99754";
 
 async function fetchMatchScore() {
   try {
-    const res = await fetch("https://api.cricradio.com.au/api/v2/match/mini-match-card?matchId=6a552bd85a2a46d5d350525f");
+    const res = await fetch(CRICKET_API, { cache: "no-store" });
     if (!res.ok) return;
     const json = await res.json();
-    const d = json?.responseData?.result;
-    if (!d) return;
+    const d = json?.response;
+    if (!d || json?.status !== "ok") return;
 
-    const a = d.teams?.a || {}, b = d.teams?.b || {};
-    const nA = a.shortName || "IND", nB = b.shortName || "NZ";
-    document.getElementById("cNameA").textContent = nA;
-    document.getElementById("cNameB").textContent = nB;
-    document.getElementById("cFlagA").src = FLAGS[nA.toLowerCase()] || a.logo || FLAGS.ind;
-    document.getElementById("cFlagB").src = FLAGS[nB.toLowerCase()] || b.logo || FLAGS.nz;
+    const teams = Array.isArray(d.teams) ? d.teams : [];
+    const battingName = (d.team_batting || "").toLowerCase();
+    const ordered = [...teams].sort((x, y) => {
+      const xb = (x.title || "").toLowerCase() === battingName;
+      const yb = (y.title || "").toLowerCase() === battingName;
+      return xb === yb ? 0 : xb ? -1 : 1;
+    });
+    const a = ordered[0] || {};
+    const b = ordered[1] || {};
 
-    const sA = formatScore(a.a_1_score || a.score);
-    const sB = formatScore(b.b_1_score || b.score);
+    const nameA = a.abbr || a.title || d.team_batting || "Team A";
+    const nameB = b.abbr || b.title || d.team_bowling || "Team B";
+    const scoreA = a.scores_full || a.scores || "Yet to bat";
+    const scoreB = b.scores_full || b.scores || "Yet to bat";
+
+    document.getElementById("cNameA").textContent = nameA;
+    document.getElementById("cNameB").textContent = nameB;
+    const flagA = document.getElementById("cFlagA");
+    const flagB = document.getElementById("cFlagB");
+    if (a.logo_url) flagA.src = a.logo_url;
+    if (b.logo_url) flagB.src = b.logo_url;
+    flagA.alt = nameA;
+    flagB.alt = nameB;
+
     const elSA = document.getElementById("cScoreA");
     const elSB = document.getElementById("cScoreB");
-    elSA.innerHTML = sA || "Yet to bat";
-    elSB.innerHTML = sB || "Yet to bat";
-    elSA.style.color = sA ? "var(--primary)" : "var(--muted)";
-    elSB.style.color = sB ? "var(--primary)" : "var(--muted)";
+    elSA.textContent = scoreA;
+    elSB.textContent = scoreB;
+    elSA.style.color = scoreA === "Yet to bat" ? "var(--muted)" : "var(--primary)";
+    elSB.style.color = scoreB === "Yet to bat" ? "var(--muted)" : "var(--primary)";
 
-    // মেচ ফলাফল বা ঘোষণাৰ পাঠ্য
-    const noteText = d.lastCommentary?.secondaryText || d.announcement1 || d.announcement2 || d.result || "IND vs NZ Match";
-    document.getElementById("cNote").textContent = noteText;
+    document.getElementById("cNote").textContent =
+      d.status_note || d.status_str || `${nameA} vs ${nameB}`;
 
-    // মেচ সমাপ্তিৰ বাবে সকলো ধৰণৰ সম্ভাৱ্য শব্দ নিৰীক্ষণ কৰা হৈছে
-    const checkText = `${d.status || ""} ${d.matchStatus || ""} ${d.state || ""} ${noteText}`.toLowerCase();
-    
-    const isEnd = 
-      checkText.includes("finish") || 
-      checkText.includes("ended") || 
-      checkText.includes("complete") || 
-      checkText.includes("won") || 
-      checkText.includes("win") || 
-      checkText.includes("abandon") || 
-      checkText.includes("no result") || 
-      checkText.includes("tied") || 
-      checkText.includes("drawn");
-
-    const raw = (d.status || d.matchStatus || "").toLowerCase();
+    const statusText = `${d.status_str || ""} ${d.game_state_str || ""} ${d.status_note || ""}`.toLowerCase();
+    const isEnd = ["finished", "ended", "complete", "result", "won", "drawn", "abandoned", "no result", "stumps"].some(x => statusText.includes(x));
     const isLive = !isEnd && (
-      raw.includes("live") || 
-      d.isLive === true || 
-      (!checkText.includes("upcoming") && (!!sA || !!sB))
+      String(d.status_str || "").toLowerCase().includes("live") ||
+      String(d.game_state_str || "").toLowerCase().includes("ongoing") ||
+      Number(d.status) === 3
     );
-
     const tag = document.getElementById("cStatus");
-
     if (isEnd) {
       tag.className = "cs-status-tag completed";
       tag.textContent = "COMPLETED";
@@ -656,7 +646,9 @@ async function fetchMatchScore() {
       tag.className = "cs-status-tag";
       tag.textContent = "UPCOMING";
     }
-  } catch {}
+  } catch (err) {
+    // Keep the last successfully loaded score if the network temporarily fails.
+  }
 }
 
 // PROGRAM TIMINGS (IST)
