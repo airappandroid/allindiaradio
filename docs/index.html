@@ -93,8 +93,8 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
 .bulletin-name{font-size:13.5px;font-weight:850;margin-bottom:4px}
 .bulletin-time-row{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:11px;font-weight:650}
 .bulletin-time-row svg{width:12px;height:12px;fill:var(--primary);flex-shrink:0}
-.play-btn{width:39px;height:39px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;background:var(--primary);flex-shrink:0}
-.play-btn::before{content:"";border-style:solid;border-width:6px 0 6px 11px;border-color:transparent transparent transparent #251506;margin-left:2px}
+.play-btn{width:46px;height:46px;border-radius:14px;display:inline-flex;align-items:center;justify-content:center;background:var(--primary);flex-shrink:0}
+.play-btn::before{content:"";border-style:solid;border-width:7px 0 7px 13px;border-color:transparent transparent transparent #251506;margin-left:2px}
 .play-btn.disabled{opacity:.3;pointer-events:none}
 @media(min-width:560px){.container{padding-left:20px;padding-right:20px}.quick-buttons{gap:12px}.qbtn{min-height:108px}.station{padding:13px 14px}.cricket-card{padding:16px}}
 
@@ -149,7 +149,7 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
         </a>
       </div>
     </div>
-    <div class="cs-note" id="cNote">IND vs NZ 1st T20I, Today • 12:30PM</div>
+    <div class="cs-note" id="cNote">IND vs NZ 2nd T20I, Today • 12:30 PM</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
@@ -366,7 +366,7 @@ if (sForm) {
 }
 
 // CRICKET SCORE ENGINE — Cloudflare Worker API
-const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=99754";
+const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=98440";
 
 async function fetchMatchScore() {
   try {
@@ -386,8 +386,8 @@ async function fetchMatchScore() {
     const a = ordered[0] || {};
     const b = ordered[1] || {};
 
-    const nameA = a.abbr || a.title || d.team_batting || "Team A";
-    const nameB = b.abbr || b.title || d.team_bowling || "Team B";
+    const nameA = a.abbr || a.title || d.team_batting || "IND";
+    const nameB = b.abbr || b.title || d.team_bowling || "NZ";
     const scoreA = a.scores_full || a.scores || "Yet to bat";
     const scoreB = b.scores_full || b.scores || "Yet to bat";
 
@@ -408,7 +408,7 @@ async function fetchMatchScore() {
     elSB.style.color = scoreB === "Yet to bat" ? "var(--muted)" : "var(--primary)";
 
     document.getElementById("cNote").textContent =
-      d.status_note || d.status_str || `${nameA} vs ${nameB}`;
+      d.status_note || d.status_str || "IND vs NZ 2nd T20I, Today • 12:30 PM";
 
     const statusText = `${d.status_str || ""} ${d.game_state_str || ""} ${d.status_note || ""}`.toLowerCase();
     const isEnd = ["finished", "ended", "complete", "result", "won", "drawn", "abandoned", "no result", "stumps"].some(x => statusText.includes(x));
