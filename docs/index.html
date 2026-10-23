@@ -6,318 +6,99 @@
 <title>AIR Radio</title>
 
 <style>
-:root {
-  --bg-main: #0c0e14;
-  --bg-card: #161922;
-  --bg-hdr: #11131a;
-  --primary: #38bdf8;
-  --btn: #169fe6;
-  --text: #f1f5f9;
-  --muted: #94a3b8;
-  --border: rgba(255, 255, 255, 0.08);
-}
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
+:root{
+  --bg-main:#080d18;--bg-card:#111b2b;--bg-hdr:#0b1322;--primary:#ff9f43;
+  --btn:#ff9f43;--text:#f4f7fb;--muted:#91a2b9;--border:rgba(148,163,184,.16);
+  --green:#43d9a3;--blue:#6ba8ff;
 }
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{width:100%;overflow-x:hidden;scroll-behavior:smooth}
+body{margin:0;width:100%;min-width:0;overflow-x:hidden;background:var(--bg-main);color:var(--text);
+font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+padding:0 env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);touch-action:manipulation}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.app-header{display:flex;align-items:center;justify-content:space-between;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;
+background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+.header-title{font-size:19px;font-weight:900;letter-spacing:-.5px;color:#fff;display:flex;align-items:center;gap:9px}
+.header-title:before{content:"";width:9px;height:23px;border-radius:5px;background:var(--primary);display:inline-block}
+.header-actions{display:flex;gap:7px}
+.hdr-btn{width:37px;height:37px;border-radius:12px;background:#152238;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;color:#e2e8f0;cursor:pointer}
+.hdr-btn svg{width:17px;height:17px;fill:currentColor}
+.modal-overlay{position:fixed;inset:0;background:rgba(2,6,14,.82);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal-overlay.active{display:flex}
+.modal-card{background:#101b2c;border:1px solid var(--border);border-radius:20px;width:100%;max-width:380px;max-height:82vh;display:flex;flex-direction:column;box-shadow:0 18px 55px #0008}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:15px 17px;border-bottom:1px solid var(--border)}
+.modal-title{font-size:15px;font-weight:800;color:var(--primary)}
+.modal-close{background:#1c2a3f;border:0;border-radius:9px;color:var(--muted);font-size:23px;width:32px;height:32px;cursor:pointer}
+.modal-body{padding:17px;overflow-y:auto;font-size:13px;line-height:1.6;color:#cbd5e1}
+.policy-item{margin-bottom:10px}.policy-item strong{color:#fff}
+.form-group{margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:11px;font-weight:700;color:var(--muted)}
+.form-input,.form-textarea{background:#0b1424;border:1px solid var(--border);border-radius:12px;padding:11px 12px;color:#fff;font-size:14px;outline:none;width:100%}
+.form-input:focus,.form-textarea:focus{border-color:var(--primary)}
+.form-textarea{resize:vertical;min-height:90px}
+.form-submit-btn{width:100%;background:var(--primary);color:#201306;border:0;border-radius:12px;padding:12px;font-weight:900;font-size:13px;cursor:pointer}
+.form-status{margin-top:9px;font-size:12px;text-align:center;display:none}
+.top-ad{width:100%;padding:12px 14px 6px;display:flex;justify-content:center}
+.top-ad img{width:100%;max-width:420px;aspect-ratio:320/100;object-fit:cover;border-radius:15px;border:1px solid var(--border);display:block}
+.cricket-strip-container{padding:8px 14px 6px;display:flex;justify-content:center}
+.cricket-card{width:100%;max-width:520px;min-width:0;background:linear-gradient(145deg,#172943,#101a2a 72%);border:1px solid #29415e;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:11px;box-shadow:0 8px 22px #0002}
+.cs-top-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.cs-status-tag{font-size:9px;letter-spacing:.7px;font-weight:900;padding:5px 8px;border-radius:7px;background:#172b43;border:1px solid #345274;color:#9dc8ff;display:inline-flex;align-items:center;gap:5px}
+.cs-status-tag.live{background:#3a1b26;border-color:#713041;color:#ff7b8b}.cs-status-tag.completed{background:#172b43;border-color:#345274;color:#9dc8ff}
+.live-dot{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+.cs-top-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.cs-btn-audio,.cs-btn-card{min-height:29px;padding:0 11px;border-radius:9px;font-size:10.5px;font-weight:800;display:inline-flex;align-items:center;gap:5px}
+.cs-btn-audio{background:#ff6b61;color:#fff}.cs-btn-card{background:#132238;border:1px solid #2a4566;color:#c1dcff}
+.cs-btn-audio svg,.cs-btn-card svg{width:12px;height:12px;fill:currentColor}
+.cs-note{font-size:12px;font-weight:750;color:#d8e4f3;overflow-wrap:anywhere}
+.cs-teams-wrapper{display:flex;flex-direction:column;gap:8px;border-top:1px solid #ffffff12;padding-top:10px}
+.cs-team-line{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cs-team-left{display:flex;align-items:center;gap:8px;min-width:0}
+.cs-flag{width:25px;height:25px;border-radius:50%;object-fit:cover;background:#182338;flex-shrink:0}
+.cs-team-name{font-size:13px;font-weight:850}.cs-team-score-right{min-width:0;text-align:right;overflow-wrap:anywhere;font-size:12px;font-weight:850;color:#ffb86b;display:flex;gap:4px}
+.cs-overs{font-size:10px;font-weight:500;color:var(--muted)}
+.container{padding:8px 14px 26px;max-width:640px;margin:0 auto}
+.section-title{font-size:16px;font-weight:900;letter-spacing:-.25px;margin:20px 0 11px;color:#f7f9fc;display:flex;align-items:center;gap:8px}
+.quick-buttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:8px 0 18px}
+.quick-buttons a{min-width:0}
+.qbtn{height:100%;min-height:98px;padding:13px 5px 11px;border-radius:17px;background:#111d30;border:1px solid #24344a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;transition:none}
+.icon-box{width:42px;height:42px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.icon-box svg{width:20px;height:20px}
+.qb-air .icon-box{background:#16334a}.qb-air svg{fill:#66c9ff}
+.qb-fm .icon-box{background:#2a2145}.qb-fm svg{fill:#c6a4ff}
+.qb-news .icon-box{background:#40222b}.qb-news svg{fill:#ff8b9c}
+.label{font-size:11.5px;font-weight:800;color:#e6edf7;text-align:center}
+#stations{display:flex;flex-direction:column;gap:9px}
+.station{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:17px;background:var(--bg-card);border:1px solid var(--border);contain:content;min-width:0}
+.station-thumb{width:48px;height:48px;border-radius:14px;background:#1a2639;flex-shrink:0;object-fit:cover}
+.station-info{flex:1;min-width:0}
+.station-name{font-size:14px;font-weight:850;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.program-row{display:flex;align-items:center;gap:6px;min-width:0}
+.station .live-dot{background:var(--green);flex-shrink:0;width:6px;height:6px}
+.program{font-size:11.5px;font-weight:650;color:#9eafc4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.play{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--primary);flex-shrink:0}
+.play svg{width:19px;height:19px;fill:#251506;margin-left:2px}
+.bulletin-section{margin-top:22px}
+.bulletin-toggle-bar{display:flex;gap:4px;margin-bottom:10px;background:#101a2a;padding:4px;border:1px solid var(--border);border-radius:12px}
+.bulletin-tab-btn{flex:1;background:transparent;border:0;color:var(--muted);font-size:11.5px;font-weight:800;padding:9px 6px;border-radius:9px;cursor:pointer}
+.bulletin-tab-btn.active{background:var(--primary);color:#241608}
+.bulletin-card{display:flex;align-items:center;gap:11px;padding:13px;border-radius:17px;background:var(--bg-card);border:1px solid var(--border);position:relative;overflow:hidden}
+.bulletin-card::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--primary)}
+.bulletin-icon-box{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:#3a2a20;flex-shrink:0}
+.bulletin-icon-box svg{width:20px;height:20px;fill:var(--primary)}
+.bulletin-info{flex:1;min-width:0}
+.bulletin-name{font-size:13.5px;font-weight:850;margin-bottom:4px}
+.bulletin-time-row{display:flex;align-items:center;gap:5px;color:var(--muted);font-size:11px;font-weight:650}
+.bulletin-time-row svg{width:12px;height:12px;fill:var(--primary);flex-shrink:0}
+.play-btn{width:39px;height:39px;border-radius:13px;display:inline-flex;align-items:center;justify-content:center;background:var(--primary);flex-shrink:0}
+.play-btn::before{content:"";border-style:solid;border-width:6px 0 6px 11px;border-color:transparent transparent transparent #251506;margin-left:2px}
+.play-btn.disabled{opacity:.3;pointer-events:none}
+@media(min-width:560px){.container{padding-left:20px;padding-right:20px}.quick-buttons{gap:12px}.qbtn{min-height:108px}.station{padding:13px 14px}.cricket-card{padding:16px}}
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg-main);
-  color: var(--text);
-  padding: 0 env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
-  touch-action: manipulation;
-}
 
-a { text-decoration: none; color: inherit; }
-
-/* HEADER */
-.app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px;
-  background: var(--bg-hdr);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-.header-title { font-size: 18px; font-weight: 800; color: var(--primary); }
-.header-actions { display: flex; gap: 8px; }
-.hdr-btn {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #e2e8f0;
-  cursor: pointer;
-}
-.hdr-btn svg { width: 17px; height: 17px; fill: currentColor; }
-
-/* MODALS */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.88);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  padding: 16px;
-}
-.modal-overlay.active { display: flex; }
-.modal-card {
-  background: #151821;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  width: 100%;
-  max-width: 360px;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
-}
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-}
-.modal-title { font-size: 15px; font-weight: 700; color: var(--primary); }
-.modal-close { background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; }
-.modal-body { padding: 16px; overflow-y: auto; font-size: 13px; line-height: 1.5; color: #cbd5e1; }
-.policy-item { margin-bottom: 8px; }
-.policy-item strong { color: #fff; }
-
-.form-group { margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
-.form-label { font-size: 11px; font-weight: 600; color: var(--muted); }
-.form-input, .form-textarea {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
-  padding: 8px 10px;
-  color: #fff;
-  font-size: 13px;
-  outline: none;
-}
-.form-textarea { resize: none; height: 80px; }
-.form-submit-btn {
-  width: 100%;
-  background: var(--btn);
-  color: #041426;
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-}
-.form-status { margin-top: 8px; font-size: 12px; text-align: center; display: none; }
-
-/* AD BANNER */
-.top-ad { width: 100%; min-height: 96px; padding: 10px 14px 2px; display: flex; justify-content: center; }
-.top-ad img {
-  width: 100%;
-  max-width: 320px;
-  aspect-ratio: 320 / 100;
-  object-fit: cover;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-}
-
-/* CRICKET CARD */
-.cricket-strip-container { padding: 8px 14px 4px; display: flex; justify-content: center; }
-.cricket-card {
-  width: 340px;
-  background: #08101e;
-  border: 1px solid #1a2c47;
-  border-radius: 16px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.cs-top-row { display: flex; align-items: center; justify-content: space-between; }
-.cs-status-tag {
-  font-size: 10px;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 5px;
-  background: #0b1a2e;
-  border: 1px solid #1d4ed8;
-  color: var(--primary);
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.cs-status-tag.live { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.45); color: #ef4444; }
-.cs-status-tag.completed { background: #0b1c33; border-color: #1e40af; color: var(--primary); }
-.live-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-
-.cs-top-actions { display: flex; gap: 6px; }
-.cs-btn-audio, .cs-btn-card {
-  height: 25px;
-  padding: 0 10px;
-  border-radius: 12px;
-  font-size: 10.5px;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-.cs-btn-audio { background: #dc2626; color: #fff; }
-.cs-btn-card { background: #0c1c33; border: 1px solid #1e3a66; color: #60a5fa; }
-.cs-btn-audio svg, .cs-btn-card svg { width: 11px; height: 11px; fill: currentColor; }
-
-.cs-note { font-size: 11.5px; font-weight: 700; color: #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.cs-teams-wrapper { display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--border); padding-top: 6px; }
-.cs-team-line { display: flex; align-items: center; justify-content: space-between; }
-.cs-team-left { display: flex; align-items: center; gap: 6px; }
-.cs-flag { width: 18px; height: 18px; border-radius: 50%; background: #111a2e; }
-.cs-team-name { font-size: 12.5px; font-weight: 700; }
-.cs-team-score-right { font-size: 12.5px; font-weight: 700; color: var(--primary); display: flex; gap: 4px; }
-.cs-overs { font-size: 10.5px; font-weight: 500; color: var(--muted); }
-
-/* MAIN CONTENT */
-.container { padding: 10px 14px 20px; }
-.section-title { font-size: 15px; font-weight: 800; margin: 16px 0 10px; color: #fff; }
-
-/* QUICK BUTTONS */
-.quick-buttons { display: flex; gap: 8px; margin-bottom: 14px; }
-.quick-buttons a { flex: 1; }
-.qbtn {
-  padding: 10px 4px;
-  border-radius: 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.icon-box {
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.icon-box svg { width: 18px; height: 18px; }
-.qb-air .icon-box { background: rgba(56, 189, 248, 0.12); }
-.qb-air svg { fill: var(--primary); }
-.qb-fm .icon-box { background: rgba(168, 85, 247, 0.12); }
-.qb-fm svg { fill: #c084fc; }
-.qb-news .icon-box { background: rgba(244, 63, 94, 0.12); }
-.qb-news svg { fill: #fb7185; }
-.label { font-size: 11px; font-weight: 700; color: #e2e8f0; }
-
-/* STATIONS */
-#stations { display: flex; flex-direction: column; gap: 8px; }
-.station {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  contain: content;
-}
-.station-thumb { width: 44px; height: 44px; border-radius: 12px; background: #1a1d26; flex-shrink: 0; }
-.station-info { flex: 1; min-width: 0; }
-.station-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.program-row { display: flex; align-items: center; gap: 5px; }
-.station .live-dot { background: #10b981; flex-shrink: 0; }
-.program {
-  font-size: 11.5px;
-  font-weight: 650;
-  color: var(--muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.play {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--btn);
-  flex-shrink: 0;
-}
-.play svg { width: 15px; height: 15px; fill: #041426; margin-left: 2px; }
-
-/* BULLETIN */
-.bulletin-section { margin-top: 18px; }
-.bulletin-toggle-bar {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  padding: 3px;
-  border-radius: 10px;
-}
-.bulletin-tab-btn {
-  flex: 1;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.bulletin-tab-btn.active { background: var(--btn); color: #031326; }
-.bulletin-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  position: relative;
-}
-.bulletin-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--primary); }
-.bulletin-icon-box {
-  width: 42px; height: 42px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(56, 189, 248, 0.1);
-  flex-shrink: 0;
-}
-.bulletin-icon-box svg { width: 20px; height: 20px; fill: var(--primary); }
-.bulletin-info { flex: 1; min-width: 0; }
-.bulletin-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
-.bulletin-time-row { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: 11px; font-weight: 650;}
-.bulletin-time-row svg { width: 12px; height: 12px; fill: var(--primary); flex-shrink: 0; }
-.play-btn {
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--btn);
-  flex-shrink: 0;
-}
-.play-btn::before {
-  content: "";
-  border-style: solid;
-  border-width: 6px 0 6px 11px;
-  border-color: transparent transparent transparent #041426;
-  margin-left: 2px;
-}
-.play-btn.disabled { opacity: 0.3; pointer-events: none; }
 </style>
 </head>
 
@@ -349,7 +130,7 @@ a { text-decoration: none; color: inherit; }
 <!-- AD BANNER -->
 <a href="go:COMM">
   <div class="top-ad">
-    <img src="https://ik.imagekit.io/sqt8ptw1k/India%20Tour%20of%20New%20Zealand%202026.webp" alt="AIR Banner" width="320" height="100" loading="lazy">
+    <img src="https://ik.imagekit.io/sqt8ptw1k/India%20Tour%20of%20New%20Zealand%202026.webp" alt="AIR Banner" width="320" height="100" loading="lazy" decoding="async">
   </div>
 </a>
 
@@ -421,7 +202,7 @@ a { text-decoration: none; color: inherit; }
   <h2 class="section-title">🔥 Popular Stations</h2>
   <div id="stations">
     <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" class="station-thumb" alt="FM Rainbow" loading="lazy">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images_zsW03GeD6.png" class="station-thumb" alt="FM Rainbow" loading="lazy" decoding="async">
       <div class="station-info">
         <div class="station-name">FM Rainbow</div>
         <div class="program-row">
@@ -433,7 +214,7 @@ a { text-decoration: none; color: inherit; }
     </div>
 
     <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" class="station-thumb" alt="Vividh Bharati" loading="lazy">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(1)_BeGMc3xrh.jpg" class="station-thumb" alt="Vividh Bharati" loading="lazy" decoding="async">
       <div class="station-info">
         <div class="station-name">Vividh Bharati</div>
         <div class="program-row">
@@ -445,7 +226,7 @@ a { text-decoration: none; color: inherit; }
     </div>
 
     <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" class="station-thumb" alt="FM Gold" loading="lazy">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(2)_ito4OgTUb.jpg" class="station-thumb" alt="FM Gold" loading="lazy" decoding="async">
       <div class="station-info">
         <div class="station-name">FM Gold</div>
         <div class="program-row">
@@ -457,7 +238,7 @@ a { text-decoration: none; color: inherit; }
     </div>
 
     <div class="station">
-      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" class="station-thumb" alt="Indraprastha" loading="lazy">
+      <img src="https://ik.imagekit.io/sqt8ptw1k/images%20(3)_ZIHQsV-Us.jpg" class="station-thumb" alt="Indraprastha" loading="lazy" decoding="async">
       <div class="station-info">
         <div class="station-name">Indraprastha</div>
         <div class="program-row">
@@ -502,9 +283,10 @@ a { text-decoration: none; color: inherit; }
       <button class="modal-close" onclick="closeModal('privacyModal')">&times;</button>
     </div>
     <div class="modal-body">
-      <div class="policy-item"><strong>No Personal Data:</strong> We do not collect or store personal details.</div>
-      <div class="policy-item"><strong>Advertisements:</strong> Google AdMob may use device IDs to serve ads.</div>
-      <div class="policy-item"><strong>Permissions:</strong> Network permissions are strictly used for streaming audio.</div>
+      <div class="policy-item"><strong>Information You Submit:</strong> If you use Support &amp; Feedback, your name and message are sent to Web3Forms so we can receive your request.</div>
+      <div class="policy-item"><strong>Third-Party Services:</strong> Google AdMob may process device identifiers and related data to provide ads, if ads are enabled. Web3Forms processes support messages under its own privacy policy.</div>
+      <div class="policy-item"><strong>Streaming &amp; Network:</strong> The app connects to third-party radio, schedule, score and bulletin services to provide its features. Those services may receive standard connection data.</div>
+      <div class="policy-item"><strong>Contact:</strong> Avoid including sensitive personal information in support messages. You can contact the app team at vividhbharati75@gmail.com.</div>
     </div>
   </div>
 </div>
@@ -658,89 +440,159 @@ function getISTMin() {
 }
 
 function parseTimeToMin(t) {
-  if (!t) return 0;
-  const m = String(t).match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
-  if (!m) return 0;
-  let h = +m[1];
-  if (m[3]?.toUpperCase() === "PM" && h !== 12) h += 12;
-  if (m[3]?.toUpperCase() === "AM" && h === 12) h = 0;
-  return h * 60 + (+m[2]);
+  if (!t) return null;
+  const m = String(t).trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+  if (!m) return null;
+
+  let h = Number(m[1]);
+  const minute = Number(m[2]);
+  const suffix = m[3]?.toUpperCase();
+
+  if (minute > 59 || h > 24) return null;
+  if (suffix) {
+    if (h < 1 || h > 12) return null;
+    if (suffix === "PM" && h !== 12) h += 12;
+    if (suffix === "AM" && h === 12) h = 0;
+  } else if (h === 24 && minute === 0) {
+    h = 0;
+  } else if (h > 23) {
+    return null;
+  }
+
+  return h * 60 + minute;
 }
 
 function updatePrograms() {
   const now = getISTMin();
-  for (let i = 0; i < programNodes.length; i++) {
-    const { el, channel } = programNodes[i];
-    const list = scheduleCache[channel];
-    if (!list?.length) continue;
 
-    let title = list[list.length - 1].title;
-    for (let j = 0; j < list.length; j++) {
-      if (now >= list[j].min && (!list[j + 1] || now < list[j + 1].min)) {
-        title = list[j].title;
-        break;
-      }
+  for (const { el, channel } of programNodes) {
+    const list = scheduleCache[channel];
+
+    if (!Array.isArray(list) || list.length === 0) {
+      el.textContent = "Schedule unavailable";
+      continue;
     }
-    el.textContent = title;
+
+    // Select the most recent start time. Before the first item, use the
+    // final item of the previous daily schedule (overnight schedule support).
+    let selected = list[list.length - 1];
+    for (const item of list) {
+      if (item.min <= now) selected = item;
+      else break;
+    }
+    el.textContent = selected.title || "Live Broadcast";
   }
 }
 
 async function loadFreshSchedule() {
   try {
-    const res = await fetch("https://vividh.pages.dev/schedule.json?t=" + Date.now());
-    if (!res.ok) return;
-    const data = await res.json();
-    if (!Array.isArray(data)) return;
-
-    ["fm rainbow", "vividh bharati", "fm gold", "indraprastha"].forEach(ch => {
-      scheduleCache[ch] = data
-        .filter(x => x?.channel?.toLowerCase().includes(ch) && x?.time)
-        .map(x => ({ title: x.title || "Live Broadcast", min: parseTimeToMin(x.time) }))
-        .sort((a, b) => a.min - b.min);
+    const res = await fetch("https://vividh.pages.dev/schedule.json?t=" + Date.now(), {
+      cache: "no-store"
     });
+    if (!res.ok) throw new Error("Schedule request failed");
+
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error("Invalid schedule data");
+
+    const channels = ["fm rainbow", "vividh bharati", "fm gold", "indraprastha"];
+    for (const ch of channels) {
+      scheduleCache[ch] = data
+        .filter(x => {
+          const channelName = String(x?.channel || "").toLowerCase().trim();
+          return channelName.includes(ch) && x?.time;
+        })
+        .map(x => ({
+          title: String(x?.title || "Live Broadcast").trim(),
+          min: parseTimeToMin(x.time)
+        }))
+        .filter(x => x.min !== null)
+        .sort((a, b) => a.min - b.min);
+    }
+
     updatePrograms();
-  } catch {}
+  } catch (err) {
+    // Keep the last successful schedule if a temporary network error occurs.
+    // If nothing has loaded yet, show a clear fallback instead of a false program.
+    for (const { el, channel } of programNodes) {
+      if (!scheduleCache[channel]?.length) el.textContent = "Schedule unavailable";
+    }
+  }
 }
 
 // BULLETINS
 async function loadBulletins() {
   try {
-    const res = await fetch("https://vividh.pages.dev/bulletins.json");
-    if (!res.ok) return;
-    bulletins = await res.json();
-    if (bulletins.length) switchBulletin(0);
-  } catch {}
+    const res = await fetch("https://vividh.pages.dev/bulletins.json?t=" + Date.now(), {
+      cache: "no-store"
+    });
+    if (!res.ok) throw new Error("Bulletin request failed");
+
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error("Invalid bulletin data");
+
+    bulletins = data;
+    if (bulletins.length) {
+      switchBulletin(0);
+    } else {
+      document.getElementById("bulletinName").textContent = "No bulletin available";
+      document.getElementById("bulletinTime").textContent = "Please check again later";
+      const btn = document.getElementById("bulletinPlayBtn");
+      btn.removeAttribute("href");
+      btn.classList.add("disabled");
+    }
+  } catch (err) {
+    document.getElementById("bulletinName").textContent = "Bulletin unavailable";
+    document.getElementById("bulletinTime").textContent = "Please try again later";
+    const btn = document.getElementById("bulletinPlayBtn");
+    btn.removeAttribute("href");
+    btn.classList.add("disabled");
+  }
 }
 
 function switchBulletin(idx) {
-  if (!bulletins[idx]) return;
+  const b = bulletins[idx];
+  if (!b) return;
+
   const tabs = document.querySelectorAll(".bulletin-tab-btn");
   tabs.forEach((tab, i) => tab.classList.toggle("active", i === idx));
-  
-  const b = bulletins[idx];
+
   document.getElementById("bulletinName").textContent = b.name || "News Bulletin";
-  document.getElementById("bulletinTime").textContent = b.time || "";
+  document.getElementById("bulletinTime").textContent = b.time || "Time unavailable";
+
   const btn = document.getElementById("bulletinPlayBtn");
-  if (b.streamUrl) {
-    btn.href = b.streamUrl;
+  // Always clear the previous URL first, so a bulletin without a stream
+  // cannot accidentally play the previous bulletin.
+  btn.removeAttribute("href");
+  btn.classList.add("disabled");
+
+  const streamUrl = String(b.streamUrl || "").trim();
+  if (/^https?:\/\//i.test(streamUrl)) {
+    btn.href = streamUrl;
     btn.classList.remove("disabled");
   }
 }
 
 // EFFICIENT REFRESH LOOP
 let refreshTimer = null;
+
 function refreshAll() {
   fetchMatchScore();
   loadFreshSchedule();
 }
 
-function handleVisibility() {
-  if (document.hidden) {
-    if (refreshTimer) clearInterval(refreshTimer);
-  } else {
-    refreshAll();
-    refreshTimer = setInterval(refreshAll, 60000);
+function stopRefreshTimer() {
+  if (refreshTimer !== null) {
+    clearInterval(refreshTimer);
+    refreshTimer = null;
   }
+}
+
+function startRefreshTimer() {
+  stopRefreshTimer();
+  if (document.hidden) return;
+
+  refreshAll();
+  refreshTimer = setInterval(refreshAll, 60000);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -748,11 +600,17 @@ document.addEventListener("DOMContentLoaded", () => {
     programNodes.push({ el, channel: el.getAttribute("data-channel") });
   });
 
-  refreshAll();
+  updatePrograms();
+  startRefreshTimer();
   loadBulletins();
 
-  document.addEventListener("visibilitychange", handleVisibility);
-  refreshTimer = setInterval(refreshAll, 60000);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      stopRefreshTimer();
+    } else {
+      startRefreshTimer();
+    }
+  });
 });
 </script>
 </body>
