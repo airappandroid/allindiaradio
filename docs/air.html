@@ -5,291 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>All India Radio Stations</title>
   <style>
-    :root {
-      --bg: #070a12;
-      --surface: #111728;
-      --card-border: rgba(255, 255, 255, 0.08);
-      --text-main: #ffffff;
-      --text-sub: #8292a7;
-      --accent-cyan: #00b4d8;
-      --fav-active: #ff3366;
-      --radius: 14px;
-    }
 
-    /* লঘু আৰু দ্ৰুত CSS ৰুল */
-    body {
-      margin: 0;
-      padding: 14px 14px calc(60px + env(safe-area-inset-bottom)) 14px;
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      -webkit-user-select: none;
-      box-sizing: border-box;
-    }
+:root{
+  color-scheme:dark;
+  --bg:#0b1020;
+  --surface:#151c2e;
+  --surface-2:#1c263b;
+  --border:#2a354b;
+  --text-main:#f7f9ff;
+  --text-sub:#9ba9bf;
+  --accent-cyan:#ff8a4c;
+  --fav-active:#ff5470;
+  --radius:17px;
+}
+*{box-sizing:border-box}
+html{min-height:100%;background:var(--bg)}
+body{
+  margin:0;
+  min-height:100vh;
+  padding:14px 14px calc(28px + env(safe-area-inset-bottom));
+  background:var(--bg);
+  color:var(--text-main);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;-webkit-user-select:none;
+}
+button,input{font:inherit}
+button{touch-action:manipulation}
+.header-bar{
+  position:sticky;top:0;z-index:5;
+  margin:-14px -14px 0;padding:14px 14px 12px;
+  background:var(--bg);
+  border-bottom:1px solid rgba(255,255,255,.045);
+}
+.filter-row{display:flex;gap:10px;align-items:stretch}
+.state-picker-btn,.fav-toggle-btn{
+  min-height:48px;border:1px solid var(--border);border-radius:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:0 14px;background:var(--surface);color:var(--text-main);
+  font-size:14px;font-weight:700;cursor:pointer;
+}
+.state-picker-btn{flex:1;min-width:0;text-align:left}
+#selectedStateLabel{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fav-toggle-btn{justify-content:center;white-space:nowrap;color:var(--text-sub)}
+.fav-toggle-btn.active{background:#321c2b;border-color:#8d344f;color:#ff6a87}
+.meta-bar{padding:15px 3px 12px;color:var(--text-sub);font-size:12px;font-weight:650;letter-spacing:.2px}
+.station-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.station-card{
+  min-width:0;min-height:124px;padding:13px;
+  border:1px solid var(--border);border-radius:var(--radius);
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--surface);cursor:pointer;contain:content;
+  transition:border-color .15s ease,background-color .15s ease;
+}
+.station-card:active{filter:brightness(1.12);border-color:#71809a}
+.bg-0{background:#182448;border-color:#2b3d70}
+.bg-1{background:#15352f;border-color:#286052}
+.bg-2{background:#302044;border-color:#57346f}
+.bg-3{background:#15364a;border-color:#285a78}
+.bg-4{background:#42243a;border-color:#713b5f}
+.bg-5{background:#183b3b;border-color:#2b6863}
+.bg-6{background:#462631;border-color:#743c4d}
+.bg-7{background:#44331e;border-color:#75542b}
+.card-top-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:7px}
+.wave-icon{width:21px;height:21px;fill:none;stroke:var(--accent-cyan);stroke-width:2.4;stroke-linecap:round}
+.fav-btn{
+  width:36px;height:36px;flex:0 0 36px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);background:#101626;
+  color:#8491a8;font-size:17px;line-height:1;cursor:pointer;
+}
+.fav-btn.active{color:var(--fav-active);background:#321c2b;border-color:#713348}
+.station-title{margin:3px 0 12px;font-size:14px;font-weight:750;line-height:1.35;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-bottom-row{display:flex;justify-content:flex-end;align-items:center}
+.play-btn{
+  width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:var(--accent-cyan);color:#1b1420;font-size:13px;font-weight:900;
+}
+.status-box{padding:58px 18px;text-align:center;color:var(--text-sub)}
+.status-title{margin:0 0 6px;color:var(--text-main);font-size:16px;font-weight:750}
+.spinner{width:30px;height:30px;margin:0 auto 14px;border:3px solid var(--border);border-top-color:var(--accent-cyan);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.retry-btn{margin-top:14px;min-height:44px;padding:0 20px;border:0;border-radius:12px;background:var(--accent-cyan);color:#1b1420;font-weight:800;cursor:pointer}
+.modal-overlay{position:fixed;inset:0;z-index:999;display:none;flex-direction:column;background:var(--bg);padding-top:env(safe-area-inset-top)}
+.modal-overlay.active{display:flex}
+.modal-top-bar{min-height:58px;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border)}
+.modal-close-btn{width:42px;height:42px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text-main);font-size:25px;cursor:pointer}
+.modal-search-input{width:calc(100% - 32px);min-height:48px;margin:12px 16px;padding:0 14px;border:1px solid var(--border);border-radius:13px;background:var(--surface);color:var(--text-main);font-size:15px;outline:none}
+.modal-search-input:focus{border-color:var(--accent-cyan)}
+.state-list-scroll{flex:1;overflow-y:auto;padding:0 16px;overscroll-behavior:contain}
+.state-item{min-height:54px;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer}
+.radio-circle{width:19px;height:19px;flex:0 0 19px;border:2px solid #53617a;border-radius:50%}
+.state-item.selected .radio-circle{border-color:var(--accent-cyan);background:var(--accent-cyan);box-shadow:inset 0 0 0 4px var(--bg)}
+@media(min-width:600px){body{max-width:900px;margin:0 auto;padding-left:20px;padding-right:20px}.header-bar{margin-left:-20px;margin-right:-20px;padding-left:20px;padding-right:20px}.station-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.station-card{min-height:132px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
-    button, input {
-      font-family: inherit;
-      box-sizing: border-box;
-    }
-
-    .header-bar { padding-bottom: 12px; }
-    .filter-row { display: flex; gap: 10px; }
-
-    .state-picker-btn {
-      flex: 1;
-      padding: 12px 14px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-main);
-      background: var(--surface);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .fav-toggle-btn {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-sub);
-      background: var(--surface);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .fav-toggle-btn.active {
-      background: rgba(255, 51, 102, 0.12);
-      border-color: rgba(255, 51, 102, 0.4);
-      color: var(--fav-active);
-    }
-
-    .meta-bar {
-      padding: 4px 6px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-sub);
-    }
-
-    /* Grid আৰু কাৰ্ড অপ্টিমাইজেশ্যন */
-    .station-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .station-card {
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 96px;
-      cursor: pointer;
-      contain: content; /* Rendering Performance বৃদ্ধি কৰে */
-    }
-
-    /* CSS ভিত্তিক পাতল গ্ৰেডিয়েন্ট */
-    .bg-0 { background: linear-gradient(145deg, #1e1b4b, #0c0f1d); }
-    .bg-1 { background: linear-gradient(145deg, #064e3b, #0c151b); }
-    .bg-2 { background: linear-gradient(145deg, #4c1d95, #0e0d1f); }
-    .bg-3 { background: linear-gradient(145deg, #0c4a6e, #081622); }
-    .bg-4 { background: linear-gradient(145deg, #701a75, #170919); }
-    .bg-5 { background: linear-gradient(145deg, #134e4a, #09171b); }
-    .bg-6 { background: linear-gradient(145deg, #831843, #190a12); }
-    .bg-7 { background: linear-gradient(145deg, #713f12, #16100a); }
-
-    .card-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .wave-icon {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: rgba(255, 255, 255, 0.7);
-      stroke-width: 2.5;
-      stroke-linecap: round;
-    }
-
-    .fav-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.6);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .fav-btn.active {
-      color: var(--fav-active);
-      background: rgba(255, 51, 102, 0.2);
-      border-color: rgba(255, 51, 102, 0.4);
-    }
-
-    .station-title {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin: 4px 0 8px 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      word-break: break-word;
-    }
-
-    .card-bottom-row {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .schedule-btn {
-      background: rgba(0, 180, 216, 0.16);
-      border: 1px solid var(--accent-cyan);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-right: auto;
-    }
-
-    .play-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      color: #fff;
-    }
-
-    .status-box {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-sub);
-    }
-
-    .status-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: #fff;
-    }
-
-    .spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid rgba(255, 255, 255, 0.1);
-      border-top-color: var(--accent-cyan);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 14px;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .retry-btn {
-      margin-top: 14px;
-      padding: 10px 20px;
-      background: var(--accent-cyan);
-      border: none;
-      border-radius: 8px;
-      color: #070a12;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    /* Modal */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 999;
-      display: none;
-      flex-direction: column;
-    }
-    .modal-overlay.active { display: flex; }
-
-    .modal-top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--card-border);
-    }
-
-    .modal-close-btn {
-      background: none;
-      border: none;
-      color: var(--text-sub);
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .modal-search-input {
-      width: calc(100% - 32px);
-      margin: 10px 16px;
-      padding: 10px 14px;
-      background: var(--surface);
-      border: 1px solid var(--card-border);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .state-list-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0 16px;
-    }
-
-    .state-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 4px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-    }
-
-    .radio-circle {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      border: 2px solid #475569;
-    }
-
-    .state-item.selected .radio-circle {
-      border-color: var(--accent-cyan);
-      background: var(--accent-cyan);
-    }
   </style>
 </head>
 <body>
@@ -357,7 +167,13 @@
     } catch(e) {}
 
     let showOnlyFavs = false;
-    let selectedState = localStorage.getItem("air_user_state") || "";
+    let selectedState = "";
+    try {
+      selectedState = localStorage.getItem("air_user_state") || "";
+    } catch (e) {
+      selectedState = "";
+    }
+    let stationData = [];
     let uniqueStates = [];
     let isModalOpen = false;
 
@@ -395,10 +211,13 @@
 
       try {
         const stationList = await fetchStationsData();
+        stationData = Array.isArray(stationList) ? stationList : [];
+        if (!stationData.length) throw new Error("Station data is empty or invalid");
+
         loader.style.display = "none";
         grid.style.display = "grid";
 
-        uniqueStates = [...new Set(stationList.map(s => s.state))].sort();
+        uniqueStates = [...new Set(stationData.map(s => s.state).filter(Boolean))].sort();
         renderModalStateList();
 
         if (!selectedState) {
@@ -499,8 +318,6 @@
       for (let i = 0; i < list.length; i++) {
         const s = list[i];
         const isFav = favorites.has(String(s.id));
-        const isMaha = s.name.toLowerCase().includes("mahabahu");
-
         html += `
           <div class="station-card bg-${i % 8}" data-id="${s.id}">
             <div class="card-top-row">
@@ -509,7 +326,6 @@
             </div>
             <div class="station-title">${s.name}</div>
             <div class="card-bottom-row">
-              ${isMaha ? `<button class="schedule-btn">Schedule</button>` : ''}
               <div class="play-btn">▶</div>
             </div>
           </div>`;
@@ -535,12 +351,6 @@
         return;
       }
 
-      if (e.target.closest(".schedule-btn")) {
-        e.stopPropagation();
-        window.location.href = "go:mahasc";
-        return;
-      }
-
       const card = e.target.closest(".station-card");
       if (card?.dataset.id) {
         window.location.href = "go:" + card.dataset.id;
@@ -548,7 +358,7 @@
     });
 
     function filterStations() {
-      const all = window.stations || [];
+      const all = stationData;
       if (!showOnlyFavs && !selectedState) {
         document.getElementById("stationContainer").innerHTML = "";
         document.getElementById("emptyMessage").style.display = "block";
