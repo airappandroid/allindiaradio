@@ -414,7 +414,7 @@ async function fetchMatchScore() {
     elSB.style.color = scoreB === "Yet to bat" ? "var(--muted)" : "var(--primary)";
 
     document.getElementById("cNote").textContent =
-      d.status_note || d.status_str || "IND vs NZ 3rd T20I, 27 SEP • 12:30 PM";
+      d.status_note || d.status_str || "IND vs NZ 3rd T20I, 27 OCT • 12:30 PM";
 
     const statusText = `${d.status_str || ""} ${d.game_state_str || ""} ${d.status_note || ""}`.toLowerCase();
     const isEnd = ["finished", "ended", "complete", "result", "won", "drawn", "abandoned", "no result", "stumps"].some(x => statusText.includes(x));
