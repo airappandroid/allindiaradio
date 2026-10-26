@@ -372,7 +372,7 @@ if (sForm) {
 }
 
 // CRICKET SCORE ENGINE — Cloudflare Worker API
-const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=98440";
+const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=98441";
 
 async function fetchMatchScore() {
   try {
@@ -414,7 +414,7 @@ async function fetchMatchScore() {
     elSB.style.color = scoreB === "Yet to bat" ? "var(--muted)" : "var(--primary)";
 
     document.getElementById("cNote").textContent =
-      d.status_note || d.status_str || "IND vs NZ 2nd T20I, Today • 12:30 PM";
+      d.status_note || d.status_str || "IND vs NZ 3rd T20I, 27 SEP • 12:30 PM";
 
     const statusText = `${d.status_str || ""} ${d.game_state_str || ""} ${d.status_note || ""}`.toLowerCase();
     const isEnd = ["finished", "ended", "complete", "result", "won", "drawn", "abandoned", "no result", "stumps"].some(x => statusText.includes(x));
