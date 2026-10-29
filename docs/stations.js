@@ -157,6 +157,7 @@ window.stations = [
   { id: "M026", name: "AIR Satara", state: "Maharashtra" },
   { id: "M027", name: "AIR Solapur", state: "Maharashtra" },
   { id: "M028", name: "AIR Yavatmal", state: "Maharashtra" },
+  { id: "M029", name: "Akashvani-Mumbai-CBS", state: "Maharashtra" },
   { id: "MN001", name: "AIR Churachandpur", state: "Manipur" },
   { id: "MN002", name: "AIR Imphal Kangla", state: "Manipur" },
   { id: "MN003", name: "AIR Imphal Sangai", state: "Manipur" },
