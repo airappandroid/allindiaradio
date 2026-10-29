@@ -189,7 +189,7 @@ button:active,.fav-btn:active,.play-btn:active,.retry-btn:active,.state-item:act
 
         const s = document.createElement("script");
         s.id = "stationsDataScript";
-        s.src = "https://allindiaradio.pages.dev/docs/stations.js?v=" + DATA_VERSION;
+        s.src = "https://allindiaradio.pages.dev/docs/stations.js?v=2" + DATA_VERSION;
         s.onload = () => {
           const list = window.stations || (typeof stations !== 'undefined' ? stations : null);
           list ? resolve(list) : reject();
