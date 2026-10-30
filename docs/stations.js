@@ -142,7 +142,7 @@ window.stations = [
   { id: "M011", name: "FM Gold Mumbai", state: "Maharashtra" },
   { id: "M012", name: "FM Rainbow Mumbai", state: "Maharashtra" },
   { id: "M013", name: "Samvadita Mumbai", state: "Maharashtra" },
-  { id: "M014", name: "VBS Mumbai", state: "Maharashtra" },
+
   { id: "M015", name: "VBS Nagpur", state: "Maharashtra" },
   { id: "M016", name: "AIR Nagpur", state: "Maharashtra" },
   { id: "M017", name: "AIR Nanded", state: "Maharashtra" },
