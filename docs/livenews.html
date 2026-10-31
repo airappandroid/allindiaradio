@@ -1,173 +1,302 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Live News Channels</title>
 
 <style>
-body{
-  margin:0;
-  background:#0c1220;
-  font-family:Arial, sans-serif;
-  color:#fff;
-  padding:12px;
-  overflow-x:hidden;   /* 🔥 सबसे जरूरी */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== TOPBAR ===== */
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:10;
-  background:#0c1220;
-
-  display:flex;
-  gap:8px;
-
-  padding:10px 0 10px 0;
+body {
+  margin: 0;
+  background: #090d16;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #f1f5f9;
+  padding: 12px;
+  overflow-x: hidden;
 }
 
-/* Search + Filter SAME SIZE */
-.topbar input,
-.topbar select{
-  flex:1;
-  width:100%;
-  box-sizing:border-box;
-
-  padding:10px;
-  border:none;
-  border-radius:8px;
-
-  font-size:14px;
-  outline:none;
+/* ===== MODERN TOPBAR ===== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(9, 13, 22, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 8px 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Optional: better mobile tap feel */
-.topbar input:focus,
-.topbar select:focus{
-  box-shadow:0 0 0 2px rgba(45,124,255,.4);
+.search-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
-/* Grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr)); /* 👈 magic line */
-  gap:10px;
+.input-box {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
+.input-box svg {
+  position: absolute;
+  left: 12px;
+  width: 17px;
+  height: 17px;
+  fill: #64748b;
+  pointer-events: none;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  background: #141c2e;
+  border: 1px solid #222f49;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.input-box input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* Dedicated Favourites Pill Button */
+.fav-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #141c2e;
+  border: 1px solid #222f49;
+  color: #94a3b8;
+  padding: 0 12px;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .2s ease;
+}
+
+.fav-pill svg {
+  width: 16px;
+  height: 16px;
+  fill: #ef4444;
+}
+
+.fav-pill.active {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #f87171;
+}
+
+.fav-count {
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  border-radius: 10px;
+  padding: 1px 6px;
+}
+
+/* Language Filter Dropdown */
+.lang-select {
+  width: 100%;
+  padding: 9px 12px;
+  background: #141c2e;
+  border: 1px solid #222f49;
+  border-radius: 8px;
+  color: #cbd5e1;
+  font-size: 13px;
+  outline: none;
+}
+
+/* ===== GRID SYSTEM ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
 
 /* Channel Card */
-.channel{
-  background:#1b2238;
-  border-radius:12px;
-  padding:6px;
-  aspect-ratio:1/1;
-  position:relative;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:space-between;
-
-  transition:.25s ease;
-box-sizing:border-box;
-  width:100%;
+/* Channel Card */
+.channel {
+  background: #131b2e;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 12px 8px 10px 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* 👈 space-between hata kar flex-start karein */
+  gap: 8px;                    /* 👈 sabhi elements ke beech clean spacing */
+  transition: transform .18s ease, border-color .18s ease;
 }
 
-.channel:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 20px rgba(0,0,0,.4);
+.channel:active {
+  transform: scale(0.98);
 }
 
-/* ❤️ Heart */
-.heart{
-  position:absolute;
-  top:8px;
-  right:8px;
-  font-size:20px;
-  cursor:pointer;
-  opacity:.5;
-  transition:.25s ease;
-}
-.heart.active{
-  opacity:1;
-  animation:pop .35s ease;
+/* Top Heart Icon */
+.heart {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 }
 
-@keyframes pop{
-  0%{transform:scale(.6)}
-  60%{transform:scale(1.3)}
-  100%{transform:scale(1)}
+.heart svg {
+  width: 19px;
+  height: 19px;
+  fill: #475569;
+  transition: fill .2s ease, transform .2s ease;
 }
 
-/* Logo */
-.channel img{
-  width:80px;
-  height:80px;
-  object-fit:contain;
-  background:#fff;
-  padding:5px;
-  border-radius:8px;
+.heart.active svg {
+  fill: #ef4444;
+  animation: heartPop .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-
-/* Name */
-.ch-name{
-  font-size:12px;
-  text-align:center;
-  margin-top:6px;
-  line-height:1.2;
-
-  overflow:hidden;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
+@keyframes heartPop {
+  0% { transform: scale(0.7); }
+  60% { transform: scale(1.3); }
+  100% { transform: scale(1); }
 }
 
-/* Buttons */
-.actions{
-  display:flex;
-  flex-direction:column;   /* 👈 यही main change है */
-  gap:6px;
-  width:100%;
+/* Logo Box */
+.logo-box {
+  width: 68px;
+  height: 68px;
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-
-.btn{
-  width:100%;
-  padding:6px 0;
-  border-radius:6px;
-  font-size:12px;
-  text-decoration:none;
-  color:#fff;
-  text-align:center;
-  width:100%;
-  box-sizing:border-box;
+.logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
+/* Channel Name */
+/* Channel Name */
+.ch-name {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: #e2e8f0;
+  line-height: 1.2;
+  margin: 2px 0 4px 0;         /* 👈 margin kam kiya gaya hai */
+  display: -webkit-box;
+  -webkit-line-clamp: 1;       /* 👈 single line ya clean layout ke liye */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
-.audio{background:#2d7cff;}
-.video{background:#e63946;}
+/* Dual Compact Action Buttons */
+/* Dual Compact Action Buttons */
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  width: 100%;
+  margin-top: auto;            /* 👈 card ko naturally fit rakhega */
+}
 
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 4px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+  transition: opacity .15s ease;
+}
 
+.btn svg {
+  width: 13px;
+  height: 13px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.btn:active {
+  opacity: 0.8;
+}
+
+.btn.audio {
+  background: #2563eb;
+}
+
+.btn.video {
+  background: #dc2626;
+}
+
+/* Empty State */
+.empty-msg {
+  grid-column: span 2;
+  text-align: center;
+  padding: 40px 10px;
+  color: #64748b;
+  font-size: 14px;
+}
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
-  <input id="search" placeholder="🔍 Search Channel">
+  <div class="search-row">
+    <div class="input-box">
+      <svg viewBox="0 0 24 24"><path d="M10 2a8 8 0 0 1 6.32 12.905l5.387 5.388a1 1 0 0 1-1.414 1.414l-5.388-5.387A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/></svg>
+      <input id="search" placeholder="Search Channel..." autocomplete="off">
+    </div>
 
-  <select id="lang">
-    <option value="all">All</option>
-    <option value="fav">❤️ Favourites</option>
+    <!-- Favourites Bahar Button -->
+    <button class="fav-pill" id="favFilterBtn" onclick="toggleFavFilter()">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      <span>Favs</span>
+      <span class="fav-count" id="favCount">0</span>
+    </button>
+  </div>
+
+  <select id="lang" class="lang-select">
+    <option value="all">All Languages</option>
     <option value="hindi">Hindi</option>
     <option value="english">English</option>
     <option value="assamese">Assamese</option>
     <option value="bangla">Bangla</option>
     <option value="marathi">Marathi</option>
     <option value="gujarati">Gujarati</option>
-     <option value="punjabi">Punjabi</option>
+    <option value="punjabi">Punjabi</option>
     <option value="odia">Odia</option>
     <option value="kannada">Kannada</option>
     <option value="tamil">Tamil</option>
@@ -177,66 +306,53 @@ box-sizing:border-box;
 
 <div class="grid" id="grid"></div>
 
-
 <script>
-
-// ✅ Smart image fallback (no force download, no heavy cache)
-const DEFAULT_LOGO = "https://via.placeholder.com/100?text=LOGO";
+const DEFAULT_LOGO = "https://via.placeholder.com/80?text=LOGO";
 
 function getLogo(name){
   return logos[name] || DEFAULT_LOGO;
 }
 
-
 /* Logos */
 const logos = {
-  "Aaj Tak":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767633079/images_wxxyyq.jpg",
-  "ABP News":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902338/download_2_c2wvyo.jpg",
-  "Zee News":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902394/download_3_yiwxyg.jpg",
-  "India TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902442/download_4_fkadyg.jpg",
-  "News18 India":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767635929/News_18_India_gjfwvv.png",
-  "Republic Bharat":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902551/download_5_nsp9pi.jpg",
-  "NDTV India":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902740/download_6_h4xl1t.jpg",
+  "Aaj Tak":"https://ik.imagekit.io/sqt8ptw1k/images%20(1)_Y44LH5Fgd.jpg",
+  "ABP News":"https://ik.imagekit.io/sqt8ptw1k/images%20(2)_4n60GrFrO.jpg",
+  "Zee News":"https://ik.imagekit.io/sqt8ptw1k/images_Ay-DGZEGp.png",
+  "India TV":"https://ik.imagekit.io/sqt8ptw1k/images%20(1)_L_O8VzDsB.png",
+  "News18 India":"https://ik.imagekit.io/sqt8ptw1k/images%20(2)_Y8fcoC9WH.png",
+  "Republic Bharat":"https://ik.imagekit.io/sqt8ptw1k/images%20(3)_N2cWNJeJI.jpg",
+  "NDTV India":"https://ik.imagekit.io/sqt8ptw1k/images%20(6)_pfI_Z9VRN.jpg",
   "TV9 Bharatvarsh":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902699/download_2_pa48iq.png",
-
   "GNT TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902944/download_4_swklaj.png",
   "Sudarshan News":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767954279/download_1_ylhoyb.png",
   "News 24":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767903222/download_8_vhh0pq.jpg",
   "CNBC Awaaz":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767902830/download_3_e4qvdf.png",
   "IBC24":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767954468/download_1_uus3qn.jpg",
-
   "Republic World":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767985775/download_nsak7t.jpg",
   "Times Now":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767636134/images_1_djzd8e.jpg",
   "NDTV 24x7":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767986042/download_1_yxoolw.png",
   "India Today":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767636179/unnamed_wlyhkv.png",
   "CNN-News18":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767986148/download_1_mwyfkl.jpg",
   "NewsX":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767986214/download_2_atpksa.jpg",
-
   "Pratidin Time":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767987764/download_3_t9z3fy.png",
   "DY365":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767987811/download_3_oxcjg6.jpg",
   "News Live":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767987858/download_4_gmkgqb.png",
   "NKTV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767987940/download_6_s1zc3m.png",
-
   "ABP Ananda":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767988355/download_8_br8fa1.png",
   "News18 Bangla":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767988393/download_9_nit6k5.png",
   "TV9 Bangla":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767988430/download_4_yjowua.jpg",
   "Republic Bangla":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767988477/images_e93xhq.jpg",
   "Zee 24 Ghanta":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1767988512/download_10_maz98x.png",
-
   "ABP Majha":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768159127/download_vpwux5.png",
   "News18 Lokmat":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768159204/download_1_qhbqfv.png",
   "Zee 24 Taas":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768159274/download_xyxhb1.jpg",
   "TV9 Marathi":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768159323/download_1_f5loab.jpg",
-
   "TV9 Gujarati":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768160319/download_2_nvbsgz.jpg",
   "ABP Asmita":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768160378/download_2_swfeqr.png",
   "Zee 24 Kalak":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768160456/images_mlu6jb.png",
   "News18 Gujarati":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768160534/download_3_jhffnp.png",
- 
   "News18 Punjab":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768292910/download_nsrkmi.png",
   "TV Punjab":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768293892/download_1_rollwp.jpg",
-
-  
   "NEWS18 ODIA":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768506850/News18_Odia_logo_rt4aa5.jpg",
   "NANDIGHOSHA TV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768506823/download_g3tect.jpg",
   "OTV":"https://res.cloudinary.com/dzczl0fzu/image/upload/f_auto,q_auto,w_80,h_80,c_fit/v1768506807/download_1_yranfn.jpg"
@@ -244,55 +360,44 @@ const logos = {
 
 /* Channels */
 const channels = [
- { n:"Aaj Tak", l:"hindi", a:"go:AN", v:"go:AAJ" },
- { n:"ABP News", l:"hindi", a:"go:ABP1", v:"go:ABP2" },
- { n:"Zee News", l:"hindi", a:"go:ZEE1", v:"go:ZEE2" },
- { n:"India TV", l:"hindi", a:"go:INDIA1", v:"go:INDIA2" },
- { n:"News18 India", l:"hindi", a:"go:NEWS181", v:"go:NEWS18" },
- { n:"Republic Bharat", l:"hindi", a:"go:REPUBLIC1", v:"go:REPUBLIC2" },
- { n:"NDTV India", l:"hindi", a:"go:NDTV1", v:"go:NDTV2" },
- { n:"TV9 Bharatvarsh", l:"hindi", a:"go:TV91", v:"go:TV9" },
- { n:"GNT TV", l:"hindi", a:"go:GNT1", v:"go:GNT2" },
- { n:"Sudarshan News", l:"hindi", a:"go:SUD1", v:"go:SUD2" },
- { n:"News 24", l:"hindi", a:"go:NEWS241", v:"go:NEWS242" },
- { n:"CNBC Awaaz", l:"hindi", a:"go:CNBC1", v:"go:CNBC2" },
- { n:"IBC24", l:"hindi", a:"go:IBC1", v:"go:IBC2" },
-
- { n:"Republic World", l:"english", a:"go:REP1", v:"go:REP2" },
- { n:"Times Now", l:"english", a:"go:TIMES1", v:"go:TIMES" },
- { n:"NDTV 24x7", l:"english", a:"go:ND1", v:"go:ND2" },
- { n:"India Today", l:"english", a:"go:INDIATO1", v:"go:INDIATO" },
- { n:"CNN-News18", l:"english", a:"go:CNN1", v:"go:CNN2" },
- { n:"NewsX", l:"english", a:"go:NEWSX1", v:"go:NEWSX2" },
-
- { n:"NKTV", l:"assamese", a:"go:NK1", v:"go:NK2" },
- { n:"News Live", l:"assamese", a:"go:NE1", v:"go:NE2" },
- { n:"Pratidin Time", l:"assamese", a:"go:S101", v:"go:PRATI1" },
- { n:"DY365", l:"assamese", a:"go:S102", v:"go:DY1" },
-
-
- { n:"ABP Ananda", l:"bangla", a:"go:AB1", v:"go:AB2" },
- { n:"News18 Bangla", l:"bangla", a:"go:NB1", v:"go:NB2" },
- { n:"TV9 Bangla", l:"bangla", a:"go:TV9B1", v:"go:TV9B2" },
- { n:"Republic Bangla", l:"bangla", a:"go:RE1", v:"go:RE2" },
- { n:"Zee 24 Ghanta", l:"bangla", a:"go:ZB1", v:"go:ZB2" },
-
-
-  { n:"ABP Majha",        l:"marathi", a:"go:MAJH1", v:"go:MAJH2" },
-  { n:"News18 Lokmat",   l:"marathi", a:"go:LOKM1", v:"go:LOKM2" },
-  { n:"Zee 24 Taas",     l:"marathi", a:"go:TAAS1", v:"go:TAAS2" },
-  { n:"TV9 Marathi",    l:"marathi", a:"go:TV9M1", v:"go:TV9M2" },
-  
-  
-  { n:"TV9 Gujarati",    l:"gujarati", a:"go:TV9G1", v:"go:TV9G2" },
-  { n:"ABP Asmita",     l:"gujarati", a:"go:ASM1", v:"go:ASM2" }, 
-  { n:"Zee 24 Kalak",   l:"gujarati", a:"go:KALAK1", v:"go:KALAK2" },
-  { n:"News18 Gujarati",l:"gujarati", a:"go:GUJ1", v:"go:GUJ2" },
-
-
+  { n:"Aaj Tak", l:"hindi", a:"go:AN", v:"go:AAJ" },
+  { n:"ABP News", l:"hindi", a:"go:ABP1", v:"go:ABP2" },
+  { n:"Zee News", l:"hindi", a:"go:ZEE1", v:"go:ZEE2" },
+  { n:"India TV", l:"hindi", a:"go:INDIA1", v:"go:INDIA2" },
+  { n:"News18 India", l:"hindi", a:"go:NEWS181", v:"go:NEWS18" },
+  { n:"Republic Bharat", l:"hindi", a:"go:REPUBLIC1", v:"go:REPUBLIC2" },
+  { n:"NDTV India", l:"hindi", a:"go:NDTV1", v:"go:NDTV2" },
+  { n:"TV9 Bharatvarsh", l:"hindi", a:"go:TV91", v:"go:TV9" },
+  { n:"GNT TV", l:"hindi", a:"go:GNT1", v:"go:GNT2" },
+  { n:"Sudarshan News", l:"hindi", a:"go:SUD1", v:"go:SUD2" },
+  { n:"News 24", l:"hindi", a:"go:NEWS241", v:"go:NEWS242" },
+  { n:"CNBC Awaaz", l:"hindi", a:"go:CNBC1", v:"go:CNBC2" },
+  { n:"IBC24", l:"hindi", a:"go:IBC1", v:"go:IBC2" },
+  { n:"Republic World", l:"english", a:"go:REP1", v:"go:REP2" },
+  { n:"Times Now", l:"english", a:"go:TIMES1", v:"go:TIMES" },
+  { n:"NDTV 24x7", l:"english", a:"go:ND1", v:"go:ND2" },
+  { n:"India Today", l:"english", a:"go:INDIATO1", v:"go:INDIATO" },
+  { n:"CNN-News18", l:"english", a:"go:CNN1", v:"go:CNN2" },
+  { n:"NewsX", l:"english", a:"go:NEWSX1", v:"go:NEWSX2" },
+  { n:"NKTV", l:"assamese", a:"go:NK1", v:"go:NK2" },
+  { n:"News Live", l:"assamese", a:"go:NE1", v:"go:NE2" },
+  { n:"Pratidin Time", l:"assamese", a:"go:S101", v:"go:PRATI1" },
+  { n:"DY365", l:"assamese", a:"go:S102", v:"go:DY1" },
+  { n:"ABP Ananda", l:"bangla", a:"go:AB1", v:"go:AB2" },
+  { n:"News18 Bangla", l:"bangla", a:"go:NB1", v:"go:NB2" },
+  { n:"TV9 Bangla", l:"bangla", a:"go:TV9B1", v:"go:TV9B2" },
+  { n:"Republic Bangla", l:"bangla", a:"go:RE1", v:"go:RE2" },
+  { n:"Zee 24 Ghanta", l:"bangla", a:"go:ZB1", v:"go:ZB2" },
+  { n:"ABP Majha", l:"marathi", a:"go:MAJH1", v:"go:MAJH2" },
+  { n:"News18 Lokmat", l:"marathi", a:"go:LOKM1", v:"go:LOKM2" },
+  { n:"Zee 24 Taas", l:"marathi", a:"go:TAAS1", v:"go:TAAS2" },
+  { n:"TV9 Marathi", l:"marathi", a:"go:TV9M1", v:"go:TV9M2" },
+  { n:"TV9 Gujarati", l:"gujarati", a:"go:TV9G1", v:"go:TV9G2" },
+  { n:"ABP Asmita", l:"gujarati", a:"go:ASM1", v:"go:ASM2" }, 
+  { n:"Zee 24 Kalak", l:"gujarati", a:"go:KALAK1", v:"go:KALAK2" },
+  { n:"News18 Gujarati", l:"gujarati", a:"go:GUJ1", v:"go:GUJ2" },
   { n:"News18 Punjab", l:"punjabi", a:"go:NE18P1", v:"go:NE18P2" },
   { n:"TV Punjab", l:"punjabi", a:"go:TVP1", v:"go:TVP2" },
-
   { n:"NEWS18 ODIA", l:"odia", a:"go:N18O1", v:"go:N18O2" },
   { n:"NANDIGHOSHA TV", l:"odia", a:"go:NA1", v:"go:NA2" },
   { n:"OTV", l:"odia", a:"go:OTV1", v:"go:OTV2" }
@@ -301,39 +406,75 @@ const channels = [
 const grid = document.getElementById("grid");
 const search = document.getElementById("search");
 const lang = document.getElementById("lang");
+const favFilterBtn = document.getElementById("favFilterBtn");
+const favCountEl = document.getElementById("favCount");
 
 let favs = JSON.parse(localStorage.getItem("FAV_CHANNELS") || "[]");
 let cardMap = {};
+let favOnly = false;
 
-function toggleFav(name){
+// SVG Icons
+const SVG_AUDIO = `<svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`;
+const SVG_VIDEO = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+const SVG_HEART = `<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+
+function updateFavBadge(){
+  favCountEl.textContent = favs.length;
+}
+
+function toggleFav(name, e){
+  if(e) e.stopPropagation();
   if(favs.includes(name)){
-    favs = favs.filter(f=>f!==name);
+    favs = favs.filter(f => f !== name);
   } else {
     favs.push(name);
   }
   localStorage.setItem("FAV_CHANNELS", JSON.stringify(favs));
-  buildGrid();
+  updateFavBadge();
+
+  // Instant card state update
+  const card = cardMap[name];
+  if(card){
+    const heart = card.querySelector(".heart");
+    if(favs.includes(name)){
+      heart.classList.add("active");
+    } else {
+      heart.classList.remove("active");
+    }
+  }
+
+  if(favOnly){
+    applyFilter();
+  }
+}
+
+function toggleFavFilter(){
+  favOnly = !favOnly;
+  favFilterBtn.classList.toggle("active", favOnly);
+  applyFilter();
 }
 
 function buildGrid(){
   grid.innerHTML = "";
   cardMap = {};
 
-  channels.forEach(c=>{
+  channels.forEach(c => {
     const div = document.createElement("div");
     div.className = "channel";
 
     const isFav = favs.includes(c.n);
 
     div.innerHTML = `
-      <div class="heart ${isFav?"active":""}" onclick="toggleFav('${c.n}')">
-        ${isFav?"❤️":"🤍"}
+      <div class="heart ${isFav ? 'active' : ''}" onclick="toggleFav('${c.n}', event)">
+        ${SVG_HEART}
       </div>
-    <img src="${getLogo(c.n)}" loading="lazy">
+      <div class="logo-box">
+        <img src="${getLogo(c.n)}" loading="lazy" alt="${c.n}">
+      </div>
       <div class="ch-name">${c.n}</div>
       <div class="actions">
-        <a href="${c.a}" class="btn audio">🎧 Audio</a>
-        <a href="${c.v}" class="btn video">▶️ Video</a>
+        <a href="${c.a}" class="btn audio">${SVG_AUDIO} Audio</a>
+        <a href="${c.v}" class="btn video">${SVG_VIDEO} Video</a>
       </div>
     `;
 
@@ -341,30 +482,46 @@ function buildGrid(){
     cardMap[c.n] = div;
   });
 
+  updateFavBadge();
   applyFilter();
 }
 
 function applyFilter(){
-  const s = search.value.toLowerCase();
+  const s = search.value.trim().toLowerCase();
   const l = lang.value;
+  let visibleCount = 0;
 
-  channels.forEach(c=>{
+  channels.forEach(c => {
     const el = cardMap[c.n];
     const isFav = favs.includes(c.n);
 
-    const ok =
-      c.n.toLowerCase().includes(s) &&
-      (l==="all" || (l==="fav" && isFav) || c.l===l);
+    const matchesSearch = c.n.toLowerCase().includes(s);
+    const matchesLang = (l === "all" || c.l === l);
+    const matchesFav = (!favOnly || isFav);
 
+    const ok = matchesSearch && matchesLang && matchesFav;
     el.style.display = ok ? "" : "none";
+    if(ok) visibleCount++;
   });
+
+  let emptyEl = document.getElementById("emptyMsg");
+  if(visibleCount === 0){
+    if(!emptyEl){
+      emptyEl = document.createElement("div");
+      emptyEl.id = "emptyMsg";
+      emptyEl.className = "empty-msg";
+      emptyEl.innerText = "Koi channel nahi mila!";
+      grid.appendChild(emptyEl);
+    }
+  } else if(emptyEl){
+    emptyEl.remove();
+  }
 }
 
 let searchTimer = null;
-
-search.onkeyup = () => {
+search.oninput = () => {
   clearTimeout(searchTimer);
-  searchTimer = setTimeout(applyFilter, 300);
+  searchTimer = setTimeout(applyFilter, 150);
 };
 
 lang.onchange = applyFilter;
