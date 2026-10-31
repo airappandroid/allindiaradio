@@ -18,6 +18,81 @@ body {
   color: #f1f5f9;
   padding: 12px;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ===== FULLSCREEN LANGUAGE MODAL ===== */
+.lang-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 13, 22, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.lang-modal-box {
+  background: #111827;
+  border: 1px solid #1f293d;
+  border-radius: 18px;
+  padding: 22px 16px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.lang-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 4px 0;
+}
+
+.lang-modal-sub {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0 0 18px 0;
+}
+
+.lang-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.lang-btn {
+  background: #172033;
+  border: 1px solid #25334d;
+  border-radius: 10px;
+  padding: 12px 8px;
+  color: #e2e8f0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-btn:active {
+  background: #2563eb;
+  border-color: #3b82f6;
+  color: #ffffff;
+  transform: scale(0.96);
 }
 
 /* ===== MODERN TOPBAR ===== */
@@ -73,7 +148,7 @@ body {
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
 }
 
-/* Dedicated Favourites Pill Button */
+/* Dedicated Favourites Button */
 .fav-pill {
   display: flex;
   align-items: center;
@@ -114,7 +189,7 @@ body {
 /* Language Filter Dropdown */
 .lang-select {
   width: 100%;
-  padding: 9px 12px;
+  padding: 10px 12px;
   background: #141c2e;
   border: 1px solid #222f49;
   border-radius: 8px;
@@ -131,7 +206,6 @@ body {
 }
 
 /* Channel Card */
-/* Channel Card */
 .channel {
   background: #131b2e;
   border: 1px solid #1e293b;
@@ -141,9 +215,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 👈 space-between hata kar flex-start karein */
-  gap: 8px;                    /* 👈 sabhi elements ke beech clean spacing */
-  transition: transform .18s ease, border-color .18s ease;
+  justify-content: flex-start;
+  gap: 8px;
+  content-visibility: auto;
+  contain-intrinsic-size: 190px;
+  transition: transform .15s ease, border-color .15s ease;
 }
 
 .channel:active {
@@ -202,28 +278,26 @@ body {
 }
 
 /* Channel Name */
-/* Channel Name */
 .ch-name {
   font-size: 13px;
   font-weight: 600;
   text-align: center;
   color: #e2e8f0;
   line-height: 1.2;
-  margin: 2px 0 4px 0;         /* 👈 margin kam kiya gaya hai */
+  margin: 2px 0 2px 0;
   display: -webkit-box;
-  -webkit-line-clamp: 1;       /* 👈 single line ya clean layout ke liye */
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* Dual Compact Action Buttons */
-/* Dual Compact Action Buttons */
+/* Actions - Large Touch Friendly */
 .actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
   width: 100%;
-  margin-top: auto;            /* 👈 card ko naturally fit rakhega */
+  margin-top: auto;
 }
 
 .btn {
@@ -231,25 +305,27 @@ body {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 7px 4px;
+  padding: 10px 4px;
+  min-height: 38px;
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-decoration: none;
   color: #ffffff;
   letter-spacing: 0.2px;
-  transition: opacity .15s ease;
+  transition: opacity .15s ease, transform .1s ease;
 }
 
 .btn svg {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   fill: currentColor;
   flex-shrink: 0;
 }
 
 .btn:active {
-  opacity: 0.8;
+  opacity: 0.85;
+  transform: scale(0.96);
 }
 
 .btn.audio {
@@ -273,6 +349,26 @@ body {
 
 <body>
 
+<!-- FULL-SCREEN LANGUAGE MODAL (All Language আঁতৰোৱা হৈছে) -->
+<div class="lang-modal-overlay" id="langModal">
+  <div class="lang-modal-box">
+    <div style="font-size: 32px; margin-bottom: 6px;">🌐</div>
+    <div class="lang-modal-title">Select Language</div>
+    <div class="lang-modal-sub">Choose your preferred news language</div>
+    
+    <div class="lang-modal-grid">
+      <button class="lang-btn" onclick="selectModalLang('hindi')">हिन्दी (Hindi)</button>
+      <button class="lang-btn" onclick="selectModalLang('english')">English</button>
+      <button class="lang-btn" onclick="selectModalLang('assamese')">অসমীয়া (Assamese)</button>
+      <button class="lang-btn" onclick="selectModalLang('bangla')">বাংলা (Bangla)</button>
+      <button class="lang-btn" onclick="selectModalLang('marathi')">मराठी (Marathi)</button>
+      <button class="lang-btn" onclick="selectModalLang('gujarati')">ગુજરાતી (Gujarati)</button>
+      <button class="lang-btn" onclick="selectModalLang('punjabi')">ਪੰਜਾਬੀ (Punjabi)</button>
+      <button class="lang-btn" onclick="selectModalLang('odia')">ଓଡ଼ିଆ (Odia)</button>
+    </div>
+  </div>
+</div>
+
 <div class="topbar">
   <div class="search-row">
     <div class="input-box">
@@ -280,7 +376,6 @@ body {
       <input id="search" placeholder="Search Channel..." autocomplete="off">
     </div>
 
-    <!-- Favourites Bahar Button -->
     <button class="fav-pill" id="favFilterBtn" onclick="toggleFavFilter()">
       <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
       <span>Favs</span>
@@ -288,8 +383,8 @@ body {
     </button>
   </div>
 
+  <!-- All Language আঁতৰাই প্ৰথম বিকল্প 'hindi' ৰখা হৈছে -->
   <select id="lang" class="lang-select">
-    <option value="all">All Languages</option>
     <option value="hindi">Hindi</option>
     <option value="english">English</option>
     <option value="assamese">Assamese</option>
@@ -298,9 +393,6 @@ body {
     <option value="gujarati">Gujarati</option>
     <option value="punjabi">Punjabi</option>
     <option value="odia">Odia</option>
-    <option value="kannada">Kannada</option>
-    <option value="tamil">Tamil</option>
-    <option value="telugu">Telugu</option>
   </select>
 </div>
 
@@ -334,10 +426,10 @@ const logos = {
   "India Today":"https://ik.imagekit.io/sqt8ptw1k/images%20(10)_MW-aUUMmyv.png",
   "CNN-News18":"https://ik.imagekit.io/sqt8ptw1k/images%20(11)_QVHQDsqR4.png",
   "NewsX":"https://ik.imagekit.io/sqt8ptw1k/images%20(10)_5IDvuFcFV.jpg",
+  "NKTV":"https://ik.imagekit.io/sqt8ptw1k/images%20(11)_dEBRaURUF.jpg",
+  "News Live":"https://ik.imagekit.io/sqt8ptw1k/images%20(12)_ojSLLW4SJ.png",
   "Pratidin Time":"https://ik.imagekit.io/sqt8ptw1k/images%20(12)_PmKd4mkcf.jpg",
   "DY365":"https://ik.imagekit.io/sqt8ptw1k/download_fTdfV09Mi.jpg",
-  "News Live":"https://ik.imagekit.io/sqt8ptw1k/images%20(12)_ojSLLW4SJ.png",
-  "NKTV":"https://ik.imagekit.io/sqt8ptw1k/images%20(11)_dEBRaURUF.jpg",
   "ABP Ananda":"https://ik.imagekit.io/sqt8ptw1k/images%20(13)_9ukae01dJ9.png",
   "News18 Bangla":"https://ik.imagekit.io/sqt8ptw1k/images%20(13)_dRhFN3Iag.jpg",
   "TV9 Bangla":"https://ik.imagekit.io/sqt8ptw1k/images%20(14)_sSjIfy84G.png",
@@ -408,10 +500,15 @@ const search = document.getElementById("search");
 const lang = document.getElementById("lang");
 const favFilterBtn = document.getElementById("favFilterBtn");
 const favCountEl = document.getElementById("favCount");
+const langModal = document.getElementById("langModal");
 
 let favs = JSON.parse(localStorage.getItem("FAV_CHANNELS") || "[]");
 let cardMap = {};
 let favOnly = false;
+let isModalOpen = false;
+
+// Storage Key
+const STORAGE_LANG_KEY = "USER_PREFERRED_LANG";
 
 // SVG Icons
 const SVG_AUDIO = `<svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`;
@@ -432,7 +529,6 @@ function toggleFav(name, e){
   localStorage.setItem("FAV_CHANNELS", JSON.stringify(favs));
   updateFavBadge();
 
-  // Instant card state update
   const card = cardMap[name];
   if(card){
     const heart = card.querySelector(".heart");
@@ -469,7 +565,7 @@ function buildGrid(){
         ${SVG_HEART}
       </div>
       <div class="logo-box">
-        <img src="${getLogo(c.n)}" loading="lazy" alt="${c.n}">
+        <img src="${getLogo(c.n)}" loading="lazy" decoding="async" alt="${c.n}">
       </div>
       <div class="ch-name">${c.n}</div>
       <div class="actions">
@@ -483,7 +579,6 @@ function buildGrid(){
   });
 
   updateFavBadge();
-  applyFilter();
 }
 
 function applyFilter(){
@@ -493,10 +588,11 @@ function applyFilter(){
 
   channels.forEach(c => {
     const el = cardMap[c.n];
+    if(!el) return;
     const isFav = favs.includes(c.n);
 
     const matchesSearch = c.n.toLowerCase().includes(s);
-    const matchesLang = (l === "all" || c.l === l);
+    const matchesLang = favOnly || (c.l === l); // Show favourites from every language when Favs is active
     const matchesFav = (!favOnly || isFav);
 
     const ok = matchesSearch && matchesLang && matchesFav;
@@ -510,7 +606,7 @@ function applyFilter(){
       emptyEl = document.createElement("div");
       emptyEl.id = "emptyMsg";
       emptyEl.className = "empty-msg";
-      emptyEl.innerText = "Koi channel nahi mila!";
+      emptyEl.innerText = "No channel found";
       grid.appendChild(emptyEl);
     }
   } else if(emptyEl){
@@ -518,15 +614,70 @@ function applyFilter(){
   }
 }
 
+/* Modal Open / Close with History State (Back Button Handling) */
+function openModal(){
+  langModal.style.display = "flex";
+  isModalOpen = true;
+  // History ত এটা state যোগ কৰা হ'ল যাতে ম'বাইল Back টিপিলে পেজৰ পৰা নোলাই ম'ডালটোহে বন্ধ হয়
+  history.pushState({ modalOpen: true }, "");
+}
+
+function closeModalOnly(){
+  langModal.style.display = "none";
+  isModalOpen = false;
+}
+
+// ম'বাইলৰ Back বুটাম টিপিলে এই Event ৰান হ'ব
+window.addEventListener("popstate", (e) => {
+  if (isModalOpen) {
+    closeModalOnly();
+    // যদি আগতে ভাষা চেভ নাছিল, তেন্তে ড্রপডাউনৰ বৰ্তমানৰ ভাষাটো ডিফল্ট কৰি দিয়া হ'ব
+    if (!localStorage.getItem(STORAGE_LANG_KEY)) {
+      localStorage.setItem(STORAGE_LANG_KEY, lang.value);
+      applyFilter();
+    }
+  }
+});
+
+function checkLanguagePreference(){
+  const savedLang = localStorage.getItem(STORAGE_LANG_KEY);
+  if(!savedLang){
+    openModal();
+  } else {
+    lang.value = savedLang;
+    applyFilter();
+  }
+}
+
+function selectModalLang(selectedLanguage){
+  localStorage.setItem(STORAGE_LANG_KEY, selectedLanguage);
+  lang.value = selectedLanguage;
+  
+  if (isModalOpen) {
+    closeModalOnly();
+    // History ত যোগ কৰা State টো পৰিষ্কাৰ কৰিবলৈ এবাৰ back কৰা হ'ল
+    if (history.state && history.state.modalOpen) {
+      history.back();
+    }
+  }
+  applyFilter();
+}
+
+// ড্ৰপডাউন সলনি কৰিলে
+lang.onchange = () => {
+  localStorage.setItem(STORAGE_LANG_KEY, lang.value);
+  applyFilter();
+};
+
 let searchTimer = null;
 search.oninput = () => {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(applyFilter, 150);
 };
 
-lang.onchange = applyFilter;
-
+// Initialize
 buildGrid();
+checkLanguagePreference();
 </script>
 
 </body>
