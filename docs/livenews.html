@@ -18,7 +18,7 @@ body {
   color: #f1f5f9;
   padding: 12px;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* মসৃণ টাচ স্ক্ৰ’লিঙৰ বাবে */
 }
 
 /* ===== FULLSCREEN LANGUAGE MODAL ===== */
@@ -26,8 +26,8 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(9, 13, 22, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
   display: none;
   align-items: center;
@@ -100,13 +100,13 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(9, 13, 22, 0.95);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #090d16; /* Blur আঁতৰাই ছলিড বেকগ্ৰাউণ্ড ৰখা হ'ল যাতে লেগ নহয় */
   padding: 8px 0 12px 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transform: translateZ(0); /* GPU Layering */
+  will-change: transform;
 }
 
 .search-row {
@@ -219,6 +219,8 @@ body {
   gap: 8px;
   content-visibility: auto;
   contain-intrinsic-size: 190px;
+  transform: translateZ(0); /* Hardware Acceleration */
+  backface-visibility: hidden;
   transition: transform .15s ease, border-color .15s ease;
 }
 
@@ -268,7 +270,7 @@ body {
   justify-content: center;
   overflow: hidden;
   margin-top: 4px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Box shadow আঁতৰাই পাতল বৰ্ডাৰ দিয়া হ'ল */
 }
 
 .logo-box img {
@@ -349,7 +351,7 @@ body {
 
 <body>
 
-<!-- FULL-SCREEN LANGUAGE MODAL (All Language আঁতৰোৱা হৈছে) -->
+<!-- FULL-SCREEN LANGUAGE MODAL -->
 <div class="lang-modal-overlay" id="langModal">
   <div class="lang-modal-box">
     <div style="font-size: 32px; margin-bottom: 6px;">🌐</div>
@@ -383,7 +385,6 @@ body {
     </button>
   </div>
 
-  <!-- All Language আঁতৰাই প্ৰথম বিকল্প 'hindi' ৰখা হৈছে -->
   <select id="lang" class="lang-select">
     <option value="hindi">Hindi</option>
     <option value="english">English</option>
@@ -592,7 +593,7 @@ function applyFilter(){
     const isFav = favs.includes(c.n);
 
     const matchesSearch = c.n.toLowerCase().includes(s);
-    const matchesLang = favOnly || (c.l === l); // Show favourites from every language when Favs is active
+    const matchesLang = favOnly || (c.l === l);
     const matchesFav = (!favOnly || isFav);
 
     const ok = matchesSearch && matchesLang && matchesFav;
@@ -614,11 +615,10 @@ function applyFilter(){
   }
 }
 
-/* Modal Open / Close with History State (Back Button Handling) */
+/* Modal Open / Close with History State */
 function openModal(){
   langModal.style.display = "flex";
   isModalOpen = true;
-  // History ত এটা state যোগ কৰা হ'ল যাতে ম'বাইল Back টিপিলে পেজৰ পৰা নোলাই ম'ডালটোহে বন্ধ হয়
   history.pushState({ modalOpen: true }, "");
 }
 
@@ -627,11 +627,9 @@ function closeModalOnly(){
   isModalOpen = false;
 }
 
-// ম'বাইলৰ Back বুটাম টিপিলে এই Event ৰান হ'ব
 window.addEventListener("popstate", (e) => {
   if (isModalOpen) {
     closeModalOnly();
-    // যদি আগতে ভাষা চেভ নাছিল, তেন্তে ড্রপডাউনৰ বৰ্তমানৰ ভাষাটো ডিফল্ট কৰি দিয়া হ'ব
     if (!localStorage.getItem(STORAGE_LANG_KEY)) {
       localStorage.setItem(STORAGE_LANG_KEY, lang.value);
       applyFilter();
@@ -655,7 +653,6 @@ function selectModalLang(selectedLanguage){
   
   if (isModalOpen) {
     closeModalOnly();
-    // History ত যোগ কৰা State টো পৰিষ্কাৰ কৰিবলৈ এবাৰ back কৰা হ'ল
     if (history.state && history.state.modalOpen) {
       history.back();
     }
@@ -663,7 +660,6 @@ function selectModalLang(selectedLanguage){
   applyFilter();
 }
 
-// ড্ৰপডাউন সলনি কৰিলে
 lang.onchange = () => {
   localStorage.setItem(STORAGE_LANG_KEY, lang.value);
   applyFilter();
