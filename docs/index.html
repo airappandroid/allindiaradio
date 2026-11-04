@@ -371,63 +371,121 @@ if (sForm) {
   });
 }
 
-// CRICKET SCORE ENGINE — Cloudflare Worker API
-const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=98443";
+// CRICKET SCORE ENGINE — supports responseData.result API format
+const CRICKET_API = "https://cricvoice.aminurmarch.workers.dev/?matchId=6a552bd15a2a46d5d3505259";
+
+function formatTeamScore(score) {
+  if (!score || typeof score !== "object") return "Yet to bat";
+
+  const runs = score.runs;
+  const wickets = score.wickets;
+  const overs = score.overs;
+
+  if (runs === undefined || runs === null) return "Yet to bat";
+
+  let text = `${runs}/${wickets ?? 0}`;
+  if (overs !== undefined && overs !== null && String(overs) !== "") {
+    text += ` (${overs})`;
+  }
+  return text;
+}
+
+function getTeamInningsScore(team, teamKey, inning) {
+  if (!team || typeof team !== "object") return null;
+
+  // Prefer the currently active innings, then find any available innings score.
+  const preferred = team[`${teamKey}_${inning}_score`];
+  if (preferred && typeof preferred === "object") return preferred;
+
+  const scoreKey = Object.keys(team).find(key =>
+    new RegExp(`^${teamKey}_\\d+_score$`).test(key) &&
+    team[key] && typeof team[key] === "object"
+  );
+  return scoreKey ? team[scoreKey] : null;
+}
 
 async function fetchMatchScore() {
   try {
     const res = await fetch(CRICKET_API, { cache: "no-store" });
-    if (!res.ok) return;
+    if (!res.ok) throw new Error(`Cricket API HTTP ${res.status}`);
+
     const json = await res.json();
-    const d = json?.response;
-    if (!d || json?.status !== "ok") return;
 
-    const teams = Array.isArray(d.teams) ? d.teams : [];
-    const battingName = (d.team_batting || "").toLowerCase();
-    const ordered = [...teams].sort((x, y) => {
-      const xb = (x.title || "").toLowerCase() === battingName;
-      const yb = (y.title || "").toLowerCase() === battingName;
-      return xb === yb ? 0 : xb ? -1 : 1;
-    });
-    const a = ordered[0] || {};
-    const b = ordered[1] || {};
+    // Actual API response supplied: responseData.result
+    const d = json?.responseData?.result ||
+              json?.response?.responseData?.result ||
+              json?.response ||
+              json?.result;
 
-    const nameA = a.abbr || a.title || d.team_batting || "IND";
-    const nameB = b.abbr || b.title || d.team_bowling || "NZ";
-    const scoreA = a.scores_full || a.scores || "Yet to bat";
-    const scoreB = b.scores_full || b.scores || "Yet to bat";
+    if (!d || !d.teams) throw new Error("Cricket match data not found");
+
+    const teams = d.teams;
+    const teamA = teams.a || {};
+    const teamB = teams.b || {};
+
+    const currentTeam = String(d.settingObj?.currentTeam || "").toLowerCase();
+    const inning = Number(d.settingObj?.currentInning || 1);
+
+    const scoreAObj = getTeamInningsScore(teamA, "a", inning);
+    const scoreBObj = getTeamInningsScore(teamB, "b", inning);
+
+    const scoreA = formatTeamScore(scoreAObj);
+    const scoreB = formatTeamScore(scoreBObj);
+
+    // Put the currently batting team first.
+    const battingFirst = currentTeam === "b" ? "b" : "a";
+    const first = battingFirst === "a" ? teamA : teamB;
+    const second = battingFirst === "a" ? teamB : teamA;
+    const firstScore = battingFirst === "a" ? scoreA : scoreB;
+    const secondScore = battingFirst === "a" ? scoreB : scoreA;
+
+    const nameA = first.shortName || first.name || (battingFirst === "a" ? "Team A" : "Team B");
+    const nameB = second.shortName || second.name || (battingFirst === "a" ? "Team B" : "Team A");
 
     document.getElementById("cNameA").textContent = nameA;
     document.getElementById("cNameB").textContent = nameB;
+
     const flagA = document.getElementById("cFlagA");
     const flagB = document.getElementById("cFlagB");
-    if (a.logo_url) flagA.src = a.logo_url;
-    if (b.logo_url) flagB.src = b.logo_url;
+
+    // Keep the existing local team flags unless API provides a usable logo URL.
+    if (first.logo_url && /^https?:\/\//i.test(first.logo_url)) flagA.src = first.logo_url;
+    if (second.logo_url && /^https?:\/\//i.test(second.logo_url)) flagB.src = second.logo_url;
     flagA.alt = nameA;
     flagB.alt = nameB;
 
     const elSA = document.getElementById("cScoreA");
     const elSB = document.getElementById("cScoreB");
-    elSA.textContent = scoreA;
-    elSB.textContent = scoreB;
-    elSA.style.color = scoreA === "Yet to bat" ? "var(--muted)" : "var(--primary)";
-    elSB.style.color = scoreB === "Yet to bat" ? "var(--muted)" : "var(--primary)";
+    elSA.textContent = firstScore;
+    elSB.textContent = secondScore;
+
+    elSA.style.color = firstScore === "Yet to bat" ? "var(--muted)" : "var(--primary)";
+    elSB.style.color = secondScore === "Yet to bat" ? "var(--muted)" : "var(--primary)";
 
     document.getElementById("cNote").textContent =
-      d.status_note || d.status_str || "IND vs NZ 5th T20I, Today • 12:30 PM";
+      d.announcement1 || d.status_note || d.status_str || "Match in progress";
 
-    const statusText = `${d.status_str || ""} ${d.game_state_str || ""} ${d.status_note || ""}`.toLowerCase();
-    const isEnd = ["finished", "ended", "complete", "result", "won", "drawn", "abandoned", "no result", "stumps"].some(x => statusText.includes(x));
-    const isLive = !isEnd && (
-      String(d.status_str || "").toLowerCase().includes("live") ||
-      String(d.game_state_str || "").toLowerCase().includes("ongoing") ||
-      Number(d.status) === 3
+    const statusValue = String(d.status || "").toLowerCase();
+    const statusText = [
+      d.status,
+      d.status_note,
+      d.status_str,
+      d.game_state_str,
+      d.announcement1
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    const isEnd = ["finished", "ended", "complete", "completed", "result",
+      "won", "drawn", "abandoned", "no result", "stumps"].some(x => statusText.includes(x));
+
+    const isStarted = ["started", "live", "in progress", "ongoing"].some(x =>
+      statusValue.includes(x) || statusText.includes(x)
     );
+
     const tag = document.getElementById("cStatus");
     if (isEnd) {
       tag.className = "cs-status-tag completed";
       tag.textContent = "COMPLETED";
-    } else if (isLive) {
+    } else if (isStarted) {
       tag.className = "cs-status-tag live";
       tag.innerHTML = '<span class="live-dot"></span> LIVE';
     } else {
@@ -436,6 +494,7 @@ async function fetchMatchScore() {
     }
   } catch (err) {
     // Keep the last successfully loaded score if the network temporarily fails.
+    console.warn("Cricket score update failed:", err);
   }
 }
 
