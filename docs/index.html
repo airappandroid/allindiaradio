@@ -448,9 +448,26 @@ async function fetchMatchScore() {
     const flagA = document.getElementById("cFlagA");
     const flagB = document.getElementById("cFlagB");
 
-    // Keep the existing local team flags unless API provides a usable logo URL.
-    if (first.logo_url && /^https?:\/\//i.test(first.logo_url)) flagA.src = first.logo_url;
-    if (second.logo_url && /^https?:\/\//i.test(second.logo_url)) flagB.src = second.logo_url;
+    // Assign flags by team identity, not by batting order.
+    // The rows can swap when the batting team changes, but the flags must not.
+    const getTeamFlag = (team, fallbackName) => {
+      const identity = `${team?.name || ""} ${team?.shortName || ""} ${fallbackName || ""}`.toLowerCase();
+
+      if (identity.includes("india") || /\bind\b/.test(identity)) {
+        return "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690";
+      }
+      if (identity.includes("new zealand") || /\bnz\b/.test(identity)) {
+        return "https://ik.imagekit.io/sqt8ptw1k/images_ZyDOMUciT.png";
+      }
+
+      if (team?.logo_url && /^https?:\/\//i.test(team.logo_url)) return team.logo_url;
+      return "";
+    };
+
+    const firstFlag = getTeamFlag(first, nameA);
+    const secondFlag = getTeamFlag(second, nameB);
+    if (firstFlag) flagA.src = firstFlag;
+    if (secondFlag) flagB.src = secondFlag;
     flagA.alt = nameA;
     flagB.alt = nameB;
 
