@@ -104,7 +104,6 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
 .play-btn.disabled{opacity:.3;pointer-events:none}
 @media(min-width:560px){.container{padding-left:20px;padding-right:20px}.quick-buttons{gap:12px}.qbtn{min-height:108px}.station{padding:13px 14px}.cricket-card{padding:16px}}
 
-
 </style>
 </head>
 
@@ -155,7 +154,7 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
         </a>
       </div>
     </div>
-    <div class="cs-note" id="cNote">IND vs NZ 5th T20I, Today • 12:30 PM</div>
+    <div class="cs-note" id="cNote">IND vs NZ 2nd ODI, 7th NOV, 7:30 AM</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
@@ -372,7 +371,7 @@ if (sForm) {
 }
 
 // CRICKET SCORE ENGINE — supports responseData.result API format
-const CRICKET_API = "https://cricvoice.aminurmarch.workers.dev/?matchId=6a552bd15a2a46d5d3505259";
+const CRICKET_API = "https://cricvoice.aminurmarch.workers.dev/?matchId=6a552bd65a2a46d5d350525d";
 
 function formatTeamScore(score) {
   if (!score || typeof score !== "object") return "Yet to bat";
@@ -382,6 +381,11 @@ function formatTeamScore(score) {
   const overs = score.overs;
 
   if (runs === undefined || runs === null) return "Yet to bat";
+
+  // Agar 0 runs aur 0 overs hain toh abhi batting shuru nahi hui
+  if (runs === 0 && (overs === undefined || overs === null || overs === 0 || overs === "0" || overs === "0.0")) {
+    return "Yet to bat";
+  }
 
   let text = `${runs}/${wickets ?? 0}`;
   if (overs !== undefined && overs !== null && String(overs) !== "") {
@@ -393,7 +397,6 @@ function formatTeamScore(score) {
 function getTeamInningsScore(team, teamKey, inning) {
   if (!team || typeof team !== "object") return null;
 
-  // Prefer the currently active innings, then find any available innings score.
   const preferred = team[`${teamKey}_${inning}_score`];
   if (preferred && typeof preferred === "object") return preferred;
 
@@ -411,7 +414,6 @@ async function fetchMatchScore() {
 
     const json = await res.json();
 
-    // Actual API response supplied: responseData.result
     const d = json?.responseData?.result ||
               json?.response?.responseData?.result ||
               json?.response ||
@@ -432,7 +434,6 @@ async function fetchMatchScore() {
     const scoreA = formatTeamScore(scoreAObj);
     const scoreB = formatTeamScore(scoreBObj);
 
-    // Put the currently batting team first.
     const battingFirst = currentTeam === "b" ? "b" : "a";
     const first = battingFirst === "a" ? teamA : teamB;
     const second = battingFirst === "a" ? teamB : teamA;
@@ -448,8 +449,6 @@ async function fetchMatchScore() {
     const flagA = document.getElementById("cFlagA");
     const flagB = document.getElementById("cFlagB");
 
-    // Assign flags by team identity, not by batting order.
-    // The rows can swap when the batting team changes, but the flags must not.
     const getTeamFlag = (team, fallbackName) => {
       const identity = `${team?.name || ""} ${team?.shortName || ""} ${fallbackName || ""}`.toLowerCase();
 
@@ -479,30 +478,41 @@ async function fetchMatchScore() {
     elSA.style.color = firstScore === "Yet to bat" ? "var(--muted)" : "var(--primary)";
     elSB.style.color = secondScore === "Yet to bat" ? "var(--muted)" : "var(--primary)";
 
-    document.getElementById("cNote").textContent =
-      d.announcement1 || d.status_note || d.status_str || "Match in progress";
+    // --- ACCURATE STATUS DETECTION ---
+    const rawStatus = String(d.status || "").trim().toLowerCase();
+    const statusStr = String(d.status_str || "").trim().toLowerCase();
+    const gameState = String(d.settingObj?.game_state_str || d.game_state_str || "").trim().toLowerCase();
+    const statusNote = String(d.status_note || "").trim().toLowerCase();
 
-    const statusValue = String(d.status || "").toLowerCase();
-    const statusText = [
-      d.status,
-      d.status_note,
-      d.status_str,
-      d.game_state_str,
-      d.announcement1
-    ].filter(Boolean).join(" ").toLowerCase();
+    const endKeywords = ["finished", "ended", "complete", "completed", "result", "won by", "won", "drawn", "abandoned", "no result", "stumps", "3"];
+    const isEnd = endKeywords.some(x => rawStatus === x || statusStr === x || gameState === x || statusNote.includes(x));
 
-    const isEnd = ["finished", "ended", "complete", "completed", "result",
-      "won", "drawn", "abandoned", "no result", "stumps"].some(x => statusText.includes(x));
+    const hasBattingStarted = firstScore !== "Yet to bat" || secondScore !== "Yet to bat";
 
-    const isStarted = ["started", "live", "in progress", "ongoing"].some(x =>
-      statusValue.includes(x) || statusText.includes(x)
+    const liveKeywords = ["live", "in progress", "inprogress", "ongoing", "started", "2"];
+    const isLive = !isEnd && (
+      liveKeywords.includes(rawStatus) ||
+      liveKeywords.includes(statusStr) ||
+      liveKeywords.includes(gameState) ||
+      hasBattingStarted
     );
+
+    // --- NOTE DISPLAY (Upcoming me schedule dikhega) ---
+    const rawNote = d.announcement1 || d.status_note || d.status_str || "";
+    const defaultSchedule = "IND vs NZ 2nd ODI, 7th NOV, 7:30 AM";
+
+    if (!isLive && !isEnd) {
+      document.getElementById("cNote").textContent = 
+        (rawNote && !rawNote.toLowerCase().includes("progress")) ? rawNote : defaultSchedule;
+    } else {
+      document.getElementById("cNote").textContent = rawNote || (isEnd ? "Match Ended" : "Match in progress");
+    }
 
     const tag = document.getElementById("cStatus");
     if (isEnd) {
       tag.className = "cs-status-tag completed";
       tag.textContent = "COMPLETED";
-    } else if (isStarted) {
+    } else if (isLive) {
       tag.className = "cs-status-tag live";
       tag.innerHTML = '<span class="live-dot"></span> LIVE';
     } else {
@@ -510,7 +520,6 @@ async function fetchMatchScore() {
       tag.textContent = "UPCOMING";
     }
   } catch (err) {
-    // Keep the last successfully loaded score if the network temporarily fails.
     console.warn("Cricket score update failed:", err);
   }
 }
@@ -555,8 +564,6 @@ function updatePrograms() {
       continue;
     }
 
-    // Select the most recent start time. Before the first item, use the
-    // final item of the previous daily schedule (overnight schedule support).
     let selected = list[list.length - 1];
     for (const item of list) {
       if (item.min <= now) selected = item;
@@ -593,8 +600,6 @@ async function loadFreshSchedule() {
 
     updatePrograms();
   } catch (err) {
-    // Keep the last successful schedule if a temporary network error occurs.
-    // If nothing has loaded yet, show a clear fallback instead of a false program.
     for (const { el, channel } of programNodes) {
       if (!scheduleCache[channel]?.length) el.textContent = "Schedule unavailable";
     }
@@ -642,8 +647,6 @@ function switchBulletin(idx) {
   document.getElementById("bulletinTime").textContent = b.time || "Time unavailable";
 
   const btn = document.getElementById("bulletinPlayBtn");
-  // Always clear the previous URL first, so a bulletin without a stream
-  // cannot accidentally play the previous bulletin.
   btn.removeAttribute("href");
   btn.classList.add("disabled");
 
