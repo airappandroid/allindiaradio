@@ -154,7 +154,7 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
         </a>
       </div>
     </div>
-    <div class="cs-note" id="cNote">IND vs NZ 2nd ODI, 7th NOV, 7:30 AM</div>
+    <div class="cs-note" id="cNote">IND vs NZ 3rd ODI, 10th NOV, 7:30 AM</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
@@ -371,7 +371,7 @@ if (sForm) {
 }
 
 // CRICKET SCORE ENGINE — supports responseData.result API format
-const CRICKET_API = "https://cricvoice.aminurmarch.workers.dev/?matchId=6a552bd65a2a46d5d350525d";
+const CRICKET_API = "https://cricvoice.aminurmarch.workers.dev/?matchId=6a552bd25a2a46d5d350525a";
 
 function formatTeamScore(score) {
   if (!score || typeof score !== "object") return "Yet to bat";
@@ -499,7 +499,7 @@ async function fetchMatchScore() {
 
     // --- NOTE DISPLAY (Upcoming me schedule dikhega) ---
     const rawNote = d.announcement1 || d.status_note || d.status_str || "";
-    const defaultSchedule = "IND vs NZ 2nd ODI, 7th NOV, 7:30 AM";
+    const defaultSchedule = "IND vs NZ 3rd ODI, 10th NOV, 7:30 AM";
 
     if (!isLive && !isEnd) {
       document.getElementById("cNote").textContent = 
