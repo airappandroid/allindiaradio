@@ -53,7 +53,9 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
 .cricket-card{width:100%;max-width:520px;min-width:0;background:linear-gradient(145deg,#172943,#101a2a 72%);border:1px solid #29415e;border-radius:20px;padding:14px;display:flex;flex-direction:column;gap:11px;box-shadow:0 8px 22px #0002}
 .cs-top-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .cs-status-tag{font-size:9px;letter-spacing:.7px;font-weight:900;padding:5px 8px;border-radius:7px;background:#172b43;border:1px solid #345274;color:#9dc8ff;display:inline-flex;align-items:center;gap:5px}
-.cs-status-tag.live{background:#3a1b26;border-color:#713041;color:#ff7b8b}.cs-status-tag.completed{background:#172b43;border-color:#345274;color:#9dc8ff}
+.cs-status-tag.live{background:#3a1b26;border-color:#713041;color:#ff7b8b}
+.cs-status-tag.stumps{background:#2d2414;border-color:#6e5324;color:#ffbe55}
+.cs-status-tag.completed{background:#172b43;border-color:#345274;color:#9dc8ff}
 .live-dot{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
 .cs-top-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
 .cs-btn-audio,.cs-btn-card{min-height:29px;padding:0 11px;border-radius:9px;font-size:10.5px;font-weight:800;display:inline-flex;align-items:center;gap:5px}
@@ -478,14 +480,25 @@ async function fetchMatchScore() {
     elSA.style.color = firstScore === "Yet to bat" ? "var(--muted)" : "var(--primary)";
     elSB.style.color = secondScore === "Yet to bat" ? "var(--muted)" : "var(--primary)";
 
-    // --- ACCURATE STATUS DETECTION ---
-    const rawStatus = String(d.status || "").trim().toLowerCase();
-    const statusStr = String(d.status_str || "").trim().toLowerCase();
+    // --- ACCURATE STATUS DETECTION (Stumps = day break, NOT match completed) ---
+    const rawStatus = String(d.status ?? "").trim().toLowerCase();
+    const statusStr = String(d.status_str ?? "").trim().toLowerCase();
     const gameState = String(d.settingObj?.game_state_str || d.game_state_str || "").trim().toLowerCase();
-    const statusNote = String(d.status_note || "").trim().toLowerCase();
+    const statusNote = String(d.status_note || d.announcement1 || "").trim().toLowerCase();
 
-    const endKeywords = ["finished", "ended", "complete", "completed", "result", "won by", "won", "drawn", "abandoned", "no result", "stumps", "3"];
-    const isEnd = endKeywords.some(x => rawStatus === x || statusStr === x || gameState === x || statusNote.includes(x));
+    const combinedText = `${rawStatus} ${statusStr} ${gameState} ${statusNote}`;
+
+    const isStumps = /\bstumps\b/.test(combinedText);
+    const isDayBreak = isStumps || /\b(tea|lunch|innings break|day break|end of day)\b/.test(combinedText);
+
+    const endExact = ["finished", "ended", "complete", "completed", "result", "drawn", "abandoned", "no result", "3"];
+    const hasMatchEndPhrase = /\b(won by|match drawn|match abandoned|no result|match ended|match completed|match finished)\b/.test(combinedText);
+    const isEnd = !isDayBreak && (
+      endExact.includes(rawStatus) ||
+      endExact.includes(statusStr) ||
+      endExact.includes(gameState) ||
+      hasMatchEndPhrase
+    );
 
     const hasBattingStarted = firstScore !== "Yet to bat" || secondScore !== "Yet to bat";
 
@@ -494,24 +507,28 @@ async function fetchMatchScore() {
       liveKeywords.includes(rawStatus) ||
       liveKeywords.includes(statusStr) ||
       liveKeywords.includes(gameState) ||
+      isDayBreak ||
       hasBattingStarted
     );
 
-    // --- NOTE DISPLAY (Upcoming me schedule dikhega) ---
+    // --- NOTE DISPLAY ---
     const rawNote = d.announcement1 || d.status_note || d.status_str || "";
     const defaultSchedule = "IND vs NZ 1st Test, 19th NOV, 3:30 AM";
 
     if (!isLive && !isEnd) {
-      document.getElementById("cNote").textContent = 
+      document.getElementById("cNote").textContent =
         (rawNote && !rawNote.toLowerCase().includes("progress")) ? rawNote : defaultSchedule;
     } else {
-      document.getElementById("cNote").textContent = rawNote || (isEnd ? "Match Ended" : "Match in progress");
+      document.getElementById("cNote").textContent = rawNote || (isEnd ? "Match Ended" : isStumps ? "Stumps - Day Ended" : "Match in progress");
     }
 
     const tag = document.getElementById("cStatus");
     if (isEnd) {
       tag.className = "cs-status-tag completed";
       tag.textContent = "COMPLETED";
+    } else if (isDayBreak) {
+      tag.className = "cs-status-tag stumps";
+      tag.textContent = isStumps ? "STUMPS" : "BREAK";
     } else if (isLive) {
       tag.className = "cs-status-tag live";
       tag.innerHTML = '<span class="live-dot"></span> LIVE';
