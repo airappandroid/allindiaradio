@@ -173,373 +173,632 @@
   </div>
 
   <script>
-    // লাইটৱেট ডাটা এৰে (কেৱল প্ৰয়োজনীয় ডাটা ৰখা হৈছে)
-    const bulletins = [
-      [
-        "Guwahati",
-        "Assamese",
-        "9:25 PM",
-        "20 November 2026",
-        "guwahati-2125-4.mp3"
-      ],
-      [
-        "Jammu",
-        "Gojri",
-        "5:00 PM",
-        "20 November 2026",
-        "gorii.mp3"
-      ],
-      [
-        "Itanagar",
-        "English",
-        "4:55 PM",
-        "20 November 2026",
-        "itanagar55.mp3"
-      ],
-      [
-        "Itanagar",
-        "Hindi",
-        "4:45 PM",
-        "20 November 2026",
-        "itanagar-1.mp3"
-      ],
-      [
-        "Guwahati",
-        "Bodo",
-        "4:30 PM",
-        "20 November 2026",
-        "Bodo-5.mp3"
-      ],
-      [
-        "Srinagar",
-        "Pahari",
-        "4:20 PM",
-        "20 November 2026",
-        "PAHARI-4.mp3"
-      ],
-      [
-        "Guwahati",
-        "Karbi",
-        "3:45 PM",
-        "20 November 2026",
-        "Karbi-6.mp3"
-      ],
-      [
-        "Guwahati",
-        "Nepali",
-        "3:15 PM",
-        "20 November 2026",
-        "Nepali-9.mp3"
-      ],
-      [
-        "Shimla",
-        "Hindi",
-        "3:00 PM",
-        "20 November 2026",
-        "shimlaaa-2.mp3"
-      ],
-      [
-        "Mumbai",
-        "Marathi",
-        "3:00 PM",
-        "20 November 2026",
-        "marahi-1500.mp3"
-      ],
-      [
-        "Ranchi",
-        "Hindi",
-        "2:55 PM",
-        "20 November 2026",
-        "ranchi-11.mp3"
-      ],
-      [
-        "Cuttack",
-        "Odia",
-        "2:32 PM",
-        "20 November 2026",
-        "odia-11.mp3"
-      ],
-      [
-        "Aizawl",
-        "Mizo",
-        "2:30 PM",
-        "20 November 2026",
-        "aizwall.mp3"
-      ],
-      [
-        "Chennai",
-        "Tamil",
-        "6:10 PM",
-        "20 November 2026",
-        "tamil-1830-1.mp3"
-      ],
-      [
-        "Raipur",
-        "Chhattisgarh",
-        "6:10 PM",
-        "20 November 2026",
-        "Chhattisgarhi-9.mp3"
-      ],
-      [
-        "Nagpur",
-        "Marathi",
-        "6:05 PM",
-        "20 November 2026",
-        "ngpurr-1.mp3"
-      ],
-      [
-        "Gorakhpur",
-        "Hindi",
-        "6:05 PM",
-        "20 November 2026",
-        "Gorakhpur-15.mp3"
-      ],
-      [
-        "Pune",
-        "Marathi",
-        "6:00 PM",
-        "20 November 2026",
-        "pune-8.mp3"
-      ],
-      [
-        "Dibrugarh",
-        "Assamese",
-        "6:00 PM",
-        "20 November 2026",
-        "Guwahati-6.mp3"
-      ],
-      [
-        "Gorakhpur",
-        "Bhojpuri",
-        "6:00 PM",
-        "20 November 2026",
-        "gauks-1800.mp3"
-      ],
-      [
-        "Hyderabad",
-        "Urdu",
-        "5:50 PM",
-        "20 November 2026",
-        "URDU-hyd-6.mp3"
-      ],
-      [
-        "Thiruvananthapuram",
-        "Malayalam",
-        "6:30 PM",
-        "20 November 2026",
-        "tpuram-7.mp3"
-      ],
-      [
-        "Patna",
-        "Maithili",
-        "6:25 PM",
-        "20 November 2026",
-        "MAITHILI-9.mp3"
-      ],
-      [
-        "Bhuj",
-        "Gujarati",
-        "6:25 PM",
-        "20 November 2026",
-        "bhujjj-1.mp3"
-      ],
-      [
-        "Jalandhar",
-        "Punjabi",
-        "6:20 PM",
-        "20 November 2026",
-        "punjabi-jalan-7.mp3"
-      ],
-      [
-        "Ahmedabad",
-        "Sindhi",
-        "6:15 PM",
-        "20 November 2026",
-        "SINDHI-7.mp3"
-      ],
-      [
-        "Jammu",
-        "Dogri",
-        "6:15 PM",
-        "20 November 2026",
-        "dogrii.mp3"
-      ],
-      [
-        "Hyderabad",
-        "Telugu",
-        "6:10 PM",
-        "20 November 2026",
-        "hydr-1.mp3"
-      ],
-      [
-        "C S Nagar",
-        "Marathi",
-        "6:10 PM",
-        "20 November 2026",
-        "CSS.mp3"
-      ],
-      [
-        "Visakhapatnam",
-        "Telugu",
-        "6:10 PM",
-        "20 November 2026",
-        "Visakhapatnam-13.mp3"
-      ],
-      [
-        "Pudducherry",
-        "Tamil",
-        "6:10 PM",
-        "20 November 2026",
-        "pudu-1.mp3"
-      ],
-      [
-        "Chandigarh",
-        "Hindi",
-        "6:10 PM",
-        "20 November 2026",
-        "chandi-1810.mp3"
-      ],
-      [
-        "Kurseong",
-        "Nepali",
-        "6:50 PM",
-        "20 November 2026",
-        "kurseong-13.mp3"
-      ],
-      [
-        "Gangtok",
-        "Bhutia",
-        "6:50 PM",
-        "20 November 2026",
-        "Bhutia-9.mp3"
-      ],
-      [
-        "Dehradun",
-        "Garhwali",
-        "6:50 PM",
-        "20 November 2026",
-        "gadwali.mp3"
-      ],
-      [
-        "Jaipur",
-        "Rajasthani",
-        "6:45 PM",
-        "20 November 2026",
-        "raj1845-1.mp3"
-      ],
-      [
-        "Raipur",
-        "Hindi",
-        "6:45 PM",
-        "20 November 2026",
-        "Raipur-7.mp3"
-      ],
-      [
-        "Gangtok",
-        "Lepcha",
-        "6:45 PM",
-        "20 November 2026",
-        "Lepcha-12.mp3"
-      ],
-      [
-        "Gangtok",
-        "Nepali",
-        "6:40 PM",
-        "20 November 2026",
-        "Nepali-gang-5.mp3"
-      ],
-      [
-        "Bengaluru",
-        "Kannada",
-        "6:40 PM",
-        "20 November 2026",
-        "1840knna.mp3"
-      ],
-      [
-        "Jaipur",
-        "Hindi",
-        "6:30 PM",
-        "20 November 2026",
-        "jai1830.mp3"
-      ],
-      [
-        "Dehradun",
-        "Hindi",
-        "6:30 PM",
-        "20 November 2026",
-        "dehra-6.mp3"
-      ],
-      [
-        "Srinagar",
-        "Kashmiri",
-        "7:30 PM",
-        "20 November 2026",
-        "ksihmri-1930.mp3"
-      ],
-      [
-        "panaji",
-        "Konkani",
-        "7:20 PM",
-        "20 November 2026",
-        "kono-1920.mp3"
-      ],
-      [
-        "Kohima",
-        "English",
-        "7:20 PM",
-        "20 November 2026",
-        "engali-1920.mp3"
-      ],
-      [
-        "Lucknow",
-        "Hindi",
-        "7:20 PM",
-        "20 November 2026",
-        "luck-3.mp3"
-      ],
-      [
-        "Leh",
-        "Ladakhi",
-        "7:15 PM",
-        "20 November 2026",
-        "leh-15.mp3"
-      ],
-      [
-        "Bhopal",
-        "Hindi",
-        "7:10 PM",
-        "20 November 2026",
-        "bbbhopal1910-1.mp3"
-      ],
-      [
-        "Kohima",
-        "Nagamese",
-        "7:10 PM",
-        "20 November 2026",
-        "nagms-1920.mp3"
-      ],
-      [
-        "Ahmedabad",
-        "Gujarati",
-        "7:10 PM",
-        "20 November 2026",
-        "ahm-guj-8.mp3"
-      ],
-      [
-        "Sri Vijaya Puram",
-        "Hindi",
-        "7:05 PM",
-        "20 November 2026",
-        "port-8.mp3"
-      ],
-      [
-        "Sambalpur",
-        "Sambalpuri",
-        "7:02 PM",
-        "20 November 2026",
-        "sambla-1902.mp3"
-      ]
-    ];
+    // লাইটৱেট ডাটা এৰে (কেৱল প্ৰয়োজনীয় ডাটা ৰখা হৈছে)
+        const bulletins = [
+  [
+    "Guwahati",
+    "Assamese",
+    "9:25 PM",
+    "21 November 2026",
+    "guwahati-2125-5.mp3"
+  ],
+  [
+    "Agartala",
+    "Bengali",
+    "7:55 PM",
+    "21 November 2026",
+    "bengali-1955-2.mp3"
+  ],
+  [
+    "Itanagar",
+    "English",
+    "7:50 PM",
+    "21 November 2026",
+    "inta-eng.mp3"
+  ],
+  [
+    "Kolkata",
+    "Bengali",
+    "7:50 PM",
+    "21 November 2026",
+    "bengali-1950-3.mp3"
+  ],
+  [
+    "Agartala",
+    "Kokborok",
+    "7:50 PM",
+    "21 November 2026",
+    "koko-1950.mp3"
+  ],
+  [
+    "Itanagar",
+    "Hindi",
+    "7:45 PM",
+    "21 November 2026",
+    "inta-h.mp3"
+  ],
+  [
+    "Silchar",
+    "Bengali",
+    "7:45 PM",
+    "21 November 2026",
+    "silar-1945.mp3"
+  ],
+  [
+    "Shimla",
+    "Hindi",
+    "7:45 PM",
+    "21 November 2026",
+    "shimla-25.mp3"
+  ],
+  [
+    "Srinagar",
+    "Urdu",
+    "7:40 PM",
+    "21 November 2026",
+    "urdu1940.mp3"
+  ],
+  [
+    "Srinagar",
+    "Kashmiri",
+    "7:30 PM",
+    "21 November 2026",
+    "kashmir-5.mp3"
+  ],
+  [
+    "Imphal",
+    "Manipuri",
+    "7:30 PM",
+    "21 November 2026",
+    "mani-3.mp3"
+  ],
+  [
+    "Patna",
+    "Hindi",
+    "7:30 PM",
+    "21 November 2026",
+    "patam-1930.mp3"
+  ],
+  [
+    "Dehradun",
+    "Kumauni",
+    "7:30 PM",
+    "21 November 2026",
+    "kumnauni.mp3"
+  ],
+  [
+    "Kohima",
+    "English",
+    "7:20 PM",
+    "21 November 2026",
+    "kohima1920.mp3"
+  ],
+  [
+    "panaji",
+    "Konkani",
+    "7:20 PM",
+    "21 November 2026",
+    "paji-1920.mp3"
+  ],
+  [
+    "Lucknow",
+    "Hindi",
+    "7:20 PM",
+    "21 November 2026",
+    "lucknow-2.mp3"
+  ],
+  [
+    "Leh",
+    "Ladakhi",
+    "7:15 PM",
+    "21 November 2026",
+    "leh-16.mp3"
+  ],
+  [
+    "Ahmedabad",
+    "Gujarati",
+    "7:10 PM",
+    "21 November 2026",
+    "ahm-guj-9.mp3"
+  ],
+  [
+    "Bhopal",
+    "Hindi",
+    "7:10 PM",
+    "21 November 2026",
+    "bbhoapl.mp3"
+  ],
+  [
+    "Kohima",
+    "Nagamese",
+    "7:10 PM",
+    "21 November 2026",
+    "nagems-1910-1.mp3"
+  ],
+  [
+    "Sri Vijaya Puram",
+    "Hindi",
+    "7:05 PM",
+    "21 November 2026",
+    "port-9.mp3"
+  ],
+  [
+    "Sambalpur",
+    "Sambalpuri",
+    "7:02 PM",
+    "21 November 2026",
+    "samal-1902.mp3"
+  ],
+  [
+    "Ranchi",
+    "Hindi",
+    "7:00 PM",
+    "21 November 2026",
+    "ranchi-19-7.mp3"
+  ],
+  [
+    "Mumbai",
+    "Marathi",
+    "7:00 PM",
+    "21 November 2026",
+    "1900mm.mp3"
+  ],
+  [
+    "Kurseong",
+    "Nepali",
+    "6:50 PM",
+    "21 November 2026",
+    "kurseong-14.mp3"
+  ],
+  [
+    "Gangtok",
+    "Bhutia",
+    "6:50 PM",
+    "21 November 2026",
+    "Bhutia-10.mp3"
+  ],
+  [
+    "Dehradun",
+    "Garhwali",
+    "6:50 PM",
+    "21 November 2026",
+    "gadhwali.mp3"
+  ],
+  [
+    "Raipur",
+    "Hindi",
+    "6:45 PM",
+    "21 November 2026",
+    "Raipur-8.mp3"
+  ],
+  [
+    "Jaipur",
+    "Rajasthani",
+    "6:45 PM",
+    "21 November 2026",
+    "raj.mp3"
+  ],
+  [
+    "Gangtok",
+    "Lepcha",
+    "6:45 PM",
+    "21 November 2026",
+    "Lepcha-13.mp3"
+  ],
+  [
+    "Cuttack",
+    "Odia",
+    "6:45 PM",
+    "21 November 2026",
+    "cuttack-13.mp3"
+  ],
+  [
+    "Bengaluru",
+    "Kannada",
+    "6:40 PM",
+    "21 November 2026",
+    "kanda-1840-1.mp3"
+  ],
+  [
+    "Gangtok",
+    "Nepali",
+    "6:40 PM",
+    "21 November 2026",
+    "Nepali-gang-6.mp3"
+  ],
+  [
+    "Aizawl",
+    "Mizo",
+    "6:30 PM",
+    "21 November 2026",
+    "Aizwall-1.mp3"
+  ],
+  [
+    "Dehradun",
+    "Hindi",
+    "6:30 PM",
+    "21 November 2026",
+    "dehra-7.mp3"
+  ],
+  [
+    "Jaipur",
+    "Hindi",
+    "6:30 PM",
+    "21 November 2026",
+    "jaipru-1830.mp3"
+  ],
+  [
+    "Thiruvananthapuram",
+    "Malayalam",
+    "6:30 PM",
+    "21 November 2026",
+    "tpuram-8.mp3"
+  ],
+  [
+    "Chennai",
+    "Tamil",
+    "6:30 PM",
+    "21 November 2026",
+    "tamil-1830-2.mp3"
+  ],
+  [
+    "Bhuj",
+    "Gujarati",
+    "6:25 PM",
+    "21 November 2026",
+    "Bhuj-7.mp3"
+  ],
+  [
+    "Patna",
+    "Maithili",
+    "6:25 PM",
+    "21 November 2026",
+    "MAITHILI-10.mp3"
+  ],
+  [
+    "Jalandhar",
+    "Punjabi",
+    "6:20 PM",
+    "21 November 2026",
+    "punjabi-jalan-8.mp3"
+  ],
+  [
+    "Jammu",
+    "Dogri",
+    "6:15 PM",
+    "21 November 2026",
+    "dogrti-1815.mp3"
+  ],
+  [
+    "Ahmedabad",
+    "Sindhi",
+    "6:15 PM",
+    "21 November 2026",
+    "SINDHI-8.mp3"
+  ],
+  [
+    "Hyderabad",
+    "Telugu",
+    "6:10 PM",
+    "21 November 2026",
+    "hyd-1810-7.mp3"
+  ],
+  [
+    "Chandigarh",
+    "Hindi",
+    "6:10 PM",
+    "21 November 2026",
+    "chani-1810.mp3"
+  ],
+  [
+    "C S Nagar",
+    "Marathi",
+    "6:10 PM",
+    "21 November 2026",
+    "Sambhajinagar-9.mp3"
+  ],
+  [
+    "Visakhapatnam",
+    "Telugu",
+    "6:10 PM",
+    "21 November 2026",
+    "Visakhapatnam-14.mp3"
+  ],
+  [
+    "Raipur",
+    "Chhattisgarh",
+    "6:10 PM",
+    "21 November 2026",
+    "Chhattisgarhi-10.mp3"
+  ],
+  [
+    "Pudducherry",
+    "Tamil",
+    "6:10 PM",
+    "21 November 2026",
+    "pudau-1810.mp3"
+  ],
+  [
+    "Gorakhpur",
+    "Hindi",
+    "6:05 PM",
+    "21 November 2026",
+    "Gorakhpur-16.mp3"
+  ],
+  [
+    "Nagpur",
+    "Marathi",
+    "6:05 PM",
+    "21 November 2026",
+    "nagpu.mp3"
+  ],
+  [
+    "Pune",
+    "Marathi",
+    "6:00 PM",
+    "21 November 2026",
+    "Pune-4.mp3"
+  ],
+  [
+    "Gorakhpur",
+    "Bhojpuri",
+    "6:00 PM",
+    "21 November 2026",
+    "garau-1800.mp3"
+  ],
+  [
+    "Dibrugarh",
+    "Assamese",
+    "6:00 PM",
+    "21 November 2026",
+    "ssamsese.mp3"
+  ],
+  [
+    "Hyderabad",
+    "Urdu",
+    "5:50 PM",
+    "21 November 2026",
+    "URDU-HYD-1.mp3"
+  ],
+  [
+    "Srinagar",
+    "Gojri",
+    "5:50 PM",
+    "21 November 2026",
+    "gorji-1750.mp3"
+  ],
+  [
+    "Jammu",
+    "Gojri",
+    "5:00 PM",
+    "21 November 2026",
+    "jg-7.mp3"
+  ],
+  [
+    "Guwahati",
+    "Bodo",
+    "4:30 PM",
+    "21 November 2026",
+    "bodo-7.mp3"
+  ],
+  [
+    "Srinagar",
+    "Pahari",
+    "4:20 PM",
+    "21 November 2026",
+    "Pahari-3.mp3"
+  ],
+  [
+    "Guwahati",
+    "Karbi",
+    "3:45 PM",
+    "21 November 2026",
+    "karbi-9.mp3"
+  ],
+  [
+    "Guwahati",
+    "Nepali",
+    "3:15 PM",
+    "21 November 2026",
+    "Neali.mp3"
+  ],
+  [
+    "Shillong",
+    "Jaintia",
+    "6:40 PM",
+    "17 November 2026",
+    "JAINTIA-N-1840.mp3"
+  ],
+  [
+    "Shillong",
+    "Garo",
+    "6:05 PM",
+    "17 November 2026",
+    "GAR-1805.mp3"
+  ],
+  [
+    "Tiruchirapalli",
+    "Tamil",
+    "1:45 PM",
+    "17 November 2026",
+    "troicu-ay-1345.mp3"
+  ],
+  [
+    "Vijayawada",
+    "Telugu",
+    "1:20 PM",
+    "17 November 2026",
+    "VI9J-1320.mp3"
+  ],
+  [
+    "Pudducherry",
+    "Telugu",
+    "6:10 PM",
+    "13 November 2026",
+    "pudu-yd-1810.mp3"
+  ],
+  [
+    "Shillong",
+    "English",
+    "8:30 AM",
+    "12 November 2026",
+    "NORTH-EAST.mp3"
+  ],
+  [
+    "Shillong",
+    "Khasi",
+    "7:45 AM",
+    "12 November 2026",
+    "KHASI745.mp3"
+  ],
+  [
+    "Dharwad",
+    "Kannada",
+    "7:05 AM",
+    "12 November 2026",
+    "dwd-1.mp3"
+  ],
+  [
+    "Calicut",
+    "Malayalam",
+    "6:45 AM",
+    "12 November 2026",
+    "Calicut-645-2.mp3"
+  ],
+  [
+    "Kannada",
+    "Kannada",
+    "2:30 PM",
+    "11 November 2026",
+    "Kannada-30.mp3"
+  ],
+  [
+    "Lucknow",
+    "Urdu",
+    "1:10 PM",
+    "11 November 2026",
+    "urudu-ll-1310.mp3"
+  ],
+  [
+    "Marathi",
+    "Marathi",
+    "3:00 PM",
+    "09 November 2026",
+    "bbm.mp3"
+  ],
+  [
+    "Guwahati",
+    "Dibrugarh",
+    "6:00 PM",
+    "08 November 2026",
+    "asam-dib.mp3"
+  ],
+  [
+    "C S Nagar",
+    "Urdu",
+    "9:00 AM",
+    "05 November 2026",
+    "urdu-0900.mp3"
+  ],
+  [
+    "Gorakhpur",
+    "Nagamese",
+    "7:25 AM",
+    "05 November 2026",
+    "nagames-0725.mp3"
+  ],
+  [
+    "Nepali",
+    "Nepali",
+    "7:25 PM",
+    "02 November 2026",
+    "nsd-ne5p-uad-1925.mp3"
+  ],
+  [
+    "Srinagar",
+    "Hindi",
+    "7:05 PM",
+    "02 November 2026",
+    "sri-aud-1905.mp3"
+  ],
+  [
+    "Sindhi",
+    "Sindhi",
+    "6:15 PM",
+    "29 October 2026",
+    "sindi-1815-1.mp3"
+  ],
+  [
+    "Bengali",
+    "Bengali",
+    "7:35 PM",
+    "24 October 2026",
+    "Bengali-1935-1.mp3"
+  ],
+  [
+    "Malayalam",
+    "Malayalam",
+    "7:25 PM",
+    "20 October 2026",
+    "mala-id-1925.mp3"
+  ],
+  [
+    "Shillong",
+    "Hindi",
+    "8:30 AM",
+    "12 October 2026",
+    "shill-audio.mp3"
+  ],
+  [
+    "Telugu",
+    "Telugu",
+    "8:30 PM",
+    "05 October 2026",
+    "vish-audio-1.mp3"
+  ],
+  [
+    "panaji",
+    "Kumauni",
+    "7:20 PM",
+    "05 October 2026",
+    "panj-id-1920.mp3"
+  ],
+  [
+    "Kashmiri",
+    "Kashmiri",
+    "7:45 AM",
+    "03 October 2026",
+    "KASHMIRI-NSD-0745-1.mp3"
+  ],
+  [
+    "Ahmedabad",
+    "Odia",
+    "2:30 PM",
+    "27 September 2026",
+    "ahme-1430-7.mp3"
+  ],
+  [
+    "Tamil",
+    "Tamil",
+    "7:15 PM",
+    "21 September 2026",
+    "Tamil-1915-5.mp3"
+  ],
+  [
+    "Mumbai",
+    "Lepcha",
+    "5:00 PM",
+    "18 September 2026",
+    "muuuuu.mp3"
+  ],
+  [
+    "Jammu",
+    "English",
+    "4:55 PM",
+    "17 September 2026",
+    "ita-eng-2.mp3"
+  ]
+];
 
     const STORAGE_KEY = 'air_selected_lang';
     const baseUrl = 'https://newsonair.gov.in/wp-content/uploads/2026/11/';
@@ -555,7 +814,7 @@
 
     const uniqueLanguages = [...new Set(bulletins.map(b => b[1]))].sort();
 
-    // কেৱল প্ৰয়োজনীয় কাৰ্ডবোৰ নিমিষতে DOM-ত ইনচাৰ্ট কৰা
+    // কেৱল প্ৰয়োজনীয় কাৰ্ডবোৰ নিমিষতে DOM-ত ইনচাৰ্ট কৰা
     function renderBulletins(lang) {
       currentLangText.textContent = lang || 'Select Language';
       const filtered = lang ? bulletins.filter(b => b[1].toLowerCase() === lang.toLowerCase()) : bulletins;
