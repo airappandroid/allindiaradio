@@ -373,7 +373,7 @@ if (sForm) {
 }
 
 // CRICKET SCORE ENGINE — supports responseData.result API format
-const CRICKET_API = "https://cricvoice.aminurmarch.workers.dev/?matchId=6a552bde5a2a46d5d3505263";
+const CRICKET_API = "https://cricvoice.aminurmarch.workers.dev/?matchId=6af5f79dbcd0ba5b127421ba";
 
 function formatTeamScore(score) {
   if (!score || typeof score !== "object") return "Yet to bat";
@@ -452,16 +452,27 @@ async function fetchMatchScore() {
     const flagB = document.getElementById("cFlagB");
 
     const getTeamFlag = (team, fallbackName) => {
-      const identity = `${team?.name || ""} ${team?.shortName || ""} ${fallbackName || ""}`.toLowerCase();
+      const identity = `${team?.name || ""} ${team?.shortName || ""} ${fallbackName || ""}`
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
 
-      if (identity.includes("india") || /\bind\b/.test(identity)) {
-        return "https://ik.imagekit.io/sqt8ptw1k/india.webp?updatedAt=1790419929690";
+      // Prefer the exact logo URL supplied by the live-score API.
+      if (team?.logo_url && /^https?:\/\//i.test(team.logo_url)) {
+        return team.logo_url;
       }
-      if (identity.includes("new zealand") || /\bnz\b/.test(identity)) {
+
+      // Country crests/flags used as consistent team marks for A teams.
+      if (identity.includes("india") || /(^|\s)(ind|inda)(\s|$)/.test(identity)) {
+        return "https://d2m4p6oxp84oly.cloudfront.net/teams/India.png";
+      }
+      if (identity.includes("pakistan") || /(^|\s)(pak|paka|pks)(\s|$)/.test(identity)) {
+        return "https://d2m4p6oxp84oly.cloudfront.net/teams/Pakistan.png";
+      }
+      if (identity.includes("new zealand") || /(^|\s)nz(\s|$)/.test(identity)) {
         return "https://ik.imagekit.io/sqt8ptw1k/images_ZyDOMUciT.png";
       }
 
-      if (team?.logo_url && /^https?:\/\//i.test(team.logo_url)) return team.logo_url;
       return "";
     };
 
