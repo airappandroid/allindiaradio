@@ -123,12 +123,17 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
     <circle cx="30" cy="30" r="6.5" fill="none" stroke="#000080" stroke-width="1.6"/>
     <circle cx="30" cy="30" r="1.5" fill="#000080"/>
   </symbol>
-  <symbol id="flag-sl" viewBox="0 0 60 60">
-    <rect width="60" height="60" fill="#FFBE29"/>
-    <rect x="4" y="4" width="12" height="52" fill="#00534E"/>
-    <rect x="16" y="4" width="10" height="52" fill="#EB7400"/>
-    <rect x="29" y="8" width="27" height="44" rx="3" fill="#8D153A"/>
-    <circle cx="42.5" cy="30" r="9.5" fill="#FFBE29"/>
+  <symbol id="flag-nz" viewBox="0 0 60 60">
+    <rect width="60" height="60" fill="#00247D"/>
+    <path d="M0 0h30v24H0z" fill="#012169"/>
+    <path d="M0 0l30 24M30 0L0 24" stroke="#FFF" stroke-width="4"/>
+    <path d="M0 0l30 24M30 0L0 24" stroke="#C8102E" stroke-width="2"/>
+    <path d="M15 0v24M0 12h30" stroke="#FFF" stroke-width="6"/>
+    <path d="M15 0v24M0 12h30" stroke="#C8102E" stroke-width="3.5"/>
+    <polygon points="44,12 45.3,15 48.5,15 46,17 47,20 44,18.2 41,20 42,17 39.5,15 42.7,15" fill="#CC142B"/>
+    <polygon points="44,36 45.3,39 48.5,39 46,41 47,44 44,42.2 41,44 42,41 39.5,39 42.7,39" fill="#CC142B"/>
+    <polygon points="35,24 36.1,26.5 38.8,26.5 36.7,28.1 37.5,30.6 35,29.1 32.5,30.6 33.3,28.1 31.2,26.5 33.9,26.5" fill="#CC142B"/>
+    <polygon points="52,25 53,27.2 55.4,27.2 53.5,28.6 54.2,30.8 52,29.5 49.8,30.8 50.5,28.6 48.6,27.2 51,27.2" fill="#CC142B"/>
   </symbol>
 </svg>
 
@@ -159,32 +164,32 @@ background:rgba(11,19,34,.97);border-bottom:1px solid var(--border);position:sti
 <div class="cricket-strip-container">
   <div class="cricket-card" id="cricketCard">
     <div class="cs-top-row">
-      <span class="cs-status-tag stumps" id="cStatus">UPCOMING</span>
+      <span class="cs-status-tag live" id="cStatus"><span class="live-dot"></span> LIVE</span>
       <div class="cs-top-actions">
         <a href="go:COMM" class="cs-btn-audio">
           <svg><use href="#icon-headphone"/></svg>
           <span>Audio</span>
         </a>
-        <a href="go:card1" class="cs-btn-card">
+        <a href="go:card" class="cs-btn-card">
           <span>Scorecard</span>
         </a>
       </div>
     </div>
-    <div class="cs-note" id="cNote">1st Semi-Final · 26 Nov · 3:30 PM IST</div>
+    <div class="cs-note" id="cNote">New Zealand vs India · 2nd Test</div>
     <div class="cs-teams-wrapper">
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <svg class="cs-flag" id="cFlagA" aria-label="Sri Lanka A"><use href="#flag-sl"/></svg>
-          <span class="cs-team-name" id="cNameA">Sri Lanka A</span>
+          <svg class="cs-flag" id="cFlagA" aria-label="New Zealand"><use href="#flag-nz"/></svg>
+          <span class="cs-team-name" id="cNameA">New Zealand</span>
         </div>
-        <div class="cs-team-score-right" id="cScoreA">Starts in 00:00:00</div>
+        <div class="cs-team-score-right" id="cScoreA">Yet to bat</div>
       </div>
       <div class="cs-team-line">
         <div class="cs-team-left">
-          <svg class="cs-flag" id="cFlagB" aria-label="India A"><use href="#flag-ind"/></svg>
-          <span class="cs-team-name" id="cNameB">India A</span>
+          <svg class="cs-flag" id="cFlagB" aria-label="India"><use href="#flag-ind"/></svg>
+          <span class="cs-team-name" id="cNameB">India</span>
         </div>
-        <div class="cs-team-score-right" id="cScoreB">26 Nov · 3:30 PM IST</div>
+        <div class="cs-team-score-right" id="cScoreB">Yet to bat</div>
       </div>
     </div>
   </div>
@@ -386,72 +391,8 @@ if (sForm) {
   });
 }
 
-// CRICKET SCORE ENGINE — Sri Lanka A vs India A (id=100465) with countdown until 26 Nov 3:30 PM IST
-const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=100465";
-const MATCH_START_ISO = "2026-11-26T15:30:00+05:30";
-let countdownInterval = null;
-let countdownZeroTriggered = false;
-
-function isBeforeMatchStart() {
-  return new Date(MATCH_START_ISO).getTime() > Date.now();
-}
-
-function formatCountdownHMS(ms) {
-  const totalSec = Math.max(0, Math.floor(ms / 1000));
-  const h = Math.floor(totalSec / 3600);
-  const m = Math.floor((totalSec % 3600) / 60);
-  const s = totalSec % 60;
-  return [h, m, s].map(n => String(n).padStart(2, "0")).join(":");
-}
-
-function renderPreMatchCountdown() {
-  const diff = new Date(MATCH_START_ISO).getTime() - Date.now();
-  const tag = document.getElementById("cStatus");
-  if (tag) {
-    tag.className = "cs-status-tag stumps";
-    tag.textContent = "UPCOMING";
-  }
-  const noteEl = document.getElementById("cNote");
-  if (noteEl) noteEl.textContent = "1st Semi-Final · 26 Nov · 3:30 PM IST";
-
-  const nameA = document.getElementById("cNameA");
-  const nameB = document.getElementById("cNameB");
-  if (nameA) nameA.textContent = "Sri Lanka A";
-  if (nameB) nameB.textContent = "India A";
-
-  setTeamFlag(document.getElementById("cFlagA"), { title: "Sri Lanka A" }, "Sri Lanka A");
-  setTeamFlag(document.getElementById("cFlagB"), { title: "India A" }, "India A");
-
-  const elSA = document.getElementById("cScoreA");
-  const elSB = document.getElementById("cScoreB");
-  if (elSA) {
-    elSA.textContent = diff > 0 ? `Starts in ${formatCountdownHMS(diff)}` : "Starting now";
-    elSA.style.color = "var(--primary)";
-  }
-  if (elSB) {
-    elSB.textContent = "26 Nov · 3:30 PM IST";
-    elSB.style.color = "var(--muted)";
-  }
-}
-
-function syncCricketCountdown() {
-  if (isBeforeMatchStart()) {
-    countdownZeroTriggered = false;
-    renderPreMatchCountdown();
-    return true;
-  }
-  if (!countdownZeroTriggered) {
-    countdownZeroTriggered = true;
-    fetchMatchScore();
-  }
-  return false;
-}
-
-function startCricketCountdownLoop() {
-  if (countdownInterval !== null) clearInterval(countdownInterval);
-  syncCricketCountdown();
-  countdownInterval = setInterval(syncCricketCountdown, 1000);
-}
+// CRICKET SCORE ENGINE — New Zealand vs India, 2nd Test (id=98450)
+const CRICKET_API = "https://bdcr.aminurmarch.workers.dev/?id=98450";
 
 function formatTeamScore(score) {
   if (!score || typeof score !== "object") return "Yet to bat";
@@ -495,22 +436,18 @@ function setTeamFlag(flagEl, team, fallbackName) {
 
   if (identity.includes("india") || /(^|\s)(ind|inda)(\s|$)/.test(identity)) {
     flagEl.innerHTML = '<use href="#flag-ind"/>';
-    flagEl.setAttribute("aria-label", fallbackName || "India A");
+    flagEl.setAttribute("aria-label", fallbackName || "India");
     return;
   }
-  if (identity.includes("sri lanka") || /(^|\s)(sl|sla)(\s|$)/.test(identity)) {
-    flagEl.innerHTML = '<use href="#flag-sl"/>';
-    flagEl.setAttribute("aria-label", fallbackName || "Sri Lanka A");
+  if (identity.includes("new zealand") || /(^|\s)(nz|nzl)(\s|$)/.test(identity)) {
+    flagEl.innerHTML = '<use href="#flag-nz"/>';
+    flagEl.setAttribute("aria-label", fallbackName || "New Zealand");
     return;
   }
   flagEl.innerHTML = "";
 }
 
 async function fetchMatchScore() {
-  if (isBeforeMatchStart()) {
-    renderPreMatchCountdown();
-    return;
-  }
   try {
     const res = await fetch(CRICKET_API, { cache: "no-store" });
     if (!res.ok) throw new Error(`Cricket API HTTP ${res.status}`);
@@ -527,8 +464,8 @@ async function fetchMatchScore() {
     const teamsArr = Array.isArray(d.teams) ? d.teams : null;
     const teamsObj = (!teamsArr && d.teams && typeof d.teams === "object") ? d.teams : null;
 
-    let nameA = "Sri Lanka A";
-    let nameB = "India A";
+    let nameA = "New Zealand";
+    let nameB = "India";
     let teamAObj = null;
     let teamBObj = null;
     let scoreA = "Yet to bat";
@@ -544,8 +481,8 @@ async function fetchMatchScore() {
 
       teamAObj = firstT;
       teamBObj = secondT;
-      nameA = firstT?.title || firstT?.abbr || "Sri Lanka A";
-      nameB = secondT?.title || secondT?.abbr || "India A";
+      nameA = firstT?.title || firstT?.abbr || "New Zealand";
+      nameB = secondT?.title || secondT?.abbr || "India";
 
       const parseFullScore = (t, isBattingNow) => {
         if (t?.scores && String(t.scores).trim() !== "") {
@@ -578,8 +515,8 @@ async function fetchMatchScore() {
       scoreA = battingFirst === "a" ? sA : sB;
       scoreB = battingFirst === "a" ? sB : sA;
 
-      nameA = teamAObj.shortName || teamAObj.name || "Sri Lanka A";
-      nameB = teamBObj.shortName || teamBObj.name || "India A";
+      nameA = teamAObj.shortName || teamAObj.name || "New Zealand";
+      nameB = teamBObj.shortName || teamBObj.name || "India";
     }
 
     document.getElementById("cNameA").textContent = nameA;
@@ -629,7 +566,7 @@ async function fetchMatchScore() {
 
     // --- NOTE DISPLAY ---
     const rawNote = d.announcement1 || d.status_note || d.status_str || "";
-    const defaultSchedule = "1st Semi-Final · 26 Nov · 3:30 PM IST";
+    const defaultSchedule = "New Zealand vs India · 2nd Test";
 
     if (!isLive && !isEnd) {
       document.getElementById("cNote").textContent =
@@ -794,11 +731,7 @@ function switchBulletin(idx) {
 let refreshTimer = null;
 
 function refreshAll() {
-  if (!isBeforeMatchStart()) {
-    fetchMatchScore();
-  } else {
-    renderPreMatchCountdown();
-  }
+  fetchMatchScore();
   loadFreshSchedule();
 }
 
@@ -822,7 +755,6 @@ document.addEventListener("DOMContentLoaded", () => {
     programNodes.push({ el, channel: el.getAttribute("data-channel") });
   });
 
-  startCricketCountdownLoop();
   updatePrograms();
   startRefreshTimer();
   loadBulletins();
@@ -831,7 +763,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.hidden) {
       stopRefreshTimer();
     } else {
-      syncCricketCountdown();
       startRefreshTimer();
     }
   });
