@@ -19,6 +19,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 18px;
+      gap: 10px;
     }
     .header-title { font-size: 20px; font-weight: 700; color: #fff; }
     .change-lang-btn {
@@ -31,6 +32,7 @@
       font-weight: 600;
       cursor: pointer;
       touch-action: manipulation;
+      white-space: nowrap;
     }
     .change-lang-btn:active { background: #1a273c; }
     .bulletin-list { display: flex; flex-direction: column; gap: 12px; }
@@ -42,7 +44,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      text-decoration: none;
       color: inherit;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
@@ -50,7 +51,7 @@
       contain-intrinsic-size: 82px;
       contain: content;
     }
-    .bulletin-info { flex: 1; margin-right: 14px; }
+    .bulletin-info { flex: 1; margin-right: 14px; min-width: 0; }
     .bulletin-heading { font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
     .bulletin-meta { font-size: 13px; color: #7c8ba1; }
     .lang-badge {
@@ -80,11 +81,11 @@
     }
     .play-icon-wrap:active, .play-icon-wrap:focus, .play-icon-wrap:hover {
       background-color: #0091ff;
-      transform: none;
       outline: none;
     }
     .play-icon {
-      width: 0; height: 0;
+      width: 0;
+      height: 0;
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
       border-left: 11px solid #ffffff;
@@ -157,658 +158,122 @@
 
   <div class="header-wrap">
     <div class="header-title">📻 AIR News</div>
-    <button class="change-lang-btn" id="openModalBtn">🌐 <span id="currentLangText">Select Language</span></button>
+    <button type="button" class="change-lang-btn" id="openModalBtn">🌐 <span id="currentLangText">Select Language</span></button>
   </div>
 
   <div class="bulletin-list" id="bulletinList"></div>
   <div id="emptyMsg" class="empty-msg">No bulletins found.</div>
 
-  <div class="modal-overlay" id="langModal">
+  <div class="modal-overlay" id="langModal" role="dialog" aria-modal="true" aria-labelledby="langModalTitle">
     <div class="modal-top">
-      <div class="modal-title">Select Language</div>
-      <button class="close-btn" id="closeModalBtn">&times;</button>
+      <div class="modal-title" id="langModalTitle">Select Language</div>
+      <button type="button" class="close-btn" id="closeModalBtn" aria-label="Close">&times;</button>
     </div>
     <input type="text" id="langSearchInput" class="search-input-box" placeholder="Search language..." autocomplete="off">
     <div class="lang-chip-list" id="langChipContainer"></div>
   </div>
 
   <script>
-    // লাইটৱেট ডাটা এৰে (কেৱল প্ৰয়োজনীয় ডাটা ৰখা হৈছে)
-        const bulletins = [
-    [
-        "Ranchi",
-        "Hindi",
-        "8:30 AM",
-        "28 November 2026",
-        "ranchi-17.mp3"
-    ],
-    [
-        "Shillong",
-        "English",
-        "8:30 AM",
-        "28 November 2026",
-        "shil.mp3"
-    ],
-    [
-        "Punjabi",
-        "Punjabi",
-        "8:30 AM",
-        "28 November 2026",
-        "Punjabi-0830-0840-27.mp3"
-    ],
-    [
-        "Guwahati",
-        "Assamese",
-        "7:55 AM",
-        "28 November 2026",
-        "Assamese-13.mp3"
-    ],
-    [
-        "Shillong",
-        "Khasi",
-        "7:45 AM",
-        "28 November 2026",
-        "khsdi-0745.mp3"
-    ],
-    [
-        "Agartala",
-        "Kokborok",
-        "7:40 AM",
-        "28 November 2026",
-        "Audio-News-Kokborok-Morn.mp3"
-    ],
-    [
-        "Bhuj",
-        "Gujarati",
-        "7:40 AM",
-        "28 November 2026",
-        "bhuj-12.mp3"
-    ],
-    [
-        "Agartala",
-        "Bengali",
-        "7:35 AM",
-        "28 November 2026",
-        "Audio-News-Bengali-2.mp3"
-    ],
-    [
-        "Kolkata",
-        "Bengali",
-        "7:35 AM",
-        "28 November 2026",
-        "kolkata735-3.mp3"
-    ],
-    [
-        "Imphal",
-        "Manipuri",
-        "7:30 AM",
-        "28 November 2026",
-        "RNU-IMPHAL-udio.mp3"
-    ],
-    [
-        "Kohima",
-        "English",
-        "7:30 AM",
-        "28 November 2026",
-        "kohima-eng-0730-2.mp3"
-    ],
-    [
-        "Aizawl",
-        "Mizo",
-        "7:30 AM",
-        "28 November 2026",
-        "aizwl.mp3"
-    ],
-    [
-        "panaji",
-        "Konkani",
-        "7:25 AM",
-        "28 November 2026",
-        "Panaji-Regional-News.mp3"
-    ],
-    [
-        "Kohima",
-        "Nagamese",
-        "7:25 AM",
-        "28 November 2026",
-        "nagems-0725.mp3"
-    ],
-    [
-        "Kurseong",
-        "Nepali",
-        "7:25 AM",
-        "28 November 2026",
-        "kur-1.mp3"
-    ],
-    [
-        "Dehradun",
-        "Hindi",
-        "7:20 AM",
-        "28 November 2026",
-        "dehra-0720-7.mp3"
-    ],
-    [
-        "Gorakhpur",
-        "Hindi",
-        "7:20 AM",
-        "28 November 2026",
-        "gaurak-0720-3.mp3"
-    ],
-    [
-        "Ahmedabad",
-        "Gujarati",
-        "7:10 AM",
-        "28 November 2026",
-        "ahmdabad-audio.mp3"
-    ],
-    [
-        "Bhopal",
-        "Hindi",
-        "7:10 AM",
-        "28 November 2026",
-        "bhopal710.mp3"
-    ],
-    [
-        "C S Nagar",
-        "Marathi",
-        "7:10 AM",
-        "28 November 2026",
-        "c-s-nagra.mp3"
-    ],
-    [
-        "Pune",
-        "Marathi",
-        "7:10 AM",
-        "28 November 2026",
-        "pune-0710-2.mp3"
-    ],
-    [
-        "Sri Vijaya Puram",
-        "Hindi",
-        "7:05 AM",
-        "28 November 2026",
-        "sri-vijpurm.mp3"
-    ],
-    [
-        "Cuttack",
-        "Odia",
-        "7:05 AM",
-        "28 November 2026",
-        "cuttcak-4.mp3"
-    ],
-    [
-        "Dharwad",
-        "Kannada",
-        "7:05 AM",
-        "28 November 2026",
-        "dwd-4.mp3"
-    ],
-    [
-        "Sambalpur",
-        "Sambalpuri",
-        "6:47 AM",
-        "28 November 2026",
-        "sambla0647.mp3"
-    ],
-    [
-        "Chennai",
-        "Tamil",
-        "6:45 AM",
-        "28 November 2026",
-        "645-audio-1.mp3"
-    ],
-    [
-        "Vijayawada",
-        "Telugu",
-        "6:45 AM",
-        "28 November 2026",
-        "vij-3.mp3"
-    ],
-    [
-        "Calicut",
-        "Malayalam",
-        "6:45 AM",
-        "28 November 2026",
-        "cal-audi-o.mp3"
-    ],
-    [
-        "Itanagar",
-        "English",
-        "7:50 PM",
-        "27 November 2026",
-        "itna-eng.mp3"
-    ],
-    [
-        "Shimla",
-        "Hindi",
-        "7:45 PM",
-        "27 November 2026",
-        "SHIMLA-1945.mp3"
-    ],
-    [
-        "Silchar",
-        "Bengali",
-        "7:45 PM",
-        "27 November 2026",
-        "Silchar-1945-1.mp3"
-    ],
-    [
-        "Itanagar",
-        "Hindi",
-        "7:45 PM",
-        "27 November 2026",
-        "ita-hindi-19.mp3"
-    ],
-    [
-        "Srinagar",
-        "Urdu",
-        "7:40 PM",
-        "27 November 2026",
-        "URDU-NEWS-2-sri-1940.mp3"
-    ],
-    [
-        "Srinagar",
-        "Kashmiri",
-        "7:30 PM",
-        "27 November 2026",
-        "sri-kash-1930.mp3"
-    ],
-    [
-        "Patna",
-        "Hindi",
-        "7:30 PM",
-        "27 November 2026",
-        "ptna1930.mp3"
-    ],
-    [
-        "Dehradun",
-        "Kumauni",
-        "7:30 PM",
-        "27 November 2026",
-        "kaumauni-Dehradun-1930.mp3"
-    ],
-    [
-        "Lucknow",
-        "Hindi",
-        "7:20 PM",
-        "27 November 2026",
-        "hindi-lluck.mp3"
-    ],
-    [
-        "Leh",
-        "Ladakhi",
-        "7:15 PM",
-        "27 November 2026",
-        "lleh-1.mp3"
-    ],
-    [
-        "Mumbai",
-        "Marathi",
-        "7:00 PM",
-        "27 November 2026",
-        "m-m-7.mp3"
-    ],
-    [
-        "Gangtok",
-        "Bhutia",
-        "6:50 PM",
-        "27 November 2026",
-        "bhutia-5.mp3"
-    ],
-    [
-        "Dehradun",
-        "Garhwali",
-        "6:50 PM",
-        "27 November 2026",
-        "grwal.mp3"
-    ],
-    [
-        "Raipur",
-        "Hindi",
-        "6:45 PM",
-        "27 November 2026",
-        "rai1845-1.mp3"
-    ],
-    [
-        "Jaipur",
-        "Rajasthani",
-        "6:45 PM",
-        "27 November 2026",
-        "rajs-jai-1845.mp3"
-    ],
-    [
-        "Gangtok",
-        "Lepcha",
-        "6:45 PM",
-        "27 November 2026",
-        "Lepcha-News-2.mp3"
-    ],
-    [
-        "Bengaluru",
-        "Kannada",
-        "6:40 PM",
-        "27 November 2026",
-        "bnglore-1840.mp3"
-    ],
-    [
-        "Gangtok",
-        "Nepali",
-        "6:40 PM",
-        "27 November 2026",
-        "g-nepal-3.mp3"
-    ],
-    [
-        "Shillong",
-        "Jaintia",
-        "6:40 PM",
-        "27 November 2026",
-        "Jaintia-NE-1840.mp3"
-    ],
-    [
-        "Jaipur",
-        "Hindi",
-        "6:30 PM",
-        "27 November 2026",
-        "jai-1830.mp3"
-    ],
-    [
-        "Thiruvananthapuram",
-        "Malayalam",
-        "6:30 PM",
-        "27 November 2026",
-        "mlyalm-1830-1.mp3"
-    ],
-    [
-        "Patna",
-        "Maithili",
-        "6:25 PM",
-        "27 November 2026",
-        "maithio.mp3"
-    ],
-    [
-        "Jalandhar",
-        "Punjabi",
-        "6:20 PM",
-        "27 November 2026",
-        "jlndhr-4.mp3"
-    ],
-    [
-        "Jammu",
-        "Dogri",
-        "6:15 PM",
-        "27 November 2026",
-        "jamu-1815.mp3"
-    ],
-    [
-        "Ahmedabad",
-        "Sindhi",
-        "6:15 PM",
-        "27 November 2026",
-        "sindhi-14.mp3"
-    ],
-    [
-        "Hyderabad",
-        "Telugu",
-        "6:10 PM",
-        "27 November 2026",
-        "1810-audio-2.mp3"
-    ],
-    [
-        "Chandigarh",
-        "Hindi",
-        "6:10 PM",
-        "27 November 2026",
-        "Chandigarh-1810-2.mp3"
-    ],
-    [
-        "Visakhapatnam",
-        "Telugu",
-        "6:10 PM",
-        "27 November 2026",
-        "v-audio-1.mp3"
-    ],
-    [
-        "Raipur",
-        "Chhattisgarh",
-        "6:10 PM",
-        "27 November 2026",
-        "rai19810.mp3"
-    ],
-    [
-        "Pudducherry",
-        "Tamil",
-        "6:10 PM",
-        "27 November 2026",
-        "tamil-pond.mp3"
-    ],
-    [
-        "Shillong",
-        "Garo",
-        "6:05 PM",
-        "27 November 2026",
-        "Garo-shilong-1805-1.mp3"
-    ],
-    [
-        "Nagpur",
-        "Marathi",
-        "6:00 PM",
-        "27 November 2026",
-        "naaga-udio-1.mp3"
-    ],
-    [
-        "Gorakhpur",
-        "Bhojpuri",
-        "6:00 PM",
-        "27 November 2026",
-        "gor-bhoj-1800-2.mp3"
-    ],
-    [
-        "Dibrugarh",
-        "Assamese",
-        "6:00 PM",
-        "27 November 2026",
-        "Assamese-Audio-1800-2.mp3"
-    ],
-    [
-        "Hyderabad",
-        "Urdu",
-        "5:50 PM",
-        "27 November 2026",
-        "urdu-hyd1750.mp3"
-    ],
-    [
-        "Srinagar",
-        "Gojri",
-        "5:50 PM",
-        "27 November 2026",
-        "GOJRI-N-sri-1750.mp3"
-    ],
-    [
-        "Jammu",
-        "Gojri",
-        "5:00 PM",
-        "27 November 2026",
-        "Audio-of-Evening-Gojri-New.mp3"
-    ],
-    [
-        "Guwahati",
-        "Bodo",
-        "4:30 PM",
-        "27 November 2026",
-        "Bodo-News-3.mp3"
-    ],
-    [
-        "Srinagar",
-        "Pahari",
-        "4:20 PM",
-        "27 November 2026",
-        "pahad-5.mp3"
-    ],
-    [
-        "Guwahati",
-        "Karbi",
-        "3:45 PM",
-        "27 November 2026",
-        "Karbi-News-4.mp3"
-    ],
-    [
-        "Guwahati",
-        "Nepali",
-        "3:15 PM",
-        "27 November 2026",
-        "Nepali-News-2.mp3"
-    ],
-    [
-        "Tiruchirapalli",
-        "Tamil",
-        "1:45 PM",
-        "27 November 2026",
-        "1345tricchy.mp3"
-    ],
-    [
-        "Lucknow",
-        "Urdu",
-        "1:10 PM",
-        "27 November 2026",
-        "luck-5.mp3"
-    ],
-    [
-        "C S Nagar",
-        "Urdu",
-        "9:00 AM",
-        "27 November 2026",
-        "c-s-urdu-3.mp3"
-    ],
-    [
-        "Pudducherry",
-        "Telugu",
-        "6:10 PM",
-        "13 November 2026",
-        "pudu-yd-1810.mp3"
-    ],
-    [
-        "Kannada",
-        "Kannada",
-        "2:30 PM",
-        "11 November 2026",
-        "Kannada-30.mp3"
-    ],
-    [
-        "Marathi",
-        "Marathi",
-        "3:00 PM",
-        "09 November 2026",
-        "bbm.mp3"
-    ],
-    [
-        "Guwahati",
-        "Dibrugarh",
-        "6:00 PM",
-        "08 November 2026",
-        "asam-dib.mp3"
-    ],
-    [
-        "Gorakhpur",
-        "Nagamese",
-        "7:25 AM",
-        "05 November 2026",
-        "nagames-0725.mp3"
-    ],
-    [
-        "Nepali",
-        "Nepali",
-        "7:25 PM",
-        "02 November 2026",
-        "nsd-ne5p-uad-1925.mp3"
-    ],
-    [
-        "Srinagar",
-        "Hindi",
-        "7:05 PM",
-        "02 November 2026",
-        "sri-aud-1905.mp3"
-    ],
-    [
-        "Sindhi",
-        "Sindhi",
-        "6:15 PM",
-        "29 October 2026",
-        "sindi-1815-1.mp3"
-    ],
-    [
-        "Bengali",
-        "Bengali",
-        "7:35 PM",
-        "24 October 2026",
-        "Bengali-1935-1.mp3"
-    ],
-    [
-        "Malayalam",
-        "Malayalam",
-        "7:25 PM",
-        "20 October 2026",
-        "mala-id-1925.mp3"
-    ],
-    [
-        "Shillong",
-        "Hindi",
-        "8:30 AM",
-        "12 October 2026",
-        "shill-audio.mp3"
-    ],
-    [
-        "Telugu",
-        "Telugu",
-        "8:30 PM",
-        "05 October 2026",
-        "vish-audio-1.mp3"
-    ],
-    [
-        "panaji",
-        "Kumauni",
-        "7:20 PM",
-        "05 October 2026",
-        "panj-id-1920.mp3"
-    ],
-    [
-        "Kashmiri",
-        "Kashmiri",
-        "7:45 AM",
-        "03 October 2026",
-        "KASHMIRI-NSD-0745-1.mp3"
-    ],
-    [
-        "Ahmedabad",
-        "Odia",
-        "2:30 PM",
-        "27 September 2026",
-        "ahme-1430-7.mp3"
-    ],
-    [
-        "Tamil",
-        "Tamil",
-        "7:15 PM",
-        "21 September 2026",
-        "Tamil-1915-5.mp3"
-    ],
-    [
-        "Mumbai",
-        "Lepcha",
-        "5:00 PM",
-        "18 September 2026",
-        "muuuuu.mp3"
-    ],
-    [
-        "Jammu",
-        "English",
-        "4:55 PM",
-        "17 September 2026",
-        "ita-eng-2.mp3"
-    ]
-];
+    const bulletins = [
+      ["Guwahati", "Assamese", "9:25 PM", "28 November 2026", "guwahati-2125-8.mp3"],
+      ["Agartala", "Bengali", "7:55 PM", "28 November 2026", "Agr-Bengali-2.mp3"],
+      ["Kolkata", "Bengali", "7:50 PM", "28 November 2026", "Kolkta-1950-1.mp3"],
+      ["Itanagar", "English", "7:50 PM", "28 November 2026", "inta-eng-1.mp3"],
+      ["Agartala", "Kokborok", "7:45 PM", "28 November 2026", "Kokborok-12.mp3"],
+      ["Shimla", "Hindi", "7:45 PM", "28 November 2026", "shimmla.mp3"],
+      ["Silchar", "Bengali", "7:45 PM", "28 November 2026", "Shilcher-1945.mp3"],
+      ["Itanagar", "Hindi", "7:45 PM", "28 November 2026", "inta-hinnndi.mp3"],
+      ["Srinagar", "Urdu", "7:40 PM", "28 November 2026", "s-urdu.mp3"],
+      ["Imphal", "Manipuri", "7:30 PM", "28 November 2026", "mani-4.mp3"],
+      ["Srinagar", "Kashmiri", "7:30 PM", "28 November 2026", "kashmir-6.mp3"],
+      ["Patna", "Hindi", "7:30 PM", "28 November 2026", "ptna-5.mp3"],
+      ["Dehradun", "Kumauni", "7:30 PM", "28 November 2026", "kumaun-2.mp3"],
+      ["Kohima", "English", "7:20 PM", "28 November 2026", "Kohima-1920-2.mp3"],
+      ["panaji", "Konkani", "7:20 PM", "28 November 2026", "Panaji-1920-2.mp3"],
+      ["Lucknow", "Hindi", "7:20 PM", "28 November 2026", "lucknoew.mp3"],
+      ["Leh", "Ladakhi", "7:15 PM", "28 November 2026", "leh-25.mp3"],
+      ["Kohima", "Nagamese", "7:10 PM", "28 November 2026", "Nagamese-1910-1.mp3"],
+      ["Ahmedabad", "Gujarati", "7:10 PM", "28 November 2026", "ahm-guj-11.mp3"],
+      ["Bhopal", "Hindi", "7:10 PM", "28 November 2026", "bbhoplla.mp3"],
+      ["Sri Vijaya Puram", "Hindi", "7:05 PM", "28 November 2026", "port-11.mp3"],
+      ["Sambalpur", "Sambalpuri", "7:02 PM", "28 November 2026", "Sambalpur-6.mp3"],
+      ["Ranchi", "Hindi", "7:00 PM", "28 November 2026", "ranchi-19-9.mp3"],
+      ["Mumbai", "Marathi", "7:00 PM", "28 November 2026", "1900.mp3"],
+      ["Kurseong", "Nepali", "6:50 PM", "28 November 2026", "kurseong-16.mp3"],
+      ["Gangtok", "Bhutia", "6:50 PM", "28 November 2026", "Bhutia-13.mp3"],
+      ["Dehradun", "Garhwali", "6:50 PM", "28 November 2026", "garhwali-5.mp3"],
+      ["Cuttack", "Odia", "6:45 PM", "28 November 2026", "odia645.mp3"],
+      ["Raipur", "Hindi", "6:45 PM", "28 November 2026", "Raipur-11.mp3"],
+      ["Jaipur", "Rajasthani", "6:45 PM", "28 November 2026", "raj1845-2.mp3"],
+      ["Gangtok", "Lepcha", "6:45 PM", "28 November 2026", "lepcha-1.mp3"],
+      ["Bengaluru", "Kannada", "6:40 PM", "28 November 2026", "knna18440.mp3"],
+      ["Gangtok", "Nepali", "6:40 PM", "28 November 2026", "Nepali-gang-9.mp3"],
+      ["Shillong", "Jaintia", "6:40 PM", "28 November 2026", "Jaintia-1840.mp3"],
+      ["Aizawl", "Mizo", "6:30 PM", "28 November 2026", "azwl7.mp3"],
+      ["Dehradun", "Hindi", "6:30 PM", "28 November 2026", "dehra-8.mp3"],
+      ["Chennai", "Tamil", "6:30 PM", "28 November 2026", "Cheni-1830-2.mp3"],
+      ["Jaipur", "Hindi", "6:30 PM", "28 November 2026", "jjai1830.mp3"],
+      ["Thiruvananthapuram", "Malayalam", "6:30 PM", "28 November 2026", "tpuram-9.mp3"],
+      ["Bhuj", "Gujarati", "6:25 PM", "28 November 2026", "bhuj-1825.mp3"],
+      ["Patna", "Maithili", "6:25 PM", "28 November 2026", "MAITHILI-13.mp3"],
+      ["Jalandhar", "Punjabi", "6:20 PM", "28 November 2026", "punjabi-jalan-10.mp3"],
+      ["Jammu", "Dogri", "6:15 PM", "28 November 2026", "dogri-4.mp3"],
+      ["C S Nagar", "Marathi", "6:10 PM", "28 November 2026", "m-a-1810.mp3"],
+      ["Ahmedabad", "Sindhi", "6:10 PM", "28 November 2026", "sindhi-16.mp3"],
+      ["Hyderabad", "Telugu", "6:10 PM", "28 November 2026", "tel-1810-1.mp3"],
+      ["Chandigarh", "Hindi", "6:10 PM", "28 November 2026", "Chandigarh-1810-3.mp3"],
+      ["Visakhapatnam", "Telugu", "6:10 PM", "28 November 2026", "visha1810.mp3"],
+      ["Raipur", "Chhattisgarh", "6:10 PM", "28 November 2026", "Chhattisgarhi-11.mp3"],
+      ["Pudducherry", "Tamil", "6:10 PM", "28 November 2026", "ouudu.mp3"],
+      ["Gorakhpur", "Hindi", "6:05 PM", "28 November 2026", "Gorakh-Hindi-1805-1.mp3"],
+      ["Shillong", "Garo", "6:05 PM", "28 November 2026", "GARO-1.mp3"],
+      ["Nagpur", "Marathi", "6:00 PM", "28 November 2026", "m-nag1805.mp3"],
+      ["Gorakhpur", "Bhojpuri", "6:00 PM", "28 November 2026", "Gorakh-Bhoj-1800-1.mp3"],
+      ["Dibrugarh", "Assamese", "6:00 PM", "28 November 2026", "dibru.mp3"],
+      ["Hyderabad", "Urdu", "5:50 PM", "28 November 2026", "URDU-hyd-7.mp3"],
+      ["Srinagar", "Gojri", "5:50 PM", "28 November 2026", "Gojri-1750.mp3"],
+      ["Jammu", "Gojri", "5:00 PM", "28 November 2026", "goj-1700-2.mp3"],
+      ["Guwahati", "Bodo", "4:30 PM", "28 November 2026", "asam-bodo.mp3"],
+      ["Srinagar", "Pahari", "4:20 PM", "28 November 2026", "PAHARI-5.mp3"],
+      ["Guwahati", "Karbi", "3:45 PM", "28 November 2026", "asam-karbi-1545.mp3"],
+      ["Guwahati", "Nepali", "3:15 PM", "28 November 2026", "asam-nepali315.mp3"],
+      ["Shillong", "English", "8:30 AM", "28 November 2026", "shil.mp3"],
+      ["Punjabi", "Punjabi", "8:30 AM", "28 November 2026", "Punjabi-0830-0840-27.mp3"],
+      ["Shillong", "Khasi", "7:45 AM", "28 November 2026", "khsdi-0745.mp3"],
+      ["Pune", "Marathi", "7:10 AM", "28 November 2026", "pune-0710-2.mp3"],
+      ["Dharwad", "Kannada", "7:05 AM", "28 November 2026", "dwd-4.mp3"],
+      ["Vijayawada", "Telugu", "6:45 AM", "28 November 2026", "vij-3.mp3"],
+      ["Calicut", "Malayalam", "6:45 AM", "28 November 2026", "cal-audi-o.mp3"],
+      ["Tiruchirapalli", "Tamil", "1:45 PM", "27 November 2026", "1345tricchy.mp3"],
+      ["Lucknow", "Urdu", "1:10 PM", "27 November 2026", "luck-5.mp3"],
+      ["C S Nagar", "Urdu", "9:00 AM", "27 November 2026", "c-s-urdu-3.mp3"],
+      ["Pudducherry", "Telugu", "6:10 PM", "13 November 2026", "pudu-yd-1810.mp3"],
+      ["Kannada", "Kannada", "2:30 PM", "11 November 2026", "Kannada-30.mp3"],
+      ["Marathi", "Marathi", "3:00 PM", "09 November 2026", "bbm.mp3"],
+      ["Guwahati", "Dibrugarh", "6:00 PM", "08 November 2026", "asam-dib.mp3"],
+      ["Gorakhpur", "Nagamese", "7:25 AM", "05 November 2026", "nagames-0725.mp3"],
+      ["Nepali", "Nepali", "7:25 PM", "02 November 2026", "nsd-ne5p-uad-1925.mp3"],
+      ["Srinagar", "Hindi", "7:05 PM", "02 November 2026", "sri-aud-1905.mp3"],
+      ["Sindhi", "Sindhi", "6:15 PM", "29 October 2026", "sindi-1815-1.mp3"],
+      ["Bengali", "Bengali", "7:35 PM", "24 October 2026", "Bengali-1935-1.mp3"],
+      ["Malayalam", "Malayalam", "7:25 PM", "20 October 2026", "mala-id-1925.mp3"],
+      ["Shillong", "Hindi", "8:30 AM", "12 October 2026", "shill-audio.mp3"],
+      ["Telugu", "Telugu", "8:30 PM", "05 October 2026", "vish-audio-1.mp3"],
+      ["panaji", "Kumauni", "7:20 PM", "05 October 2026", "panj-id-1920.mp3"],
+      ["Kashmiri", "Kashmiri", "7:45 AM", "03 October 2026", "KASHMIRI-NSD-0745-1.mp3"],
+      ["Ahmedabad", "Odia", "2:30 PM", "27 September 2026", "ahme-1430-7.mp3"],
+      ["Tamil", "Tamil", "7:15 PM", "21 September 2026", "Tamil-1915-5.mp3"],
+      ["Mumbai", "Lepcha", "5:00 PM", "18 September 2026", "muuuuu.mp3"],
+      ["Jammu", "English", "4:55 PM", "17 September 2026", "ita-eng-2.mp3"]
+    ];
 
     const STORAGE_KEY = 'air_selected_lang';
-    const baseUrl = 'https://newsonair.gov.in/wp-content/uploads/2026/11/';
+    const UPLOAD_ROOT = 'https://newsonair.gov.in/wp-content/uploads/';
+    const MONTH_MAP = {
+      January: '01', February: '02', March: '03', April: '04',
+      May: '05', June: '06', July: '07', August: '08',
+      September: '09', October: '10', November: '11', December: '12'
+    };
 
     const modal = document.getElementById('langModal');
     const openModalBtn = document.getElementById('openModalBtn');
@@ -819,47 +284,98 @@
     const langSearchInput = document.getElementById('langSearchInput');
     const langChipContainer = document.getElementById('langChipContainer');
 
-    const uniqueLanguages = [...new Set(bulletins.map(b => b[1]))].sort();
+    const uniqueLanguages = [...new Set(bulletins.map((b) => b[1]))].sort((a, b) => a.localeCompare(b));
 
-    // কেৱল প্ৰয়োজনীয় কাৰ্ডবোৰ নিমিষতে DOM-ত ইনচাৰ্ট কৰা
+    function getAudioUrl(dateStr, fileName) {
+      const parts = dateStr.trim().split(/\s+/);
+      const month = MONTH_MAP[parts[1]] || '11';
+      const year = parts[2] || '2026';
+      return `${UPLOAD_ROOT}${year}/${month}/${fileName}`;
+    }
+
+    function formatCity(city) {
+      return city ? city.charAt(0).toUpperCase() + city.slice(1) : '';
+    }
+
     function renderBulletins(lang) {
-      currentLangText.textContent = lang || 'Select Language';
-      const filtered = lang ? bulletins.filter(b => b[1].toLowerCase() === lang.toLowerCase()) : bulletins;
+      currentLangText.textContent = lang || 'All Languages';
+      const filtered = lang
+        ? bulletins.filter((b) => b[1].toLowerCase() === lang.toLowerCase())
+        : bulletins;
+
+      bulletinList.textContent = '';
 
       if (!filtered.length) {
-        bulletinList.innerHTML = '';
         emptyMsg.style.display = 'block';
         return;
       }
 
       emptyMsg.style.display = 'none';
-      let html = '';
+      const frag = document.createDocumentFragment();
+
       for (let i = 0; i < filtered.length; i++) {
         const [city, lName, time, date, file] = filtered[i];
-        // October uses /10/; November and other dates use the default /11/ base URL.
-        const audioBaseUrl = date.includes('October 2026')
-          ? baseUrl.replace('/11/', '/10/')
-          : baseUrl;
-        html += `<div class="bulletin-card">
-          <div class="bulletin-info">
-            <div class="bulletin-heading">${city}</div>
-            <div class="bulletin-meta">
-              <span class="lang-badge">${lName}</span>
-              <div>• ${time} • ${date}</div>
-            </div>
-          </div>
-          <a href="${audioBaseUrl}${file}" class="play-icon-wrap" aria-label="Play ${city} ${lName}"><div class="play-icon"></div></a>
-        </div>`;
+        const displayCity = formatCity(city);
+
+        const card = document.createElement('div');
+        card.className = 'bulletin-card';
+
+        const info = document.createElement('div');
+        info.className = 'bulletin-info';
+
+        const heading = document.createElement('div');
+        heading.className = 'bulletin-heading';
+        heading.textContent = displayCity;
+
+        const meta = document.createElement('div');
+        meta.className = 'bulletin-meta';
+
+        const badge = document.createElement('span');
+        badge.className = 'lang-badge';
+        badge.textContent = lName;
+
+        const sub = document.createElement('div');
+        sub.textContent = `• ${time} • ${date}`;
+
+        meta.append(badge, sub);
+        info.append(heading, meta);
+
+        const link = document.createElement('a');
+        link.className = 'play-icon-wrap';
+        link.href = getAudioUrl(date, file);
+        link.setAttribute('aria-label', `Play ${displayCity} ${lName}`);
+
+        const icon = document.createElement('div');
+        icon.className = 'play-icon';
+        link.appendChild(icon);
+
+        card.append(info, link);
+        frag.appendChild(card);
       }
-      bulletinList.innerHTML = html;
+
+      bulletinList.appendChild(frag);
     }
 
-    function renderChips() {
-      let html = '';
-      for (const lang of uniqueLanguages) {
-        html += `<button class="lang-chip" data-lang="${lang}">${lang}</button>`;
+    function highlightActiveChip(activeLang) {
+      const chips = langChipContainer.children;
+      for (let i = 0; i < chips.length; i++) {
+        chips[i].classList.toggle('active', chips[i].dataset.lang === activeLang);
       }
-      langChipContainer.innerHTML = html;
+    }
+
+    function renderChips(activeLang) {
+      const frag = document.createDocumentFragment();
+      for (let i = 0; i < uniqueLanguages.length; i++) {
+        const lang = uniqueLanguages[i];
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'lang-chip' + (lang === activeLang ? ' active' : '');
+        btn.dataset.lang = lang;
+        btn.textContent = lang;
+        frag.appendChild(btn);
+      }
+      langChipContainer.textContent = '';
+      langChipContainer.appendChild(frag);
     }
 
     function setModal(show) {
@@ -867,6 +383,7 @@
       if (show) {
         langSearchInput.value = '';
         filterChips('');
+        setTimeout(() => langSearchInput.focus(), 50);
       }
     }
 
@@ -879,9 +396,11 @@
     }
 
     langChipContainer.addEventListener('click', (e) => {
-      const lang = e.target.dataset.lang;
+      const chip = e.target.closest('.lang-chip');
+      const lang = chip && chip.dataset.lang;
       if (lang) {
         localStorage.setItem(STORAGE_KEY, lang);
+        highlightActiveChip(lang);
         renderBulletins(lang);
         setModal(false);
       }
@@ -893,13 +412,17 @@
 
     openModalBtn.addEventListener('click', () => setModal(true));
     closeModalBtn.addEventListener('click', () => setModal(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        setModal(false);
+      }
+    });
 
-    renderChips();
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      renderBulletins(saved);
-    } else {
-      renderBulletins('Assamese');
+    const initialLang = saved || 'Assamese';
+    renderChips(initialLang);
+    renderBulletins(initialLang);
+    if (!saved) {
       setModal(true);
     }
   </script>
